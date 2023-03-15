@@ -2,14 +2,13 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import { Drawer, InputBase, Paper } from '@mui/material';
+import { InputBase } from '@mui/material';
 import JobFactorIcon from '../assets/icons/JobFactorIcon';
 import ArrowDown from '../assets/icons/ArrowDown';
 import BellIcon from '../assets/icons/BellIcon';
 import profile from '../assets/images/profile.png';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '../assets/icons/SearchIcon';
-import HomeIcon from '../assets/icons/HomeIcon';
 
 function JobfactorAppBar() {
     return (
