@@ -9,8 +9,15 @@ import BellIcon from '../assets/icons/BellIcon';
 import profile from '../assets/images/profile.png';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '../assets/icons/SearchIcon';
+import SideNav from './Navigation/SideNav';
+import { useState } from 'react';
 
 function JobfactorAppBar() {
+    const [selectedOption, setSelectedOption] = useState('Helo');
+
+    const handleOptionSelect = (option: string) => {
+        setSelectedOption(option);
+    };
     return (
         <>
             <AppBar

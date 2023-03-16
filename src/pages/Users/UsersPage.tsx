@@ -1,13 +1,10 @@
-import Typography from '@mui/material/Typography';
-import HoverText from './HoverText';
+import { Typography } from '@mui/material';
+import NavBase from '../../components/Navigation/NavBase';
 
-interface CommonPageProps {
-    selectedOption: string;
-}
-
-const CommonPage: React.FC<CommonPageProps> = ({ selectedOption }) => {
+function UsersPage() {
     return (
         <>
+            <NavBase />
             <Typography
                 sx={{
                     mt: 13.7,
@@ -22,12 +19,10 @@ const CommonPage: React.FC<CommonPageProps> = ({ selectedOption }) => {
                 variant="h4"
                 component="div"
             >
-                {`Selected option: ${selectedOption}`}
-
-                <HoverText />
+                Users
             </Typography>
         </>
     );
-};
+}
 
-export default CommonPage;
+export default UsersPage;
