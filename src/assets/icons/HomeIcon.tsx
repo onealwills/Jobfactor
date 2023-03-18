@@ -1,22 +1,25 @@
-export default function HomeIcon(props: any) {
+import { SvgIcon } from '@mui/material';
+
+export default function HomeIcon(props: { isHover: boolean }) {
+    const { isHover } = props;
     return (
         <svg
             width="20"
             height="20"
             viewBox="0 0 20 20"
-            fill="none"
+            fill={isHover ? '#05668D' : 'none'}
             xmlns="http://www.w3.org/2000/svg"
         >
             <path
                 d="M7.51797 2.36713L3.0263 5.86713C2.2763 6.45046 1.66797 7.69213 1.66797 8.63379V14.8088C1.66797 16.7421 3.24297 18.3255 5.1763 18.3255H14.8263C16.7596 18.3255 18.3346 16.7421 18.3346 14.8171V8.75046C18.3346 7.74213 17.6596 6.45046 16.8346 5.87546L11.6846 2.26713C10.518 1.45046 8.64297 1.49213 7.51797 2.36713Z"
-                stroke="#808080"
+                stroke={isHover ? '#05668D' : '#808080'}
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
             />
             <path
                 d="M10 14.9922V12.4922"
-                stroke="#808080"
+                stroke={isHover ? '#FFFAF1' : '#808080'}
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"

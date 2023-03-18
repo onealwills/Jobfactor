@@ -1,6 +1,7 @@
 import React from 'react';
 
-function UserIcon() {
+function UserIcon(props: { isHover: boolean }) {
+    const { isHover } = props;
     return (
         <svg
             width="20"
@@ -11,14 +12,14 @@ function UserIcon() {
         >
             <path
                 d="M9.9987 9.99935C12.2999 9.99935 14.1654 8.13387 14.1654 5.83268C14.1654 3.5315 12.2999 1.66602 9.9987 1.66602C7.69751 1.66602 5.83203 3.5315 5.83203 5.83268C5.83203 8.13387 7.69751 9.99935 9.9987 9.99935Z"
-                stroke="#808080"
+                stroke={isHover ? '#05668D' : '#808080'}
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
             />
             <path
                 d="M17.1565 18.3333C17.1565 15.1083 13.9482 12.5 9.99817 12.5C6.04817 12.5 2.83984 15.1083 2.83984 18.3333"
-                stroke="#808080"
+                stroke={isHover ? '#05668D' : '#808080'}
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"

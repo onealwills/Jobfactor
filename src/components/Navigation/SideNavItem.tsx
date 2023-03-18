@@ -1,10 +1,14 @@
 import { Box } from '@mui/system';
-import { Dispatch, useRef } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router';
 import useHover from '../../utils/hooks/useHover';
 
 export default function SideNavItem(props: {
-    nav: { icon: JSX.Element; label: string; route: string };
+    nav: {
+        icon: (props: { isHover: boolean }) => JSX.Element;
+        label: string;
+        route: string;
+    };
     index: number;
 }): JSX.Element {
     const hoverRef = useRef(null);
@@ -50,7 +54,7 @@ export default function SideNavItem(props: {
                     left: 0,
                 }}
             ></Box>
-            {nav.icon}
+            {<nav.icon isHover={isHover} />}
             {nav.label}
         </Box>
     );

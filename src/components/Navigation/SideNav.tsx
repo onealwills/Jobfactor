@@ -14,52 +14,52 @@ import { Typography } from '@mui/material';
 
 const sideNavOptions = [
     {
-        icon: <HomeIcon />,
+        icon: HomeIcon,
         label: 'Home',
         route: '/',
     },
     {
-        icon: <UserIcon />,
+        icon: UserIcon,
         label: 'Profile',
         route: '/users',
     },
     {
-        icon: <UserIcon2 />,
+        icon: UserIcon2,
         label: 'Connections',
         route: '/connections',
     },
     {
-        icon: <BriefCaseIcon />,
+        icon: BriefCaseIcon,
         label: 'My Jobs',
         route: '/',
     },
     {
-        icon: <MessagesIcon />,
+        icon: MessagesIcon,
         label: 'Messages',
         route: '/',
     },
     {
-        icon: <BookIcon />,
+        icon: BookIcon,
         label: 'Courses',
         route: '/',
     },
     {
-        icon: <NotificationsIcon />,
+        icon: NotificationsIcon,
         label: 'Notifications',
         route: '/',
     },
     {
-        icon: <Settings />,
+        icon: Settings,
         label: 'Settings',
         route: '/',
     },
     {
-        icon: <SupportIcon />,
+        icon: SupportIcon,
         label: 'Help & Support',
         route: '/',
     },
     {
-        icon: <LogoutIcon />,
+        icon: LogoutIcon,
         label: 'Log out',
         route: '/',
     },
