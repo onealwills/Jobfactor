@@ -1,8 +1,8 @@
 import React from 'react';
 
-function BriefCaseIcon(props: { isHover: boolean }) {
-    const { isHover } = props;
-    if (isHover) {
+function BriefCaseIcon(props: { isHover: boolean; isSelected: boolean }) {
+    const { isHover, isSelected } = props;
+    if (isHover || isSelected) {
         return (
             <svg
                 width="20"

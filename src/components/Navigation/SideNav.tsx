@@ -10,7 +10,6 @@ import Settings from '../../assets/icons/Settings';
 import SupportIcon from '../../assets/icons/SupportIcon';
 import LogoutIcon from '../../assets/icons/LogoutIcon';
 import SideNavItem from './SideNavItem';
-import { Typography } from '@mui/material';
 
 const sideNavOptions = [
     {
@@ -31,37 +30,37 @@ const sideNavOptions = [
     {
         icon: BriefCaseIcon,
         label: 'My Jobs',
-        route: '/',
+        route: '/my-jobs',
     },
     {
         icon: MessagesIcon,
         label: 'Messages',
-        route: '/',
+        route: '/messages',
     },
     {
         icon: BookIcon,
         label: 'Courses',
-        route: '/',
+        route: '/courses',
     },
     {
         icon: NotificationsIcon,
         label: 'Notifications',
-        route: '/',
+        route: '/notifications',
     },
     {
         icon: Settings,
         label: 'Settings',
-        route: '/',
+        route: '/settings',
     },
     {
         icon: SupportIcon,
         label: 'Help & Support',
-        route: '/',
+        route: '/help-support',
     },
     {
         icon: LogoutIcon,
         label: 'Log out',
-        route: '/',
+        route: '/logout',
     },
 ];
 

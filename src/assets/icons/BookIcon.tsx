@@ -1,8 +1,6 @@
-import React from 'react';
-
-function BookIcon(props: { isHover: boolean }) {
-    const { isHover } = props;
-    if (isHover) {
+function BookIcon(props: { isHover: boolean; isSelected: boolean }) {
+    const { isHover, isSelected } = props;
+    if (isHover || isSelected) {
         return (
             <svg
                 width="21"
