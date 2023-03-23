@@ -37,6 +37,7 @@ export default function SideNavItem(props: {
             onClick={handleClick}
             key={index}
             sx={{
+                overflowY: 'auto', // add scroll on y-axis
                 height: 40,
                 display: 'flex',
                 alignItems: 'center',

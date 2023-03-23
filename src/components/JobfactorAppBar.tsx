@@ -9,20 +9,18 @@ import BellIcon from '../assets/icons/BellIcon';
 import profile from '../assets/images/profile.png';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '../assets/icons/SearchIcon';
-import SideNav from './Navigation/SideNav';
-import { useState } from 'react';
 
 function JobfactorAppBar() {
-    const [selectedOption, setSelectedOption] = useState('Helo');
-
-    const handleOptionSelect = (option: string) => {
-        setSelectedOption(option);
-    };
     return (
         <>
             <AppBar
                 position="fixed"
-                sx={{ zIndex: 1, backgroundColor: 'white', pb: 1.5, pt: 0.5 }}
+                sx={{
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                    backgroundColor: 'white',
+                    pb: 1.5,
+                    pt: 0.5,
+                }}
                 elevation={0}
             >
                 <Toolbar

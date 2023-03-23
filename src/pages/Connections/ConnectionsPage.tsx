@@ -1,10 +1,8 @@
-import { Box, Typography } from '@mui/material';
-import NavBase from '../../components/Navigation/NavBase';
+import { Typography } from '@mui/material';
 
 function ConnectionsPage() {
     return (
         <>
-            <NavBase />
             <Typography
                 sx={{
                     mt: 13.7,

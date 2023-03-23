@@ -1,5 +1,3 @@
-import { SvgIcon } from '@mui/material';
-
 export default function HomeIcon(props: {
     isHover: boolean;
     isSelected: boolean;

@@ -4,7 +4,6 @@ import NavBase from '../../components/Navigation/NavBase';
 function UsersPage() {
     return (
         <>
-            <NavBase />
             <Typography
                 sx={{
                     mt: 13.7,

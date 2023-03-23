@@ -10,7 +10,26 @@ import Settings from '../../assets/icons/Settings';
 import SupportIcon from '../../assets/icons/SupportIcon';
 import LogoutIcon from '../../assets/icons/LogoutIcon';
 import SideNavItem from './SideNavItem';
+import { styled } from '@mui/material/styles';
 
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+    open?: boolean;
+}>(({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${300}px`,
+    ...(open && {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    }),
+}));
 const sideNavOptions = [
     {
         icon: HomeIcon,
@@ -69,15 +88,9 @@ function SideNav() {
         <>
             <Box
                 sx={{
-                    mt: 12,
-                    fontFamily: 'open sans',
-                    width: '224px',
+                    mt: '12px',
                     backgroundColor: 'white',
-                    height: 'full',
-                    p: 2,
-                    ml: 2,
-                    position: 'fixed',
-                    top: '12px',
+                    overflowY: 'auto', // add scroll on y-axis
                 }}
             >
                 {sideNavOptions.map((nav, index) => (

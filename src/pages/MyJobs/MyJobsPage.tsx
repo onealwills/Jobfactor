@@ -1,10 +1,8 @@
 import { Typography } from '@mui/material';
-import NavBase from '../../components/Navigation/NavBase';
 
 function MyJobsPage() {
     return (
         <>
-            <NavBase />
             <Typography
                 sx={{
                     mt: 13.7,
@@ -19,7 +17,7 @@ function MyJobsPage() {
                 variant="h4"
                 component="div"
             >
-                My Jobs
+                Notifications
             </Typography>
         </>
     );

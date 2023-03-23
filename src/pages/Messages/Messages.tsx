@@ -1,10 +1,8 @@
 import { Typography } from '@mui/material';
-import NavBase from '../../components/Navigation/NavBase';
 
 function MessagesPage() {
     return (
         <>
-            <NavBase />
             <Typography
                 sx={{
                     mt: 13.7,

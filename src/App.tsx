@@ -4,10 +4,11 @@ import UsersPage from './pages/Users/UsersPage';
 import ConnectionsPage from './pages/Connections/ConnectionsPage';
 import MyJobsPage from './pages/MyJobs/MyJobsPage';
 import MessagesPage from './pages/Messages/Messages';
-import CoursesPage from './pages/Courses/ConnectionsPage';
 import NotificationsPage from './pages/Notifications/NotificationsPags';
 import SettingsPage from './pages/Settings/SettingsPage';
 import HelpSupportPage from './pages/HelpSupport/HelpSupportPage';
+import MainLayout from './pages/MainLayout/MainLayout';
+import CoursesPage from './pages/Courses/CoursesPage';
 
 function App() {
     return (
@@ -15,23 +16,49 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/">
-                        <Route index element={<HomePage />} />
-                        <Route path="users" element={<UsersPage />} />
+                        <Route
+                            index
+                            element={<MainLayout children={<HomePage />} />}
+                        />
+                        <Route
+                            path="users"
+                            element={<MainLayout children={<UsersPage />} />}
+                        />
                         <Route
                             path="connections"
-                            element={<ConnectionsPage />}
+                            element={
+                                <MainLayout children={<ConnectionsPage />} />
+                            }
                         />
-                        <Route path="my-jobs" element={<MyJobsPage />} />
-                        <Route path="messages" element={<MessagesPage />} />
-                        <Route path="courses" element={<CoursesPage />} />
+                        <Route
+                            path="my-jobs"
+                            element={<MainLayout children={<MyJobsPage />} />}
+                        />
+
+                        <Route
+                            path="messages"
+                            element={<MainLayout children={<MessagesPage />} />}
+                        />
+
+                        <Route
+                            path="courses"
+                            element={<MainLayout children={<CoursesPage />} />}
+                        />
                         <Route
                             path="notifications"
-                            element={<NotificationsPage />}
+                            element={
+                                <MainLayout children={<NotificationsPage />} />
+                            }
                         />
-                        <Route path="settings" element={<SettingsPage />} />
+                        <Route
+                            path="settings"
+                            element={<MainLayout children={<SettingsPage />} />}
+                        />
                         <Route
                             path="help-support"
-                            element={<HelpSupportPage />}
+                            element={
+                                <MainLayout children={<HelpSupportPage />} />
+                            }
                         />
                     </Route>
                 </Routes>
