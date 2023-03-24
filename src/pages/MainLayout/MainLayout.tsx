@@ -105,6 +105,7 @@ function MainLayout(props: { children: React.ReactNode }) {
                         overflow: 'auto',
                         mt: -0.5,
                         height: 'calc(100vh - 300px)',
+                        overflowY: 'hidden'
                     }}
                 >
                     <SideNav />

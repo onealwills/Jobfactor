@@ -38,7 +38,7 @@ export default function SideNavItem(props: {
             key={index}
             sx={{
                 overflowY: 'auto', // add scroll on y-axis
-                height: 40,
+                height: 60,
                 display: 'flex',
                 alignItems: 'center',
                 gap: '10px',
