@@ -25,10 +25,8 @@ function HomePage() {
                 <Grid item xs={4.5}>
                     <FeedbackCard />
                 </Grid>
-                <Grid item xs={3}>
-                    <Progress />
-                    {/* <Item>xs=3</Item> */}
-                    {/* Todo in the Item above add the progress similar to the Figma */}
+                <Grid item xs={3} sx={{ textAlign: 'center' }}>
+                    <Progress value={550} divider={1000} />
                 </Grid>
             </Grid>
 

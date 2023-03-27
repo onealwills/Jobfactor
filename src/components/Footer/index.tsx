@@ -10,6 +10,21 @@ import Twitter from '../../assets/icons/Twitter'
 import Youtube from '../../assets/icons/Youtube'
 
 const Footer = () => {
+    const linksHeadings = {
+        letterSpacing: "0.00938em",
+        color: "#23282B",
+        fontWeight: "600",
+        fontSize: "20px",
+        lineHeight: "28px",
+        paddingBottom: "10px",
+    }
+    const Links = {
+        color: "#808080",
+        fontSize: "16px",
+        lineHeight: "24px",
+        cursor: "pointer",
+        paddingBottom: "5px",
+    }
     return (
         <>
             <Grid container spacing={10}>
@@ -19,31 +34,31 @@ const Footer = () => {
                 <Grid item xs={2}>
                     <Typography
                         component={'p'}
-                        className='links-headings'
+                        sx={linksHeadings}
                     >How Jobfactor Works</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography
                         component={'p'}
-                        className='links-headings'
+                        sx={linksHeadings}
                     >jobfactor</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography
                         component={'p'}
-                        className='links-headings'
+                        sx={linksHeadings}
                     >Professionals</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography
                         component={'p'}
-                        className='links-headings'
+                        sx={linksHeadings}
                     >Company</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography
                         component={'p'}
-                        className='links-headings'
+                        sx={linksHeadings}
                     >Community</Typography>
                 </Grid>
             </Grid>
@@ -52,122 +67,122 @@ const Footer = () => {
                 </Grid>
                 <Grid item xs={2}>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Jobfactor score</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Company ratings</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Reviews and feedbacks</Link>
                 </Grid>
                 <Grid item xs={2}>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >About us</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Blog</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Analytics</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >News and update</Link>
                 </Grid>
                 <Grid item xs={2}>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >My Jobfactor score</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Browse jobs</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >My factor</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Business factor</Link>
                 </Grid>
                 <Grid item xs={2}>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Contact sales team</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Build your brand</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Post a job</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Business factor</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Enterprise subscription</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Dynamic Recruiting</Link>
                 </Grid>
                 <Grid item xs={2}>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Frequently Asked Questions</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Help and Support</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Privacy and Cookies</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Business factor</Link>
                     <Link
-                        underline='none'
+                        underline='hover'
                         component={'p'}
-                        className='footer-link'
+                        sx={Links}
                     >Terms of Service</Link>
                 </Grid>
             </Grid>

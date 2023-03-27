@@ -1,32 +1,87 @@
-import React from 'react'
-import CircularProgress from '@mui/material/CircularProgress';
-import { Box, Typography } from '@mui/material';
-const Progress = () => {
-    return (
-        // <div className='progress-container'>
+import { Typography } from "@mui/material";
 
-        // </div>
-        // <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-        //     <CircularProgress variant="determinate" value={75} />
-        //     <Box
-        //         sx={{
-        //             top: 0,
-        //             left: 0,
-        //             bottom: 0,
-        //             right: 0,
-        //             position: 'absolute',
-        //             display: 'flex',
-        //             alignItems: 'center',
-        //             justifyContent: 'center',
-        //         }}
-        //     >
-        //         <Typography variant="caption" component="div" color="text.secondary">
-        //             {`75%`}
-        //         </Typography>
-        //     </Box>
-        // </Box>
-        <span className="loader"></span>
-    )
+type Props = {
+    strokeWidth?: number,
+    value: number,
+    divider?: number
 }
+const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
+    const radius = (50 - strokeWidth / 2);
+    const pathDescription = `
+      M 50,50 m 0,-${radius}
+      a ${radius},${radius} 0 1 1 0,${2 * radius}
+      a ${radius},${radius} 0 1 1 0,-${2 * radius}
+    `;
+
+    const diameter = Math.PI * 2 * radius;
+    const percentage = (value / divider) * 100;
+
+    return (
+        <>
+            <svg
+                className={'CircularProgressbar'}
+                viewBox="0 0 100 100"
+                width={150}
+                height={150}
+                style={{
+                    filter: "drop-shadow(0px 0px 0px rgb(0 0 0 / 0.5))"
+                }}
+            >
+                <path
+                    className="CircularProgressbar-trail"
+                    d={pathDescription}
+                    strokeWidth={strokeWidth}
+                    fillOpacity={0}
+                    style={{
+                        stroke: 'white',
+                    }}
+                />
+
+                <path
+                    className="CircularProgressbar-path"
+                    d={pathDescription}
+                    strokeWidth={strokeWidth}
+                    fillOpacity={0}
+                    style={{
+                        stroke: '#05668D',
+                        strokeLinecap: 'round',
+                        strokeDasharray: `${diameter}px ${diameter}px`,
+                        strokeDashoffset: `${((100 - percentage) / 100 * diameter)}px`,
+                        transform: 'rotate(0.5turn)',
+                        transformOrigin: "center center",
+                        transition: 'stroke-dashoffset 0.5s ease 0s',
+                    }}
+                />
+                <circle cx="50" cy="50" r={'33'} fill='#FFC24C'></circle>
+                <text
+                    x={50}
+                    y={50}
+                    style={{
+                        backgroundColor: '#FFC24C',
+                        borderRadius: 100,
+                        padding: 5,
+                        fontWeight: '700',
+                        dominantBaseline: 'central',
+                        textAnchor: 'middle',
+                        fill: 'white',
+                        fontSize: '16px',
+                        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                    }}
+                >
+                    {value}
+                </text>
+            </svg>
+            <Typography
+                sx={{
+                    color: '#23282B',
+                    fontWeight: '600',
+                    fontSize: '16px'
+                }}
+            >
+                Jobfactor Score
+            </Typography>
+        </>
+    );
+};
 
 export default Progress
