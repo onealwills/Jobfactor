@@ -11,8 +11,18 @@ type Props = {
   btnText?: string,
   icon?: React.ReactNode
 };
-
+// .info-box {
+//   padding: 16px 32px !important;
+//   background: #FCFBF8 !important;
+//   box-shadow: -8px 4px 20px rgba(0, 0, 0, 0.07),
+//       8px 8px 20px rgba(0, 0, 0, 0.07);
+//   border-radius: 8px !important;
+//   color: #23282B !important;
+//   line-height: 24px;
+//   font-size: 16px !important;
+// }
 const CardBox = ({ tooltipText, title, list = [], btnText, icon }: Props) => {
+
   return (
     <Box
       sx={{
@@ -51,12 +61,25 @@ const CardBox = ({ tooltipText, title, list = [], btnText, icon }: Props) => {
           }}
         >
           {icon}
-          <Typography sx={{ color: '#23282B', fontSize: '16px', fontWeight: '600' }}>{title}</Typography>
+          <Typography sx={{ color: '#23282B', fontSize: '16px',fontFamily: "Open Sans", fontWeight: '600' }}>{title}</Typography>
           {tooltipText &&
             <Tooltip
               title={tooltipText}
               placement="top"
-              classes={{ tooltip: 'info-box' }}
+              componentsProps={{
+                tooltip: {
+                  sx: {
+                    padding: "16px 32px",
+                    background: "#FCFBF8",
+                    boxShadow: "-8px 4px 20px rgba(0, 0, 0, 0.07), 8px 8px 20px rgba(0, 0, 0, 0.07)",
+                    borderRadius: "8px",
+                    color: "#23282B",
+                    lineHeight: "24px",
+                    fontSize: "16px",
+                    fontFamily: "Open Sans"
+                  }
+                }
+              }}
             >
               <InfoOutlined sx={{ color: '#808080' }} />
             </Tooltip>
@@ -76,7 +99,7 @@ const CardBox = ({ tooltipText, title, list = [], btnText, icon }: Props) => {
             }}
           >
             {item?.img && <Avatar sx={{ width: 24, height: 24 }} alt="" src={item?.img} />}
-            <Typography sx={{ color: '#23282B', fontSize: '14px', textAlign: 'center' }}>{item?.name}</Typography>
+            <Typography sx={{ color: '#23282B', fontSize: '14px',fontFamily: "Open Sans", textAlign: 'center' }}>{item?.name}</Typography>
           </Box>
         ))}
         <Button
@@ -90,6 +113,7 @@ const CardBox = ({ tooltipText, title, list = [], btnText, icon }: Props) => {
             fontSize: '14px',
             fontWeight: '600',
             color: '#05668D',
+            fontFamily: "Open Sans",
             textTransform: 'capitalize'
 
           }}

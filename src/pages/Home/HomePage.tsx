@@ -15,27 +15,26 @@ import Footer from '../../components/Footer';
 import ScrollToTop from '../../components/ScrollToTop.tsx';
 
 function HomePage() {
-
     return (
         <Box sx={{ mt: -9, ml: 2 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} wrap="nowrap">
                 <Grid item xs={4.5}>
                     <AchievementsCard />
                 </Grid>
                 <Grid item xs={4.5}>
                     <FeedbackCard />
                 </Grid>
-                <Grid item xs={3} sx={{ textAlign: 'center' }}>
+                <Grid item sx={{ textAlign: 'center', minWidth: '370px' }}>
                     <Progress value={550} divider={1000} />
                 </Grid>
             </Grid>
 
-            <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid container spacing={2} wrap="nowrap" sx={{ mt: 1 }}>
                 <Grid item xs={9}>
                     <CreateFeedCard />
                     <FeedList />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item sx={{ minWidth: '370px' }}>
                     <CardWrapper title='Suggesstions' tooltipText={"We offer suggestions to you based on your preferences to help improve your profile."}>
                         <>
                             <CardBox

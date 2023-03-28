@@ -1,6 +1,5 @@
-import { Grid, Link, Typography } from '@mui/material'
+import { Grid, Link, Typography, useMediaQuery } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
 import Facebook from '../../assets/icons/Facebook'
 import Instagram from '../../assets/icons/Instagram'
 import JobFactorIcon from '../../assets/icons/JobFactorIcon'
@@ -10,25 +9,29 @@ import Twitter from '../../assets/icons/Twitter'
 import Youtube from '../../assets/icons/Youtube'
 
 const Footer = () => {
+    const matches = useMediaQuery('(max-width:1440px)');
+
     const linksHeadings = {
         letterSpacing: "0.00938em",
         color: "#23282B",
         fontWeight: "600",
         fontSize: "20px",
         lineHeight: "28px",
-        paddingBottom: "10px",
+        paddingBottom: "18px",
+        fontFamily: "Open Sans"
     }
     const Links = {
         color: "#808080",
         fontSize: "16px",
         lineHeight: "24px",
         cursor: "pointer",
-        paddingBottom: "5px",
+        paddingBottom: "8px",
+        fontFamily: "Open Sans"
     }
     return (
         <>
-            <Grid container spacing={10}>
-                <Grid item xs={2}>
+            <Grid container spacing={5} mt={10}>
+                <Grid item xs={2.5}>
                     <JobFactorIcon />
                 </Grid>
                 <Grid item xs={2}>
@@ -37,7 +40,7 @@ const Footer = () => {
                         sx={linksHeadings}
                     >How Jobfactor Works</Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1.5}>
                     <Typography
                         component={'p'}
                         sx={linksHeadings}
@@ -62,8 +65,8 @@ const Footer = () => {
                     >Community</Typography>
                 </Grid>
             </Grid>
-            <Grid container spacing={10}>
-                <Grid item xs={2}>
+            <Grid container spacing={5} >
+                <Grid item xs={2.5}>
                 </Grid>
                 <Grid item xs={2}>
                     <Link
@@ -82,7 +85,7 @@ const Footer = () => {
                         sx={Links}
                     >Reviews and feedbacks</Link>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1.5}>
                     <Link
                         underline='hover'
                         component={'p'}
@@ -126,7 +129,7 @@ const Footer = () => {
                         sx={Links}
                     >Business factor</Link>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={2} >
                     <Link
                         underline='hover'
                         component={'p'}
@@ -209,7 +212,8 @@ const Footer = () => {
                     fontSize: '16px',
                     letterSpacing: '0.0015em',
                     textAlign: 'center',
-                    marginTop: '30px'
+                    marginTop: '30px',
+                    fontFamily: "Open Sans"
                 }}
             >	&#169; 2023, Jobfactor Inc. All rights reserved.</Typography>
         </>

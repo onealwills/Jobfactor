@@ -28,10 +28,13 @@ const ScrollToTop = () => {
                         position: 'fixed',
                         bottom: '50px',
                         right: '50px',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        width: '50px',
+                        height: '50px',
+                        backgroundColor:'#D9D9D9'
                     }}
                 >
-                    <ArrowUpward sx={{ color: "#000000", fontSize: '14px' }} />
+                    <ArrowUpward sx={{ color: "#000000", fontSize: '18px' }} />
                 </Avatar>
             }
         </>

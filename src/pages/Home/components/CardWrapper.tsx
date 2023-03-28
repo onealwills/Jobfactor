@@ -34,19 +34,32 @@ const CardWrapper = ({ children, title, tooltipText }: Props) => {
                     width: '100%',
                 }}
             >
-                <Typography sx={{ color: '#23282B', fontSize: '20px', fontWeight: '700' }}>{title}</Typography>
+                <Typography sx={{ color: '#23282B', fontSize: '20px',fontFamily: "Open Sans", fontWeight: '700' }}>{title}</Typography>
                 {tooltipText &&
                     <Tooltip
                         title={tooltipText}
                         placement="top"
-                        classes={{ tooltip: 'info-box' }}
+                        componentsProps={{
+                            tooltip: {
+                                sx: {
+                                    padding: "16px 32px",
+                                    background: "#FCFBF8",
+                                    boxShadow: "-8px 4px 20px rgba(0, 0, 0, 0.07), 8px 8px 20px rgba(0, 0, 0, 0.07)",
+                                    borderRadius: "8px",
+                                    color: "#23282B",
+                                    lineHeight: "24px",
+                                    fontSize: "16px",
+                                    fontFamily: "Open Sans"
+                                }
+                            }
+                        }}
                     >
                         <InfoOutlined sx={{ color: '#808080' }} />
                     </Tooltip>
                 }
             </Box>
             {children}
-        </Box>
+        </Box >
     )
 }
 

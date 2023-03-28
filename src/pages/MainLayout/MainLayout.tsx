@@ -39,7 +39,6 @@ function MainLayout(props: { children: React.ReactNode }) {
     return (
         <Box sx={{ display: 'flex' }}>
             <JobfactorAppBar />
-
             <Drawer
                 sx={{
                     width: drawerWidth,
@@ -52,6 +51,7 @@ function MainLayout(props: { children: React.ReactNode }) {
                         mt: 13,
                         pt: 0,
                         pb: 0,
+                        position:'relative'
                     },
                 }}
                 variant="permanent"
