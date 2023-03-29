@@ -43,6 +43,7 @@ export default function SideNavItem(props: {
                 alignItems: 'center',
                 gap: '10px',
                 p: 1,
+                paddingLeft: "12px",
                 position: 'relative',
                 '&:hover, &:focus': {
                     backgroundColor: '#FFFAF1',
