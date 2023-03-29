@@ -6,7 +6,7 @@ import { IFeedItem } from '../types/IFeedItem';
 function FeedList() {
     return (
         <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Grid item xs={9}>
+            <Grid item>
                 {feeds.map((feed: IFeedItem) => (
                     <FeedItem feed={feed} />
                 ))}
