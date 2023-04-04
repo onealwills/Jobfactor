@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import NavBase from '../../components/Navigation/NavBase';
@@ -8,7 +8,7 @@ function UsersPage() {
         <>
             <Box sx={{
                 position: 'relative',
-                paddingBottom: '100px',
+                paddingBottom: '91px',
             }}>
                 <Box sx={{
                     overflow: 'hidden',
@@ -51,12 +51,33 @@ function UsersPage() {
                     </Box>
                     <Box sx={{
                         marginTop: 'auto',
-                        height: '100px',
+                        height: '91px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        400+ connections
+                        <Typography
+                            component={'p'}
+                            color="#23282B"
+                            fontFamily="open sans"
+                            fontSize={20}
+                            fontWeight={700}
+                        >
+                            400+
+                        </Typography>
+                        &nbsp;
+                        <Typography
+                            component={'p'}
+                            color="#808080"
+                            fontFamily="open sans"
+                            fontSize={16}
+                            fontWeight={400}
+                            sx={{
+                                marginTop: '4px'
+                            }}
+                        >
+                            Connections
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
