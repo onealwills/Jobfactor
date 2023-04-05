@@ -53,7 +53,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                         transition: 'stroke-dashoffset 0.5s ease 0s',
                     }}
                 />
-                <circle cx="50" cy="50" r={'33'} fill='#FFC24C'></circle>
+                <circle cx="50" cy="50" r={'31'} fill='#FFC24C' filter="url(#shadow)"></circle>
                 <text
                     x={50}
                     y={50}
@@ -66,6 +66,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                         textAnchor: 'middle',
                         fill: 'white',
                         fontSize: '20px',
+                        textShadow: "0px 0px 4px rgba(0, 0, 0, 0.2)"
                     }}
                 >
                     {value}

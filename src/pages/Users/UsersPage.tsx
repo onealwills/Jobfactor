@@ -1,3 +1,4 @@
+import CircleIcon from '@mui/icons-material/Circle';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
@@ -128,6 +129,7 @@ function UsersPage() {
                                                 component="h2"
                                                 color="#23282B"
                                                 fontFamily="open sans"
+                                                lineHeight="1.125"
                                                 fontSize={28}
                                                 fontWeight={600}
                                             >
@@ -141,15 +143,7 @@ function UsersPage() {
                                                 gap={2}
                                                 alignItems="center"
                                             >
-                                                <Typography
-                                                    component="span"
-                                                    color="#23282B"
-                                                    fontFamily="open sans"
-                                                    fontSize={24}
-                                                    fontWeight={600}
-                                                >
-                                                    &bull;
-                                                </Typography>
+                                                <CircleIcon sx={{ fontSize: "7.25px" }} />
                                                 <Typography
                                                     component="span"
                                                     color="#808080"
@@ -182,29 +176,13 @@ function UsersPage() {
                                         <InfoChip type="location" label="California, USA" />
                                     </Grid>
                                     <Grid item>
-                                        <Typography
-                                            component="span"
-                                            color="#23282B"
-                                            fontFamily="open sans"
-                                            fontSize={24}
-                                            fontWeight={600}
-                                        >
-                                            &bull;
-                                        </Typography>
+                                        <CircleIcon sx={{ fontSize: "7.25px" }} />
                                     </Grid>
                                     <Grid item>
                                         <InfoChip type="phone" label="+234 704 555 0114" />
                                     </Grid>
                                     <Grid item>
-                                        <Typography
-                                            component="span"
-                                            color="#23282B"
-                                            fontFamily="open sans"
-                                            fontSize={24}
-                                            fontWeight={600}
-                                        >
-                                            &bull;
-                                        </Typography>
+                                        <CircleIcon sx={{ fontSize: "7.25px" }} />
                                     </Grid>
                                     <Grid item>
                                         <InfoChip type="email" label="Ronaldrichie@hotmail.com" />
