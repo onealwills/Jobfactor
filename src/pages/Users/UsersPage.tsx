@@ -2,7 +2,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Box, Typography, IconButton, Grid, Chip } from '@mui/material';
+import { Box, Typography, IconButton, Grid, Chip, Container } from '@mui/material';
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import Progress from '../Home/components/Progress';
@@ -10,7 +10,12 @@ import InfoChip from './components/InfoChip';
 
 function UsersPage() {
     return (
-        <>
+        <Container style={{
+            paddingLeft: "35px",
+            paddingRight: "0px",
+            marginTop: "-48px",
+            maxWidth: "100%",
+        }}>
             <Box sx={{
                 backgroundColor: '#fff',
                 borderRadius: '5px',
@@ -68,6 +73,8 @@ function UsersPage() {
                             height="109px"
                             flexGrow="1"
                             alignItems="center"
+                            paddingBottom="18px"
+                            marginLeft="-12px"
                         >
                             <Grid
                                 item
@@ -97,10 +104,10 @@ function UsersPage() {
                             <Grid
                                 item
                                 flexShrink="1"
-                                paddingRight="40px"
+                                paddingRight="32px"
                             >
                                 <IconButton>
-                                    <MoreVertIcon />
+                                    <MoreVertIcon fontSize="medium" />
                                 </IconButton>
                             </Grid>
                         </Grid>
@@ -109,7 +116,7 @@ function UsersPage() {
                 <Grid
                     container
                     padding="0 40px"
-                    marginTop="-10px"
+                    marginTop="-30px"
                 >
                     <Grid
                         item
@@ -123,7 +130,7 @@ function UsersPage() {
                                     gap={2}
                                     alignItems="center"
                                 >
-                                    <Grid container gap={2}>
+                                    <Grid container gap={1.75}>
                                         <Grid item>
                                             <Typography
                                                 component="h2"
@@ -153,7 +160,7 @@ function UsersPage() {
                                                 >
                                                     Product Designer
                                                 </Typography>
-                                                <CheckCircleIcon htmlColor="#49B6FF" />
+                                                <CheckCircleIcon htmlColor="#49B6FF" style={{marginLeft: "-8px"}}/>
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -171,7 +178,7 @@ function UsersPage() {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Grid container gap={2}>
+                                <Grid container gap={1}>
                                     <Grid item>
                                         <InfoChip type="location" label="California, USA" />
                                     </Grid>
@@ -192,11 +199,19 @@ function UsersPage() {
                         </Grid>
                     </Grid>
                     <Grid item flexShrink={1}>
-                        <Progress value={550} divider={1000} />
+                        <Box paddingTop="6px" paddingBottom="6px">
+                            <Progress value={550} divider={1000} />
+                        </Box>
                     </Grid>
                 </Grid>
             </Box>
-        </>
+            <Grid
+                container
+                wrap="nowrap"
+            >
+                
+            </Grid>
+        </Container>
     );
 }
 

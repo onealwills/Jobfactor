@@ -31,7 +31,8 @@ const InfoChip = ({ type, label }: Props) => {
             fontFamily: "open sans",
             fontWeight: 500,
             fontSize: "14px",
-            borderRadius: "4px"
+            borderRadius: "4px",
+            letterSpacing: "0.001em",
         }}
     />)
 }
