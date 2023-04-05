@@ -21,21 +21,22 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
             <svg
                 className={'CircularProgressbar'}
                 viewBox="0 0 100 100"
-                width={122}
-                height={122}
+                width={150}
+                height={150}
                 style={{
                     filter: "drop-shadow(0px 0px 0px rgb(0 0 0 / 0.5))",
                     margin: "auto"
                 }}
             >
+                
                 <path
                     className="CircularProgressbar-trail"
+                    d={pathDescription}
+                    strokeWidth={strokeWidth}
+                    fillOpacity={0}
                     style={{
-                        stroke: "#d9d9d9",
-                        strokeWidth: "1px",
-                        fill: "none"
+                        stroke: 'white',
                     }}
-                    d="m 49.999617,0.49987251 c -27.26776,0 -49.49890951,22.23277249 -49.49890951,49.50051649 0,27.26775 22.23114951,49.50051 49.49890951,49.50051 27.26778,0 49.50051,-22.23276 49.50051,-49.50051 0,-27.267744 -22.23273,-49.50051649 -49.50051,-49.50051649 z m 0,11.00313849 a 38.497875,38.497875 0 0 1 38.49898,38.497378 38.497875,38.497875 0 0 1 -38.49898,38.49737 38.497875,38.497875 0 0 1 -38.49737,-38.49737 38.497875,38.497875 0 0 1 38.49737,-38.497378 z" 
                 />
 
                 <path
@@ -44,7 +45,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                     strokeWidth={strokeWidth}
                     fillOpacity={0}
                     style={{
-                        stroke: '#058FEC',
+                        stroke: '#05668D',
                         strokeLinecap: 'round',
                         strokeDasharray: `${diameter}px ${diameter}px`,
                         strokeDashoffset: `${((100 - percentage) / 100 * diameter)}px`,
@@ -65,7 +66,8 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                         dominantBaseline: 'central',
                         textAnchor: 'middle',
                         fill: 'white',
-                        fontSize: '20px',
+                        fontSize: '16px',
+                        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                     }}
                 >
                     {value}

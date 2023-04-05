@@ -1,13 +1,11 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PlaceIcon from '@mui/icons-material/Place';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import EmailIcon from '@mui/icons-material/Email';
 
 import { Box, Typography, IconButton, Grid, Chip } from '@mui/material';
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import Progress from '../Home/components/Progress';
+import InfoChip from './components/InfoChip';
 
 function UsersPage() {
     return (
@@ -16,10 +14,11 @@ function UsersPage() {
                 backgroundColor: '#fff',
                 borderRadius: '5px',
                 overflow: 'hidden',
+                paddingBottom: "40px",
             }}>
                 <Box sx={{
                     position: 'relative',
-                    paddingBottom: '91px',
+                    paddingBottom: '109px',
                 }}>
                     <Box sx={{
                         overflow: 'hidden',
@@ -65,7 +64,7 @@ function UsersPage() {
                             wrap="nowrap"
                             width="auto"
                             marginTop="auto"
-                            height="91px"
+                            height="109px"
                             flexGrow="1"
                             alignItems="center"
                         >
@@ -108,48 +107,62 @@ function UsersPage() {
                 </Box>
                 <Grid
                     container
-                    alignItems="center"
                     padding="0 40px"
+                    marginTop="-10px"
                 >
                     <Grid
                         item
                         flexGrow={1}
+                        marginTop="auto"
                     >
                         <Grid container direction="column" gap={2}>
                             <Grid item>
                                 <Grid
                                     container
                                     gap={2}
-                                    alignItems={"center"}
+                                    alignItems="center"
                                 >
-                                    <Typography
-                                        component={'h2'}
-                                        color="#23282B"
-                                        fontFamily="open sans"
-                                        fontSize={28}
-                                        fontWeight={600}
-                                    >
-                                        Ronald Richard
-                                    </Typography>
-                                    <Typography
-                                        component={'h2'}
-                                        color="#23282B"
-                                        fontFamily="open sans"
-                                        fontSize={24}
-                                        fontWeight={600}
-                                    >
-                                        &bull;
-                                    </Typography>
-                                    <Typography
-                                        component={'span'}
-                                        color="#808080"
-                                        fontFamily="open sans"
-                                        fontSize={16}
-                                        fontWeight={400}
-                                    >
-                                        Product Designer
-                                    </Typography>
-                                    <CheckCircleIcon htmlColor="#49B6FF" />
+                                    <Grid container gap={2}>
+                                        <Grid item>
+                                            <Typography
+                                                component="h2"
+                                                color="#23282B"
+                                                fontFamily="open sans"
+                                                fontSize={28}
+                                                fontWeight={600}
+                                            >
+                                                Ronald Richard
+                                            </Typography>
+                                        </Grid>
+
+                                        <Grid item marginTop="auto">
+                                            <Grid
+                                                container
+                                                gap={2}
+                                                alignItems="center"
+                                            >
+                                                <Typography
+                                                    component="span"
+                                                    color="#23282B"
+                                                    fontFamily="open sans"
+                                                    fontSize={24}
+                                                    fontWeight={600}
+                                                >
+                                                    &bull;
+                                                </Typography>
+                                                <Typography
+                                                    component="span"
+                                                    color="#808080"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={400}
+                                                >
+                                                    Product Designer
+                                                </Typography>
+                                                <CheckCircleIcon htmlColor="#49B6FF" />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item>
@@ -166,13 +179,35 @@ function UsersPage() {
                             <Grid item>
                                 <Grid container gap={2}>
                                     <Grid item>
-                                        <Chip label="California, USA" icon={<PlaceIcon />} />
+                                        <InfoChip type="location" label="California, USA" />
                                     </Grid>
                                     <Grid item>
-                                        <Chip label="+234 704 555 0114" icon={<LocalPhoneIcon />} />
+                                        <Typography
+                                            component="span"
+                                            color="#23282B"
+                                            fontFamily="open sans"
+                                            fontSize={24}
+                                            fontWeight={600}
+                                        >
+                                            &bull;
+                                        </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Chip label="Ronaldrichie@outlook.com" icon={<EmailIcon />} />
+                                        <InfoChip type="phone" label="+234 704 555 0114" />
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography
+                                            component="span"
+                                            color="#23282B"
+                                            fontFamily="open sans"
+                                            fontSize={24}
+                                            fontWeight={600}
+                                        >
+                                            &bull;
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <InfoChip type="email" label="Ronaldrichie@hotmail.com" />
                                     </Grid>
                                 </Grid>
                             </Grid>
