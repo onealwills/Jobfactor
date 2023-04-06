@@ -9,6 +9,7 @@ import SettingsPage from './pages/Settings/SettingsPage';
 import HelpSupportPage from './pages/HelpSupport/HelpSupportPage';
 import MainLayout from './pages/MainLayout/MainLayout';
 import CoursesPage from './pages/Courses/CoursesPage';
+import CreateAccount from './pages/Accounts/Professional/CreateAccount';
 
 function App() {
     return (
@@ -58,6 +59,12 @@ function App() {
                             path="help-support"
                             element={
                                 <MainLayout children={<HelpSupportPage />} />
+                            }
+                        />
+                        <Route
+                            path="create-professional-account"
+                            element={
+                                <CreateAccount />
                             }
                         />
                     </Route>
