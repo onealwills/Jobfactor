@@ -12,6 +12,7 @@ import React from 'react';
 import JobFactorIcon from '../../../assets/icons/JobFactorIcon';
 import EllipsisIcon from '../../../assets/icons/EllipsisIcon';
 import RectangleLine from '../../../assets/icons/RectangleLine';
+import { Link } from 'react-router-dom';
 
 const loginTitle = 'Professionals meet companies';
 const loginSubHeading =
@@ -345,14 +346,56 @@ function CreateAccount() {
                                         height: '56px',
                                         width: '458px',
                                         padding: '16px',
-                                        backgroundColor:'#FFFFFF'
+                                        backgroundColor: '#FFFFFF',
                                     }}
                                 ></FormControlLabel>
                                 <FormControlLabel
                                     control={<Checkbox />}
                                     label="I am a Company"
+                                    sx={{
+                                        mb: '20px',
+                                        borderBottom: '1px solid #EDEDED',
+                                        height: '56px',
+                                        width: '458px',
+                                        padding: '16px',
+                                        backgroundColor: '#FFFFFF',
+                                    }}
                                 ></FormControlLabel>
+
+                                <Button
+                                    variant={'contained'}
+                                    sx={{
+                                        width: '458px',
+                                        backgroundColor: '#05668D',
+                                        height: '52px',
+                                        padding: '16px 36px 16px 36px',
+                                        borderRadius: '8px',
+                                    }}
+                                >
+                                    Create Account
+                                </Button>
                             </FormGroup>
+                            <Box sx={{ mt: '24px', border: '1px solid black' }}>
+                                <Typography
+                                    fontSize={'16px'}
+                                    color={'#808080'}
+                                    sx={{ mr: '20px' }}
+                                >
+                                    Already have an account?
+                                </Typography>
+                                <Link
+                                    to={'/login'}
+                                    style={{
+                                        padding: '0px, 8px, 0px, 8px',
+                                        color: '#05668D',
+                                        fontStyle: 'SemiBold',
+                                        fontSize: '14px',
+                                        lineHeight: ' 20px',
+                                    }}
+                                >
+                                    Sign in
+                                </Link>
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
