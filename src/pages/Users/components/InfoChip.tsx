@@ -25,7 +25,7 @@ const InfoChip = ({ type, label }: Props) => {
 
     return (<Chip
         icon={icon}
-        label={<Box style={{ paddingRight: "16px "}}>{ label }</Box>}
+        label={<Box pr={1}>{ label }</Box>}
         sx={{
             backgroundColor: "#FAFAFA",
             fontFamily: "open sans",

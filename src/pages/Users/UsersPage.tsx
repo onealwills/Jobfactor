@@ -1,8 +1,9 @@
 import CircleIcon from '@mui/icons-material/Circle';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 
-import { Box, Typography, IconButton, Grid, Container, Divider } from '@mui/material';
+import { Box, Typography, IconButton, Grid, Container, Divider, Button } from '@mui/material';
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import Progress from '../Home/components/Progress';
@@ -19,7 +20,7 @@ function UsersPage() {
             <Grid
                 container
                 direction="column"
-                gap={4.5}
+                gap={4}
             >
                 <Grid item>
                     <Box
@@ -55,11 +56,12 @@ function UsersPage() {
                             >
                                 <Box
                                     ml={5}
-                                    border="3px #fff solid"
                                     borderRadius="50%"
                                     overflow="hidden"
                                     width="fit-content"
-                                    boxShadow="-8px 4px 20px rgba(0, 0, 0, 0.07), 8px 8px 20px rgba(0, 0, 0, 0.07)">
+                                    boxShadow="-8px 4px 20px rgba(0, 0, 0, 0.07), 8px 8px 20px rgba(0, 0, 0, 0.07)"
+                                    position="relative"
+                                >
                                     <img 
                                         style={{
                                             display: 'block',
@@ -69,6 +71,9 @@ function UsersPage() {
                                         alt="Profile pic"
                                         src={profile}
                                     />
+                                    <Box position="absolute" width="100%" height="100%" border="3px #fff solid" top="0" borderRadius="50%">
+
+                                    </Box>
                                 </Box>
                                 <Grid
                                     container
@@ -78,8 +83,8 @@ function UsersPage() {
                                     height="109px"
                                     flexGrow="1"
                                     alignItems="center"
-                                    pb={2.25}
-                                    marginLeft={-1.5}
+                                    pb={2}
+                                    marginLeft={-1}
                                 >
                                     <Grid
                                         item
@@ -100,7 +105,6 @@ function UsersPage() {
                                             color="#808080"
                                             fontFamily="open sans"
                                             fontSize={16}
-                                            fontWeight={400}
                                         >
                                             Connections
                                         </Typography>
@@ -120,8 +124,8 @@ function UsersPage() {
                         </Box>
                         <Grid
                             container
-                            padding="0 40px"
-                            marginTop="-30px"
+                            px={5}
+                            marginTop={-3.5}
                         >
                             <Grid
                                 item
@@ -221,7 +225,7 @@ function UsersPage() {
                             <Box style={{
                                 backgroundColor: "#fff",
                                 borderRadius: "12px",
-                            }} py={3}>
+                            }} py={1.5}>
                                 <Box px={5}>
                                     <Typography
                                         component="h3"
@@ -234,7 +238,7 @@ function UsersPage() {
                                         About me
                                     </Typography>
                                     <Typography
-                                        component="h3"
+                                        component="h4"
                                         color="#808080"
                                         fontFamily="open sans"
                                         fontSize={16}
@@ -245,8 +249,40 @@ function UsersPage() {
                                     </Typography>
                                 </Box>
                                 <Divider />
-                                <Box>
+                                <Box px={5}>
+                                    <Typography
+                                        component="p"
+                                        color="#808080"
+                                        fontFamily="open sans"
+                                        fontSize={16}
+                                        fontWeight={400}
+                                        mt={4}
+                                        mb={2.5}
+                                    >
+                                        Hello! I'm Solomon, 
 
+                                        A web3 Product Designer with a dream of building a multimillion dollars design agency.
+                                        With over 6 years of experience in experiential marketing, brand strategy, and design, I have worked across multiple verticals of businesses ranging from FMCG’s, E-commerce, Fin-tech, Ed-tech, and Prop-tech. ...
+                                    </Typography>
+                                    <Button
+                                        disableRipple
+                                        sx={{
+                                            backgroundColor: '#FCFBF8',
+                                            borderRadius: '8px',
+                                            padding: '0 16px'
+                                        }}
+                                        endIcon={<ExpandMoreRoundedIcon />}
+                                    >
+                                        <Typography
+                                            color={'#05668D'}
+                                            fontFamily="open sans"
+                                            fontWeight={700}
+                                            fontSize={14}
+                                            sx={{ textTransform: 'none', py: 1 }}
+                                        >
+                                            See more
+                                        </Typography>
+                                    </Button>
                                 </Box>
                             </Box>
                         </Grid>
