@@ -190,7 +190,7 @@ function UsersPage() {
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Grid container gap={1}>
+                                        <Grid container gap={1} alignItems="center">
                                             <Grid item>
                                                 <InfoChip type="location" label="California, USA" />
                                             </Grid>
@@ -315,10 +315,8 @@ function UsersPage() {
                                                     Highlight your skills, education and experience
                                                 </Typography>
                                             </Grid>
-                                            <Grid item>
-                                                <IconButton>
-                                                    <ArrowRightIcon fontSize="medium" htmlColor="#055C7F" />
-                                                </IconButton>
+                                            <Grid item alignSelf="center">
+                                                <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
                                             </Grid>
                                         </Grid>
                                     </ListItem>
@@ -348,10 +346,8 @@ function UsersPage() {
                                                     Save specific details about your desired job
                                                 </Typography>
                                             </Grid>
-                                            <Grid item>
-                                                <IconButton>
-                                                    <ArrowRightIcon fontSize="medium" htmlColor="#055C7F" />
-                                                </IconButton>
+                                            <Grid item alignSelf="center">
+                                                <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
                                             </Grid>
                                         </Grid>
                                     </ListItem>
@@ -374,18 +370,18 @@ function UsersPage() {
                         </Grid>
                         <Grid item xs={4}>
                             <Section heading={
-                                <SectionHeading>Education</SectionHeading>
-                            }>
+                                <SectionHeading ml={0}>Education</SectionHeading>
+                            } onClick={() => {}}>
                             
                             </Section>
                             <Section heading={
-                                <SectionHeading>Work Experience</SectionHeading>
-                            }>
+                                <SectionHeading ml={0}>Work Experience</SectionHeading>
+                            } onClick={() => {}}>
                             
                             </Section>
                             <Section heading={
-                                <SectionHeading fontSize={16}>Analytics</SectionHeading>
-                            }>
+                                <SectionHeading ml={0} fontSize={16}>Analytics</SectionHeading>
+                            } onClick={() => {}}>
                             
                             </Section>
                         </Grid>

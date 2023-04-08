@@ -1,19 +1,36 @@
-import { Box, BoxProps, Theme, Typography } from "@mui/material";
+import { Box, BoxProps, Grid } from "@mui/material";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import React from "react";
-
-type HeadingOptions = {
-    text: string | React.ReactNode
-}
 
 type Props = {
     heading?: React.ReactNode
+    onClick?: (event: React.MouseEventHandler<HTMLDivElement>) => void
     children: React.ReactNode
 } & BoxProps
 
-const Section = ({heading, children, ...props}: Props) => {
+const Section = ({heading, children, onClick, ...props}: Props) => {
     return (
         <Box component="section">
-            {heading}
+            {(heading || onClick) && (
+                <Grid
+                    container
+                    alignItems="center"
+                    component="div"
+                    onClick={onClick}
+                    style={{
+                        cursor: onClick ? 'pointer' : 'default'
+                    }}
+                >
+                    <Grid item flexGrow={1}>
+                        {heading}
+                    </Grid>
+                    {onClick && (
+                        <Grid item>
+                            <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
+                        </Grid>
+                    )}
+                </Grid>
+            )}
             <Box 
                 py={1.5}
                 px={5}
