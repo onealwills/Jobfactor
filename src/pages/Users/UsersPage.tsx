@@ -384,6 +384,25 @@ function UsersPage() {
                             } onClick={() => {}}>
                             
                             </Section>
+
+                            <Button
+                                    disableRipple
+                                    sx={{
+                                        backgroundColor: '#05668D',
+                                        borderRadius: '8px',
+                                        width: "100%"
+                                    }}
+                                >
+                                    <Typography
+                                        color={'#FFFFFF'}
+                                        fontFamily="open sans"
+                                        fontWeight={700}
+                                        fontSize={14}
+                                        sx={{ textTransform: 'none', py: .5 }}
+                                    >
+                                        Upgrade to Premium plan
+                                    </Typography>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
