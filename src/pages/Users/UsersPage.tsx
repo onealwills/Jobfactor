@@ -2,12 +2,15 @@ import CircleIcon from '@mui/icons-material/Circle';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-import { Box, Typography, IconButton, Grid, Container, Divider, Button } from '@mui/material';
+import { Box, Typography, IconButton, Grid, Container, Divider, Button, List, ListItem, ListItemText } from '@mui/material';
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import Progress from '../Home/components/Progress';
 import InfoChip from './components/InfoChip';
+import Section from './components/Section';
+import SectionHeading from './components/SectionHeading';
 
 function UsersPage() {
     return (
@@ -222,72 +225,169 @@ function UsersPage() {
                         spacing={2}
                     >
                         <Grid item xs={8}>
-                            <Box style={{
-                                backgroundColor: "#fff",
-                                borderRadius: "12px",
-                            }} py={1.5}>
-                                <Box px={5}>
-                                    <Typography
-                                        component="h3"
-                                        color="#23282B"
-                                        fontFamily="open sans"
-                                        fontSize={20}
-                                        fontWeight={600}
-                                        mb={1}
-                                    >
-                                        About me
-                                    </Typography>
-                                    <Typography
-                                        component="h4"
-                                        color="#808080"
-                                        fontFamily="open sans"
-                                        fontSize={16}
-                                        fontWeight={400}
-                                        mb={1.5}
-                                    >
-                                        Tell the world about yourself.
-                                    </Typography>
-                                </Box>
-                                <Divider />
-                                <Box px={5}>
-                                    <Typography
-                                        component="p"
-                                        color="#808080"
-                                        fontFamily="open sans"
-                                        fontSize={16}
-                                        fontWeight={400}
-                                        mt={4}
-                                        mb={2.5}
-                                    >
-                                        Hello! I'm Solomon, 
-
-                                        A web3 Product Designer with a dream of building a multimillion dollars design agency.
-                                        With over 6 years of experience in experiential marketing, brand strategy, and design, I have worked across multiple verticals of businesses ranging from FMCG’s, E-commerce, Fin-tech, Ed-tech, and Prop-tech. ...
-                                    </Typography>
-                                    <Button
-                                        disableRipple
-                                        sx={{
-                                            backgroundColor: '#FCFBF8',
-                                            borderRadius: '8px',
-                                            padding: '0 16px'
-                                        }}
-                                        endIcon={<ExpandMoreRoundedIcon />}
-                                    >
-                                        <Typography
-                                            color={'#05668D'}
-                                            fontFamily="open sans"
-                                            fontWeight={700}
-                                            fontSize={14}
-                                            sx={{ textTransform: 'none', py: 1 }}
-                                        >
-                                            See more
-                                        </Typography>
-                                    </Button>
-                                </Box>
+                           <Section px={0}>
+                            <Box px={5}>
+                                <Typography
+                                    component="h3"
+                                    color="#23282B"
+                                    fontFamily="open sans"
+                                    fontSize={20}
+                                    fontWeight={600}
+                                    mb={1}
+                                >
+                                    About me
+                                </Typography>
+                                <Typography
+                                    component="h4"
+                                    color="#808080"
+                                    fontFamily="open sans"
+                                    fontSize={16}
+                                    fontWeight={400}
+                                    mb={1.5}
+                                >
+                                    Tell the world about yourself.
+                                </Typography>
                             </Box>
+                            <Divider />
+                            <Box px={5}>
+                                <Typography
+                                    component="p"
+                                    color="#808080"
+                                    fontFamily="open sans"
+                                    fontSize={16}
+                                    fontWeight={400}
+                                    mt={4}
+                                    mb={2.5}
+                                >
+                                    Hello! I'm Solomon, 
+
+                                    A web3 Product Designer with a dream of building a multimillion dollars design agency.
+                                    With over 6 years of experience in experiential marketing, brand strategy, and design, I have worked across multiple verticals of businesses ranging from FMCG’s, E-commerce, Fin-tech, Ed-tech, and Prop-tech. ...
+                                </Typography>
+                                <Button
+                                    disableRipple
+                                    sx={{
+                                        backgroundColor: '#FCFBF8',
+                                        borderRadius: '8px',
+                                        padding: '0 16px'
+                                    }}
+                                    endIcon={<ExpandMoreRoundedIcon />}
+                                >
+                                    <Typography
+                                        color={'#05668D'}
+                                        fontFamily="open sans"
+                                        fontWeight={700}
+                                        fontSize={14}
+                                        sx={{ textTransform: 'none', py: 1 }}
+                                    >
+                                        See more
+                                    </Typography>
+                                </Button>
+                            </Box>
+                           </Section>
+                           <Section 
+                                heading={
+                                    <SectionHeading>Improve your Job matches</SectionHeading>
+                                } 
+                                py={2.5}
+                            >
+                                <List>
+                                    <ListItem sx={{ padding: 0 }}>
+                                        <Grid container wrap="nowrap">
+                                            <Grid flexGrow="1" item>
+                                                <Typography
+                                                    component="h4"
+                                                    color="#23282B"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={600}
+                                                    mb={1}
+                                                >
+                                                    Qualifications
+                                                </Typography>
+                                                <Typography
+                                                    component="p"
+                                                    color="#808080"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={400}
+                                                >
+                                                    Highlight your skills, education and experience
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <IconButton>
+                                                    <ArrowRightIcon fontSize="medium" htmlColor="#055C7F" />
+                                                </IconButton>
+                                            </Grid>
+                                        </Grid>
+                                    </ListItem>
+                                    <Box py={4.5}>
+                                        <Divider/>
+                                    </Box>
+                                    <ListItem sx={{ padding: 0 }}>
+                                        <Grid container wrap="nowrap">
+                                            <Grid flexGrow="1" item>
+                                                <Typography
+                                                    component="h4"
+                                                    color="#23282B"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={600}
+                                                    mb={1}
+                                                >
+                                                    Job Preference
+                                                </Typography>
+                                                <Typography
+                                                    component="p"
+                                                    color="#808080"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={400}
+                                                >
+                                                    Save specific details about your desired job
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <IconButton>
+                                                    <ArrowRightIcon fontSize="medium" htmlColor="#055C7F" />
+                                                </IconButton>
+                                            </Grid>
+                                        </Grid>
+                                    </ListItem>
+                                </List>
+                           </Section>
+                           <Section
+                                heading={
+                                    <SectionHeading>Resumes</SectionHeading>
+                                }
+                            >
+                                
+                           </Section>
+                           <Section 
+                                heading={
+                                    <SectionHeading>Help other Job Seekers</SectionHeading>
+                                }
+                           >
+                            
+                            </Section>
                         </Grid>
                         <Grid item xs={4}>
-                            { /* Column 2 */ }
+                            <Section heading={
+                                <SectionHeading>Education</SectionHeading>
+                            }>
+                            
+                            </Section>
+                            <Section heading={
+                                <SectionHeading>Work Experience</SectionHeading>
+                            }>
+                            
+                            </Section>
+                            <Section heading={
+                                <SectionHeading fontSize={16}>Analytics</SectionHeading>
+                            }>
+                            
+                            </Section>
                         </Grid>
                     </Grid>
                 </Grid>
