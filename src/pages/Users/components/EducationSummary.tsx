@@ -4,22 +4,38 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 import cambridge from '../../../assets/images/cambridge.jpg';
 
-const EducationSummary = () => (
+type MockEducationData = {
+    university: {
+        name: string,
+        image?: string,
+    },
+    major: string,
+    yearStarted: string,
+    yearEnded: string,
+}
+
+type EducationSummaryProps = {
+    data: MockEducationData
+}
+
+const EducationSummary = ({data: {university, major, yearStarted, yearEnded}}: EducationSummaryProps) => (
     <Grid container gap={2.5} py={1.5} alignItems="center" wrap="nowrap">
-        <Grid item>
-            <Image
-                src={cambridge}
-                alt="University of Birmingham"
-                sx={{
-                    width: "80px",
-                    height: "80px",
-                    objectFit: "cover"
-                }}
-                border="3px #fff solid"
-                borderRadius={2}
-                display="block"
-            />
-        </Grid>
+        {university.image && (
+            <Grid item>
+                <Image
+                    src={university.image}
+                    alt={university.name}
+                    sx={{
+                        width: "80px",
+                        height: "80px",
+                        objectFit: "cover"
+                    }}
+                    border="3px #fff solid"
+                    borderRadius={2}
+                    display="block"
+                />
+            </Grid>
+        )}
         <Grid item flexGrow={1}>
             <Typography
                 component="h4"
@@ -29,7 +45,7 @@ const EducationSummary = () => (
                 fontWeight={600}
                 mb={.5}
             >
-                Birmingham University
+                {university.name}
             </Typography>
             <Typography
                 component="p"
@@ -39,7 +55,7 @@ const EducationSummary = () => (
                 fontWeight={400}
                 mb={.5}
             >
-                MSc Power Systems
+                { major }
             </Typography>
             <Grid container alignItems="center" gap={1.5}>
                     <Typography
@@ -49,7 +65,7 @@ const EducationSummary = () => (
                         fontSize={14}
                         fontWeight={400}
                     >
-                        2016
+                        { yearStarted }
                     </Typography>
                     <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
                     <Typography
@@ -59,7 +75,7 @@ const EducationSummary = () => (
                         fontSize={14}
                         fontWeight={400}
                     >
-                        2018
+                        { yearEnded }
                     </Typography>
             </Grid>
         </Grid>

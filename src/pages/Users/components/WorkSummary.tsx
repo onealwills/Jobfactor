@@ -1,10 +1,11 @@
 import { Grid, Typography } from "@mui/material";
 import Image from "../../../components/Image";
+
 import CircleIcon from '@mui/icons-material/Circle';
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import DashIcon from "../../../assets/icons/DashIcon";
 
 import nasa from '../../../assets/images/nasa.png';
-import DashIcon from "../../../assets/icons/DashIcon";
+
 import TraitChip from "./TraitChip";
 
 const WorkSummary = () => (
@@ -34,7 +35,13 @@ const WorkSummary = () => (
             >
                 Lead Product Designer
             </Typography>
-            <Grid container alignItems="center" wrap="nowrap" gap={1.5}>
+            <Grid
+                container
+                alignItems="center"
+                wrap="nowrap"
+                gap={1.5}
+                mb={.5}
+            >
                 <Typography
                     component="p"
                     color="#808080"
@@ -67,8 +74,11 @@ const WorkSummary = () => (
                         </Typography>
                 </Grid>
             </Grid>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" gap={.75}>
                     <TraitChip type="leader" />
+                    <TraitChip type="expert" />
+                    <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
+                    <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
             </Grid>
         </Grid>
     </Grid>

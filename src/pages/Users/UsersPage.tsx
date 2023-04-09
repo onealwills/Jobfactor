@@ -470,8 +470,25 @@ function UsersPage() {
                             <Section heading={
                                 <SectionHeading ml={0}>Education</SectionHeading>
                             } onClick={() => {}} px={2} py={0}> 
-                                <EducationSummary />
-                                <EducationSummary />
+                                <EducationSummary data={{
+                                        university: {
+                                            name: "Birmingham University",
+                                            image: cambridge
+                                        },
+                                        major: "MSc Power Systems",
+                                        yearStarted: "2016",
+                                        yearEnded: "2018"
+                                    }}
+                                />
+                                <EducationSummary data={{
+                                        university: {
+                                            name: "University of Saskatchewan",
+                                        },
+                                        major: "B.ENG Electrical Engineering",
+                                        yearStarted: "2020",
+                                        yearEnded: "2022"
+                                    }}
+                                />
                             </Section>
                             <Section heading={
                                 <SectionHeading ml={0}>Work Experience</SectionHeading>
