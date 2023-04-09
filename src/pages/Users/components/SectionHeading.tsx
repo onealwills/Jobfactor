@@ -8,7 +8,6 @@ const SectionHeading = (props: TypographyProps & {component?: React.ElementType}
         fontFamily="open sans"
         fontSize={20}
         fontWeight={600}
-        mb={3}
         ml={5}
         {...props}
     >

@@ -273,8 +273,9 @@ function UsersPage() {
                                     mb={2.5}
                                 >
                                     Hello! I'm Solomon, 
-
+                                    <br/><br/>
                                     A web3 Product Designer with a dream of building a multimillion dollars design agency.
+                                    <br/>
                                     With over 6 years of experience in experiential marketing, brand strategy, and design, I have worked across multiple verticals of businesses ranging from FMCG’s, E-commerce, Fin-tech, Ed-tech, and Prop-tech. ...
                                 </Typography>
                                 <Button

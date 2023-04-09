@@ -20,14 +20,13 @@ const Section = ({heading, children, onClick, ...props}: Props) => {
                     style={{
                         cursor: onClick ? 'pointer' : 'default'
                     }}
+                    mb={3}
                 >
                     <Grid item flexGrow={1}>
                         {heading}
                     </Grid>
                     {onClick && (
-                        <Grid item>
-                            <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
-                        </Grid>
+                        <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
                     )}
                 </Grid>
             )}
