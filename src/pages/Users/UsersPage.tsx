@@ -28,6 +28,7 @@ import SectionHeading from './components/SectionHeading';
 import Image from '../../components/Image';
 import MedalIcon from '../../assets/icons/MedalIcon';
 import EducationSummary from './components/EducationSummary';
+import WorkSummary from './components/WorkSummary';
 
 function UsersPage() {
     return (
@@ -474,12 +475,14 @@ function UsersPage() {
                             </Section>
                             <Section heading={
                                 <SectionHeading ml={0}>Work Experience</SectionHeading>
-                            } onClick={() => {}}>
-                            
+                            } onClick={() => {}} px={2} py={0}>
+                                <WorkSummary />
+                                <WorkSummary />
+                                <WorkSummary />
                             </Section>
                             <Section heading={
                                 <SectionHeading ml={0} fontSize={16}>Analytics</SectionHeading>
-                            } onClick={() => {}}>
+                            } onClick={() => {}} px={2} py={0}>
                             
                             </Section>
 
