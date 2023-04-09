@@ -5,16 +5,29 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import { Box, Typography, IconButton, Grid, Container, Divider, Button, List, ListItem, ListItemText } from '@mui/material';
-import cambridge from '../../assets/images/cambridge.jpg';
+import { 
+    Box,
+    Typography,
+    IconButton,
+    Grid,
+    Container,
+    Divider,
+    Button,
+    List,
+    ListItem
+} from '@mui/material';
+
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
+import cambridge from '../../assets/images/cambridge.jpg';
+
 import Progress from '../Home/components/Progress';
 import InfoChip from './components/InfoChip';
 import Section from './components/Section';
 import SectionHeading from './components/SectionHeading';
 import Image from '../../components/Image';
 import MedalIcon from '../../assets/icons/MedalIcon';
+import EducationSummary from './components/EducationSummary';
 
 function UsersPage() {
     return (
@@ -166,7 +179,7 @@ function UsersPage() {
                                                         gap={2}
                                                         alignItems="center"
                                                     >
-                                                        <CircleIcon sx={{ fontSize: "7.25px" }} />
+                                                        <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
                                                         <Typography
                                                             component="span"
                                                             color="#808080"
@@ -198,15 +211,11 @@ function UsersPage() {
                                             <Grid item>
                                                 <InfoChip type="location" label="California, USA" />
                                             </Grid>
-                                            <Grid item>
-                                                <CircleIcon sx={{ fontSize: "7.25px" }} />
-                                            </Grid>
+                                            <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
                                             <Grid item>
                                                 <InfoChip type="phone" label="+234 704 555 0114" />
                                             </Grid>
-                                            <Grid item>
-                                                <CircleIcon sx={{ fontSize: "7.25px" }} />
-                                            </Grid>
+                                            <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
                                             <Grid item>
                                                 <InfoChip type="email" label="Ronaldrichie@hotmail.com" />
                                             </Grid>
@@ -458,44 +467,9 @@ function UsersPage() {
                         <Grid item xs={4}>
                             <Section heading={
                                 <SectionHeading ml={0}>Education</SectionHeading>
-                            } onClick={() => {}} px={2}>
-                                <Grid container gap={2.5} alignItems="center" wrap="nowrap">
-                                    <Grid item>
-                                        <Image
-                                            src={cambridge}
-                                            alt="University of Birmingham"
-                                            sx={{
-                                                width: "80px",
-                                                height: "80px",
-                                                objectFit: "cover"
-                                            }}
-                                            border="3px #fff solid"
-                                            borderRadius={2}
-                                            display="block"
-                                        />
-                                    </Grid>
-                                    <Grid item flexGrow={1}>
-                                        <Typography
-                                            component="h4"
-                                            color="#23282B"
-                                            fontFamily="open sans"
-                                            fontSize={16}
-                                            fontWeight={600}
-                                            mb={1}
-                                        >
-                                            Birmingham University
-                                        </Typography>
-                                        <Typography
-                                            component="p"
-                                            color="#808080"
-                                            fontFamily="open sans"
-                                            fontSize={16}
-                                            fontWeight={400}
-                                        >
-                                            MSc Power Systems
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
+                            } onClick={() => {}} px={2} py={0}> 
+                                <EducationSummary />
+                                <EducationSummary />
                             </Section>
                             <Section heading={
                                 <SectionHeading ml={0}>Work Experience</SectionHeading>
