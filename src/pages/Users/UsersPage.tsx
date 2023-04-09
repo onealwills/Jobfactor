@@ -5,12 +5,14 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 import { Box, Typography, IconButton, Grid, Container, Divider, Button, List, ListItem, ListItemText } from '@mui/material';
+import cambridge from '../../assets/images/cambridge.jpg';
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import Progress from '../Home/components/Progress';
 import InfoChip from './components/InfoChip';
 import Section from './components/Section';
 import SectionHeading from './components/SectionHeading';
+import Image from '../../components/Image';
 
 function UsersPage() {
     return (
@@ -65,18 +67,18 @@ function UsersPage() {
                                     boxShadow="-8px 4px 20px rgba(0, 0, 0, 0.07), 8px 8px 20px rgba(0, 0, 0, 0.07)"
                                     position="relative"
                                 >
-                                    <img 
-                                        style={{
-                                            display: 'block',
-                                            height: '200px',
-                                            width: '200px',
-                                        }}
-                                        alt="Profile pic"
+                                    <Image
                                         src={profile}
+                                        sx={{
+                                            width: "200px",
+                                            height: "200px",
+                                            objectFit: "cover",
+                                        }}
+                                        alt="Ronald Richard"
+                                        border="3px #fff solid"
+                                        borderRadius="50%"
+                                        display="block"
                                     />
-                                    <Box position="absolute" width="100%" height="100%" border="3px #fff solid" top="0" borderRadius="50%">
-
-                                    </Box>
                                 </Box>
                                 <Grid
                                     container
@@ -84,14 +86,14 @@ function UsersPage() {
                                     width="auto"
                                     marginTop="auto"
                                     height="109px"
-                                    flexGrow="1"
+                                    flexGrow={1}
                                     alignItems="center"
                                     pb={2}
                                     marginLeft={-1}
                                 >
                                     <Grid
                                         item
-                                        flexGrow="1"
+                                        flexGrow={1}
                                     >
                                         <Typography
                                             component="span"
@@ -293,8 +295,8 @@ function UsersPage() {
                             >
                                 <List>
                                     <ListItem sx={{ padding: 0 }}>
-                                        <Grid container wrap="nowrap">
-                                            <Grid flexGrow="1" item>
+                                        <Grid container wrap="nowrap" alignItems="center">
+                                            <Grid flexGrow={1} item>
                                                 <Typography
                                                     component="h4"
                                                     color="#23282B"
@@ -315,7 +317,7 @@ function UsersPage() {
                                                     Highlight your skills, education and experience
                                                 </Typography>
                                             </Grid>
-                                            <Grid item alignSelf="center">
+                                            <Grid item>
                                                 <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
                                             </Grid>
                                         </Grid>
@@ -324,8 +326,8 @@ function UsersPage() {
                                         <Divider/>
                                     </Box>
                                     <ListItem sx={{ padding: 0 }}>
-                                        <Grid container wrap="nowrap">
-                                            <Grid flexGrow="1" item>
+                                        <Grid container wrap="nowrap" alignItems="center">
+                                            <Grid flexGrow={1} item>
                                                 <Typography
                                                     component="h4"
                                                     color="#23282B"
@@ -346,7 +348,7 @@ function UsersPage() {
                                                     Save specific details about your desired job
                                                 </Typography>
                                             </Grid>
-                                            <Grid item alignSelf="center">
+                                            <Grid item>
                                                 <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
                                             </Grid>
                                         </Grid>
@@ -358,7 +360,46 @@ function UsersPage() {
                                     <SectionHeading>Resumes</SectionHeading>
                                 }
                             >
-                                
+                                <Grid container gap={2.5} alignItems="center">
+                                    <Grid item>
+                                        <Image
+                                            src={cambridge}
+                                            alt="University of Birmingham"
+                                            sx={{
+                                                width: "66px",
+                                                height: "100px",
+                                                objectFit: "cover"
+                                            }}
+                                            border="3px #fff solid"
+                                            borderRadius={2}
+                                            display="block"
+                                        />
+                                    </Grid>
+                                    <Grid item flexGrow={1}>
+                                        <Typography
+                                            component="h4"
+                                            color="#23282B"
+                                            fontFamily="open sans"
+                                            fontSize={16}
+                                            fontWeight={600}
+                                            mb={1}
+                                        >
+                                            Job Preference
+                                        </Typography>
+                                        <Typography
+                                            component="p"
+                                            color="#808080"
+                                            fontFamily="open sans"
+                                            fontSize={16}
+                                            fontWeight={400}
+                                        >
+                                            Save specific details about your desired job
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
+                                    </Grid>
+                                </Grid>
                            </Section>
                            <Section 
                                 heading={
