@@ -3,6 +3,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import { Box, Typography, IconButton, Grid, Container, Divider, Button, List, ListItem, ListItemText } from '@mui/material';
 import cambridge from '../../assets/images/cambridge.jpg';
@@ -13,6 +14,7 @@ import InfoChip from './components/InfoChip';
 import Section from './components/Section';
 import SectionHeading from './components/SectionHeading';
 import Image from '../../components/Image';
+import MedalIcon from '../../assets/icons/MedalIcon';
 
 function UsersPage() {
     return (
@@ -356,11 +358,12 @@ function UsersPage() {
                                 </List>
                            </Section>
                            <Section
+                                py={2.5}
                                 heading={
                                     <SectionHeading>Resumes</SectionHeading>
                                 }
                             >
-                                <Grid container gap={2.5} alignItems="center">
+                                <Grid container gap={2.5} alignItems="center" wrap="nowrap">
                                     <Grid item>
                                         <Image
                                             src={cambridge}
@@ -384,7 +387,7 @@ function UsersPage() {
                                             fontWeight={600}
                                             mb={1}
                                         >
-                                            Job Preference
+                                            Jobfactor Resume
                                         </Typography>
                                         <Typography
                                             component="p"
@@ -392,21 +395,64 @@ function UsersPage() {
                                             fontFamily="open sans"
                                             fontSize={16}
                                             fontWeight={400}
+                                            mb={1}
                                         >
-                                            Save specific details about your desired job
+                                            Updated Jun 24, 2023
                                         </Typography>
+                                        <Grid container alignItems="center" gap={.5}>
+                                            <VisibilityOffIcon />
+                                            <Typography
+                                                component="p"
+                                                color="#494949"
+                                                fontFamily="open sans"
+                                                fontSize={14}
+                                                fontWeight={600}
+                                            >
+                                                Private
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
                                     <Grid item>
                                         <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
                                     </Grid>
                                 </Grid>
                            </Section>
-                           <Section 
+                           <Section
+                                py={2.5}
                                 heading={
                                     <SectionHeading>Help other Job Seekers</SectionHeading>
                                 }
                            >
-                            
+                                <Grid container gap={2.5} alignItems="center" wrap="nowrap">
+                                    <Grid item py={1} pr={1}>
+                                        <MedalIcon />
+                                    </Grid>
+                                    <Grid item flexGrow={1}>
+                                        <Typography
+                                            component="h4"
+                                            color="#23282B"
+                                            fontFamily="open sans"
+                                            fontSize={16}
+                                            fontWeight={600}
+                                            mb={1}
+                                        >
+                                            Review companies
+                                        </Typography>
+                                        <Typography
+                                            component="p"
+                                            color="#808080"
+                                            fontFamily="open sans"
+                                            fontSize={16}
+                                            fontWeight={400}
+                                            pr={8}
+                                        >
+                                            Review companies you have worked for, this contributes to your Jobfactor score
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
+                                    </Grid>
+                                </Grid>                                
                             </Section>
                         </Grid>
                         <Grid item xs={4}>
