@@ -412,8 +412,44 @@ function UsersPage() {
                         <Grid item xs={4}>
                             <Section heading={
                                 <SectionHeading ml={0}>Education</SectionHeading>
-                            } onClick={() => {}}>
-                            
+                            } onClick={() => {}} px={2}>
+                                <Grid container gap={2.5} alignItems="center" wrap="nowrap">
+                                    <Grid item>
+                                        <Image
+                                            src={cambridge}
+                                            alt="University of Birmingham"
+                                            sx={{
+                                                width: "80px",
+                                                height: "80px",
+                                                objectFit: "cover"
+                                            }}
+                                            border="3px #fff solid"
+                                            borderRadius={2}
+                                            display="block"
+                                        />
+                                    </Grid>
+                                    <Grid item flexGrow={1}>
+                                        <Typography
+                                            component="h4"
+                                            color="#23282B"
+                                            fontFamily="open sans"
+                                            fontSize={16}
+                                            fontWeight={600}
+                                            mb={1}
+                                        >
+                                            Birmingham University
+                                        </Typography>
+                                        <Typography
+                                            component="p"
+                                            color="#808080"
+                                            fontFamily="open sans"
+                                            fontSize={16}
+                                            fontWeight={400}
+                                        >
+                                            MSc Power Systems
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
                             </Section>
                             <Section heading={
                                 <SectionHeading ml={0}>Work Experience</SectionHeading>
