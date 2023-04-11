@@ -29,6 +29,7 @@ import Image from '../../components/Image';
 import MedalIcon from '../../assets/icons/MedalIcon';
 import EducationSummary from './components/EducationSummary';
 import WorkSummary from './components/WorkSummary';
+import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 
 function UsersPage() {
     return (
@@ -467,9 +468,14 @@ function UsersPage() {
                             </Section>
                         </Grid>
                         <Grid item xs={4}>
-                            <Section heading={
-                                <SectionHeading ml={0}>Education</SectionHeading>
-                            } onClick={() => {}} px={2} py={0}> 
+                            <Section 
+                                heading={
+                                    <SectionHeading ml={0}>Education</SectionHeading>
+                                } 
+                                onClick={() => {}} 
+                                px={2} 
+                                py={0}
+                            > 
                                 <EducationSummary data={{
                                         university: {
                                             name: "Birmingham University",
@@ -490,17 +496,43 @@ function UsersPage() {
                                     }}
                                 />
                             </Section>
-                            <Section heading={
-                                <SectionHeading ml={0}>Work Experience</SectionHeading>
-                            } onClick={() => {}} px={2} py={0}>
+
+                            <Section 
+                                heading={
+                                    <SectionHeading ml={0}>Work Experience</SectionHeading>
+                                }
+                                onClick={() => {}} px={2} py={0}
+                            >
                                 <WorkSummary />
                                 <WorkSummary />
                                 <WorkSummary />
                             </Section>
-                            <Section heading={
-                                <SectionHeading ml={0} fontSize={16}>Analytics</SectionHeading>
-                            } onClick={() => {}} px={2} py={0}>
-                            
+
+                            <Section 
+                                heading={
+                                    <SectionHeading ml={0} fontSize={16}>Analytics</SectionHeading>
+                                } onClick={() => {}}
+                                px={2}
+                                py={0}
+                                bgcolor="transparent"
+                            >
+                                <Grid container>
+                                    <Grid item>
+                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center">
+                                            <AnalyticsProfile />
+                                            <Typography
+                                                component="p"
+                                                color="#23282B"
+                                                fontFamily="open sans"
+                                                fontSize={14}
+                                                fontWeight={600}
+                                                textAlign="center"
+                                            >
+                                                PROFILE<br/>VIEWS
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             </Section>
 
                             <Button

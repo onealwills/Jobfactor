@@ -34,12 +34,9 @@ const Section = ({heading, children, onClick, ...props}: Props) => {
                 py={1.5}
                 px={5}
                 mb={4.5}
+                bgcolor="#fff"
+                borderRadius={1.5}
                 {...props}
-                style={{
-                    backgroundColor: "#fff",
-                    borderRadius: "12px",
-                    ...props.style
-                }}
             >
                 { children }
             </Box>
