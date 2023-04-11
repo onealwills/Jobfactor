@@ -9,6 +9,7 @@ import SettingsPage from './pages/Settings/SettingsPage';
 import HelpSupportPage from './pages/HelpSupport/HelpSupportPage';
 import MainLayout from './pages/MainLayout/MainLayout';
 import CoursesPage from './pages/Courses/CoursesPage';
+import Login from './pages/Login/Login';
 
 function App() {
     return (
@@ -59,6 +60,10 @@ function App() {
                             element={
                                 <MainLayout children={<HelpSupportPage />} />
                             }
+                        />
+                        <Route
+                            path="login"
+                            element={<Login />}
                         />
                     </Route>
                 </Routes>
