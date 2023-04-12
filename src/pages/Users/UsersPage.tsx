@@ -30,6 +30,8 @@ import MedalIcon from '../../assets/icons/MedalIcon';
 import EducationSummary from './components/EducationSummary';
 import WorkSummary from './components/WorkSummary';
 import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
+import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
+import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 
 function UsersPage() {
     return (
@@ -514,11 +516,12 @@ function UsersPage() {
                                 } onClick={() => {}}
                                 px={2}
                                 py={0}
+                                mb={2.5}
                                 bgcolor="transparent"
                             >
-                                <Grid container>
-                                    <Grid item>
-                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center">
+                                <Grid container gap={0.33} overflow="hidden" borderRadius={1.5} wrap="nowrap" height="140px">
+                                    <Grid item bgcolor="#FFFFFF" flexGrow={1} maxWidth="33%">
+                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center" height="100%">
                                             <AnalyticsProfile />
                                             <Typography
                                                 component="p"
@@ -529,6 +532,36 @@ function UsersPage() {
                                                 textAlign="center"
                                             >
                                                 PROFILE<br/>VIEWS
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item bgcolor="#FFFFFF" flexGrow={1} maxWidth="33%">
+                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+                                            <AnalyticsSearch />
+                                            <Typography
+                                                component="p"
+                                                color="#23282B"
+                                                fontFamily="open sans"
+                                                fontSize={14}
+                                                fontWeight={600}
+                                                textAlign="center"
+                                            >
+                                                SEARCH<br/>APPEARANCES
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item bgcolor="#FFFFFF" flexGrow={1} maxWidth="33%">
+                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+                                            <AnalyticsGraph/>
+                                            <Typography
+                                                component="p"
+                                                color="#23282B"
+                                                fontFamily="open sans"
+                                                fontSize={14}
+                                                fontWeight={600}
+                                                textAlign="center"
+                                            >
+                                                POSTS<br />ENGAGEMENTS
                                             </Typography>
                                         </Grid>
                                     </Grid>
