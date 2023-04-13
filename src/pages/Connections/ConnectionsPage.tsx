@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import WestIcon from '@mui/icons-material/West';
 import image from '../../assets/images/feed2.png'
+import CustomButton from '../../components/Button';
+import Pagination from '../../components/Pagination';
+import company from '../../assets/images/company.png';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SelectDropdown from '../../components/Selectdropdown';
-import CustomButton from '../../components/Button/CustomButton';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Avatar, Box, Grid, IconButton, Menu, MenuItem, Pagination, PaginationItem, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Avatar, Box, Grid, IconButton, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 
 const data = [
     {
@@ -18,8 +19,14 @@ const data = [
         days: '3'
     },
     {
+        image: company,
+        name: "Exoticca",
+        points: '550',
+        days: '3'
+    },
+    {
         image,
-        name: "Devon Lane",
+        name: "Aevon Lane",
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -139,15 +146,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: "Devon Lane",
+        name: "Zevon Lane",
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -158,13 +157,39 @@ const data = [
 
 function ConnectionsPage() {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [users, setUsers]: any[] = React.useState([]);
+    const [page, setPage] = React.useState(0);
     const open = Boolean(anchorEl);
+    const navigate = useNavigate();
+    const rowsPerPage = 8;
+
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleChangePage = (page: number) => {
+        setPage(page - 1);
+    };
+    const sortData = (type: string) => {
+        let sortedData = null
+        if (type === 'A-Z') {
+            sortedData = [...data].sort((a, b) =>
+                a.name > b.name ? 1 : -1,
+            );
+        }
+        if (type === 'Z-A') {
+            sortedData = [...data].sort((a, b) =>
+                a.name > b.name ? -1 : 1,
+            );
+        }
+        setUsers(sortedData);
+        setAnchorEl(null);
+    }
+    useEffect(() => {
+        setUsers(data);
+    }, [])
 
     return (
         <>
@@ -177,10 +202,18 @@ function ConnectionsPage() {
                         borderBottom: "1px solid #D9D9D9",
                     }}
                 >
-                    <Grid item xs={1}>
-                        <WestIcon />
-                    </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={10}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '25px'
+                        }}
+                    >
+                        <IconButton
+                            onClick={() => navigate('/')}
+                        >
+                            <WestIcon />
+                        </IconButton>
                         <Typography
                             component={'h1'}
                             sx={{
@@ -193,44 +226,37 @@ function ConnectionsPage() {
                             Followers
                         </Typography>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={2}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                            gap: '12px'
+                        }}
+                    >
                         <SelectDropdown
                             label="Sort"
                             options={['A-Z', 'Z-A']}
-                            style={{ width: '91px' }}
+                            style={{ width: '91px', height: '50px' }}
+                            handleChange={(e: any) => sortData(e.target.value)}
                         />
-                    </Grid>
-                    <Grid item xs={1}>
                         <IconButton
                             onClick={handleClick}
                         >
                             <MoreVertIcon />
                         </IconButton>
-                        <Menu
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            PaperProps={{
-                                style: {
-                                    maxHeight: 100,
-                                    width: '20ch',
-                                },
-                            }}
-                        >
-                            {['A-Z', 'Z-A'].map((option: any) => (
-                                <MenuItem key={option} onClick={handleClose}>
-                                    {option}
-                                </MenuItem>
-                            ))}
-                        </Menu>
+                    </Grid>
+                    <Grid item xs={1}>
+
+
                     </Grid>
                 </Grid>
                 <Grid container mt={'20px'}>
                     <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <Table sx={{ minWidth: 650 }}>
                             <TableBody>
-                                {data.map((user: any) => (
-                                    <TableRow>
+                                {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user: any, index: number) => (
+                                    <TableRow key={`user_${index}`}>
                                         <TableCell
                                             sx={{
                                                 padding: '40px 32px',
@@ -270,9 +296,10 @@ function ConnectionsPage() {
                                                             sx={{
                                                                 fontSize: '16px',
                                                                 fontFamily: 'Open Sans',
-                                                                color: '#808080'
+                                                                color: '#808080',
+                                                                letterSpacing: '0.0015em'
                                                             }}
-                                                        >{user.designation}</Typography>
+                                                        >{user.designation ?? "COMPANY"}</Typography>
                                                         <Typography
                                                             component={'div'}
                                                             sx={{
@@ -282,22 +309,26 @@ function ConnectionsPage() {
                                                                 border: '2px solid #494949',
                                                             }}
                                                         />
-                                                        <Typography
-                                                            sx={{
-                                                                fontSize: '16px',
-                                                                fontFamily: 'Open Sans',
-                                                                color: '#808080'
-                                                            }}
-                                                        >{user.organization}</Typography>
-                                                        <Typography
-                                                            component={'div'}
-                                                            sx={{
-                                                                width: '7px', height: '7px',
-                                                                borderRadius: '100px',
-                                                                background: '#494949',
-                                                                border: '2px solid #494949',
-                                                            }}
-                                                        />
+                                                        {user.designation &&
+                                                            <>
+                                                                <Typography
+                                                                    sx={{
+                                                                        fontSize: '16px',
+                                                                        fontFamily: 'Open Sans',
+                                                                        color: '#808080'
+                                                                    }}
+                                                                >{user.organization}</Typography>
+                                                                <Typography
+                                                                    component={'div'}
+                                                                    sx={{
+                                                                        width: '7px', height: '7px',
+                                                                        borderRadius: '100px',
+                                                                        background: '#494949',
+                                                                        border: '2px solid #494949',
+                                                                    }}
+                                                                />
+                                                            </>
+                                                        }
                                                         <Typography
                                                             sx={{
                                                                 fontSize: '20px',
@@ -336,7 +367,7 @@ function ConnectionsPage() {
                                                     />
                                                     <CustomButton
                                                         title="Message"
-                                                        style={{ background: '#05668D', color: "#FFFFFF" }}
+                                                        style={{ background: '#05668D', border: '1px solid #05668D', color: "#FFFFFF" }}
                                                     />
                                                 </Box>
                                             </Box>
@@ -445,22 +476,37 @@ function ConnectionsPage() {
                                         </TableCell>
                                     </TableRow>
                                 ))}
+                                <TableRow>
+                                    <TableCell>
+                                        <Pagination
+                                            count={Math.ceil(data.length / rowsPerPage)}
+                                            handleChangePage={handleChangePage}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {/* <Stack spacing={2}>
-                        <Pagination
-                            count={10}
-                            renderItem={(item) => (
-                                <PaginationItem
-                                    slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-                                    {...item}
-                                />
-                            )}
-                        />
-                    </Stack> */}
                 </Grid>
             </Box>
+            <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                    style: {
+                        maxHeight: 100,
+                        width: '20ch',
+                    },
+                }}
+            >
+                {['A-Z', 'Z-A'].map((option: any) => (
+                    <MenuItem key={option} onClick={() => sortData(option)}>
+                        {option}
+                    </MenuItem>
+                ))}
+            </Menu>
         </>
     );
 }

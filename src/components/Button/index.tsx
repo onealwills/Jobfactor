@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 
-const CustomButton = (props) => {
+const CustomButton = (props: any) => {
     return (
         <>
             <Button
@@ -9,10 +9,13 @@ const CustomButton = (props) => {
                 sx={[{
                     borderRadius: '8px',
                     padding: "10px 36px",
-                    fontSize:'14px',
-                    fontWeight:'700',
-                    textTransform:'capitalize',
-                    border: '1px solid #05668D',
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    textTransform: 'capitalize',
+                    boxShadow:'none',
+                    ':hover': {
+                        background: !props?.variant || props?.variant === 'contained' ? '#05668D' : undefined,
+                    }
                 }, props.style]}
             >
                 {props?.title}
