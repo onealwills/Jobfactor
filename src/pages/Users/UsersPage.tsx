@@ -20,6 +20,9 @@ import {
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import cambridge from '../../assets/images/cambridge.jpg';
+import nasa from '../../assets/images/nasa.png';
+import huawei from '../../assets/images/huawei.png'
+import northface from '../../assets/images/northface.png';
 
 import Progress from '../Home/components/Progress';
 import InfoChip from './components/InfoChip';
@@ -505,9 +508,48 @@ function UsersPage() {
                                 }
                                 onClick={() => {}} px={2} py={0}
                             >
-                                <WorkSummary />
-                                <WorkSummary />
-                                <WorkSummary />
+                                <WorkSummary data={{
+                                    employer: {
+                                        name: "NASA",
+                                        image: nasa
+                                    },
+                                    title: "Lead Product Designer",
+                                    yearStarted: "2016",
+                                    rankings: [
+                                        "leader",
+                                        "expert",
+                                        "advanced",
+                                        "experienced"
+                                    ]
+                                }}/>
+                                <WorkSummary data={{
+                                    employer: {
+                                        name: "Huawei",
+                                        image: huawei
+                                    },
+                                    title: "Lead Product Designer",
+                                    yearStarted: "2016",
+                                    rankings: [
+                                        "beginner",
+                                        "advanced",
+                                        "leader",
+                                        "expert",
+                                    ]
+                                }}/>
+                                <WorkSummary data={{
+                                    employer: {
+                                        name: "The North Face",
+                                        image: northface
+                                    },
+                                    title: "Volunteer Service",
+                                    yearStarted: "2016",
+                                    rankings: [
+                                        "experienced",
+                                        "advanced",
+                                        "leader",
+                                        "expert",
+                                    ]
+                                }}/>
                             </Section>
 
                             <Section 

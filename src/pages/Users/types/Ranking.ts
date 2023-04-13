@@ -1,0 +1,1 @@
+export type Ranking = 'leader' | 'expert' | 'beginner' | 'advanced' | 'experienced';

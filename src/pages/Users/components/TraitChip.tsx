@@ -1,11 +1,12 @@
 import { Chip, Grid, Typography } from "@mui/material"
 import { Box } from "@mui/system";
+import { Ranking } from "../types/Ranking";
 
 type Props = {
-    type: 'leader' | 'expert' | 'beginner' | 'advanced' | 'experienced'
+    type: Ranking
 }
 
-const traitChipLabels: Record<Props['type'], string> = {
+const traitChipLabels: Record<Ranking, string> = {
     'leader': 'Thought leader',
     'advanced': 'Advanced',
     'experienced': 'Experienced',
@@ -13,7 +14,7 @@ const traitChipLabels: Record<Props['type'], string> = {
     'beginner': 'Beginner',
 }
 
-const traitChipColors: Record<Props['type'], string> = {
+const traitChipColors: Record<Ranking, string> = {
     'leader': '#07AF22',
     'advanced': '#49B6FF',
     'experienced': '#F6C70E',
@@ -21,7 +22,7 @@ const traitChipColors: Record<Props['type'], string> = {
     'beginner': '#E75541',
 }
 
-const traitChipRankings: Record<Props['type'], string> = {
+const traitChipRankings: Record<Ranking, string> = {
     'leader': 'L',
     'advanced': 'A',
     'experienced': 'E',

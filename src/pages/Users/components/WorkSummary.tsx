@@ -4,26 +4,43 @@ import Image from "../../../components/Image";
 import CircleIcon from '@mui/icons-material/Circle';
 import DashIcon from "../../../assets/icons/DashIcon";
 
-import nasa from '../../../assets/images/nasa.png';
-
 import TraitChip from "./TraitChip";
+import { Ranking } from "../types/Ranking";
 
-const WorkSummary = () => (
+type MockWorkData = {
+    employer: {
+        name: string,
+        image?: string,
+    },
+    title: string,
+    yearStarted: string,
+    yearEnded?: string,
+    rankings: Ranking[]
+}
+
+type WorkSummaryProps = {
+    data: MockWorkData
+}
+
+const WorkSummary = ({data: {employer, title, yearStarted, yearEnded, rankings}}: WorkSummaryProps) => (
     <Grid container gap={2.5} py={1.5} alignItems="center" wrap="nowrap">
-        <Grid item>
-            <Image
-                src={nasa}
-                alt="NASA"
-                sx={{
-                    width: "80px",
-                    height: "80px",
-                    objectFit: "cover"
-                }}
-                border="3px #fff solid"
-                borderRadius={2}
-                display="block"
-            />
-        </Grid>
+        { employer.image && (
+            <Grid item>
+
+                <Image
+                    src={ employer.image }
+                    alt={ employer.name }
+                    sx={{
+                        width: "80px",
+                        height: "80px",
+                        objectFit: "cover"
+                    }}
+                    border="3px #fff solid"
+                    borderRadius={2}
+                    display="block"
+                />
+            </Grid>
+        )}
         <Grid item flexGrow={1}>
             <Typography
                 component="h4"
@@ -33,7 +50,7 @@ const WorkSummary = () => (
                 fontWeight={600}
                 mb={.5}
             >
-                Lead Product Designer
+                { title }
             </Typography>
             <Grid
                 container
@@ -49,7 +66,7 @@ const WorkSummary = () => (
                     fontSize={14}
                     fontWeight={400}
                 >
-                    NASA
+                    { employer.name }
                 </Typography>
                 <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
                 <Grid container alignItems="center" gap={.5}>
@@ -60,7 +77,7 @@ const WorkSummary = () => (
                             fontSize={14}
                             fontWeight={400}
                         >
-                            2016
+                            { yearStarted }
                         </Typography>
                             <DashIcon sx={{ fontSize: "16px" }} htmlColor="#494949" />
                         <Typography
@@ -70,15 +87,23 @@ const WorkSummary = () => (
                             fontSize={14}
                             fontWeight={400}
                         >
-                            Present
+                            { yearEnded || 'Present' }
                         </Typography>
                 </Grid>
             </Grid>
             <Grid container alignItems="center" gap={.75}>
-                    <TraitChip type="leader" />
-                    <TraitChip type="expert" />
-                    <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
-                    <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
+                {
+                    rankings.slice(0, 2).map(
+                        (ranking) => (
+                            <TraitChip type={ranking} />
+                        )
+                    )
+                }
+                {
+                    rankings.length > 2 && Array(Math.min(2, rankings.length - 2)).fill('').map(
+                        () => <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
+                    )
+                }
             </Grid>
         </Grid>
     </Grid>
