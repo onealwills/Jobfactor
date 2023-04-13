@@ -246,10 +246,6 @@ function ConnectionsPage() {
                             <MoreVertIcon />
                         </IconButton>
                     </Grid>
-                    <Grid item xs={1}>
-
-
-                    </Grid>
                 </Grid>
                 <Grid container mt={'20px'}>
                     <TableContainer component={Paper}>
