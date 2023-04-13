@@ -1,21 +1,9 @@
-import {
-    Box,
-    Typography,
-    Button,
-    FormGroup,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    FormLabel,
-    FormControl,
-} from '@mui/material';
-import { Link, Routes, Route } from 'react-router-dom';
+import { Box } from '@mui/material';
+import { Routes, Route } from 'react-router-dom';
 import OnBoardingSidePanel from '../../OnBoarding/OnBoardingSidePanel';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import OnboardingSteps from '../OnboardingSteps/OnboardingSteps1';
-import OnboardStepOne from '../OnboardingSteps/OnboardStepOne';
 import AccountType from './CreationSteps/AccountType';
-import { StateMachineProvider, createStore } from "little-state-machine";
+import { StateMachineProvider, createStore } from 'little-state-machine';
+import UserData from './CreationSteps/UserData';
 
 createStore({
     data: {
@@ -25,19 +13,18 @@ createStore({
         password: '',
         verifyEmail: false,
         profile: {
-            firstName: ''
-        }
-    }
-})
+            firstName: '',
+        },
+    },
+});
 
 function CreateAccount() {
-    
     // TODO
     // create each page in the steps for creating an account
     // Make a "wizard" for setting up accounts saving the data from each step in the local storage
     // // https://react-hook-form.com/advanced-usage/#WizardFormFunnel
     // call each step by the prop value passed through
-    
+
     return (
         <>
             <Box
@@ -72,32 +59,15 @@ function CreateAccount() {
                             flexDirection: 'column',
                         }}
                     >
-
                         <StateMachineProvider>
-
                             <Routes>
-                                <Route path="/" element={<AccountType/>} />
-                                
+                                <Route path="/" element={<AccountType />} />
+                                <Route
+                                    path="/userData"
+                                    element={<UserData />}
+                                />
                             </Routes>
-
                         </StateMachineProvider>
-                        {/* steps */}
-                        
-                        {/* <OnboardStepOne/> */}
-                        {/* Step 1 */}
-                        {/* <AccountType/> */}
-                        {/* Step 2 */}
-
-                        
-                        {/* Step 3 */}
-
-                        
-                        {/* Step 4 */}
-
-                        
-                        {/* Step 1 */}
-
-                        
                     </Box>
                 </Box>
             </Box>

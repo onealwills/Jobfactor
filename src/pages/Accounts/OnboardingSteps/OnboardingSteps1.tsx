@@ -3,6 +3,14 @@ import React from 'react';
 import RectangleLine from '../../../assets/icons/RectangleLine';
 
 function OnboardingSteps() {
+
+    const COLORS = {
+        accent: '#FFC24C', // yellow
+        success: '#07AF22', // green 
+        primary: '#D9D9D9', // grey
+        activeStep: '#FAFAFA' // text color, active step
+    }
+
     return (
         <>
             <Box

@@ -8,9 +8,8 @@ import {
     Radio,
     Button,
 } from '@mui/material';
-import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps1';
 import { useStateMachine } from 'little-state-machine';
 import updateAction from "./updateAction";
@@ -20,12 +19,14 @@ interface IAccountType {
 }
 
 function AccountType( props:any) {
-    const { control, register, handleSubmit } = useForm<IAccountType>();
+    const { control, register, handleSubmit, formState } = useForm<IAccountType>();
+    const { isDirty, isValid } = formState;
     const { actions } = useStateMachine({ updateAction });
+    let navigate = useNavigate();
     const onSubmit: SubmitHandler<IAccountType> = async (data) => {
         console.log(data);
         actions.updateAction(data);
-        // props.history.push("./createAccount");
+        navigate("./userData")
     };
     return (
         <>
@@ -62,15 +63,13 @@ function AccountType( props:any) {
                             {/* checkboxes */}
                         </FormLabel>
                         <Controller
+                            rules={{ required: true }}
                             control={control}
                             name='accountType'
                             render={({
-                                field: { onChange, value },
-                                fieldState: { error },
-                                formState,
+                                field: { onChange },
                             }) => (
                                 <RadioGroup
-                                    // value={value}
                                     onChange={onChange}
                                     aria-labelledby="account-type"
                                     name="accountType"
@@ -155,6 +154,7 @@ function AccountType( props:any) {
                             alignItems: 'center',
                         }}
                         onClick={handleSubmit(onSubmit)}
+                        disabled={!isDirty || !isValid}
                     >
                         Create Account
                     </Button>
