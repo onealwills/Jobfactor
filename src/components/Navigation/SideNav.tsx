@@ -79,7 +79,7 @@ const sideNavOptions = [
     {
         icon: LogoutIcon,
         label: 'Log out',
-        route: '/login',
+        route: '/logout',
     },
 ];
 

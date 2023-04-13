@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 
-function Settings() {
+function SettingsPage() {
     return (
         <Typography
             sx={{
@@ -21,4 +21,4 @@ function Settings() {
     );
 }
 
-export default Settings;
+export default SettingsPage;
