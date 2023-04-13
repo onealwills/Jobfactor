@@ -13,9 +13,10 @@ import InfoIcon from '../../assets/icons/InfoIcon';
 import JobFactorIcon from '../../assets/icons/JobFactorIcon';
 import PasswordFormIcon from '../../assets/icons/PasswordFormIcon';
 import profileReview from './../../assets/images/profileReview.png';
-import axios from 'axios';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../utils/context/AuthContext';
+import { useEffect } from 'react';
 
 interface ILoginForm {
     emailAddress: string;
@@ -31,19 +32,22 @@ const cardReiew =
 
 function Login() {
     let navigate = useNavigate();
+    const { signIn, isAuthenticated, accessToken } = useAuth();
+    const {
+        control,
+        handleSubmit,
+        formState: { isValid, errors },
+    } = useForm<ILoginForm>();
 
-    const { control, handleSubmit, formState: {isValid, errors} } = useForm<ILoginForm>();
+    useEffect(() => {
+        if (isAuthenticated && !!accessToken) {
+            navigate('/');
+        }
+    }, [isAuthenticated, accessToken]);
 
-    const headers = { headers: {'Content-Type': 'application/json'}}
-    
     const onSubmit: SubmitHandler<ILoginForm> = async (data) => {
-        console.log(data);
-        const res = await axios.post(baseUrl + '/sign-in', data, headers);
-        console.log(res);
-        if(res?.status === 200) { navigate("/") }
+        await signIn(data.emailAddress, data.password);
     };
-
-    const baseUrl = 'http://localhost:3000/authentication';
 
     return (
         <>
