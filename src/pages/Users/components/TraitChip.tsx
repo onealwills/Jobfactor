@@ -37,12 +37,13 @@ const TraitChip = ({ type }: Props) => {
     const ranking = traitChipRankings[type];
 
     return (<Chip
+        size="small"
         label={<Grid container wrap="nowrap" alignItems="center" gap={1}>
             <Typography 
                 component="span"
                 color="#FFFFFF"
                 fontFamily="open sans"
-                fontSize={14}
+                fontSize={12}
                 fontWeight={600}
                 lineHeight="1"
             >
@@ -75,6 +76,7 @@ const TraitChip = ({ type }: Props) => {
             fontFamily: "open sans",
             fontWeight: 500,
             fontSize: "14px",
+            height: "24px",
             borderRadius: "4px",
             letterSpacing: "0.001em",
         }}

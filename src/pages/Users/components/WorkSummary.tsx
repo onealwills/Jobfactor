@@ -31,8 +31,8 @@ const WorkSummary = ({data: {employer, title, yearStarted, yearEnded, rankings}}
                     src={ employer.image }
                     alt={ employer.name }
                     sx={{
-                        width: "80px",
-                        height: "80px",
+                        width: "64px",
+                        height: "64px",
                         objectFit: "cover"
                     }}
                     border="3px #fff solid"
@@ -65,6 +65,7 @@ const WorkSummary = ({data: {employer, title, yearStarted, yearEnded, rankings}}
                     fontFamily="open sans"
                     fontSize={14}
                     fontWeight={400}
+                    flexShrink={0}
                 >
                     { employer.name }
                 </Typography>
@@ -91,7 +92,7 @@ const WorkSummary = ({data: {employer, title, yearStarted, yearEnded, rankings}}
                         </Typography>
                 </Grid>
             </Grid>
-            <Grid container alignItems="center" gap={.75}>
+            <Grid container alignItems="center" gap={.75} wrap="nowrap">
                 {
                     rankings.slice(0, 2).map(
                         (ranking) => (
