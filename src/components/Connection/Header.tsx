@@ -99,8 +99,8 @@ const Header = (props: any) => {
           },
         }}
       >
-        {['A-Z', 'Z-A'].map((option: any) => (
-          <MenuItem key={option} onClick={() => sortData(option)}>
+        {['test', 'test'].map((option: any) => (
+          <MenuItem key={option} onClick={handleClose}>
             {option}
           </MenuItem>
         ))}
