@@ -1,7 +1,7 @@
 import { Grid, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import SelectDropdown from '../../../components/Selectdropdown';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import WestIcon from '@mui/icons-material/West';
-import SelectDropdown from '../Selectdropdown';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
@@ -73,14 +73,12 @@ const Header = (props: any) => {
             gap: '12px'
           }}
         >
-          {props?.showSort &&
-            <SelectDropdown
-              label="Sort"
-              options={['A-Z', 'Z-A']}
-              style={{ width: '91px', height: '50px' }}
-              handleChange={(e: any) => sortData(e.target.value)}
-            />
-          }
+          <SelectDropdown
+            label="Sort"
+            options={['A-Z', 'Z-A']}
+            style={{ width: '91px', height: '50px' }}
+            handleChange={(e: any) => sortData(e.target.value)}
+          />
           <IconButton
             onClick={handleClick}
           >
