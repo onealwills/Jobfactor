@@ -17,7 +17,7 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
     const location = useLocation();
 
-    return isAuthenticated ? (
+    return !isAuthenticated ? (
         <>{children}</>
     ) : (
         <Navigate to="/login" replace state={{ path: location.pathname }} />
