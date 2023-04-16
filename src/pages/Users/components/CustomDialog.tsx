@@ -29,9 +29,24 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2, display: "flex", alignItems: "center"}} {...other}>
+    <DialogTitle
+      sx={{
+        m: 0,
+        p: 2,
+        display: "flex",
+        alignItems: "center"
+      }} 
+      {...other}
+    >
       <Box flexGrow={1}>
-        {children}
+        <Typography
+          component="h6"
+          fontSize={20}
+          fontWeight="600"
+          fontFamily="open sans"
+        >
+          {children}
+        </Typography>
       </Box>
       {onClose ? (
         <IconButton
@@ -43,7 +58,7 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
             color: '#FFFFFF',
           }}
         >
-          <CloseIcon />
+          <CloseIcon fontSize="small" />
         </IconButton>
       ) : null}
     </DialogTitle>
