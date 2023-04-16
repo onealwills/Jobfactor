@@ -25,6 +25,7 @@ import huawei from '../../assets/images/huawei.png'
 import northface from '../../assets/images/northface.png';
 
 import Progress from '../Home/components/Progress';
+import CustomDialog from './components/CustomDialog';
 import InfoChip from './components/InfoChip';
 import Section from './components/Section';
 import SectionHeading from './components/SectionHeading';
@@ -632,6 +633,7 @@ function UsersPage() {
                     </Grid>
                 </Grid>
             </Grid>
+            <CustomDialog /> 
         </Container>
     );
 }
