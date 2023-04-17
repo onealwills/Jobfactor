@@ -35,7 +35,7 @@ function HomePage() {
                     <FeedList />
                 </Grid>
                 <Grid item sx={{ minWidth: '370px' }}>
-                    <CardWrapper title='Suggesstions' tooltipText={"We offer suggestions to you based on your preferences to help improve your profile."}>
+                    <CardWrapper title='Suggestions' tooltipText={"We offer suggestions to you based on your preferences to help improve your profile."}>
                         <>
                             <CardBox
                                 title="Rate your company"
