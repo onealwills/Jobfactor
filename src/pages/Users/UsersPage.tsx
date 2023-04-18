@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import NavBase from '../../components/Navigation/NavBase';
 
 function UsersPage() {
     return (

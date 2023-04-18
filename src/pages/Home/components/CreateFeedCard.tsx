@@ -14,10 +14,10 @@ function CreateFeedCard() {
             }}
         >
             <Box sx={{ display: 'flex', gap: '16px' }}>
-                <img height={72} width={72} src={SideNavProfile} alt="icon" />
+                <img height={72} width={72} src={SideNavProfile} alt='icon' />
                 <InputBase
                     rows={4}
-                    defaultValue="What’s happening?"
+                    defaultValue='What’s happening?'
                     sx={{
                         backgroundColor: '#FCFBF8',
                         width: '100%',
@@ -50,9 +50,9 @@ function CreateFeedCard() {
                         }}
                     >
                         <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="photo"
+                            edge='start'
+                            color='inherit'
+                            aria-label='photo'
                         >
                             <PhotoIcon />
                         </IconButton>
@@ -66,9 +66,9 @@ function CreateFeedCard() {
                         }}
                     >
                         <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="photo"
+                            edge='start'
+                            color='inherit'
+                            aria-label='photo'
                         >
                             <VideoIcon />
                         </IconButton>
@@ -82,9 +82,9 @@ function CreateFeedCard() {
                         }}
                     >
                         <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="photo"
+                            edge='start'
+                            color='inherit'
+                            aria-label='photo'
                         >
                             <ArticleIcon />
                         </IconButton>
@@ -92,19 +92,8 @@ function CreateFeedCard() {
                     </Box>
                 </Box>
                 <Button
-                    sx={{
-                        backgroundColor: '#05668D',
-                        color: 'white',
-                        textTransform: 'none',
-                        paddingX: '32px',
-                        paddingY: '10px',
-                        fontWeight: 700,
-                        fontSize: 16,
-                        '&:hover': {
-                            backgroundColor: '#05668D',
-                            color: 'white',
-                        },
-                    }}
+                    variant='contained'
+                    sx={{ maxWidth: 100, py:1 }}
                 >
                     Post
                 </Button>
@@ -112,4 +101,5 @@ function CreateFeedCard() {
         </Box>
     );
 }
+
 export default CreateFeedCard;

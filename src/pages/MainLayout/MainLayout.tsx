@@ -35,11 +35,9 @@ const drawerWidth = 240;
 
 function MainLayout(props: { children: React.ReactNode }) {
     const { children } = props;
-
     return (
         <Box sx={{ display: 'flex' }}>
             <JobfactorAppBar />
-
             <Drawer
                 sx={{
                     width: drawerWidth,
@@ -47,11 +45,12 @@ function MainLayout(props: { children: React.ReactNode }) {
                     '& .MuiDrawer-paper': {
                         width: drawerWidth,
                         borderRight: '0px',
-                        height: 775,
+                        height: 815,
                         ml: 3,
                         mt: 13,
                         pt: 0,
                         pb: 0,
+                        position:'relative'
                     },
                 }}
                 variant="permanent"
@@ -104,7 +103,9 @@ function MainLayout(props: { children: React.ReactNode }) {
                     sx={{
                         overflow: 'auto',
                         mt: -0.5,
-                        height: 'calc(100vh - 300px)',
+                        padding:'12px',
+                        paddingTop: "6px",
+                        overflowY: 'hidden'
                     }}
                 >
                     <SideNav />
