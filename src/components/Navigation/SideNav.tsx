@@ -11,10 +11,9 @@ import SupportIcon from '../../assets/icons/SupportIcon';
 import LogoutIcon from '../../assets/icons/LogoutIcon';
 import SideNavItem from './SideNavItem';
 import { styled } from '@mui/material/styles';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
-import ArrowLeftRoundedIcon from '@mui/icons-material/ArrowLeftRounded';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Submenu from '../Submenu';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     open?: boolean;
@@ -34,7 +33,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
         marginLeft: 0,
     }),
 }));
-const sideNavOptions = [
+
+const sideNavOptions: Menu[] = [
     {
         icon: HomeIcon,
         label: 'Home',
@@ -44,11 +44,51 @@ const sideNavOptions = [
         icon: UserIcon,
         label: 'Profile',
         route: '/users',
+        submenu: [
+            {
+                label: "Profile",
+                route: "",
+            },
+            {
+                label: 'About me',
+                route: '/about-me',
+            },
+            {
+                label: 'Activities',
+                route: '/activities',
+            },
+            {
+                label: 'Jobfactor Score',
+                route: '/jobfactor-score',
+            },
+            {
+                label: 'News & products',
+                route: '/news-products',
+            },
+            {
+                label: 'Employees',
+                route: '/employees',
+            },
+        ]
     },
     {
         icon: UserIcon2,
         label: 'Connections',
         route: '/connections',
+        submenu: [
+            {
+                label: "Community",
+                route: "",
+            },
+            {
+                label: 'My followers',
+                route: '/connections',
+            },
+            {
+                label: 'Pending followers',
+                route: '/pending-connections',
+            }
+        ]
     },
     {
         icon: BriefCaseIcon,
@@ -89,16 +129,35 @@ const sideNavOptions = [
 
 function SideNav() {
     const location = useLocation();
-    const navigate = useNavigate();
     const [hideMenu, setHideMenu] = useState(false);
+    const [menuIndex, setMenuIndex] = useState(0);
+    const [subMenuIndex, setSubMenuIndex] = useState(0);
 
+    const handleActiveMenu = () => {
+        let subMenuActive = false;
+        sideNavOptions.forEach((x: Menu, i: number) => {
+            if (location.pathname === x.route) {
+                setMenuIndex(i);
+                if (x.submenu) {
+                    subMenuActive = true;
+                }
+            } else if (x.submenu) {
+                x.submenu.forEach((y, j: number) => {
+                    if (location.pathname === y.route) {
+                        setMenuIndex(i);
+                        setSubMenuIndex(j);
+                        subMenuActive = true;
+                    }
+                })
+            }
+        });
+
+        setHideMenu(subMenuActive);
+    }
     useEffect(() => {
-        if (location.pathname === '/connections' || location.pathname === '/pending-connections') {
-            setHideMenu(true);
-        } else {
-            setHideMenu(false);
-        }
+        handleActiveMenu();
     }, [location.pathname]);
+
     return (
         <>
             <Box
@@ -115,77 +174,27 @@ function SideNav() {
                         overflow: hideMenu ? 'hidden' : 'unset',
                     }}
                 >
-                    {sideNavOptions.map((nav, index) => (
-                        <SideNavItem nav={nav} index={index} key={index} />
+                    {sideNavOptions.map((nav: Menu, index: number) => (
+                        <SideNavItem hideMenu={hideMenu} currentItem={sideNavOptions[menuIndex]} subMenuIndex={subMenuIndex} handleActiveMenu={handleActiveMenu} nav={nav} index={index} key={index} />
                     ))}
                 </Box>
-                <Box sx={{ background: '#FCFBF8', width: '100%', borderRadius: '4px',display: hideMenu ? 'block' : 'none' }}>
-                    <Button
-                        variant='contained'
-                        sx={{
-                            backgroundColor: 'transparent',
-                            boxShadow: 'none',
-                            color: '#494949',
-                            fontFamily: 'Open Sans',
-                            fontWeight: '700',
-                            fontSize: '14px',
-                            width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: '12px',
-                            '&:hover': {
-                                backgroundColor: '#FFFAF1',
-                                boxShadow: 'none',
-                            }
-                        }}
-                        onClick={() => setHideMenu(false)}
-                    >
-                        COMMUNITY
-                        <ArrowLeftRoundedIcon sx={{ color: '#808080', fontSize: '20px' }} />
-                    </Button>
-                    <Box
-                        sx={{
-                            p: '10px 16px',
-                            fontFamily: 'Open Sans',
-                            '&:hover, &:focus': {
-                                backgroundColor: location.pathname === '/connections' ? '#05668D' : '#FFFAF1',
-                                cursor: 'pointer',
-                                fontWeight: 700,
-                                color: location.pathname === '/connections' ? '#FFFFFF' : '#05668D',
-                            },
-                            backgroundColor: location.pathname === '/connections' ? '#05668D' : 'transparent',
-                            fontWeight: location.pathname === '/connections' ? '700' : '400',
-                            fontSize: '14px',
-                            color: location.pathname === '/connections' ? '#FFFFFF' : '#808080',
-                        }}
-                        onClick={() => navigate('/connections')}
-                    >
-                        My followers
-                    </Box>
-                    <Box
-                        onClick={() => navigate('/pending-connections')}
-                        sx={{
-                            p: '10px 16px',
-                            fontFamily: 'Open Sans',
-                            fontSize: '14px',
-                            '&:hover, &:focus': {
-                                backgroundColor: location.pathname === '/pending-connections' ? '#05668D' : '#FFFAF1',
-                                cursor: 'pointer',
-                                fontWeight: 700,
-                                color: location.pathname === '/pending-connections' ? '#FFFFFF' : '#05668D',
-                            },
-                            backgroundColor: location.pathname === '/pending-connections' ? '#05668D' : 'transparent',
-                            color: location.pathname === '/pending-connections' ? '#FFFFFF' : '#808080',
-                            fontWeight: location.pathname === '/pending-connections' ? '700' : '400',
-                        }}
-                    >
-                        Pending followers
-                    </Box>
-                </Box>
+                <Submenu
+                    setHideMenu={setHideMenu}
+                    hideMenu={hideMenu}
+                    options={sideNavOptions[menuIndex].submenu ?? []}
+                />
             </Box>
         </>
     );
 }
-
+export interface Menu {
+    label: string;
+    route: string;
+    icon: (props: { isHover: boolean; isSelected: boolean }) => JSX.Element;
+    submenu?: item[];
+}
+export type item = {
+    route: string;
+    label: string;
+}
 export default SideNav;
