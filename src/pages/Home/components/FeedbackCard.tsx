@@ -45,25 +45,8 @@ function FeedbackCard() {
                     achievement.
                 </Typography>
             </Box>
-            <Button
-                disableRipple
-                sx={{
-                    backgroundColor: '#FCFBF8',
-                    border: '1px solid #05668D',
-                    borderRadius: '8px',
-                    width: '100%',
-                    mt: '24px',
-                }}
-            >
-                <Typography
-                    color={'#05668D'}
-                    fontFamily="open sans"
-                    fontWeight={600}
-                    fontSize={14}
-                    sx={{ textTransform: 'none', py: 1 }}
-                >
-                    Ok, give review
-                </Typography>
+            <Button sx={{mt: 2.9, py: 1.5}} variant='outlined'>
+                Ok, give review
             </Button>
         </Box>
     );

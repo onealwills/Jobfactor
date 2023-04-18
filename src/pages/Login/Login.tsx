@@ -138,9 +138,9 @@ function Login() {
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <img
                                     src={profileReview}
-                                    alt="Reviewer Avatar"
-                                    height="64"
-                                    width="64"
+                                    alt='Reviewer Avatar'
+                                    height='64'
+                                    width='64'
                                 ></img>
                                 <Box sx={{ ml: '16px' }}>
                                     <Typography
@@ -203,7 +203,7 @@ function Login() {
                                 fontFamily={'open sans'}
                                 fontWeight={'600'}
                                 fontSize={'32px'}
-                                color="#23282B"
+                                color='#23282B'
                             >
                                 Welcome back,
                             </Typography>
@@ -220,19 +220,19 @@ function Login() {
                                             zIndex: 1,
                                             fontFamily: 'Open Sans',
                                         }}
-                                        htmlFor="email"
+                                        htmlFor='email'
                                     >
                                         Email
                                     </InputLabel>
                                     {/* Email Address Input */}
                                     <Controller
-                                        name="emailAddress"
+                                        name='emailAddress'
                                         control={control}
                                         render={({
-                                            field: { onChange, value },
-                                            fieldState: { error },
-                                            formState,
-                                        }) => (
+                                                     field: { onChange, value },
+                                                     fieldState: { error },
+                                                     formState,
+                                                 }) => (
                                             <InputBase
                                                 required
                                                 onChange={onChange}
@@ -244,7 +244,7 @@ function Login() {
                                                     },
                                                     inputMode: 'email',
                                                 }}
-                                                id="email"
+                                                id='email'
                                                 startAdornment={
                                                     <EmailFormIcon />
                                                 }
@@ -281,19 +281,19 @@ function Login() {
                                             zIndex: 1,
                                             fontFamily: 'Open Sans',
                                         }}
-                                        htmlFor="password"
+                                        htmlFor='password'
                                     >
                                         Password
                                     </InputLabel>
                                     {/* Password Input */}
                                     <Controller
-                                        name="password"
+                                        name='password'
                                         control={control}
                                         render={({
-                                            field: { onChange, value },
-                                            fieldState: { error },
-                                            formState,
-                                        }) => (
+                                                     field: { onChange, value },
+                                                     fieldState: { error },
+                                                     formState,
+                                                 }) => (
                                             <InputBase
                                                 required
                                                 onChange={onChange}
@@ -305,14 +305,14 @@ function Login() {
                                                         autoComplete: 'off',
                                                     },
                                                 }}
-                                                name="password"
-                                                id="password"
+                                                name='password'
+                                                id='password'
                                                 startAdornment={
                                                     <PasswordFormIcon />
                                                 }
                                                 rows={1}
                                                 placeholder={'*********'}
-                                                type="password"
+                                                type='password'
                                                 sx={{
                                                     backgroundColor: '#FFFFFF',
                                                     width: '100%',
@@ -380,7 +380,7 @@ function Login() {
                                             return ( */}
                                     <Checkbox
                                         checked
-                                        name="Remember me?"
+                                        name='Remember me?'
                                         inputProps={{
                                             'aria-label': 'Remember Me?',
                                         }}
@@ -427,26 +427,12 @@ function Login() {
                             }}
                         >
                             <Button
-                                sx={{
-                                    backgroundColor: '#05668D',
-                                    color: '#FFFFFF',
-                                    borderRadius: '8px',
-                                    width: '89%',
-                                    padding: '16px, 36px, 16px, 36px',
-                                    height: '52px',
-                                }}
-                                variant="contained"
+                                sx={{ py: 1.5, width: '90%' }}
+                                variant='contained'
                                 disabled={!isValid}
                                 onClick={handleSubmit(onSubmit)}
                             >
-                                <Typography
-                                    fontSize={'16px'}
-                                    fontWeight={700}
-                                    fontStyle={'bold'}
-                                    textTransform="capitalize"
-                                >
-                                    Login
-                                </Typography>
+                                Login
                             </Button>
 
                             <Box
@@ -483,20 +469,12 @@ function Login() {
                             </Box>
 
                             <Button
-                                variant="outlined"
+                                sx={{ py: 1.5, width: '90%', mt: 1 }}
+                                variant='outlined'
                                 startIcon={<GoogleIcon />}
-                                sx={{
-                                    color: '#05668D',
-                                    borderRadius: '8px',
-                                    width: '89%',
-                                    padding: '16px, 36px, 16px, 36px',
-                                    height: '52px',
-                                    textTransform: 'capitalize',
-                                }}
+
                             >
-                                <Typography fontWeight={'600'}>
-                                    Sign in with google
-                                </Typography>
+                                Sign in with google
                             </Button>
                             <Box
                                 sx={{
