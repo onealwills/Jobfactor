@@ -1,8 +1,8 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import Pagination from '../../../components/Pagination'
 
-const TableWrapper = (props: any) => {
-    const { data, rowsPerPage, page, handleChangePage, activeTab, tab, children } = props;
+const TableWrapper = (props: PropTypes) => {
+    const { data, rowsPerPage, handleChangePage, activeTab, tab, children } = props;
     return (
         <TableContainer
             component={Paper}
@@ -21,7 +21,6 @@ const TableWrapper = (props: any) => {
                             <Pagination
                                 count={Math.ceil(data.length / rowsPerPage)}
                                 handleChangePage={handleChangePage}
-                                page={page + 1}
                             />
                         </TableCell>
                     </TableRow>
@@ -30,5 +29,12 @@ const TableWrapper = (props: any) => {
         </TableContainer>
     )
 }
-
+interface PropTypes {
+    data: Array<Object>;
+    rowsPerPage: number;
+    activeTab: string;
+    tab: string;
+    children: React.ReactNode;
+    handleChangePage: (page: number) => void
+}
 export default TableWrapper

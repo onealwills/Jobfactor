@@ -1,5 +1,4 @@
-import { Paper, Table, TableBody, TableContainer, TableRow } from '@mui/material';
-import CustomButton from '../../../components/Button';
+import { Button, Paper, Table, TableBody, TableContainer, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
 
 const tabStyles = {
@@ -11,10 +10,11 @@ const tabStyles = {
     ':hover': {
         boxShadow: 'none',
         color: 'white',
+        background: '#05668D'
     }
 }
 
-const Tabs = (props: any) => {
+const Tabs = (props: PropTypes) => {
     const { tab, changeTab } = props;
     return (
         <TableContainer
@@ -28,24 +28,26 @@ const Tabs = (props: any) => {
                 <TableBody>
                     <TableRow>
                         <Box sx={{ margin: '40px', marginBottom: '10px' }}>
-                            <CustomButton
-                                style={{
+                            <Button
+                                sx={{
                                     background: tab === 'sent' ? '#055C7F' : '#EDEDED',
                                     color: tab === 'sent' ? '#FFFFFF' : '#23282B',
+                                    fontSize: '14px',
+                                    textTransform: 'capitalize',
                                     ...tabStyles
                                 }}
                                 onClick={() => changeTab('sent')}
-                                title="Sent"
-                            />
-                            <CustomButton
-                                style={{
+                            >Sent</Button>
+                            <Button
+                                sx={{
                                     background: tab === 'received' ? '#055C7F' : '#EDEDED',
                                     color: tab === 'received' ? '#FFFFFF' : '#23282B',
+                                    fontSize: '14px',
+                                    textTransform: 'capitalize',
                                     ...tabStyles
                                 }}
                                 onClick={() => changeTab('received')}
-                                title="Received"
-                            />
+                            >Received</Button>
                         </Box>
                     </TableRow>
                 </TableBody>
@@ -53,5 +55,8 @@ const Tabs = (props: any) => {
         </TableContainer>
     )
 }
-
+interface PropTypes {
+    tab: string;
+    changeTab: (type: string) => void
+}
 export default Tabs

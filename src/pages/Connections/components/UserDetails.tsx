@@ -1,5 +1,5 @@
 import { Avatar, Box, Typography } from '@mui/material';
-const UserDetails = (props: any) => {
+const UserDetails = (props: PropTypes) => {
     const { user } = props;
     return (
         <>
@@ -42,7 +42,7 @@ const UserDetails = (props: any) => {
                             border: '2px solid #494949',
                         }}
                     />
-                    {user.designation &&
+                    {user.designation ?
                         <>
                             <Typography
                                 sx={{
@@ -60,7 +60,7 @@ const UserDetails = (props: any) => {
                                     border: '2px solid #494949',
                                 }}
                             />
-                        </>
+                        </> : null
                     }
                     <Typography
                         sx={{
@@ -78,5 +78,14 @@ const UserDetails = (props: any) => {
         </>
     )
 }
-
+interface PropTypes {
+    user: User;
+}
+type User = {
+    points: number;
+    name: string;
+    organization: string;
+    designation: string;
+    image: string;
+}
 export default UserDetails

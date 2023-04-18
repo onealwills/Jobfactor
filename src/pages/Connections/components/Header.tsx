@@ -5,7 +5,7 @@ import WestIcon from '@mui/icons-material/West';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
-const Header = (props: any) => {
+const Header = (props: PropTypes) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
@@ -17,14 +17,14 @@ const Header = (props: any) => {
     setAnchorEl(null);
   };
   const sortData = (type: string) => {
-    let sortedData = null
+    let sortedData: Array<Object> = []
     if (type === 'A-Z') {
-      sortedData = [...props?.data].sort((a, b) =>
+      sortedData = [...props.data].sort((a, b) =>
         a.name > b.name ? 1 : -1,
       );
     }
     if (type === 'Z-A') {
-      sortedData = [...props?.data].sort((a, b) =>
+      sortedData = [...props.data].sort((a, b) =>
         a.name > b.name ? -1 : 1,
       );
     }
@@ -106,5 +106,11 @@ const Header = (props: any) => {
     </>
   )
 }
-
+interface PropTypes {
+  data: data[];
+  setUsers: (data: Object[]) => void;
+}
+type data = {
+  name: string;
+}
 export default Header

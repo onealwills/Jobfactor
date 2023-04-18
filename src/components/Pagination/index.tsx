@@ -12,15 +12,12 @@ const List = styled('ul')({
 });
 
 const Pagination = (props: any) => {
-    const { items, } = usePagination({
+    const { items } = usePagination({
         count: props?.count ?? 10,
         onChange(event, page) {
             props.handleChangePage(page)
         },
     });
-    let children: any = [];
-    let next: any = null;
-    let previos: any = null;
 
     return (
         <nav
@@ -29,73 +26,23 @@ const Pagination = (props: any) => {
             <List
                 sx={{ justifyContent: 'space-between', padding: '0px 40px' }}
             >
-                {items.map(({ page, type, selected, ...item }, index) => {
-                    if (type === 'start-ellipsis' || type === 'end-ellipsis') {
-                        children.push(<li key={index}>...</li>)
-                    } else if (type === 'page') {
-                        children.push(<li key={index}>
-                            <Button
-                                variant='contained'
-                                sx={{
-                                    fontWeight: selected ? 'bold' : undefined,
-                                    background: selected ? '#05668D' : 'white',
-                                    minWidth: '30px',
-                                    padding: '1px 0px',
-                                    borderRadius: '100px',
-                                    color: selected ? '#EDEDED' : '#808080',
-                                    boxShadow: 'none',
-                                    ':hover': {
-                                        color: 'white',
-                                        background: '#05668D',
-                                    }
-                                }}
-                                {...item}
-                            >
-                                {page}
-                            </Button>
-                        </li>)
-                    } else {
-                        if (type === 'next') {
-                            next = <li key={index}>
-                                <Button {...item}
-                                    variant='contained'
-                                    sx={{
-                                        background: '#FCFBF8',
-                                        color: '#05668D',
-                                        boxShadow: 'none',
-                                        ':hover': {
-                                            color: 'white',
-                                            background: '#05668D',
-                                        }
-                                    }}
-                                    endIcon={<ArrowForwardIcon />}
-                                >
-                                    {type}
-                                </Button>
-                            </li>
-                        } else {
-                            previos = <li key={index}>
-                                <Button {...item}
-                                    variant='contained'
-                                    sx={{
-                                        background: '#FCFBF8',
-                                        color: '#05668D',
-                                        boxShadow: 'none',
-                                        ':hover': {
-                                            color: 'white',
-                                            background: '#05668D',
-                                        }
-                                    }}
-                                    startIcon={<ArrowBackIcon />}
-                                >
-                                    {type}
-                                </Button>
-                            </li>
-                        }
-
-                    }
-                })}
-                {previos}
+                {items.filter(({ type }) => type === 'previous').map(({  type, ...item }, index) => <li key={index}>
+                    <Button {...item}
+                        variant='contained'
+                        sx={{
+                            background: '#FCFBF8',
+                            color: '#05668D',
+                            boxShadow: 'none',
+                            ':hover': {
+                                color: 'white',
+                                background: '#05668D',
+                            }
+                        }}
+                        startIcon={<ArrowBackIcon />}
+                    >
+                        {type}
+                    </Button>
+                </li>)}
                 <Box
                     sx={{
                         display: 'flex',
@@ -103,9 +50,46 @@ const Pagination = (props: any) => {
                         gap: '14px'
                     }}
                 >
-                    {children}
+                    {items.filter(({ type }) => type === 'start-ellipsis' || type === 'end-ellipsis').map((_, index) => <li key={index}>...</li>)}
+                    {items.filter(({ type }) => type === 'page').map(({ page, type, selected, ...item }, index) => <li key={index}>
+                        <Button
+                            variant='contained'
+                            sx={{
+                                fontWeight: selected ? 'bold' : undefined,
+                                background: selected ? '#05668D' : 'white',
+                                minWidth: '30px',
+                                padding: '1px 0px',
+                                borderRadius: '100px',
+                                color: selected ? '#EDEDED' : '#808080',
+                                boxShadow: 'none',
+                                ':hover': {
+                                    color: 'white',
+                                    background: '#05668D',
+                                }
+                            }}
+                            {...item}
+                        >
+                            {page}
+                        </Button>
+                    </li>)}
                 </Box>
-                {next}
+                {items.filter(({ type }) => type === 'next').map(({ type, ...item }, index) => <li key={index}>
+                    <Button {...item}
+                        variant='contained'
+                        sx={{
+                            background: '#FCFBF8',
+                            color: '#05668D',
+                            boxShadow: 'none',
+                            ':hover': {
+                                color: 'white',
+                                background: '#05668D',
+                            }
+                        }}
+                        endIcon={<ArrowForwardIcon />}
+                    >
+                        {type}
+                    </Button>
+                </li>)}
             </List>
         </nav>
     );

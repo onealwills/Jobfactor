@@ -1,5 +1,5 @@
 import { Typography, Box } from '@mui/material';
-const ExperienceLevel = (props: any) => {
+const ExperienceLevel = (props: PropTypes) => {
     return (
         <Box>
             <Typography
@@ -28,5 +28,9 @@ const ExperienceLevel = (props: any) => {
         </Box>
     )
 }
-
+interface PropTypes {
+    background: string;
+    title: string;
+    shortForm: string
+}
 export default ExperienceLevel;

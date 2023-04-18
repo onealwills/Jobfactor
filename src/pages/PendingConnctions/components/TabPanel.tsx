@@ -3,12 +3,11 @@ import ExperienceLevel from "./ExperienceLevel";
 import TableWrapper from "./TableWrapper";
 import UserActions from "./UserActions";
 import UserDetails from "./UserDetails";
-import PropTypes from 'prop-types';
 import React from "react";
 
 const experienceLevels = [{ background: "#E75541", title: "Begineer", shortForm: "B" }, { background: "#F6C70E", title: "Mobile Int", shortForm: "E" }, { background: "#49B6FF", title: "Customer Experience Design", shortForm: "A" }, { background: "#95C97A", title: "Expert", shortForm: "X" }]
 
-const TabPanel = (props: any) => {
+const TabPanel = (props: TabProps) => {
     const { tab, data, activeTab } = props;
     const [page, setPage] = React.useState(0);
     const rowsPerPage = 8;
@@ -22,7 +21,6 @@ const TabPanel = (props: any) => {
             data={data}
             handleChangePage={handleChangePage}
             rowsPerPage={rowsPerPage}
-            page={page}
         >
 
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user: any, index: number) => (
@@ -60,12 +58,10 @@ const TabPanel = (props: any) => {
         </TableWrapper >
     );
 }
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    tab: PropTypes.string,
-    data: PropTypes.array,
-    activeTab: PropTypes.string
-};
+interface TabProps {
+    data: Array<Object>;
+    activeTab: string;
+    tab: string;
+}
 
 export default TabPanel;

@@ -1,7 +1,6 @@
-import { Box, Typography } from '@mui/material';
-import CustomButton from '../../../components/Button';
+import { Box, Button, Typography } from '@mui/material';
 
-const UserActions = (props: any) => {
+const UserActions = (props: PropTypes) => {
     const { user, tab } = props;
     return (
         <Box
@@ -22,19 +21,44 @@ const UserActions = (props: any) => {
                     mb: '10px'
                 }}
             >{user.days} days</Typography>
-            <CustomButton
-                title={tab === 'sent' ? "Withdraw" : 'Ignore'}
+            <Button
                 variant='outlined'
-                style={{ color: "#05668D" }}
-            />
+                sx={{
+                    borderRadius: '8px',
+                    padding: "10px 36px",
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    textTransform: 'capitalize',
+                    boxShadow: 'none',
+                    color: "#05668D"
+                }}
+            >{tab === 'sent' ? "Withdraw" : 'Ignore'}</Button>
             {tab === 'received' &&
-                <CustomButton
-                    title="Add"
-                    style={{ background: '#05668D', border: '1px solid #05668D', color: "#FFFFFF" }}
-                />
+                <Button
+                    sx={{
+                        borderRadius: '8px',
+                        background: '#05668D',
+                        padding: "10px 36px",
+                        border: '1px solid #05668D',
+                        color: "#FFFFFF",
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        textTransform: 'capitalize',
+                        boxShadow: 'none',
+                        ':hover': {
+                            background: '#05668D'
+                        }
+                    }}
+                >Add</Button>
             }
         </Box>
     )
 }
-
+interface PropTypes {
+    user: User;
+    tab: string;
+}
+type User = {
+    days: number;
+}
 export default UserActions

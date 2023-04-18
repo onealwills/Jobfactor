@@ -155,7 +155,7 @@ const data = [
 const experienceLevels = [{ background: "#E75541", title: "Begineer", shortForm: "B" }, { background: "#F6C70E", title: "Mobile Int", shortForm: "E" }, { background: "#49B6FF", title: "Customer Experience Design", shortForm: "A" }, { background: "#95C97A", title: "Expert", shortForm: "X" }]
 
 function ConnectionsPage() {
-    const [users, setUsers]: any[] = React.useState([]);
+    const [users, setUsers]= React.useState<Array<Object>>([]);
     const [page, setPage] = React.useState(0);
     const rowsPerPage = 8;
 

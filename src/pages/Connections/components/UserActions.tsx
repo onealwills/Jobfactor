@@ -1,6 +1,5 @@
-import CustomButton from '../../../components/Button';
-import { Box, Typography } from '@mui/material';
-const UserActions = (props: any) => {
+import { Box, Button, Typography } from '@mui/material';
+const UserActions = (props: PropTypes) => {
     const { user } = props;
     return (
         <Box
@@ -21,17 +20,41 @@ const UserActions = (props: any) => {
                     mb: '10px'
                 }}
             >{user.days} days</Typography>
-            <CustomButton
-                title="Withdraw"
+            <Button
                 variant='outlined'
-                style={{ color: "#05668D" }}
-            />
-            <CustomButton
-                title="Message"
-                style={{ background: '#05668D', border: '1px solid #05668D', color: "#FFFFFF" }}
-            />
+                sx={{
+                    borderRadius: '8px',
+                    padding: "10px 36px",
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    textTransform: 'capitalize',
+                    boxShadow: 'none',
+                    color: "#05668D"
+                }}
+            >Withdraw</Button>
+            <Button
+                sx={{
+                    borderRadius: '8px',
+                    padding: "10px 36px",
+                    border: '1px solid #05668D',
+                    background: '#05668D',
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    textTransform: 'capitalize',
+                    boxShadow: 'none',
+                    color: "#FFFFFF",
+                    ':hover': {
+                        background: '#05668D'
+                    }
+                }}
+            >Message</Button>
         </Box>
     )
 }
-
+interface PropTypes {
+    user: User;
+}
+type User = {
+    days: number;
+}
 export default UserActions

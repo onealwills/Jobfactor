@@ -4,7 +4,7 @@ import WestIcon from '@mui/icons-material/West';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
-const Header = (props: any) => {
+const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
