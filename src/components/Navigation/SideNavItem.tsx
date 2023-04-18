@@ -1,7 +1,8 @@
 import { Box } from '@mui/system';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useHover from '../../utils/hooks/useHover';
+import { useHover } from 'usehooks-ts';
+import { useAuth } from '../../utils/context/AuthContext';
 
 export default function SideNavItem(props: {
     nav: {
@@ -17,6 +18,7 @@ export default function SideNavItem(props: {
     const { nav, index } = props;
     const navigate = useNavigate();
     const location = useLocation();
+    const { signOut } = useAuth();
 
     useEffect(() => {
         if (nav.route === location.pathname) {
@@ -27,8 +29,13 @@ export default function SideNavItem(props: {
     }, [location.pathname, nav.route]);
 
     const handleClick = () => {
-        navigate(nav.route);
-        setIsSelected(true);
+        if (nav.route === '/logout') {
+            signOut();
+            navigate('/login');
+        } else {
+            navigate(nav.route);
+            setIsSelected(true);
+        }
     };
 
     return (
@@ -43,7 +50,7 @@ export default function SideNavItem(props: {
                 alignItems: 'center',
                 gap: '10px',
                 p: 1,
-                paddingLeft: "12px",
+                paddingLeft: '12px',
                 position: 'relative',
                 '&:hover, &:focus': {
                     backgroundColor: '#FFFAF1',
