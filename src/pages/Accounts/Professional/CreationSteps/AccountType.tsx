@@ -18,15 +18,15 @@ interface IAccountType {
     accountType: string;
 }
 
-function AccountType( props:any) {
-    const { control, register, handleSubmit, formState } = useForm<IAccountType>();
+function AccountType() {
+    const { control, handleSubmit, formState } = useForm<IAccountType>();
     const { isDirty, isValid } = formState;
     const { actions } = useStateMachine({ updateAction });
     let navigate = useNavigate();
     const onSubmit: SubmitHandler<IAccountType> = async (data) => {
         console.log(data);
         actions.updateAction(data);
-        navigate("./userData")
+        navigate("./userCreate")
     };
     return (
         <>

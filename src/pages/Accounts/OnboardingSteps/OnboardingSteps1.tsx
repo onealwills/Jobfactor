@@ -11,6 +11,11 @@ function OnboardingSteps() {
         activeStep: '#FAFAFA' // text color, active step
     }
 
+
+    // TODO refactor these steps to use react stepper here:
+    // https://mui.com/material-ui/react-stepper/
+    // Make each step change the color and clickable
+
     return (
         <>
             <Box

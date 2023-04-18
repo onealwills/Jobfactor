@@ -62,7 +62,7 @@ function App() {
                             }
                         />
                         <Route
-                            path="create-professional-account/*"
+                            path="create-account/*"
                             element={
                                 <CreateAccount />
                             }

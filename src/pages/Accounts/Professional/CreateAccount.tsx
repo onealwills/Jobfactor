@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import OnBoardingSidePanel from '../../OnBoarding/OnBoardingSidePanel';
 import AccountType from './CreationSteps/AccountType';
 import { StateMachineProvider, createStore } from 'little-state-machine';
-import UserData from './CreationSteps/UserData';
+import UserCreate from './CreationSteps/UserCreate';
 
 createStore({
     data: {
@@ -24,6 +24,7 @@ function CreateAccount() {
     // Make a "wizard" for setting up accounts saving the data from each step in the local storage
     // // https://react-hook-form.com/advanced-usage/#WizardFormFunnel
     // call each step by the prop value passed through
+
 
     return (
         <>
@@ -63,9 +64,11 @@ function CreateAccount() {
                             <Routes>
                                 <Route path="/" element={<AccountType />} />
                                 <Route
-                                    path="/userData"
-                                    element={<UserData />}
+                                    path="/userCreate"
+                                    element={<UserCreate />}
                                 />
+                                {/* <Route path="/confirmEmail" element={<EmailConfirmation />} /> */}
+                                {/* All user details */}
                             </Routes>
                         </StateMachineProvider>
                     </Box>
