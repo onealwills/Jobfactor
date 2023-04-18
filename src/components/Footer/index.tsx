@@ -1,4 +1,4 @@
-import { Grid, Link, Typography, useMediaQuery } from '@mui/material'
+import { Grid, Link, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Facebook from '../../assets/icons/Facebook'
 import Instagram from '../../assets/icons/Instagram'
@@ -9,7 +9,6 @@ import Twitter from '../../assets/icons/Twitter'
 import Youtube from '../../assets/icons/Youtube'
 
 const Footer = () => {
-    const matches = useMediaQuery('(max-width:1440px)');
 
     const linksHeadings = {
         letterSpacing: "0.00938em",

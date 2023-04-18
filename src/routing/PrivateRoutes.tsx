@@ -11,6 +11,7 @@ import HelpSupportPage from '../pages/HelpSupport/HelpSupportPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import HomePage from '../pages/Home/HomePage';
 import UsersPage from '../pages/Users/UsersPage';
+import PendingConnection from '../pages/PendingConnctions/PendingConnection';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -49,6 +50,14 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <MainLayout children={<ConnectionsPage />} />
+                        </RequireAuth>
+                    }
+                />
+                 <Route
+                    path="pending-connections"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<PendingConnection />} />
                         </RequireAuth>
                     }
                 />
