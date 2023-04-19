@@ -11,6 +11,7 @@ createStore({
         accountType: '',
         fullName: '',
         emailAddress: '',
+        step: 1,
         password: '',
         verifyEmail: false,
         profile: {

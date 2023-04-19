@@ -10,13 +10,14 @@ import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useStateMachine } from 'little-state-machine';
-import updateAction from './updateAction';
+import { updateAction, updateStep } from './updateAction';
 import UserFormIcon from '../../../../assets/icons/UserFormIcon';
 import EmailFormIcon from '../../../../assets/icons/EmailFormIcon';
 import PasswordFormIcon from '../../../../assets/icons/PasswordFormIcon';
 import ErrorFormIcon from '../../../../assets/icons/ErrorFormIcon';
 import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 import OnboardingLineIcon from '../../../../assets/icons/OnboardingLineIcon';
+import React from 'react';
 
 interface IUserInfo {
     fullName: string;
@@ -27,15 +28,20 @@ interface IUserInfo {
 
 function UserCreate() {
     let navigate = useNavigate();
-    const { control, handleSubmit, formState, register } = useForm<IUserInfo>();
+    const { control, handleSubmit, setError, formState, register, clearErrors } = useForm<IUserInfo>();
     const { isDirty, isValid, errors } = formState;
-    const { actions } = useStateMachine({ updateAction });
+    const { actions } = useStateMachine({ updateAction, updateStep });
 
     const onSubmit: SubmitHandler<IUserInfo> = async (data) => {
         console.log(data);
+        actions.updateStep(3);
         actions.updateAction(data);
-        navigate('./confirmEmail');
+        navigate('/create-account/confirmEmail');
     };
+    React.useEffect(() => {
+        actions.updateStep(2);
+    }, [actions])
+
     return (
         <>
             <Box
@@ -60,7 +66,6 @@ function UserCreate() {
             >
                 <Box
                     sx={{
-                        height: '364px',
                         width: '100%',
                         mt: '71px',
                         display: 'flex',
@@ -184,7 +189,17 @@ function UserCreate() {
                             }) => (
                                 <InputBase
                                     required
-                                    onChange={onChange}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i).test(e.target.value)) {
+                                            setError("emailAddress", {
+                                                type: 'pattern',
+                                                message: 'Invalid email address'
+                                            });
+                                        } else {
+                                            clearErrors("emailAddress")
+                                        }
+                                    }}
                                     placeholder="Enter your email address"
                                     error={!!errors?.emailAddress}
                                     inputProps={{
@@ -205,8 +220,8 @@ function UserCreate() {
                                         padding: '0px 16px',
                                         fontFamily: 'open sans',
                                         color: '#23282B',
+                                        mb: '2px',
                                         borderBottom: '1px solid #D9D9D9',
-                                        mb: '20px',
                                         '& 	.MuiInputBase-input': {
                                             ml: '20px',
                                             position: 'relative',
@@ -216,9 +231,18 @@ function UserCreate() {
                                 />
                             )}
                         />
+                        <Typography
+                            sx={{
+                                color: 'red',
+                                fontSize: '12px',
+                                fontFamily: 'Open Sans',
+                            }}
+                        >
+                            {errors.emailAddress?.message}
+                        </Typography>
                     </Box>
 
-                    <Box sx={{ width: '100%', position: 'relative' }}>
+                    <Box sx={{ width: '100%', position: 'relative', mt: '18px' }}>
                         <InputLabel
                             sx={{
                                 color: '#23282B',
@@ -256,7 +280,17 @@ function UserCreate() {
                                         // },
                                     })}
                                     required
-                                    onChange={onChange}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        if (e.target.value.length < 4) {
+                                            setError("password", {
+                                                type: 'minLength',
+                                                message: 'Passwords must be a minimum of 4 characters'
+                                            });
+                                        } else {
+                                            clearErrors("password")
+                                        }
+                                    }}
                                     error={!!error}
                                     inputProps={{
                                         autoComplete: 'new-password',
@@ -276,7 +310,7 @@ function UserCreate() {
                                         width: '100%',
                                         height: '70px',
                                         padding: '0px 16px',
-                                        mb: '12px',
+                                        mb: '2px',
                                         fontFamily: 'open sans',
                                         color: '#23282B',
                                         borderBottom: '1px solid #D9D9D9',
@@ -289,11 +323,20 @@ function UserCreate() {
                                 />
                             )}
                         />
-
+                        <Typography
+                            sx={{
+                                color: 'red',
+                                fontSize: '12px',
+                                fontFamily: 'Open Sans',
+                            }}
+                        >
+                            {errors.password?.message}
+                        </Typography>
                         <Box
                             sx={{
                                 display: 'flex',
                                 gap: '5px',
+                                mt: '10px',
                                 alignContent: 'start',
                             }}
                         >
@@ -309,7 +352,6 @@ function UserCreate() {
                                 numbers(s) and special character(s)
                             </Typography>
                         </Box>
-                        {errors.password?.message}
                         {/* {errors.password && 'This is required'} */}
                         {/* {errors.password?.message ? (
                             <div>

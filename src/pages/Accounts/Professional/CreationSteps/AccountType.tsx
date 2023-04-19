@@ -12,7 +12,9 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps';
 import { useStateMachine } from 'little-state-machine';
-import updateAction from "./updateAction";
+import { updateAction, updateStep } from './updateAction';
+import React from 'react';
+
 
 interface IAccountType {
     accountType: string;
@@ -21,13 +23,17 @@ interface IAccountType {
 function AccountType() {
     const { control, handleSubmit, formState } = useForm<IAccountType>();
     const { isDirty, isValid } = formState;
-    const { actions } = useStateMachine({ updateAction });
+    const { actions } = useStateMachine({ updateAction, updateStep });
     let navigate = useNavigate();
     const onSubmit: SubmitHandler<IAccountType> = async (data) => {
         console.log(data);
         actions.updateAction(data);
         navigate("./userCreate");
     };
+    React.useEffect(() => {
+        actions.updateStep(1);
+    }, [actions])
+
     return (
         <>
             <Box

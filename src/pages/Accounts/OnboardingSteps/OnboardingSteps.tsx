@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import RectangleLine from '../../../assets/icons/RectangleLine';
+import { useStateMachine, } from 'little-state-machine';
 
 function OnboardingSteps() {
 
@@ -10,7 +11,7 @@ function OnboardingSteps() {
         primary: '#D9D9D9', // grey
         activeStep: '#FAFAFA' // text color, active step
     }
-
+    const { state: { data: { step } } } = useStateMachine();
 
     // TODO refactor these steps to use react stepper here:
     // https://mui.com/material-ui/react-stepper/
@@ -40,7 +41,7 @@ function OnboardingSteps() {
                 >
                     <Box
                         sx={{
-                            backgroundColor: '#FFC24C',
+                            backgroundColor: step > 1 ? COLORS.success : step === 1 ? COLORS.accent : COLORS.primary,
                             borderRadius: '100%',
                             height: '40px',
                             width: '40px',
@@ -48,7 +49,7 @@ function OnboardingSteps() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            color:  '#FAFAFA'
+                            color: step >= 1 ? '#FFFFFF' : '#23282B'
                         }}
                     >
                         1
@@ -75,12 +76,13 @@ function OnboardingSteps() {
                 >
                     <Box
                         sx={{
-                            backgroundColor: '#D9D9D9',
+                            backgroundColor: step > 2 ? COLORS.success : step === 2 ? COLORS.accent : COLORS.primary,
                             borderRadius: '100%',
                             height: '40px',
                             width: '40px',
                             mb: '4px',
                             display: 'flex',
+                            color: step >= 2 ? '#FFFFFF' : '#23282B',
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}
@@ -109,7 +111,7 @@ function OnboardingSteps() {
                 >
                     <Box
                         sx={{
-                            backgroundColor: '#D9D9D9',
+                            backgroundColor: step > 3 ? COLORS.success : step === 3 ? COLORS.accent : COLORS.primary,
                             borderRadius: '100%',
                             height: '40px',
                             width: '40px',
@@ -117,6 +119,7 @@ function OnboardingSteps() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            color: step >= 3 ? '#FFFFFF' : '#23282B'
                         }}
                     >
                         3
@@ -143,7 +146,7 @@ function OnboardingSteps() {
                 >
                     <Box
                         sx={{
-                            backgroundColor: '#D9D9D9',
+                            backgroundColor: step > 4 ? COLORS.success : step === 4 ? COLORS.accent : COLORS.primary,
                             borderRadius: '100%',
                             height: '40px',
                             width: '40px',
@@ -151,6 +154,7 @@ function OnboardingSteps() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                        color: step >= 4 ? '#FFFFFF' : '#23282B'
                         }}
                     >
                         4
@@ -158,7 +162,7 @@ function OnboardingSteps() {
                     <Typography
                         fontFamily={'open sans'}
                         fontSize={'12px'}
-                        sx={{ whiteSpace: 'nowrap' }}
+                        sx={{ whiteSpace: 'nowrap', color: step >= 4 ? '#FFFFFF' : '#23282B' }}
                     >
                         Set up profile
                     </Typography>
