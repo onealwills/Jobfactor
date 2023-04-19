@@ -36,6 +36,7 @@ import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 import { Ranking } from './types/Ranking';
+import CustomizedDialogs from './components/CustomDialog';
 
 function UsersPage() {
     return (
@@ -633,6 +634,10 @@ function UsersPage() {
                     </Grid>
                 </Grid>
             </Grid>
+            <CustomizedDialogs 
+                open={true}
+                title="Edit profile info"
+            />
         </Container>
     );
 }
