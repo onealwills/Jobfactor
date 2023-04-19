@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
 
-type Props = {
+interface Props {
     strokeWidth?: number,
     value: number,
     divider?: number
 }
+
 const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
     const radius = (50 - strokeWidth / 2);
     const pathDescription = `

@@ -35,6 +35,7 @@ import WorkSummary from './components/WorkSummary';
 import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
+import { Ranking } from './types/Ranking';
 
 function UsersPage() {
     return (
@@ -516,10 +517,10 @@ function UsersPage() {
                                     title: "Lead Product Designer",
                                     yearStarted: "2016",
                                     rankings: [
-                                        "leader",
-                                        "expert",
-                                        "advanced",
-                                        "experienced"
+                                        Ranking.Leader,
+                                        Ranking.Expert,
+                                        Ranking.Advanced,
+                                        Ranking.Experienced,
                                     ]
                                 }}/>
                                 <WorkSummary data={{
@@ -530,10 +531,10 @@ function UsersPage() {
                                     title: "Lead Product Designer",
                                     yearStarted: "2016",
                                     rankings: [
-                                        "beginner",
-                                        "advanced",
-                                        "leader",
-                                        "expert",
+                                        Ranking.Beginner,
+                                        Ranking.Advanced,
+                                        Ranking.Leader,
+                                        Ranking.Expert,
                                     ]
                                 }}/>
                                 <WorkSummary data={{
@@ -544,10 +545,10 @@ function UsersPage() {
                                     title: "Volunteer Service",
                                     yearStarted: "2016",
                                     rankings: [
-                                        "experienced",
-                                        "advanced",
-                                        "leader",
-                                        "expert",
+                                        Ranking.Experienced,
+                                        Ranking.Advanced,
+                                        Ranking.Leader,
+                                        Ranking.Expert,
                                     ]
                                 }}/>
                             </Section>

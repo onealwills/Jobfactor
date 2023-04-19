@@ -2,32 +2,32 @@ import { Chip, Grid, Typography } from "@mui/material"
 import { Box } from "@mui/system";
 import { Ranking } from "../types/Ranking";
 
-type Props = {
+interface Props {
     type: Ranking
 }
 
 const traitChipLabels: Record<Ranking, string> = {
-    'leader': 'Thought leader',
-    'advanced': 'Advanced',
-    'experienced': 'Experienced',
-    'expert': 'Expert',
-    'beginner': 'Beginner',
+    [Ranking.Leader]: 'Thought leader',
+    [Ranking.Advanced]: 'Advanced',
+    [Ranking.Experienced]: 'Experienced',
+    [Ranking.Expert]: 'Expert',
+    [Ranking.Beginner]: 'Beginner',
 }
 
 const traitChipColors: Record<Ranking, string> = {
-    'leader': '#07AF22',
-    'advanced': '#49B6FF',
-    'experienced': '#F6C70E',
-    'expert': '#95C97A',
-    'beginner': '#E75541',
+    [Ranking.Leader]: '#07AF22',
+    [Ranking.Advanced]: '#49B6FF',
+    [Ranking.Experienced]: '#F6C70E',
+    [Ranking.Expert]: '#95C97A',
+    [Ranking.Beginner]: '#E75541',
 }
 
 const traitChipRankings: Record<Ranking, string> = {
-    'leader': 'L',
-    'advanced': 'A',
-    'experienced': 'E',
-    'expert': 'X',
-    'beginner': 'B',
+    [Ranking.Leader]: 'L',
+    [Ranking.Advanced]: 'A',
+    [Ranking.Experienced]: 'E',
+    [Ranking.Expert]: 'X',
+    [Ranking.Beginner]: 'B',
 }
 
 const TraitChip = ({ type }: Props) => {

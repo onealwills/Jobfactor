@@ -2,11 +2,9 @@ import { Box, BoxProps, Grid } from "@mui/material";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import React from "react";
 
-type Props = {
+interface Props extends BoxProps {
     heading?: React.ReactNode
-    onClick?: (event: React.MouseEventHandler<HTMLDivElement>) => void
-    children: React.ReactNode
-} & BoxProps
+}
 
 const Section = ({heading, children, onClick, ...props}: Props) => {
     return (

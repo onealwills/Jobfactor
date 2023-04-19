@@ -7,7 +7,7 @@ import DashIcon from "../../../assets/icons/DashIcon";
 import TraitChip from "./TraitChip";
 import { Ranking } from "../types/Ranking";
 
-type MockWorkData = {
+interface MockWorkData {
     employer: {
         name: string,
         image?: string,
@@ -18,7 +18,7 @@ type MockWorkData = {
     rankings: Ranking[]
 }
 
-type WorkSummaryProps = {
+interface WorkSummaryProps {
     data: MockWorkData
 }
 

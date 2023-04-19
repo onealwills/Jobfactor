@@ -4,7 +4,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 import cambridge from '../../../assets/images/cambridge.jpg';
 
-type MockEducationData = {
+interface MockEducationData {
     university: {
         name: string,
         image?: string,
@@ -14,7 +14,7 @@ type MockEducationData = {
     yearEnded: string,
 }
 
-type EducationSummaryProps = {
+interface EducationSummaryProps {
     data: MockEducationData
 }
 

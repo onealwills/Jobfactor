@@ -1,1 +1,7 @@
-export type Ranking = 'leader' | 'expert' | 'beginner' | 'advanced' | 'experienced';
+export enum Ranking {
+    Leader,
+    Expert,
+    Beginner,
+    Advanced,
+    Experienced
+}
