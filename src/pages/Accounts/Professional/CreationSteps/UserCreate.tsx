@@ -28,7 +28,14 @@ interface IUserInfo {
 
 function UserCreate() {
     let navigate = useNavigate();
-    const { control, handleSubmit, setError, formState, register, clearErrors } = useForm<IUserInfo>();
+    const {
+        control,
+        handleSubmit,
+        setError,
+        formState,
+        register,
+        clearErrors,
+    } = useForm<IUserInfo>();
     const { isDirty, isValid, errors } = formState;
     const { actions } = useStateMachine({ updateAction, updateStep });
 
@@ -40,7 +47,7 @@ function UserCreate() {
     };
     React.useEffect(() => {
         actions.updateStep(2);
-    }, [actions])
+    }, [actions]);
 
     return (
         <>
@@ -89,8 +96,6 @@ function UserCreate() {
                     </Typography>
 
                     <Box sx={{ width: '100%', position: 'relative' }}>
-                        {/* <FormLabel id="account-type"> */}
-                        {/* <Box sx={{ position: 'relative' }}> */}
                         <InputLabel
                             sx={{
                                 color: '#23282B',
@@ -114,13 +119,33 @@ function UserCreate() {
                             name="fullName"
                             control={control}
                             render={({
-                                field: { onChange, value, ref },
+                                field: { onChange, value, ref, onBlur },
                                 fieldState: { error },
                                 formState,
                             }) => (
                                 <InputBase
                                     required
-                                    onChange={onChange}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        if (e.target.value.length > 40) {
+                                            setError("fullName", {
+                                                type: 'maxLength',
+                                                message: 'Name must not exceed 40 characters'
+                                            });
+                                        } else {
+                                            clearErrors("fullName")
+                                        }
+                                    }}
+                                    onBlur={(e) => {if (!e.target.value)
+                                        {
+                                            setError('fullName', {
+                                                type: 'required',
+                                                message:
+                                                    'Please provide your name',
+                                            });
+                                        } else {
+                                            clearErrors('fullName');
+                                        }}}
                                     error={!!errors?.fullName}
                                     inputProps={{
                                         autoComplete: '',
@@ -142,7 +167,7 @@ function UserCreate() {
                                         fontFamily: 'open sans',
                                         color: '#23282B',
                                         borderBottom: '1px solid #D9D9D9',
-                                        mb: '20px',
+                                        mb: '2px',
                                         '& 	.MuiInputBase-input': {
                                             ml: '20px',
                                             position: 'relative',
@@ -152,11 +177,18 @@ function UserCreate() {
                                 />
                             )}
                         />
-                        {/* </Box> */}
-                        {/* </FormLabel> */}
+                         <Typography
+                            sx={{
+                                color: 'red',
+                                fontSize: '12px',
+                                fontFamily: 'Open Sans',
+                            }}
+                        >
+                            {errors.fullName?.message}
+                        </Typography>
                     </Box>
 
-                    <Box sx={{ width: '100%', position: 'relative' }}>
+                    <Box sx={{ width: '100%', position: 'relative', mt: '18px' }}>
                         <InputLabel
                             sx={{
                                 color: '#23282B',
@@ -183,23 +215,39 @@ function UserCreate() {
                             name="emailAddress"
                             control={control}
                             render={({
-                                field: { onChange, value, ref },
+                                field: { onChange, onBlur, value, ref },
                                 fieldState: { error },
                                 formState,
                             }) => (
                                 <InputBase
                                     required
                                     onChange={(e) => {
-                                        onChange(e)
-                                        if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i).test(e.target.value)) {
-                                            setError("emailAddress", {
+                                        onChange(e);
+                                        if (
+                                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                                                e.target.value
+                                            )
+                                        ) {
+                                            setError('emailAddress', {
                                                 type: 'pattern',
-                                                message: 'Invalid email address'
+                                                message:
+                                                    'Invalid email address',
                                             });
                                         } else {
-                                            clearErrors("emailAddress")
+                                            clearErrors('emailAddress');
                                         }
                                     }}
+                                    onBlur={(e) => {
+                                        if (!e.target.value)
+                                        {
+                                            setError('emailAddress', {
+                                                type: 'required',
+                                                message:
+                                                    'Please provide a valid email address',
+                                            });
+                                        } else {
+                                            clearErrors('emailAddress');
+                                        }}}
                                     placeholder="Enter your email address"
                                     error={!!errors?.emailAddress}
                                     inputProps={{
@@ -262,7 +310,7 @@ function UserCreate() {
                             name="password"
                             control={control}
                             render={({
-                                field: { onChange, value, ref },
+                                field: { onChange, onBlur, value, ref },
                                 fieldState: { error },
                                 formState,
                             }) => (
@@ -274,14 +322,14 @@ function UserCreate() {
                                             message:
                                                 'Passwords must be a minimum of 4 characters',
                                         },
-                                        // pattern: {
-                                        //     // value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        //     message: 'err',
-                                        // },
+                                        pattern: {
+                                            value: /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[^!#%]*[!#%])[A-Za-z0-9!#%]{8,32}$/gm,
+                                            message: 'err',
+                                        },
                                     })}
                                     required
                                     onChange={(e) => {
-                                        onChange(e)
+                                        onChange(e);
                                         if (e.target.value.length < 4) {
                                             setError("password", {
                                                 type: 'minLength',
@@ -290,7 +338,31 @@ function UserCreate() {
                                         } else {
                                             clearErrors("password")
                                         }
+                                        if (
+                                            !/^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[^!#%]*[!#%])[A-Za-z0-9!#%]{8,32}$/gm.test(
+                                                e.target.value
+                                            )
+                                        ) {
+                                            setError('password', {
+                                                type: 'pattern',
+                                                message:
+                                                    'Invalid password',
+                                            });
+                                        } else {
+                                            clearErrors('password');
+                                        }
                                     }}
+                                    onBlur={(e) => {
+                                        if (!e.target.value)
+                                        {
+                                            setError('password', {
+                                                type: 'required',
+                                                message:
+                                                    'Please provide a valid password',
+                                            });
+                                        } else {
+                                            clearErrors('password');
+                                        }}}
                                     error={!!error}
                                     inputProps={{
                                         autoComplete: 'new-password',
@@ -332,36 +404,14 @@ function UserCreate() {
                         >
                             {errors.password?.message}
                         </Typography>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                gap: '5px',
-                                mt: '10px',
-                                alignContent: 'start',
-                            }}
-                        >
-                            <ErrorFormIcon />
-                            <Typography
-                                sx={{
-                                    color: '#808080',
-                                    fontSize: '12px',
-                                    fontFamily: 'Open Sans',
-                                }}
-                            >
-                                Password should contain uppercase letter(s),
-                                numbers(s) and special character(s)
-                            </Typography>
-                        </Box>
-                        {/* {errors.password && 'This is required'} */}
-                        {/* {errors.password?.message ? (
+                        {errors.password?.message ? (
                             <div>
                                 <Box
                                     sx={{
                                         display: 'flex',
                                         gap: '5px',
-                                        alignContent: 'center',
-                                        mb: '28px',
-                                        mt: '12px',
+                                        mt: '10px',
+                                        alignContent: 'start',
                                     }}
                                 >
                                     <ErrorFormIcon />
@@ -378,7 +428,7 @@ function UserCreate() {
                                     </Typography>
                                 </Box>
                             </div>
-                        ) : <div>Good</div>} */}
+                        ) : null}
                     </Box>
                 </Box>
 
@@ -402,7 +452,7 @@ function UserCreate() {
                             return (
                                 <Checkbox
                                     required
-                                    onBlur={onBlur} 
+                                    onBlur={onBlur}
                                     onChange={onChange}
                                     inputRef={ref}
                                     name="termAgreement"
