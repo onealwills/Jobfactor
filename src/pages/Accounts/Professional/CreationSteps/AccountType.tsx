@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps1';
+import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps';
 import { useStateMachine } from 'little-state-machine';
 import updateAction from "./updateAction";
 
@@ -26,7 +26,7 @@ function AccountType() {
     const onSubmit: SubmitHandler<IAccountType> = async (data) => {
         console.log(data);
         actions.updateAction(data);
-        navigate("./userCreate")
+        navigate("./userCreate");
     };
     return (
         <>

@@ -1,15 +1,16 @@
 import { Box } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 import OnBoardingSidePanel from '../../OnBoarding/OnBoardingSidePanel';
-import AccountType from './CreationSteps/AccountType';
 import { StateMachineProvider, createStore } from 'little-state-machine';
+import AccountType from './CreationSteps/AccountType';
 import UserCreate from './CreationSteps/UserCreate';
+import EmailConfirmation from './CreationSteps/EmailConfirmation';
 
 createStore({
     data: {
         accountType: '',
         fullName: '',
-        email: '',
+        emailAddress: '',
         password: '',
         verifyEmail: false,
         profile: {
@@ -63,12 +64,8 @@ function CreateAccount() {
                         <StateMachineProvider>
                             <Routes>
                                 <Route path="/" element={<AccountType />} />
-                                <Route
-                                    path="/userCreate"
-                                    element={<UserCreate />}
-                                />
-                                {/* <Route path="/confirmEmail" element={<EmailConfirmation />} /> */}
-                                {/* All user details */}
+                                <Route path="/userCreate" element={<UserCreate/>} />
+                                <Route path="/confirmEmail" element={<EmailConfirmation/>} />
                             </Routes>
                         </StateMachineProvider>
                     </Box>
