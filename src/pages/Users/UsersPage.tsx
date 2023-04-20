@@ -5,7 +5,7 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import { 
+import {
     Box,
     Typography,
     IconButton,
@@ -14,14 +14,14 @@ import {
     Divider,
     Button,
     List,
-    ListItem
+    ListItem,
 } from '@mui/material';
 
 import cover from '../../assets/images/cover.jpg';
 import profile from '../../assets/images/profile-sq.png';
 import cambridge from '../../assets/images/cambridge.jpg';
 import nasa from '../../assets/images/nasa.png';
-import huawei from '../../assets/images/huawei.png'
+import huawei from '../../assets/images/huawei.png';
 import northface from '../../assets/images/northface.png';
 
 import Progress from '../Home/components/Progress';
@@ -40,17 +40,15 @@ import CustomizedDialogs from './components/CustomDialog';
 
 function UsersPage() {
     return (
-        <Container style={{
-            paddingLeft: "35px",
-            paddingRight: "0px",
-            marginTop: "-48px",
-            maxWidth: "100%",
-        }}>
-            <Grid
-                container
-                direction="column"
-                gap={4}
-            >
+        <Container
+            style={{
+                paddingLeft: '35px',
+                paddingRight: '0px',
+                marginTop: '-48px',
+                maxWidth: '100%',
+            }}
+        >
+            <Grid container direction="column" gap={4}>
                 <Grid item>
                     <Box
                         bgcolor="#fff"
@@ -58,15 +56,9 @@ function UsersPage() {
                         overflow="hidden"
                         pb={5}
                     >
-                        <Box
-                            position="relative"
-                            pb="109px"
-                        >
-                            <Box
-                                overflow="hidden"
-                                borderRadius={[0, 0, 1, 1]}
-                            >
-                                <img 
+                        <Box position="relative" pb="109px">
+                            <Box overflow="hidden" borderRadius={[0, 0, 1, 1]}>
+                                <img
                                     style={{
                                         height: '259px',
                                         width: '100%',
@@ -80,7 +72,7 @@ function UsersPage() {
                             <Grid
                                 container
                                 gap={3}
-                                position={"absolute"}
+                                position={'absolute'}
                                 bottom={0}
                             >
                                 <Box
@@ -94,9 +86,9 @@ function UsersPage() {
                                     <Image
                                         src={profile}
                                         sx={{
-                                            width: "200px",
-                                            height: "200px",
-                                            objectFit: "cover",
+                                            width: '200px',
+                                            height: '200px',
+                                            objectFit: 'cover',
                                         }}
                                         alt="Ronald Richard"
                                         border="3px #fff solid"
@@ -115,10 +107,7 @@ function UsersPage() {
                                     pb={2}
                                     marginLeft={-1}
                                 >
-                                    <Grid
-                                        item
-                                        flexGrow={1}
-                                    >
+                                    <Grid item flexGrow={1}>
                                         <Typography
                                             component="span"
                                             color="#23282B"
@@ -138,7 +127,7 @@ function UsersPage() {
                                             Connections
                                         </Typography>
                                     </Grid>
-                                    
+
                                     <Grid
                                         item
                                         flexShrink="1"
@@ -151,16 +140,8 @@ function UsersPage() {
                                 </Grid>
                             </Grid>
                         </Box>
-                        <Grid
-                            container
-                            px={5}
-                            marginTop={-3.5}
-                        >
-                            <Grid
-                                item
-                                flexGrow={1}
-                                marginTop="auto"
-                            >
+                        <Grid container px={5} marginTop={-3.5}>
+                            <Grid item flexGrow={1} marginTop="auto">
                                 <Grid container direction="column" gap={2}>
                                     <Grid item>
                                         <Grid
@@ -188,7 +169,13 @@ function UsersPage() {
                                                         gap={2}
                                                         alignItems="center"
                                                     >
-                                                        <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
+                                                        <CircleIcon
+                                                            sx={{
+                                                                fontSize:
+                                                                    '7.25px',
+                                                            }}
+                                                            htmlColor="#494949"
+                                                        />
                                                         <Typography
                                                             component="span"
                                                             color="#808080"
@@ -198,7 +185,13 @@ function UsersPage() {
                                                         >
                                                             Product Designer
                                                         </Typography>
-                                                        <CheckCircleIcon htmlColor="#49B6FF" style={{marginLeft: "-8px"}}/>
+                                                        <CheckCircleIcon
+                                                            htmlColor="#49B6FF"
+                                                            style={{
+                                                                marginLeft:
+                                                                    '-8px',
+                                                            }}
+                                                        />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -212,21 +205,41 @@ function UsersPage() {
                                             fontSize={16}
                                             fontWeight={400}
                                         >
-                                            Web3 Product Designer | I want to design extraordinary things
+                                            Web3 Product Designer | I want to
+                                            design extraordinary things
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Grid container gap={1} alignItems="center">
+                                        <Grid
+                                            container
+                                            gap={1}
+                                            alignItems="center"
+                                        >
                                             <Grid item>
-                                                <InfoChip type="location" label="California, USA" />
+                                                <InfoChip
+                                                    type="location"
+                                                    label="California, USA"
+                                                />
                                             </Grid>
-                                            <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
+                                            <CircleIcon
+                                                sx={{ fontSize: '7.25px' }}
+                                                htmlColor="#494949"
+                                            />
                                             <Grid item>
-                                                <InfoChip type="phone" label="+234 704 555 0114" />
+                                                <InfoChip
+                                                    type="phone"
+                                                    label="+234 704 555 0114"
+                                                />
                                             </Grid>
-                                            <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
+                                            <CircleIcon
+                                                sx={{ fontSize: '7.25px' }}
+                                                htmlColor="#494949"
+                                            />
                                             <Grid item>
-                                                <InfoChip type="email" label="Ronaldrichie@hotmail.com" />
+                                                <InfoChip
+                                                    type="email"
+                                                    label="Ronaldrichie@hotmail.com"
+                                                />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -238,85 +251,98 @@ function UsersPage() {
                                 </Box>
                             </Grid>
                         </Grid>
-                    </Box>          
+                    </Box>
                 </Grid>
                 <Grid item>
-                    <Grid
-                        container
-                        wrap="nowrap"
-                        spacing={2}
-                    >
+                    <Grid container wrap="nowrap" spacing={2}>
                         <Grid item xs={8}>
-                           <Section px={0}>
-                            <Box px={5}>
-                                <Typography
-                                    component="h3"
-                                    color="#23282B"
-                                    fontFamily="open sans"
-                                    fontSize={20}
-                                    fontWeight={600}
-                                    mb={1}
-                                >
-                                    About me
-                                </Typography>
-                                <Typography
-                                    component="h4"
-                                    color="#808080"
-                                    fontFamily="open sans"
-                                    fontSize={16}
-                                    fontWeight={400}
-                                    mb={1.5}
-                                >
-                                    Tell the world about yourself.
-                                </Typography>
-                            </Box>
-                            <Divider />
-                            <Box px={5}>
-                                <Typography
-                                    component="p"
-                                    color="#808080"
-                                    fontFamily="open sans"
-                                    fontSize={16}
-                                    fontWeight={400}
-                                    mt={4}
-                                    mb={2.5}
-                                >
-                                    Hello! I'm Solomon, 
-                                    <br/><br/>
-                                    A web3 Product Designer with a dream of building a multimillion dollars design agency.
-                                    <br/>
-                                    With over 6 years of experience in experiential marketing, brand strategy, and design, I have worked across multiple verticals of businesses ranging from FMCG’s, E-commerce, Fin-tech, Ed-tech, and Prop-tech. ...
-                                </Typography>
-                                <Button
-                                    disableRipple
-                                    sx={{
-                                        backgroundColor: '#FCFBF8',
-                                        borderRadius: '8px',
-                                        padding: '0 16px'
-                                    }}
-                                    endIcon={<ExpandMoreRoundedIcon />}
-                                >
+                            <Section px={0}>
+                                <Box px={5}>
                                     <Typography
-                                        color={'#05668D'}
+                                        component="h3"
+                                        color="#23282B"
                                         fontFamily="open sans"
-                                        fontWeight={700}
-                                        fontSize={14}
-                                        sx={{ textTransform: 'none', py: 1 }}
+                                        fontSize={20}
+                                        fontWeight={600}
+                                        mb={1}
                                     >
-                                        See more
+                                        About me
                                     </Typography>
-                                </Button>
-                            </Box>
-                           </Section>
-                           <Section 
+                                    <Typography
+                                        component="h4"
+                                        color="#808080"
+                                        fontFamily="open sans"
+                                        fontSize={16}
+                                        fontWeight={400}
+                                        mb={1.5}
+                                    >
+                                        Tell the world about yourself.
+                                    </Typography>
+                                </Box>
+                                <Divider />
+                                <Box px={5}>
+                                    <Typography
+                                        component="p"
+                                        color="#808080"
+                                        fontFamily="open sans"
+                                        fontSize={16}
+                                        fontWeight={400}
+                                        mt={4}
+                                        mb={2.5}
+                                    >
+                                        Hello! I'm Solomon,
+                                        <br />
+                                        <br />
+                                        A web3 Product Designer with a dream of
+                                        building a multimillion dollars design
+                                        agency.
+                                        <br />
+                                        With over 6 years of experience in
+                                        experiential marketing, brand strategy,
+                                        and design, I have worked across
+                                        multiple verticals of businesses ranging
+                                        from FMCG’s, E-commerce, Fin-tech,
+                                        Ed-tech, and Prop-tech. ...
+                                    </Typography>
+                                    <Button
+                                        disableRipple
+                                        sx={{
+                                            backgroundColor: '#FCFBF8',
+                                            borderRadius: '8px',
+                                            padding: '0 16px',
+                                        }}
+                                        endIcon={<ExpandMoreRoundedIcon />}
+                                    >
+                                        <Typography
+                                            color={'#05668D'}
+                                            fontFamily="open sans"
+                                            fontWeight={700}
+                                            fontSize={14}
+                                            sx={{
+                                                textTransform: 'none',
+                                                py: 1,
+                                            }}
+                                        >
+                                            See more
+                                        </Typography>
+                                    </Button>
+                                </Box>
+                            </Section>
+                            <Section
                                 heading={
-                                    <SectionHeading>Improve your Job matches</SectionHeading>
-                                } 
+                                    <SectionHeading>
+                                        Improve your Job matches
+                                    </SectionHeading>
+                                }
                                 py={2.5}
                             >
                                 <List>
                                     <ListItem sx={{ padding: 0 }}>
-                                        <Grid container wrap="nowrap" alignItems="center">
+                                        <Grid
+                                            container
+                                            wrap="nowrap"
+                                            alignItems="center"
+                                        >
                                             <Grid flexGrow={1} item>
                                                 <Typography
                                                     component="h4"
@@ -335,19 +361,27 @@ function UsersPage() {
                                                     fontSize={16}
                                                     fontWeight={400}
                                                 >
-                                                    Highlight your skills, education and experience
+                                                    Highlight your skills,
+                                                    education and experience
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
-                                                <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
+                                                <ArrowRightIcon
+                                                    fontSize="large"
+                                                    htmlColor="#055C7F"
+                                                />
                                             </Grid>
                                         </Grid>
                                     </ListItem>
                                     <Box py={4.5}>
-                                        <Divider/>
+                                        <Divider />
                                     </Box>
                                     <ListItem sx={{ padding: 0 }}>
-                                        <Grid container wrap="nowrap" alignItems="center">
+                                        <Grid
+                                            container
+                                            wrap="nowrap"
+                                            alignItems="center"
+                                        >
                                             <Grid flexGrow={1} item>
                                                 <Typography
                                                     component="h4"
@@ -366,31 +400,40 @@ function UsersPage() {
                                                     fontSize={16}
                                                     fontWeight={400}
                                                 >
-                                                    Save specific details about your desired job
+                                                    Save specific details about
+                                                    your desired job
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
-                                                <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
+                                                <ArrowRightIcon
+                                                    fontSize="large"
+                                                    htmlColor="#055C7F"
+                                                />
                                             </Grid>
                                         </Grid>
                                     </ListItem>
                                 </List>
-                           </Section>
-                           <Section
+                            </Section>
+                            <Section
                                 py={2.5}
                                 heading={
                                     <SectionHeading>Resumes</SectionHeading>
                                 }
                             >
-                                <Grid container gap={2.5} alignItems="center" wrap="nowrap">
+                                <Grid
+                                    container
+                                    gap={2.5}
+                                    alignItems="center"
+                                    wrap="nowrap"
+                                >
                                     <Grid item>
                                         <Image
                                             src={cambridge}
                                             alt="University of Birmingham"
                                             sx={{
-                                                width: "66px",
-                                                height: "100px",
-                                                objectFit: "cover"
+                                                width: '66px',
+                                                height: '100px',
+                                                objectFit: 'cover',
                                             }}
                                             border="3px #fff solid"
                                             borderRadius={2}
@@ -418,7 +461,11 @@ function UsersPage() {
                                         >
                                             Updated Jun 24, 2023
                                         </Typography>
-                                        <Grid container alignItems="center" gap={.5}>
+                                        <Grid
+                                            container
+                                            alignItems="center"
+                                            gap={0.5}
+                                        >
                                             <VisibilityOffIcon />
                                             <Typography
                                                 component="p"
@@ -432,17 +479,27 @@ function UsersPage() {
                                         </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
+                                        <ArrowRightIcon
+                                            fontSize="large"
+                                            htmlColor="#055C7F"
+                                        />
                                     </Grid>
                                 </Grid>
-                           </Section>
-                           <Section
+                            </Section>
+                            <Section
                                 py={2.5}
                                 heading={
-                                    <SectionHeading>Help other Job Seekers</SectionHeading>
+                                    <SectionHeading>
+                                        Help other Job Seekers
+                                    </SectionHeading>
                                 }
-                           >
-                                <Grid container gap={2.5} alignItems="center" wrap="nowrap">
+                            >
+                                <Grid
+                                    container
+                                    gap={2.5}
+                                    alignItems="center"
+                                    wrap="nowrap"
+                                >
                                     <Grid item py={1} pr={1}>
                                         <MedalIcon />
                                     </Grid>
@@ -465,107 +522,147 @@ function UsersPage() {
                                             fontWeight={400}
                                             pr={8}
                                         >
-                                            Review companies you have worked for, this contributes to your Jobfactor score
+                                            Review companies you have worked
+                                            for, this contributes to your
+                                            Jobfactor score
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <ArrowRightIcon fontSize="large" htmlColor="#055C7F" />
+                                        <ArrowRightIcon
+                                            fontSize="large"
+                                            htmlColor="#055C7F"
+                                        />
                                     </Grid>
-                                </Grid>                                
+                                </Grid>
                             </Section>
                         </Grid>
                         <Grid item xs={4}>
-                            <Section 
+                            <Section
                                 heading={
-                                    <SectionHeading ml={0}>Education</SectionHeading>
-                                } 
-                                onClick={() => {}} 
-                                px={2} 
-                                py={0}
-                            > 
-                                <EducationSummary data={{
-                                        university: {
-                                            name: "Birmingham University",
-                                            image: cambridge
-                                        },
-                                        major: "MSc Power Systems",
-                                        yearStarted: "2016",
-                                        yearEnded: "2018"
-                                    }}
-                                />
-                                <EducationSummary data={{
-                                        university: {
-                                            name: "University of Saskatchewan",
-                                        },
-                                        major: "B.ENG Electrical Engineering",
-                                        yearStarted: "2020",
-                                        yearEnded: "2022"
-                                    }}
-                                />
-                            </Section>
-
-                            <Section 
-                                heading={
-                                    <SectionHeading ml={0}>Work Experience</SectionHeading>
+                                    <SectionHeading ml={0}>
+                                        Education
+                                    </SectionHeading>
                                 }
-                                onClick={() => {}} px={2} py={0}
+                                onClick={() => {}}
+                                px={2}
+                                py={0}
                             >
-                                <WorkSummary data={{
-                                    employer: {
-                                        name: "NASA",
-                                        image: nasa
-                                    },
-                                    title: "Lead Product Designer",
-                                    yearStarted: "2016",
-                                    rankings: [
-                                        Ranking.Leader,
-                                        Ranking.Expert,
-                                        Ranking.Advanced,
-                                        Ranking.Experienced,
-                                    ]
-                                }}/>
-                                <WorkSummary data={{
-                                    employer: {
-                                        name: "Huawei",
-                                        image: huawei
-                                    },
-                                    title: "Lead Product Designer",
-                                    yearStarted: "2016",
-                                    rankings: [
-                                        Ranking.Beginner,
-                                        Ranking.Advanced,
-                                        Ranking.Leader,
-                                        Ranking.Expert,
-                                    ]
-                                }}/>
-                                <WorkSummary data={{
-                                    employer: {
-                                        name: "The North Face",
-                                        image: northface
-                                    },
-                                    title: "Volunteer Service",
-                                    yearStarted: "2016",
-                                    rankings: [
-                                        Ranking.Experienced,
-                                        Ranking.Advanced,
-                                        Ranking.Leader,
-                                        Ranking.Expert,
-                                    ]
-                                }}/>
+                                <EducationSummary
+                                    data={{
+                                        university: {
+                                            name: 'Birmingham University',
+                                            image: cambridge,
+                                        },
+                                        major: 'MSc Power Systems',
+                                        yearStarted: '2016',
+                                        yearEnded: '2018',
+                                    }}
+                                />
+                                <EducationSummary
+                                    data={{
+                                        university: {
+                                            name: 'University of Saskatchewan',
+                                        },
+                                        major: 'B.ENG Electrical Engineering',
+                                        yearStarted: '2020',
+                                        yearEnded: '2022',
+                                    }}
+                                />
                             </Section>
 
-                            <Section 
+                            <Section
                                 heading={
-                                    <SectionHeading ml={0} fontSize={16}>Analytics</SectionHeading>
-                                } onClick={() => {}}
+                                    <SectionHeading ml={0}>
+                                        Work Experience
+                                    </SectionHeading>
+                                }
+                                onClick={() => {}}
+                                px={2}
+                                py={0}
+                            >
+                                <WorkSummary
+                                    data={{
+                                        employer: {
+                                            name: 'NASA',
+                                            image: nasa,
+                                        },
+                                        title: 'Lead Product Designer',
+                                        yearStarted: '2016',
+                                        rankings: [
+                                            Ranking.Leader,
+                                            Ranking.Expert,
+                                            Ranking.Advanced,
+                                            Ranking.Experienced,
+                                        ],
+                                    }}
+                                />
+                                <WorkSummary
+                                    data={{
+                                        employer: {
+                                            name: 'Huawei',
+                                            image: huawei,
+                                        },
+                                        title: 'Lead Product Designer',
+                                        yearStarted: '2016',
+                                        rankings: [
+                                            Ranking.Beginner,
+                                            Ranking.Advanced,
+                                            Ranking.Leader,
+                                            Ranking.Expert,
+                                        ],
+                                    }}
+                                />
+                                <WorkSummary
+                                    data={{
+                                        employer: {
+                                            name: 'The North Face',
+                                            image: northface,
+                                        },
+                                        title: 'Volunteer Service',
+                                        yearStarted: '2016',
+                                        rankings: [
+                                            Ranking.Experienced,
+                                            Ranking.Advanced,
+                                            Ranking.Leader,
+                                            Ranking.Expert,
+                                        ],
+                                    }}
+                                />
+                            </Section>
+
+                            <Section
+                                heading={
+                                    <SectionHeading ml={0} fontSize={16}>
+                                        Analytics
+                                    </SectionHeading>
+                                }
+                                onClick={() => {}}
                                 px={2}
                                 py={0}
                                 mb={2.5}
                                 bgcolor="transparent"
                             >
-                                <Grid container gap={0.33} overflow="hidden" borderRadius={1.5} wrap="nowrap" height="140px">
-                                    <Grid item bgcolor="#FFFFFF" flexGrow={1} maxWidth="33%">
-                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+                                <Grid
+                                    container
+                                    gap={0.33}
+                                    overflow="hidden"
+                                    borderRadius={1.5}
+                                    wrap="nowrap"
+                                    height="140px"
+                                >
+                                    <Grid
+                                        item
+                                        bgcolor="#FFFFFF"
+                                        flexGrow={1}
+                                        maxWidth="33%"
+                                    >
+                                        <Grid
+                                            container
+                                            flexDirection="column"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                            height="100%"
+                                        >
                                             <AnalyticsProfile />
                                             <Typography
                                                 component="p"
@@ -575,12 +672,25 @@ function UsersPage() {
                                                 fontWeight={600}
                                                 textAlign="center"
                                             >
-                                                PROFILE<br/>VIEWS
+                                                PROFILE
+                                                <br />
+                                                VIEWS
                                             </Typography>
                                         </Grid>
                                     </Grid>
-                                    <Grid item bgcolor="#FFFFFF" flexGrow={1} maxWidth="33%">
-                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+                                    <Grid
+                                        item
+                                        bgcolor="#FFFFFF"
+                                        flexGrow={1}
+                                        maxWidth="33%"
+                                    >
+                                        <Grid
+                                            container
+                                            flexDirection="column"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                            height="100%"
+                                        >
                                             <AnalyticsSearch />
                                             <Typography
                                                 component="p"
@@ -590,13 +700,26 @@ function UsersPage() {
                                                 fontWeight={600}
                                                 textAlign="center"
                                             >
-                                                SEARCH<br/>APPEARANCES
+                                                SEARCH
+                                                <br />
+                                                APPEARANCES
                                             </Typography>
                                         </Grid>
                                     </Grid>
-                                    <Grid item bgcolor="#FFFFFF" flexGrow={1} maxWidth="33%">
-                                        <Grid container flexDirection="column" alignItems="center" justifyContent="center" height="100%">
-                                            <AnalyticsGraph/>
+                                    <Grid
+                                        item
+                                        bgcolor="#FFFFFF"
+                                        flexGrow={1}
+                                        maxWidth="33%"
+                                    >
+                                        <Grid
+                                            container
+                                            flexDirection="column"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                            height="100%"
+                                        >
+                                            <AnalyticsGraph />
                                             <Typography
                                                 component="p"
                                                 color="#23282B"
@@ -605,7 +728,9 @@ function UsersPage() {
                                                 fontWeight={600}
                                                 textAlign="center"
                                             >
-                                                POSTS<br />ENGAGEMENTS
+                                                POSTS
+                                                <br />
+                                                ENGAGEMENTS
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -613,32 +738,33 @@ function UsersPage() {
                             </Section>
 
                             <Button
-                                    variant="contained"
-                                    sx={{
-                                        backgroundColor: '#05668D',
-                                        borderRadius: '8px',
-                                        width: "100%"
-                                    }}
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: '#05668D',
+                                    borderRadius: '8px',
+                                    width: '100%',
+                                }}
+                            >
+                                <Typography
+                                    color={'#FFFFFF'}
+                                    fontFamily="open sans"
+                                    fontWeight={700}
+                                    fontSize={14}
+                                    sx={{ textTransform: 'none', py: 0.5 }}
                                 >
-                                    <Typography
-                                        color={'#FFFFFF'}
-                                        fontFamily="open sans"
-                                        fontWeight={700}
-                                        fontSize={14}
-                                        sx={{ textTransform: 'none', py: .5 }}
-                                    >
-                                        Upgrade to Premium plan
-                                    </Typography>
+                                    Upgrade to Premium plan
+                                </Typography>
                             </Button>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-            <CustomizedDialogs 
-                open={true}
-                title="Ronald Richard"
-            >
-                p crazy right
+            <CustomizedDialogs open={true} title="Ronald Richard">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Perferendis a aliquid expedita error in, possimus, dignissimos
+                optio fugiat quod, magni officiis fuga quam quas consectetur
+                eaque corporis earum asperiores vel. Quibusdam quo quos nesciunt
+                natus esse hic minus? Fugiat, blanditiis.
             </CustomizedDialogs>
         </Container>
     );
