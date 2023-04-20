@@ -637,7 +637,26 @@ function UsersPage() {
             <CustomizedDialogs 
                 open={true}
                 title="Edit profile info"
-            />
+                actions={
+                    <>
+                        <Button variant="contained">
+                            <Typography
+                                color={'#FFFFFF'}
+                                fontFamily="open sans"
+                                fontWeight={700}
+                                fontSize={14}
+                                sx={{ textTransform: 'none', py: .5 }}
+                            >
+                                Upgrade to Premium plan
+                            </Typography>
+                        </Button>
+                    </>
+                }
+            >
+                <Box sx={{width: "750px"}}>
+                    
+                </Box>
+            </CustomizedDialogs>
         </Container>
     );
 }

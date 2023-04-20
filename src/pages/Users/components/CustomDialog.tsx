@@ -5,9 +5,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { Box, Divider } from '@mui/material';
+import CloseIcon from '../../../assets/icons/CloseIcon';
 
 export interface DialogProps {
   open: boolean;
@@ -63,9 +63,10 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
           sx={{
             bgcolor: '#808080',
             color: '#FFFFFF',
+            p: .625,
           }}
         >
-          <CloseIcon fontSize="small" />
+          <CloseIcon sx={{ fontSize: "12.75px" }} />
         </IconButton>
       ) : null}
     </DialogTitle>
