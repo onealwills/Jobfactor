@@ -636,26 +636,9 @@ function UsersPage() {
             </Grid>
             <CustomizedDialogs 
                 open={true}
-                title="Edit profile info"
-                actions={
-                    <>
-                        <Button variant="contained">
-                            <Typography
-                                color={'#FFFFFF'}
-                                fontFamily="open sans"
-                                fontWeight={700}
-                                fontSize={14}
-                                sx={{ textTransform: 'none', py: .5 }}
-                            >
-                                Upgrade to Premium plan
-                            </Typography>
-                        </Button>
-                    </>
-                }
+                title="Ronald Richard"
             >
-                <Box sx={{width: "750px"}}>
-                    
-                </Box>
+                p crazy right
             </CustomizedDialogs>
         </Container>
     );

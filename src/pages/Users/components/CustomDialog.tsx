@@ -19,7 +19,7 @@ export interface DialogProps {
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2, 4, 4),
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
@@ -39,7 +39,9 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
     <DialogTitle
       sx={{
         m: 0,
-        p: 2,
+        px: 4,
+        pt: 3.75,
+        pb: 2.25,
         display: "flex",
         alignItems: "center"
       }} 
@@ -88,7 +90,8 @@ export default function CustomizedDialogs({actions, open, title, onClose, childr
         { title }
       </BootstrapDialogTitle>
       <Divider sx={{
-        mx: 2,
+        mx: 4,
+        mb: 0.125,
         borderBottomWidth: 2
       }}/>
       <DialogContent>
