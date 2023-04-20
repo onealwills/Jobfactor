@@ -13,6 +13,7 @@ import HomePage from '../pages/Home/HomePage';
 import UsersPage from '../pages/Users/UsersPage';
 import PendingConnection from '../pages/PendingConnctions/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
+import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -67,6 +68,14 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <MainLayout children={<MyJobsPage />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path='my-jobs/:id'
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobItemDetail />} />
                         </RequireAuth>
                     }
                 />
