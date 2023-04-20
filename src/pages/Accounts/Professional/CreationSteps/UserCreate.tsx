@@ -17,10 +17,11 @@ import PasswordFormIcon from '../../../../assets/icons/PasswordFormIcon';
 import ErrorFormIcon from '../../../../assets/icons/ErrorFormIcon';
 import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 import OnboardingLineIcon from '../../../../assets/icons/OnboardingLineIcon';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface IUserInfo {
-    fullName: string;
+    firstName: string;
+    lastName: string,
     emailAddress: string;
     password: string;
     termAgreement: boolean;
@@ -39,12 +40,17 @@ function UserCreate() {
     const { isDirty, isValid, errors } = formState;
     const { actions } = useStateMachine({ updateAction, updateStep });
 
+    // useEffect(() => {
+        
+    // }, [] );
+        
     const onSubmit: SubmitHandler<IUserInfo> = async (data) => {
         console.log(data);
         actions.updateStep(3);
         actions.updateAction(data);
         navigate('/create-account/confirmEmail');
     };
+
     React.useEffect(() => {
         actions.updateStep(2);
     }, [actions]);
@@ -113,10 +119,10 @@ function UserCreate() {
 
                         {/* full name */}
                         <Controller
-                            {...register('fullName', {
+                            {...register('firstName', {
                                 required: 'Required field',
                             })}
-                            name="fullName"
+                            name="firstName"
                             control={control}
                             render={({
                                 field: { onChange, value, ref, onBlur },
@@ -128,25 +134,25 @@ function UserCreate() {
                                     onChange={(e) => {
                                         onChange(e);
                                         if (e.target.value.length > 40) {
-                                            setError("fullName", {
+                                            setError("firstName", {
                                                 type: 'maxLength',
                                                 message: 'Name must not exceed 40 characters'
                                             });
                                         } else {
-                                            clearErrors("fullName")
+                                            clearErrors("firstName")
                                         }
                                     }}
                                     onBlur={(e) => {if (!e.target.value)
                                         {
-                                            setError('fullName', {
+                                            setError('firstName', {
                                                 type: 'required',
                                                 message:
                                                     'Please provide your name',
                                             });
                                         } else {
-                                            clearErrors('fullName');
+                                            clearErrors('firstName');
                                         }}}
-                                    error={!!errors?.fullName}
+                                    error={!!errors?.firstName}
                                     inputProps={{
                                         autoComplete: '',
                                         form: {
@@ -184,7 +190,7 @@ function UserCreate() {
                                 fontFamily: 'Open Sans',
                             }}
                         >
-                            {errors.fullName?.message}
+                            {errors.firstName?.message}
                         </Typography>
                     </Box>
 

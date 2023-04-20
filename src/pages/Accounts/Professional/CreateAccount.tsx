@@ -9,14 +9,12 @@ import EmailConfirmation from './CreationSteps/EmailConfirmation';
 createStore({
     data: {
         accountType: '',
-        fullName: '',
+        firstName: '',
+        lastName: '',
         emailAddress: '',
         step: 1,
         password: '',
-        verifyEmail: false,
-        profile: {
-            firstName: '',
-        },
+        verifyEmail: false
     },
 });
 

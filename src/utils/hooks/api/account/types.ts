@@ -28,6 +28,13 @@ export interface ProfessionalProfile {
     lastUpdatedAt: number;
 }
 
+export interface CreateProAccountRequest {
+    emailAddress: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+}
+
 export enum PrimaryProfileType {
     Professional = 'PROFESSIONAL',
     Company = 'COMPANY',

@@ -3,14 +3,36 @@ import React from 'react';
 import EmailConfirmationIcon from '../../../../assets/icons/EmailConfirmationIcon'
 import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps'
 import { updateStep } from './updateAction';
-import { useStateMachine } from 'little-state-machine';
+import { GlobalState, useStateMachine } from 'little-state-machine';
+import { updateAction } from "./updateAction";
+import axios from 'axios';
+import { useCreateNewAccount } from '../../../../utils/context/AccountContext';
 
 function EmailConfirmation() {
   const { actions } = useStateMachine({ updateStep });
+  const { state } = useStateMachine({updateAction});
+  const { createAccount } = useCreateNewAccount();
+
+  const onSubmit = async (data: GlobalState) => {
+    const response = await createAccount(data)
+      .then((response: any) => {
+        console.log(response);
+        window.alert(`User Created ${response}`);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+    return response;
+  }
 
   React.useEffect(() => {
+    
     actions.updateStep(3);
-}, [actions])
+    onSubmit(state);
+
+  }, [actions, state])
+
+  
 
   return (
     <>
