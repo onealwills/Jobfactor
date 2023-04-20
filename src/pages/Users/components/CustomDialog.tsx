@@ -87,7 +87,11 @@ export default function CustomizedDialogs({
             sx={{
               "& .MuiDialogContent-root": {
                 paddingX: 4,
-                paddingBottom: 4,
+                paddingBottom: actions ? 3 : 4,
+              },
+              "& .MuiDialogActions-root": {
+                paddingX: 4,
+                paddingY: 2.5
               }
             }}
         >
