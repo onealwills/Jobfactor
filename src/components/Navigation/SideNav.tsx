@@ -16,185 +16,220 @@ import { useEffect, useState } from 'react';
 import Submenu from '../Submenu';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-    open?: boolean;
+  open?: boolean;
 }>(({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create('margin', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: `-${300}px`,
+  ...(open && {
     transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: `-${300}px`,
-    ...(open && {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    }),
+    marginLeft: 0,
+  }),
 }));
 
 const sideNavOptions: Menu[] = [
-    {
-        icon: HomeIcon,
-        label: 'Home',
-        route: '/',
-    },
-    {
-        icon: UserIcon,
+  {
+    icon: HomeIcon,
+    label: 'Home',
+    route: '/',
+  },
+  {
+    icon: UserIcon,
+    label: 'Profile',
+    route: '/users',
+    submenu: [
+      {
         label: 'Profile',
-        route: '/users',
-        submenu: [
-            {
-                label: "Profile",
-                route: "",
-            },
-            {
-                label: 'About me',
-                route: '/about-me',
-            },
-            {
-                label: 'Activities',
-                route: '/activities',
-            },
-            {
-                label: 'Jobfactor Score',
-                route: '/jobfactor-score',
-            },
-            {
-                label: 'News & products',
-                route: '/news-products',
-            },
-            {
-                label: 'Employees',
-                route: '/employees',
-            },
-        ]
-    },
-    {
-        icon: UserIcon2,
-        label: 'Connections',
+        route: '',
+      },
+      {
+        label: 'About me',
+        route: '/about-me',
+      },
+      {
+        label: 'Activities',
+        route: '/activities',
+      },
+      {
+        label: 'Jobfactor Score',
+        route: '/jobfactor-score',
+      },
+      {
+        label: 'News & products',
+        route: '/news-products',
+      },
+      {
+        label: 'Employees',
+        route: '/employees',
+      },
+    ],
+  },
+  {
+    icon: UserIcon2,
+    label: 'Connections',
+    route: '/connections',
+    submenu: [
+      {
+        label: 'Community',
+        route: '',
+      },
+      {
+        label: 'My followers',
         route: '/connections',
-        submenu: [
-            {
-                label: "Community",
-                route: "",
-            },
-            {
-                label: 'My followers',
-                route: '/connections',
-            },
-            {
-                label: 'Pending followers',
-                route: '/pending-connections',
-            }
-        ]
-    },
-    {
-        icon: BriefCaseIcon,
-        label: 'My Jobs',
-        route: '/my-jobs',
-    },
-    {
-        icon: MessagesIcon,
-        label: 'Messages',
-        route: '/messages',
-    },
-    {
-        icon: BookIcon,
-        label: 'Courses',
-        route: '/courses',
-    },
-    {
-        icon: NotificationsIcon,
-        label: 'Notifications',
-        route: '/notifications',
-    },
-    {
-        icon: Settings,
-        label: 'Settings',
-        route: '/settings',
-    },
-    {
-        icon: SupportIcon,
-        label: 'Help & Support',
-        route: '/help-support',
-    },
-    {
-        icon: LogoutIcon,
-        label: 'Log out',
-        route: '/logout',
-    },
+      },
+      {
+        label: 'Pending followers',
+        route: '/pending-connections',
+      },
+    ],
+  },
+  {
+    icon: BriefCaseIcon,
+    label: 'My Jobs',
+    route: '/my-jobs',
+  },
+  {
+    icon: MessagesIcon,
+    label: 'Messages',
+    route: '/messages',
+  },
+  {
+    icon: MessagesIcon,
+    label: 'Reviews',
+    route: '/reviews',
+    submenu: [
+      {
+        label: 'Reviews',
+        route: '',
+      },
+      {
+        label: 'Suggested Reviews',
+        route: '/reviews',
+      },
+      {
+        label: 'Company Ratings',
+        route: '/connections',
+      },
+      {
+        label: 'Sent requests',
+        route: '/pending-connections',
+      },
+      {
+        label: 'Recieved requests',
+        route: '/pending-connections',
+      },
+    ],
+  },
+  {
+    icon: BookIcon,
+    label: 'Courses',
+    route: '/courses',
+  },
+  {
+    icon: NotificationsIcon,
+    label: 'Notifications',
+    route: '/notifications',
+  },
+  {
+    icon: Settings,
+    label: 'Settings',
+    route: '/settings',
+  },
+  {
+    icon: SupportIcon,
+    label: 'Help & Support',
+    route: '/help-support',
+  },
+  {
+    icon: LogoutIcon,
+    label: 'Log out',
+    route: '/logout',
+  },
 ];
 
 function SideNav() {
-    const location = useLocation();
-    const [hideMenu, setHideMenu] = useState(false);
-    const [menuIndex, setMenuIndex] = useState(0);
-    const [subMenuIndex, setSubMenuIndex] = useState(0);
+  const location = useLocation();
+  const [hideMenu, setHideMenu] = useState(false);
+  const [menuIndex, setMenuIndex] = useState(0);
+  const [subMenuIndex, setSubMenuIndex] = useState(0);
 
-    const handleActiveMenu = () => {
-        let subMenuActive = false;
-        sideNavOptions.forEach((x: Menu, i: number) => {
-            if (location.pathname === x.route) {
-                setMenuIndex(i);
-                if (x.submenu) {
-                    subMenuActive = true;
-                }
-            } else if (x.submenu) {
-                x.submenu.forEach((y, j: number) => {
-                    if (location.pathname === y.route) {
-                        setMenuIndex(i);
-                        setSubMenuIndex(j);
-                        subMenuActive = true;
-                    }
-                })
-            }
+  const handleActiveMenu = () => {
+    let subMenuActive = false;
+    sideNavOptions.forEach((x: Menu, i: number) => {
+      if (location.pathname === x.route) {
+        setMenuIndex(i);
+        if (x.submenu) {
+          subMenuActive = true;
+        }
+      } else if (x.submenu) {
+        x.submenu.forEach((y, j: number) => {
+          if (location.pathname === y.route) {
+            setMenuIndex(i);
+            setSubMenuIndex(j);
+            subMenuActive = true;
+          }
         });
+      }
+    });
 
-        setHideMenu(subMenuActive);
-    }
-    useEffect(() => {
-        handleActiveMenu();
-    }, [location.pathname]);
+    setHideMenu(subMenuActive);
+  };
+  useEffect(() => {
+    handleActiveMenu();
+  }, [location.pathname]);
 
-    return (
-        <>
-            <Box
-                sx={{
-                    mt: '12px',
-                    backgroundColor: 'white',
-                    overflowY: 'auto', // add scroll on y-axis                    
-                    display: 'flex'
-                }}
-            >
-                <Box
-                    sx={{
-                        width: hideMenu ? '63px' : '100%',
-                        overflow: hideMenu ? 'hidden' : 'unset',
-                    }}
-                >
-                    {sideNavOptions.map((nav: Menu, index: number) => (
-                        <SideNavItem hideMenu={hideMenu} currentItem={sideNavOptions[menuIndex]} subMenuIndex={subMenuIndex} handleActiveMenu={handleActiveMenu} nav={nav} index={index} key={index} />
-                    ))}
-                </Box>
-                <Submenu
-                    setHideMenu={setHideMenu}
-                    hideMenu={hideMenu}
-                    options={sideNavOptions[menuIndex].submenu ?? []}
-                />
-            </Box>
-        </>
-    );
+  return (
+    <>
+      <Box
+        sx={{
+          mt: '12px',
+          backgroundColor: 'white',
+          overflowY: 'auto', // add scroll on y-axis
+          display: 'flex',
+        }}
+      >
+        <Box
+          sx={{
+            width: hideMenu ? '63px' : '100%',
+            overflow: hideMenu ? 'hidden' : 'unset',
+          }}
+        >
+          {sideNavOptions.map((nav: Menu, index: number) => (
+            <SideNavItem
+              hideMenu={hideMenu}
+              currentItem={sideNavOptions[menuIndex]}
+              subMenuIndex={subMenuIndex}
+              handleActiveMenu={handleActiveMenu}
+              nav={nav}
+              index={index}
+              key={index}
+            />
+          ))}
+        </Box>
+        <Submenu
+          setHideMenu={setHideMenu}
+          hideMenu={hideMenu}
+          options={sideNavOptions[menuIndex].submenu ?? []}
+        />
+      </Box>
+    </>
+  );
 }
 export interface Menu {
-    label: string;
-    route: string;
-    icon: (props: { isHover: boolean; isSelected: boolean }) => JSX.Element;
-    submenu?: item[];
+  label: string;
+  route: string;
+  icon: (props: { isHover: boolean; isSelected: boolean }) => JSX.Element;
+  submenu?: item[];
 }
 export type item = {
-    route: string;
-    label: string;
-}
+  route: string;
+  label: string;
+};
 export default SideNav;

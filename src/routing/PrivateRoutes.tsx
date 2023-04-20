@@ -5,6 +5,7 @@ import MainLayout from '../pages/MainLayout/MainLayout';
 import ConnectionsPage from '../pages/Connections/ConnectionsPage';
 import MyJobsPage from '../pages/MyJobs/MyJobsPage';
 import MessagesPage from '../pages/Messages/Messages';
+import ReviewsPage from '../pages/Reviews';
 import CoursesPage from '../pages/Courses/CoursesPage';
 import NotificationsPage from '../pages/Notifications/NotificationsPags';
 import HelpSupportPage from '../pages/HelpSupport/HelpSupportPage';
@@ -12,111 +13,132 @@ import SettingsPage from '../pages/Settings/SettingsPage';
 import HomePage from '../pages/Home/HomePage';
 import UsersPage from '../pages/Users/UsersPage';
 import PendingConnection from '../pages/PendingConnctions/PendingConnection';
+// import SuggestedReviews from '../pages/Reviews';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
-    const { isAuthenticated } = useAuth();
-    const location = useLocation();
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
 
-    return isAuthenticated ? (
-        <>{children}</>
-    ) : (
-        <Navigate to="/login" replace state={{ path: location.pathname }} />
-    );
+  return isAuthenticated ? (
+    <>{children}</>
+  ) : (
+    <Navigate to="/login" replace state={{ path: location.pathname }} />
+  );
+
+  //   return <>{children}</>;
 }
 
 const PrivateRoutes = () => {
-    return (
-        <Routes>
-            <Route path="/*">
-                <Route
-                    path=""
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<HomePage />} />
-                        </RequireAuth>
-                    }
-                />
-                <Route
-                    path="users"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<UsersPage />} />
-                        </RequireAuth>
-                    }
-                />
+  return (
+    <Routes>
+      <Route path="/*">
+        <Route
+          path=""
+          element={
+            <RequireAuth>
+              <MainLayout children={<HomePage />} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="users"
+          element={
+            <RequireAuth>
+              <MainLayout children={<UsersPage />} />
+            </RequireAuth>
+          }
+        />
 
-                <Route
-                    path="connections"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<ConnectionsPage />} />
-                        </RequireAuth>
-                    }
-                />
-                 <Route
-                    path="pending-connections"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<PendingConnection />} />
-                        </RequireAuth>
-                    }
-                />
-                <Route
-                    path="my-jobs"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<MyJobsPage />} />
-                        </RequireAuth>
-                    }
-                />
+        <Route
+          path="connections"
+          element={
+            <RequireAuth>
+              <MainLayout children={<ConnectionsPage />} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="pending-connections"
+          element={
+            <RequireAuth>
+              <MainLayout children={<PendingConnection />} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="my-jobs"
+          element={
+            <RequireAuth>
+              <MainLayout children={<MyJobsPage />} />
+            </RequireAuth>
+          }
+        />
 
-                <Route
-                    path="messages"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<MessagesPage />} />
-                        </RequireAuth>
-                    }
-                />
+        <Route
+          path="messages"
+          element={
+            <RequireAuth>
+              <MainLayout children={<MessagesPage />} />
+            </RequireAuth>
+          }
+        />
 
-                <Route
-                    path="courses"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<CoursesPage />} />
-                        </RequireAuth>
-                    }
-                />
+        <Route
+          path="reviews"
+          element={
+            <RequireAuth>
+              <MainLayout children={<ReviewsPage />} />
+            </RequireAuth>
+          }
+        />
 
-                <Route
-                    path="notifications"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<NotificationsPage />} />
-                        </RequireAuth>
-                    }
-                />
+        {/* <Route
+          path="suggested-reviews"
+          element={
+            <RequireAuth>
+              <MainLayout children={<SuggestedReviews />} />
+            </RequireAuth>
+          }
+        /> */}
 
-                <Route
-                    path="settings"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<SettingsPage />} />
-                        </RequireAuth>
-                    }
-                />
+        <Route
+          path="courses"
+          element={
+            <RequireAuth>
+              <MainLayout children={<CoursesPage />} />
+            </RequireAuth>
+          }
+        />
 
-                <Route
-                    path="help-support"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<HelpSupportPage />} />
-                        </RequireAuth>
-                    }
-                />
-            </Route>
-        </Routes>
-    );
+        <Route
+          path="notifications"
+          element={
+            <RequireAuth>
+              <MainLayout children={<NotificationsPage />} />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="settings"
+          element={
+            <RequireAuth>
+              <MainLayout children={<SettingsPage />} />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="help-support"
+          element={
+            <RequireAuth>
+              <MainLayout children={<HelpSupportPage />} />
+            </RequireAuth>
+          }
+        />
+      </Route>
+    </Routes>
+  );
 };
 
 export default PrivateRoutes;
