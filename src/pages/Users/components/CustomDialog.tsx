@@ -67,7 +67,7 @@ function CustomDialogTitle(props: DialogTitleProps) {
     );
 }
 
-export default function CustomizedDialogs({
+export default function CustomDialog({
     actions,
     open,
     title,

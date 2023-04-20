@@ -37,6 +37,7 @@ import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 import { Ranking } from './types/Ranking';
 import CustomizedDialogs from './components/CustomDialog';
+import { ContactInfoDialog } from './components/ContactInfoDialog';
 
 function UsersPage() {
     return (
@@ -759,13 +760,7 @@ function UsersPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <CustomizedDialogs open={true} title="Ronald Richard">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Perferendis a aliquid expedita error in, possimus, dignissimos
-                optio fugiat quod, magni officiis fuga quam quas consectetur
-                eaque corporis earum asperiores vel. Quibusdam quo quos nesciunt
-                natus esse hic minus? Fugiat, blanditiis.
-            </CustomizedDialogs>
+            <ContactInfoDialog />
         </Container>
     );
 }
