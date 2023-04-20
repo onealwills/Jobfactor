@@ -28,7 +28,7 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                 }}
             >
                 <Box>
-                    <img src={feed.profileImage} alt="feed" />
+                    <img src={feed.profileImage} alt='feed' />
                 </Box>
                 <Box sx={{}}>
                     <Box
@@ -46,8 +46,8 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                         >
                             <Typography
                                 sx={{ mt: -0.5 }}
-                                color="#23282B"
-                                fontFamily="open sans"
+                                color='#23282B'
+                                fontFamily='open sans'
                                 fontSize={20}
                                 fontWeight={600}
                             >
@@ -56,8 +56,8 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                             <DotIcon />
                             <Typography
                                 sx={{ mt: -0.5 }}
-                                color="#808080"
-                                fontFamily="open sans"
+                                color='#808080'
+                                fontFamily='open sans'
                                 fontSize={16}
                                 fontWeight={400}
                             >
@@ -73,12 +73,12 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                             {feed.description.split('\n').map((line, index) => (
                                 <Typography
                                     color={'#808080'}
-                                    fontFamily="open sans"
+                                    fontFamily='open sans'
                                     fontSize={14}
                                     fontWeight={400}
                                     key={index}
-                                    variant="body1"
-                                    component="div"
+                                    variant='body1'
+                                    component='div'
                                     sx={{ whiteSpace: 'pre-line', mb: 1 }} // add margin bottom
                                 >
                                     {line}
@@ -92,7 +92,7 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                             <img
                                 key={index}
                                 src={image}
-                                alt="feed"
+                                alt='feed'
                                 style={{
                                     maxWidth: '100%',
                                     height: 'auto',

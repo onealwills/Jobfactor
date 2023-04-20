@@ -11,8 +11,8 @@ export default function Button(theme: Theme) {
         MuiButton: {
             defaultProps: {
                 disableElevation: true,
-                disableFocusRipple: true,
-                disableRipple: true,
+                disableFocusRipple: false,
+                disableRipple: false,
             },
 
             variants: [
