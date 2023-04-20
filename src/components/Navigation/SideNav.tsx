@@ -51,7 +51,7 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'About me',
-                route: '/about-me',
+                route: '/users',
             },
             {
                 label: 'Activities',
@@ -73,7 +73,7 @@ const sideNavOptions: Menu[] = [
     },
     {
         icon: UserIcon2,
-        label: 'Connections',
+        label: 'Community',
         route: '/connections',
         submenu: [
             {
@@ -92,7 +92,7 @@ const sideNavOptions: Menu[] = [
     },
     {
         icon: BriefCaseIcon,
-        label: 'My Jobs',
+        label: 'Jobs',
         route: '/my-jobs',
     },
     {
@@ -106,19 +106,9 @@ const sideNavOptions: Menu[] = [
         route: '/courses',
     },
     {
-        icon: NotificationsIcon,
-        label: 'Notifications',
-        route: '/notifications',
-    },
-    {
         icon: Settings,
         label: 'Settings',
         route: '/settings',
-    },
-    {
-        icon: SupportIcon,
-        label: 'Help & Support',
-        route: '/help-support',
     },
     {
         icon: LogoutIcon,
