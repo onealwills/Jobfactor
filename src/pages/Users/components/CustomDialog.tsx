@@ -15,10 +15,12 @@ export interface DialogProps {
   actions?: React.ReactNode;
   onClose?: () => void;
   children?: React.ReactNode;
+  size?: 'default'
 }
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
+    width: '736px',
     padding: theme.spacing(2, 4, 4),
   },
   '& .MuiDialogActions-root': {
@@ -33,7 +35,7 @@ export interface DialogTitleProps {
 }
 
 function BootstrapDialogTitle(props: DialogTitleProps) {
-  const { children, onClose, ...other } = props;
+  const { children, onClose, ...other} = props;
 
   return (
     <DialogTitle
