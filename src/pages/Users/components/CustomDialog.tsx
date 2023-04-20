@@ -84,6 +84,12 @@ export default function CustomizedDialogs({
             onClose={handleClose}
             aria-labelledby="customized-dialog-title"
             open={!!open}
+            sx={{
+              "& .MuiDialogContent-root": {
+                paddingX: 4,
+                paddingBottom: 4,
+              }
+            }}
         >
             <CustomDialogTitle
                 id="customized-dialog-title"
