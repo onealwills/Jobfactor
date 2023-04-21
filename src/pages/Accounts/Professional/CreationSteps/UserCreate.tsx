@@ -9,7 +9,7 @@ import {
 import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useStateMachine } from 'little-state-machine';
+import { GlobalState, useStateMachine } from 'little-state-machine';
 import { updateAction, updateStep } from './updateAction';
 import UserFormIcon from '../../../../assets/icons/UserFormIcon';
 import EmailFormIcon from '../../../../assets/icons/EmailFormIcon';
@@ -18,6 +18,8 @@ import ErrorFormIcon from '../../../../assets/icons/ErrorFormIcon';
 import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 import OnboardingLineIcon from '../../../../assets/icons/OnboardingLineIcon';
 import React, { useEffect } from 'react';
+import { CreateAccountType, CreateProAccountRequest } from '../../../../utils/hooks/api/account/types';
+import useCreateProAccount from '../../../../utils/hooks/api/account/useCreateProAccount';
 
 interface IUserInfo {
     firstName: string;
@@ -38,16 +40,42 @@ function UserCreate() {
         clearErrors,
     } = useForm<IUserInfo>();
     const { isDirty, isValid, errors } = formState;
-    const { actions } = useStateMachine({ updateAction, updateStep });
+    const { actions, state } = useStateMachine({ updateAction, updateStep });
 
-    // useEffect(() => {
+    const createAccountMutation = useCreateProAccount();
+
+    const handleCreateAccount = async (data: GlobalState) => {
+        console.log('handle creat called')
+        if (data.data.accountType === CreateAccountType.Professional) {
+            const request: CreateProAccountRequest = {
+                emailAddress: data.data.emailAddress,
+                firstName: data.data.firstName,
+                lastName: data.data.lastName,
+                password: data.data.password
+            }
+            console.log('account type pro');
+            
+            createAccountMutation.mutate(request, {
+                onSuccess: async (data) => {
+                    console.log(data);
+                },
+                onError: (error) => {
+                    console.error(error);
+                }
+            })
+        }
+        // } else if (data.data.accountType === CreateAccountType.Company) {
+        //     const request: Create
+        // }
         
-    // }, [] );
+      
+    }
         
     const onSubmit: SubmitHandler<IUserInfo> = async (data) => {
         console.log(data);
         actions.updateStep(3);
         actions.updateAction(data);
+        handleCreateAccount(state);
         navigate('/create-account/confirmEmail');
     };
 

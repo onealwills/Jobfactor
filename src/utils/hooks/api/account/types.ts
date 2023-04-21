@@ -39,3 +39,8 @@ export enum PrimaryProfileType {
     Professional = 'PROFESSIONAL',
     Company = 'COMPANY',
 }
+
+export enum CreateAccountType {
+    Professional = 'PROFESSIONAL',
+    Company = 'COMPANY',
+}

@@ -7,28 +7,37 @@ import { GlobalState, useStateMachine } from 'little-state-machine';
 import { updateAction } from "./updateAction";
 import axios from 'axios';
 import { useCreateNewAccount } from '../../../../utils/context/AccountContext';
+import useCreateProAccount from '../../../../utils/hooks/api/account/useCreateProAccount';
+import { CreateProAccountRequest } from '../../../../utils/hooks/api/account/types';
 
 function EmailConfirmation() {
   const { actions } = useStateMachine({ updateStep });
   const { state } = useStateMachine({updateAction});
   const { createAccount } = useCreateNewAccount();
+  // const createAccountMutation = useCreateProAccount();
 
-  const onSubmit = async (data: GlobalState) => {
-    const response = await createAccount(data)
-      .then((response: any) => {
-        console.log(response);
-        window.alert(`User Created ${response}`);
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
-    return response;
-  }
+  // const onSubmit = async (data: GlobalState) => {
+  //   const request: CreateProAccountRequest = {
+  //     emailAddress: data.data.emailAddress,
+  //     firstName: data.data.firstName,
+  //     lastName: data.data.lastName,
+  //     password: data.data.password
+
+  //   }
+  //   createAccountMutation.mutate(request, {
+  //     onSuccess: async (data) => {
+  //         console.log(data);
+  //     },
+  //     onError: (error) => {
+  //       console.error(error);
+  //     }
+  // })
+  // }
 
   React.useEffect(() => {
     
     actions.updateStep(3);
-    onSubmit(state);
+    // onSubmit(state);
 
   }, [actions, state])
 
