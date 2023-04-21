@@ -103,7 +103,7 @@ function MainLayout(props: { children: React.ReactNode }) {
                     sx={{
                         overflow: 'auto',
                         mt: -0.5,
-                        padding:'12px',
+                        padding:'9px',
                         paddingTop: "6px",
                         overflowY: 'hidden'
                     }}

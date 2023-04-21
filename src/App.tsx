@@ -1,8 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import AppRouter from './routing/AppRouter';
 import { AuthProvider } from './utils/context/AuthContext';
-import { JobFactorTheme } from './theme/JobFactorTheme';
-import { ThemeProvider } from '@mui/material';
+import ThemeProvider from './theme/JobFactorTheme';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -15,7 +14,7 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <>
-            <ThemeProvider theme={JobFactorTheme}>
+            <ThemeProvider>
                 <QueryClientProvider client={queryClient}>
                     <AuthProvider>
                         <AppRouter />

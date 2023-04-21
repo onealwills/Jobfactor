@@ -1,26 +1,21 @@
-import { Typography } from '@mui/material';
-
+import { Box } from '@mui/material';
+import JobsHeader from './components/JobsHeader';
+import JobList from './components/JobList';
+ 
 function MyJobsPage() {
     return (
-        <>
-            <Typography
-                sx={{
-                    mt: 13.7,
-                    ml: 40,
-                    backgroundColor: 'white',
-                    maxWidth: 800,
-                    p: 2,
-                    pb: 10,
-                    textAlign: 'center',
-                    fontFamily: 'open sans',
-                }}
-                variant="h4"
-                component="div"
-            >
-                Notifications
-            </Typography>
-        </>
+        <Box sx={{
+            mt: -6,
+            ml: 2,
+            mx: '40px',
+            maxWidth: 1072,
+        }}>
+            <JobsHeader />
+            {/*<JobMetrics />*/}
+            <JobList />
+        </Box>
     );
 }
 
 export default MyJobsPage;
+
