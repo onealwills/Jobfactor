@@ -21,12 +21,6 @@ createStore({
 });
 
 function CreateAccount() {
-    // TODO
-    // create each page in the steps for creating an account
-    // Make a "wizard" for setting up accounts saving the data from each step in the local storage
-    // // https://react-hook-form.com/advanced-usage/#WizardFormFunnel
-    // call each step by the prop value passed through
-
 
     return (
         <>
