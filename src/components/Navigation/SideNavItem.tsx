@@ -6,17 +6,24 @@ import { useAuth } from '../../utils/context/AuthContext';
 import { Menu } from './SideNav';
 
 export default function SideNavItem(props: {
-    nav: Menu,
+    nav: Menu;
     hideMenu: boolean;
     index: number;
     currentItem: Menu;
     subMenuIndex: number;
-    handleActiveMenu: () => void
+    handleActiveMenu: () => void;
 }): JSX.Element {
     const hoverRef = useRef(null);
     const [isSelected, setIsSelected] = useState(false);
     const isHover = useHover(hoverRef);
-    const { nav, index, handleActiveMenu, currentItem, hideMenu, subMenuIndex } = props;
+    const {
+        nav,
+        index,
+        handleActiveMenu,
+        currentItem,
+        hideMenu,
+        subMenuIndex
+    } = props;
     const navigate = useNavigate();
     const location = useLocation();
     const { signOut } = useAuth();
@@ -25,7 +32,10 @@ export default function SideNavItem(props: {
         if (nav.route === location.pathname) {
             setIsSelected(true);
         } else if (currentItem.submenu) {
-            if (location.pathname === currentItem.submenu[subMenuIndex].route && currentItem.route === nav.route) {
+            if (
+                location.pathname === currentItem.submenu[subMenuIndex].route &&
+                currentItem.route === nav.route
+            ) {
                 setIsSelected(true);
             } else {
                 setIsSelected(false);
@@ -33,7 +43,6 @@ export default function SideNavItem(props: {
         } else {
             setIsSelected(false);
         }
-
     }, [currentItem, location.pathname, nav.route, nav.submenu]);
 
     const handleClick = () => {
@@ -69,8 +78,8 @@ export default function SideNavItem(props: {
                     color: '#05668D',
                     textTransform: 'uppercase',
                     '& .bar': {
-                        opacity: 1,
-                    },
+                        opacity: 1
+                    }
                 },
                 backgroundColor: isSelected ? '#FFFAF1' : 'transparent',
                 fontWeight: isSelected ? 700 : 'normal',
@@ -91,7 +100,7 @@ export default function SideNavItem(props: {
                     top: 0,
                     bottom: 0,
                     left: 0,
-                    transition: 'background-color 0.3s ease-in-out',
+                    transition: 'background-color 0.3s ease-in-out'
                 }}
                 className="bar"
             ></Box>

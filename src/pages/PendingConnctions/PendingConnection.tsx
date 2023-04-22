@@ -9,7 +9,7 @@ import company from '../../assets/images/company.png';
 const data = [
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -17,13 +17,13 @@ const data = [
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image,
-        name: "Aevon Lane",
+        name: 'Aevon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -31,7 +31,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -39,7 +39,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -47,7 +47,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -55,7 +55,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -63,7 +63,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -71,7 +71,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -79,7 +79,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -87,7 +87,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -95,7 +95,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -103,7 +103,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -111,7 +111,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -119,7 +119,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -127,7 +127,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -135,7 +135,7 @@ const data = [
     },
     {
         image,
-        name: "Devon Lane",
+        name: 'Devon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
@@ -143,187 +143,175 @@ const data = [
     },
     {
         image,
-        name: "Zevon Lane",
+        name: 'Zevon Lane',
         designation: 'Sales Manager',
         organization: 'Xtera Solutions',
         points: '550',
         days: '3'
     }
-]
+];
 const companies = [
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     },
     {
         image: company,
-        name: "Exoticca",
+        name: 'Exoticca',
         points: '550',
         days: '3'
     }
-]
-
+];
 
 function PendingConnection() {
     const [tab, setTab] = React.useState<string>('sent');
 
     const changeTab = (type: string) => {
         setTab(type);
-    }
+    };
 
     return (
         <>
             <Box sx={{ ml: '35px' }}>
                 <Header />
                 <Grid container mt={'20px'}>
-                    <Tabs
-                        changeTab={changeTab}
-                        tab={tab}
-                    />
-                    <TabPanel
-                        activeTab={tab}
-                        tab={'sent'}
-                        data={companies}
-                    />
-                    <TabPanel
-                        activeTab={tab}
-                        tab={'received'}
-                        data={data}
-                    />
+                    <Tabs changeTab={changeTab} tab={tab} />
+                    <TabPanel activeTab={tab} tab={'sent'} data={companies} />
+                    <TabPanel activeTab={tab} tab={'received'} data={data} />
                 </Grid>
             </Box>
         </>
@@ -331,5 +319,3 @@ function PendingConnection() {
 }
 
 export default PendingConnection;
-
-

@@ -1,12 +1,12 @@
-import { Box, BoxProps, Grid } from "@mui/material";
+import { Box, BoxProps, Grid } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import React from "react";
+import React from 'react';
 
 interface Props extends BoxProps {
-    heading?: React.ReactNode
+    heading?: React.ReactNode;
 }
 
-const Section = ({heading, children, onClick, ...props}: Props) => {
+const Section = ({ heading, children, onClick, ...props }: Props) => {
     return (
         <Box component="section">
             {(heading || onClick) && (
@@ -28,7 +28,7 @@ const Section = ({heading, children, onClick, ...props}: Props) => {
                     )}
                 </Grid>
             )}
-            <Box 
+            <Box
                 py={1.5}
                 px={5}
                 mb={4.5}
@@ -36,10 +36,10 @@ const Section = ({heading, children, onClick, ...props}: Props) => {
                 borderRadius={1.5}
                 {...props}
             >
-                { children }
+                {children}
             </Box>
         </Box>
-    )
+    );
 };
 
-export default Section
+export default Section;

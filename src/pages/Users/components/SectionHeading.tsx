@@ -1,7 +1,9 @@
-import { Typography, TypographyProps } from "@mui/material"
-import React from "react"
+import { Typography, TypographyProps } from '@mui/material';
+import React from 'react';
 
-const SectionHeading = (props: TypographyProps & {component?: React.ElementType}) => (
+const SectionHeading = (
+    props: TypographyProps & { component?: React.ElementType }
+) => (
     <Typography
         component="h3"
         color="#23282B"
@@ -11,8 +13,8 @@ const SectionHeading = (props: TypographyProps & {component?: React.ElementType}
         ml={5}
         {...props}
     >
-        { props.children }
+        {props.children}
     </Typography>
-)
+);
 
-export default SectionHeading
+export default SectionHeading;

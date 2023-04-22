@@ -7,7 +7,6 @@
 
 import { Theme } from '@mui/material/styles';
 
-
 declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
         displayLargeRegular: true;
@@ -52,7 +51,7 @@ declare module '@mui/material/Typography' {
         bodyLargeRegular: true;
         bodyLargeSemiBold: true;
         bodyLargeBold: true;
-        
+
         bodyMediumRegular: true;
         bodyMediumSemiBold: true;
         bodyMediumBold: true;
@@ -62,7 +61,7 @@ declare module '@mui/material/Typography' {
 export default function Typography(theme: Theme) {
     return {
         MuiTypography: {
-            styleOverrides: {},
-        },
+            styleOverrides: {}
+        }
     };
 }

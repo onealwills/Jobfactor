@@ -16,7 +16,7 @@ export const feeds: IFeedItem[] = [
         comments: 156,
         shares: 75,
         images: [feed1_1, feed1_2],
-        isAccountVerified: true,
+        isAccountVerified: true
     },
     {
         profileImage: feed2,
@@ -29,6 +29,6 @@ export const feeds: IFeedItem[] = [
         comments: 156,
         shares: 75,
         images: [feed2_1],
-        isAccountVerified: true,
-    },
+        isAccountVerified: true
+    }
 ];

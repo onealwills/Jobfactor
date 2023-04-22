@@ -1,4 +1,11 @@
-import { Button, Paper, Table, TableBody, TableContainer, TableRow } from '@mui/material';
+import {
+    Button,
+    Paper,
+    Table,
+    TableBody,
+    TableContainer,
+    TableRow
+} from '@mui/material';
 import { Box } from '@mui/system';
 
 const tabStyles = {
@@ -12,7 +19,7 @@ const tabStyles = {
         color: 'white',
         background: '#05668D'
     }
-}
+};
 
 const Tabs = (props: PropTypes) => {
     const { tab, changeTab } = props;
@@ -30,33 +37,45 @@ const Tabs = (props: PropTypes) => {
                         <Box sx={{ margin: '40px', marginBottom: '10px' }}>
                             <Button
                                 sx={{
-                                    background: tab === 'sent' ? '#055C7F' : '#EDEDED',
-                                    color: tab === 'sent' ? '#FFFFFF' : '#23282B',
+                                    background:
+                                        tab === 'sent' ? '#055C7F' : '#EDEDED',
+                                    color:
+                                        tab === 'sent' ? '#FFFFFF' : '#23282B',
                                     fontSize: '14px',
                                     textTransform: 'capitalize',
                                     ...tabStyles
                                 }}
                                 onClick={() => changeTab('sent')}
-                            >Sent</Button>
+                            >
+                                Sent
+                            </Button>
                             <Button
                                 sx={{
-                                    background: tab === 'received' ? '#055C7F' : '#EDEDED',
-                                    color: tab === 'received' ? '#FFFFFF' : '#23282B',
+                                    background:
+                                        tab === 'received'
+                                            ? '#055C7F'
+                                            : '#EDEDED',
+                                    color:
+                                        tab === 'received'
+                                            ? '#FFFFFF'
+                                            : '#23282B',
                                     fontSize: '14px',
                                     textTransform: 'capitalize',
                                     ...tabStyles
                                 }}
                                 onClick={() => changeTab('received')}
-                            >Received</Button>
+                            >
+                                Received
+                            </Button>
                         </Box>
                     </TableRow>
                 </TableBody>
             </Table>
         </TableContainer>
-    )
-}
+    );
+};
 interface PropTypes {
     tab: string;
-    changeTab: (type: string) => void
+    changeTab: (type: string) => void;
 }
-export default Tabs
+export default Tabs;

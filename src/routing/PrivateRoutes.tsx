@@ -22,16 +22,16 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
     return isAuthenticated ? (
         <>{children}</>
     ) : (
-        <Navigate to='/login' replace state={{ path: location.pathname }} />
+        <Navigate to="/login" replace state={{ path: location.pathname }} />
     );
 }
 
 const PrivateRoutes = () => {
     return (
         <Routes>
-            <Route path='/*'>
+            <Route path="/*">
                 <Route
-                    path=''
+                    path=""
                     element={
                         <RequireAuth>
                             <MainLayout children={<HomePage />} />
@@ -39,7 +39,7 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
-                    path='users'
+                    path="users"
                     element={
                         <RequireAuth>
                             <MainLayout children={<UsersPage />} />
@@ -48,7 +48,7 @@ const PrivateRoutes = () => {
                 />
 
                 <Route
-                    path='connections'
+                    path="connections"
                     element={
                         <RequireAuth>
                             <MainLayout children={<ConnectionsPage />} />
@@ -56,7 +56,7 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
-                    path='pending-connections'
+                    path="pending-connections"
                     element={
                         <RequireAuth>
                             <MainLayout children={<PendingConnection />} />
@@ -64,7 +64,7 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
-                    path='my-jobs'
+                    path="my-jobs"
                     element={
                         <RequireAuth>
                             <MainLayout children={<MyJobsPage />} />
@@ -72,7 +72,7 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
-                    path='my-jobs/:id'
+                    path="my-jobs/:id"
                     element={
                         <RequireAuth>
                             <MainLayout children={<JobItemDetail />} />
@@ -81,7 +81,7 @@ const PrivateRoutes = () => {
                 />
 
                 <Route
-                    path='messages'
+                    path="messages"
                     element={
                         <RequireAuth>
                             <MainLayout children={<MessagesPage />} />
@@ -90,7 +90,7 @@ const PrivateRoutes = () => {
                 />
 
                 <Route
-                    path='courses'
+                    path="courses"
                     element={
                         <RequireAuth>
                             <MainLayout children={<CoursesPage />} />
@@ -99,7 +99,7 @@ const PrivateRoutes = () => {
                 />
 
                 <Route
-                    path='notifications'
+                    path="notifications"
                     element={
                         <RequireAuth>
                             <MainLayout children={<NotificationsPage />} />
@@ -108,7 +108,7 @@ const PrivateRoutes = () => {
                 />
 
                 <Route
-                    path='settings'
+                    path="settings"
                     element={
                         <RequireAuth>
                             <MainLayout children={<SettingsPage />} />
@@ -117,7 +117,7 @@ const PrivateRoutes = () => {
                 />
 
                 <Route
-                    path='help-support'
+                    path="help-support"
                     element={
                         <RequireAuth>
                             <MainLayout children={<HelpSupportPage />} />
@@ -125,7 +125,7 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
-                    path='theme'
+                    path="theme"
                     element={
                         <RequireAuth>
                             <JobFactorThemePage />

@@ -30,5 +30,5 @@ export interface ProfessionalProfile {
 
 export enum PrimaryProfileType {
     Professional = 'PROFESSIONAL',
-    Company = 'COMPANY',
+    Company = 'COMPANY'
 }

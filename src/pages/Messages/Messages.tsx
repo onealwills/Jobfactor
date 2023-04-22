@@ -12,7 +12,7 @@ function MessagesPage() {
                     p: 2,
                     pb: 10,
                     textAlign: 'center',
-                    fontFamily: 'open sans',
+                    fontFamily: 'open sans'
                 }}
                 variant="h4"
                 component="div"

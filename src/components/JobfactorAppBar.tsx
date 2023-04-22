@@ -19,7 +19,7 @@ function JobfactorAppBar() {
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                     backgroundColor: 'white',
                     pb: 1.5,
-                    pt: 0.5,
+                    pt: 0.5
                 }}
                 elevation={0}
             >
@@ -40,7 +40,7 @@ function JobfactorAppBar() {
                                 position: 'relative',
                                 borderRadius: 2,
                                 bgcolor: 'background.paper',
-                                '&:hover': { bgcolor: 'background.paper' },
+                                '&:hover': { bgcolor: 'background.paper' }
                             }}
                         >
                             <Box
@@ -51,7 +51,7 @@ function JobfactorAppBar() {
                                     pointerEvents: 'none',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
+                                    justifyContent: 'center'
                                 }}
                             >
                                 <SearchIcon />
@@ -79,9 +79,9 @@ function JobfactorAppBar() {
                                         pl: '5px',
                                         '&::placeholder': {
                                             color: 'text.secondary',
-                                            opacity: 1,
-                                        },
-                                    },
+                                            opacity: 1
+                                        }
+                                    }
                                 }}
                             />
                         </Box>
@@ -89,7 +89,7 @@ function JobfactorAppBar() {
                     <Box
                         sx={{
                             display: 'flex',
-                            alignItems: 'center',
+                            alignItems: 'center'
                         }}
                     >
                         <IconButton color="inherit" aria-label="bell">

@@ -22,23 +22,23 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.leavingScreen
     }),
     marginLeft: `-${300}px`,
     ...(open && {
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
+            duration: theme.transitions.duration.enteringScreen
         }),
-        marginLeft: 0,
-    }),
+        marginLeft: 0
+    })
 }));
 
 const sideNavOptions: Menu[] = [
     {
         icon: HomeIcon,
         label: 'Home',
-        route: '/',
+        route: '/'
     },
     {
         icon: UserIcon,
@@ -46,29 +46,29 @@ const sideNavOptions: Menu[] = [
         route: '/users',
         submenu: [
             {
-                label: "Profile",
-                route: "",
+                label: 'Profile',
+                route: ''
             },
             {
                 label: 'About me',
-                route: '/users',
+                route: '/users'
             },
             {
                 label: 'Activities',
-                route: '/activities',
+                route: '/activities'
             },
             {
                 label: 'Jobfactor Score',
-                route: '/jobfactor-score',
+                route: '/jobfactor-score'
             },
             {
                 label: 'News & products',
-                route: '/news-products',
+                route: '/news-products'
             },
             {
                 label: 'Employees',
-                route: '/employees',
-            },
+                route: '/employees'
+            }
         ]
     },
     {
@@ -77,44 +77,44 @@ const sideNavOptions: Menu[] = [
         route: '/connections',
         submenu: [
             {
-                label: "Community",
-                route: "",
+                label: 'Community',
+                route: ''
             },
             {
                 label: 'My followers',
-                route: '/connections',
+                route: '/connections'
             },
             {
                 label: 'Pending followers',
-                route: '/pending-connections',
+                route: '/pending-connections'
             }
         ]
     },
     {
         icon: BriefCaseIcon,
         label: 'Jobs',
-        route: '/my-jobs',
+        route: '/my-jobs'
     },
     {
         icon: MessagesIcon,
         label: 'Messages',
-        route: '/messages',
+        route: '/messages'
     },
     {
         icon: BookIcon,
         label: 'Courses',
-        route: '/courses',
+        route: '/courses'
     },
     {
         icon: Settings,
         label: 'Settings',
-        route: '/settings',
+        route: '/settings'
     },
     {
         icon: LogoutIcon,
         label: 'Log out',
-        route: '/logout',
-    },
+        route: '/logout'
+    }
 ];
 
 function SideNav() {
@@ -138,12 +138,12 @@ function SideNav() {
                         setSubMenuIndex(j);
                         subMenuActive = true;
                     }
-                })
+                });
             }
         });
 
         setHideMenu(subMenuActive);
-    }
+    };
     useEffect(() => {
         handleActiveMenu();
     }, [location.pathname]);
@@ -154,18 +154,26 @@ function SideNav() {
                 sx={{
                     mt: '12px',
                     backgroundColor: 'white',
-                    overflowY: 'auto', // add scroll on y-axis                    
+                    overflowY: 'auto', // add scroll on y-axis
                     display: 'flex'
                 }}
             >
                 <Box
                     sx={{
                         width: hideMenu ? '63px' : '100%',
-                        overflow: hideMenu ? 'hidden' : 'unset',
+                        overflow: hideMenu ? 'hidden' : 'unset'
                     }}
                 >
                     {sideNavOptions.map((nav: Menu, index: number) => (
-                        <SideNavItem hideMenu={hideMenu} currentItem={sideNavOptions[menuIndex]} subMenuIndex={subMenuIndex} handleActiveMenu={handleActiveMenu} nav={nav} index={index} key={index} />
+                        <SideNavItem
+                            hideMenu={hideMenu}
+                            currentItem={sideNavOptions[menuIndex]}
+                            subMenuIndex={subMenuIndex}
+                            handleActiveMenu={handleActiveMenu}
+                            nav={nav}
+                            index={index}
+                            key={index}
+                        />
                     ))}
                 </Box>
                 <Submenu
@@ -186,5 +194,5 @@ export interface Menu {
 export type item = {
     route: string;
     label: string;
-}
+};
 export default SideNav;

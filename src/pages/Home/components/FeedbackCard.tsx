@@ -18,7 +18,7 @@ function FeedbackCard() {
                     mt: '16px',
                     gap: '24px',
                     alignItems: 'center',
-                    pb: '4px',
+                    pb: '4px'
                 }}
             >
                 <img
@@ -36,7 +36,7 @@ function FeedbackCard() {
                     <span
                         style={{
                             fontWeight: 700,
-                            color: '#494949',
+                            color: '#494949'
                         }}
                     >
                         Solomon Odewor{' '}
@@ -45,7 +45,7 @@ function FeedbackCard() {
                     achievement.
                 </Typography>
             </Box>
-            <Button sx={{mt: 2.9, py: 1.5}} variant='outlined'>
+            <Button sx={{ mt: 2.9, py: 1.5 }} variant="outlined">
                 Ok, give review
             </Button>
         </Box>
