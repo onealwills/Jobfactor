@@ -14,6 +14,7 @@ import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps';
 import { useStateMachine } from 'little-state-machine';
 import { updateAction, updateStep } from './updateAction';
 import React from 'react';
+import { CreateAccountType } from '../../../../utils/hooks/api/account/types';
 
 
 interface IAccountType {
@@ -82,7 +83,7 @@ function AccountType() {
                                     sx={{ mt: '32px' }}
                                 >
                                     <FormControlLabel
-                                        value="professional"
+                                        value={CreateAccountType.Professional}
                                         control={
                                             <Radio
                                                 sx={{
@@ -110,7 +111,7 @@ function AccountType() {
                                         }}
                                     />
                                     <FormControlLabel
-                                        value="company"
+                                        value={CreateAccountType.Company}
                                         control={
                                             <Radio
                                                 sx={{

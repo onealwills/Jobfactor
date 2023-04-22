@@ -12,6 +12,16 @@ async function createProfessionalAccount(postRequest: CreateProAccountRequest):
         return data;
 }
 
+// async function createCompanyAccount(postRequest: CreateCompanyAccountRequest):
+//     Promise<ProfessionalProfile> {
+//         const response = await axiosInstance.post(
+//             `/authentication/sign-up/company`,
+//             postRequest
+//         );
+//         const data = await response.data;
+//         return data;
+// }
+
 function useCreateProAccount(): UseMutationResult<
     ProfessionalProfile,
     unknown,

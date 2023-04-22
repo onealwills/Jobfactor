@@ -45,7 +45,7 @@ function UserCreate() {
     const createAccountMutation = useCreateProAccount();
 
     const handleCreateAccount = async (data: GlobalState) => {
-        console.log('handle creat called')
+        console.log('handle create called')
         if (data.data.accountType === CreateAccountType.Professional) {
             const request: CreateProAccountRequest = {
                 emailAddress: data.data.emailAddress,
@@ -67,8 +67,6 @@ function UserCreate() {
         // } else if (data.data.accountType === CreateAccountType.Company) {
         //     const request: Create
         // }
-        
-      
     }
         
     const onSubmit: SubmitHandler<IUserInfo> = async (data) => {
@@ -81,7 +79,7 @@ function UserCreate() {
 
     React.useEffect(() => {
         actions.updateStep(2);
-    }, [actions]);
+    }, []);
 
     return (
         <>

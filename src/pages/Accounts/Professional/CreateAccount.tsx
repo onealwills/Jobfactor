@@ -5,13 +5,15 @@ import { StateMachineProvider, createStore } from 'little-state-machine';
 import AccountType from './CreationSteps/AccountType';
 import UserCreate from './CreationSteps/UserCreate';
 import EmailConfirmation from './CreationSteps/EmailConfirmation';
+import { CreateAccountType } from '../../../utils/hooks/api/account/types';
 
 createStore({
     data: {
-        accountType: '',
+        accountType: CreateAccountType.Professional || CreateAccountType.Company,
         firstName: '',
         lastName: '',
         emailAddress: '',
+        company: '',
         step: 1,
         password: '',
         verifyEmail: false
