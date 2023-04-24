@@ -1,13 +1,13 @@
-import { Typography } from "@mui/material";
+import { Typography } from '@mui/material';
 
 interface Props {
-    strokeWidth?: number,
-    value: number,
-    divider?: number
+    strokeWidth?: number;
+    value: number;
+    divider?: number;
 }
 
 const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
-    const radius = (50 - strokeWidth / 2);
+    const radius = 50 - strokeWidth / 2;
     const pathDescription = `
       M 50,50 m 0,-${radius}
       a ${radius},${radius} 0 1 1 0,${2 * radius}
@@ -25,7 +25,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                 width={122}
                 height={122}
                 style={{
-                    margin: "auto"
+                    margin: 'auto'
                 }}
             >
                 <defs>
@@ -37,14 +37,8 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                         y2="100"
                         gradientUnits="userSpaceOnUse"
                     >
-                        <stop
-                            stopColor="#fafafa"
-                            offset={0}
-                        />
-                        <stop
-                            stopColor="#efefef"
-                            offset={1}
-                        />
+                        <stop stopColor="#fafafa" offset={0} />
+                        <stop stopColor="#efefef" offset={1} />
                     </linearGradient>
                     <filter id="blur" x="0" y="0">
                         <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
@@ -60,11 +54,11 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                 <path
                     className="CircularProgressbar-trail"
                     style={{
-                        stroke: "#d9d9d9",
-                        strokeWidth: "1px",
-                        fill: "#ffffff"
+                        stroke: '#d9d9d9',
+                        strokeWidth: '1px',
+                        fill: '#ffffff'
                     }}
-                    d="m 49.999617,0.49987251 c -27.26776,0 -49.49890951,22.23277249 -49.49890951,49.50051649 0,27.26775 22.23114951,49.50051 49.49890951,49.50051 27.26778,0 49.50051,-22.23276 49.50051,-49.50051 0,-27.267744 -22.23273,-49.50051649 -49.50051,-49.50051649 z m 0,11.00313849 a 38.497875,38.497875 0 0 1 38.49898,38.497378 38.497875,38.497875 0 0 1 -38.49898,38.49737 38.497875,38.497875 0 0 1 -38.49737,-38.49737 38.497875,38.497875 0 0 1 38.49737,-38.497378 z" 
+                    d="m 49.999617,0.49987251 c -27.26776,0 -49.49890951,22.23277249 -49.49890951,49.50051649 0,27.26775 22.23114951,49.50051 49.49890951,49.50051 27.26778,0 49.50051,-22.23276 49.50051,-49.50051 0,-27.267744 -22.23273,-49.50051649 -49.50051,-49.50051649 z m 0,11.00313849 a 38.497875,38.497875 0 0 1 38.49898,38.497378 38.497875,38.497875 0 0 1 -38.49898,38.49737 38.497875,38.497875 0 0 1 -38.49737,-38.49737 38.497875,38.497875 0 0 1 38.49737,-38.497378 z"
                 />
 
                 <path
@@ -76,13 +70,15 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                         stroke: '#058FEC',
                         strokeLinecap: 'round',
                         strokeDasharray: `${diameter}px ${diameter}px`,
-                        strokeDashoffset: `${((100 - percentage) / 100 * diameter)}px`,
+                        strokeDashoffset: `${
+                            ((100 - percentage) / 100) * diameter
+                        }px`,
                         transform: 'rotate(0.5turn)',
-                        transformOrigin: "center center",
-                        transition: 'stroke-dashoffset 0.5s ease 0s',
+                        transformOrigin: 'center center',
+                        transition: 'stroke-dashoffset 0.5s ease 0s'
                     }}
                 />
-                <circle cx="50" cy="50" r={'31'} fill='#FFC24C'></circle>
+                <circle cx="50" cy="50" r={'31'} fill="#FFC24C"></circle>
                 <text
                     x={50}
                     y={50}
@@ -95,7 +91,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                         textAnchor: 'middle',
                         fill: 'white',
                         fontSize: '20px',
-                        textShadow: "0px 0px 4px rgba(0, 0, 0, 0.2)"
+                        textShadow: '0px 0px 4px rgba(0, 0, 0, 0.2)'
                     }}
                 >
                     {value}
@@ -106,7 +102,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                     color: '#23282B',
                     fontWeight: '600',
                     fontSize: '16px',
-                    fontFamily: 'open sans',
+                    fontFamily: 'open sans'
                 }}
             >
                 Jobfactor Score
@@ -115,4 +111,4 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
     );
 };
 
-export default Progress
+export default Progress;

@@ -37,7 +37,7 @@ export interface CreateProAccountRequest {
 
 export enum PrimaryProfileType {
     Professional = 'PROFESSIONAL',
-    Company = 'COMPANY',
+    Company = 'COMPANY'
 }
 
 export enum CreateAccountType {

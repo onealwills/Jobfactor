@@ -17,7 +17,9 @@ const UserDetails = (props: PropTypes) => {
                         fontFamily: 'Open Sans',
                         color: '#494949'
                     }}
-                >{user.name}</Typography>
+                >
+                    {user.name}
+                </Typography>
                 <Box
                     sx={{
                         display: 'flex',
@@ -32,17 +34,20 @@ const UserDetails = (props: PropTypes) => {
                             color: '#808080',
                             letterSpacing: '0.0015em'
                         }}
-                    >{user.designation ?? "COMPANY"}</Typography>
+                    >
+                        {user.designation ?? 'COMPANY'}
+                    </Typography>
                     <Typography
                         component={'div'}
                         sx={{
-                            width: '7px', height: '7px',
+                            width: '7px',
+                            height: '7px',
                             borderRadius: '100px',
                             background: '#494949',
-                            border: '2px solid #494949',
+                            border: '2px solid #494949'
                         }}
                     />
-                    {user.designation ?
+                    {user.designation ? (
                         <>
                             <Typography
                                 sx={{
@@ -50,34 +55,39 @@ const UserDetails = (props: PropTypes) => {
                                     fontFamily: 'Open Sans',
                                     color: '#808080'
                                 }}
-                            >{user.organization}</Typography>
+                            >
+                                {user.organization}
+                            </Typography>
                             <Typography
                                 component={'div'}
                                 sx={{
-                                    width: '7px', height: '7px',
+                                    width: '7px',
+                                    height: '7px',
                                     borderRadius: '100px',
                                     background: '#494949',
-                                    border: '2px solid #494949',
+                                    border: '2px solid #494949'
                                 }}
                             />
-                        </> : null
-                    }
+                        </>
+                    ) : null}
                     <Typography
                         sx={{
                             fontSize: '20px',
                             fontWeight: '600',
                             fontFamily: 'Open Sans',
                             color: '#FFFFFF',
-                            background: "#49B6FF",
+                            background: '#49B6FF',
                             borderRadius: '6px',
-                            padding: "0px 12px"
+                            padding: '0px 12px'
                         }}
-                    >{user.points}</Typography>
+                    >
+                        {user.points}
+                    </Typography>
                 </Box>
             </Box>
         </>
-    )
-}
+    );
+};
 interface PropTypes {
     user: User;
 }
@@ -87,5 +97,5 @@ type User = {
     organization: string;
     designation: string;
     image: string;
-}
+};
 export default UserDetails;

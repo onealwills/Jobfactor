@@ -19,42 +19,48 @@ const UserActions = (props: PropTypes) => {
                     color: '#808080',
                     mb: '10px'
                 }}
-            >{user.days} days</Typography>
+            >
+                {user.days} days
+            </Typography>
             <Button
-                variant='outlined'
+                variant="outlined"
                 sx={{
                     borderRadius: '8px',
-                    padding: "10px 36px",
+                    padding: '10px 36px',
                     fontSize: '14px',
                     fontWeight: '700',
                     textTransform: 'capitalize',
                     boxShadow: 'none',
-                    color: "#05668D"
+                    color: '#05668D'
                 }}
-            >Withdraw</Button>
+            >
+                Withdraw
+            </Button>
             <Button
                 sx={{
                     borderRadius: '8px',
-                    padding: "10px 36px",
+                    padding: '10px 36px',
                     border: '1px solid #05668D',
                     background: '#05668D',
                     fontSize: '14px',
                     fontWeight: '700',
                     textTransform: 'capitalize',
                     boxShadow: 'none',
-                    color: "#FFFFFF",
+                    color: '#FFFFFF',
                     ':hover': {
                         background: '#05668D'
                     }
                 }}
-            >Message</Button>
+            >
+                Message
+            </Button>
         </Box>
-    )
-}
+    );
+};
 interface PropTypes {
     user: User;
 }
 type User = {
     days: number;
-}
-export default UserActions
+};
+export default UserActions;

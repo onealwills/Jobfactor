@@ -1,16 +1,16 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const LineIcon = () => {
     return (
         <svg
-            width='16'
-            height='1'
-            viewBox='0 0 16 1'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
+            width="16"
+            height="1"
+            viewBox="0 0 16 1"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
         >
-            <line y1='0.5' x2='16' y2='0.5' stroke='#808080' />
+            <line y1="0.5" x2="16" y2="0.5" stroke="#808080" />
         </svg>
     );
 };
@@ -27,7 +27,7 @@ function JobMetricCircle(props: { label: string; bgColor: string }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: '100px',
-                color: 'white',
+                color: 'white'
             }}
         >
             {label}
@@ -44,7 +44,7 @@ function MetricLabel(props: { label: string }) {
                 backgroundColor: '#FFFAF1',
                 px: 1.5,
                 py: 1,
-                color: '#23282B',
+                color: '#23282B'
             }}
         >
             {label}
@@ -120,7 +120,12 @@ const BestFit = () => {
 const JobMetrics = () => {
     return (
         <Box sx={{ backgroundColor: '#FFFFFF', mt: 1, pt: 1 }}>
-            <Box sx={{ textTransform: 'uppercase', color: '#23282B' }}>Job Fit Metrics </Box>
+            <Typography
+                variant={'titleSmallSemiBold'}
+                sx={{ textTransform: 'uppercase', color: '#23282B' }}
+            >
+                Job Fit Metrics
+            </Typography>
             <Box sx={{ display: 'flex', mt: 1.5, gap: 2 }}>
                 <NotAFit />
                 <LowFit />

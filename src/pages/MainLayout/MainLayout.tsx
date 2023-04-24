@@ -11,16 +11,16 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.leavingScreen
     }),
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
+            duration: theme.transitions.duration.enteringScreen
         }),
-        marginLeft: 0,
-    }),
+        marginLeft: 0
+    })
 }));
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -29,7 +29,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
 }));
 const drawerWidth = 240;
 
@@ -50,8 +50,8 @@ function MainLayout(props: { children: React.ReactNode }) {
                         mt: 13,
                         pt: 0,
                         pb: 0,
-                        position:'relative'
-                    },
+                        position: 'relative'
+                    }
                 }}
                 variant="permanent"
                 anchor="left"
@@ -65,7 +65,7 @@ function MainLayout(props: { children: React.ReactNode }) {
                         display: 'flex',
                         flexDirection: 'column',
                         mx: 'auto',
-                        alignItems: 'center',
+                        alignItems: 'center'
                     }}
                 >
                     <Box sx={{ mt: '10px' }}>
@@ -103,8 +103,8 @@ function MainLayout(props: { children: React.ReactNode }) {
                     sx={{
                         overflow: 'auto',
                         mt: -0.5,
-                        padding:'9px',
-                        paddingTop: "6px",
+                        padding: '9px',
+                        paddingTop: '6px',
                         overflowY: 'hidden'
                     }}
                 >

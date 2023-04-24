@@ -22,7 +22,7 @@ function CoursesPage() {
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                mx: 'auto',
+                                mx: 'auto'
                             }}
                         >
                             {data.map((account: AccountResponse) => (
@@ -31,7 +31,7 @@ function CoursesPage() {
                                         mt: 2,
                                         p: 4,
                                         maxWidth: '600px',
-                                        overflow: 'auto',
+                                        overflow: 'auto'
                                     }}
                                     key={account.id}
                                 >

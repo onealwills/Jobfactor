@@ -1,11 +1,20 @@
-import { Box, TableCell, TableRow } from "@mui/material";
-import ExperienceLevel from "./ExperienceLevel";
-import TableWrapper from "./TableWrapper";
-import UserActions from "./UserActions";
-import UserDetails from "./UserDetails";
-import React from "react";
+import { Box, TableCell, TableRow } from '@mui/material';
+import ExperienceLevel from './ExperienceLevel';
+import TableWrapper from './TableWrapper';
+import UserActions from './UserActions';
+import UserDetails from './UserDetails';
+import React from 'react';
 
-const experienceLevels = [{ background: "#E75541", title: "Begineer", shortForm: "B" }, { background: "#F6C70E", title: "Mobile Int", shortForm: "E" }, { background: "#49B6FF", title: "Customer Experience Design", shortForm: "A" }, { background: "#95C97A", title: "Expert", shortForm: "X" }]
+const experienceLevels = [
+    { background: '#E75541', title: 'Begineer', shortForm: 'B' },
+    { background: '#F6C70E', title: 'Mobile Int', shortForm: 'E' },
+    {
+        background: '#49B6FF',
+        title: 'Customer Experience Design',
+        shortForm: 'A'
+    },
+    { background: '#95C97A', title: 'Expert', shortForm: 'X' }
+];
 
 const TabPanel = (props: TabProps) => {
     const { tab, data, activeTab } = props;
@@ -22,42 +31,49 @@ const TabPanel = (props: TabProps) => {
             handleChangePage={handleChangePage}
             rowsPerPage={rowsPerPage}
         >
-
-            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user: any, index: number) => (
-                <TableRow key={`user_${index}`}>
-                    <TableCell
-                        sx={{
-                            padding: '40px 32px',
-                            paddingBottom: '25px'
-                        }}
-                    >
-                        <Box
+            {data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((user: any, index: number) => (
+                    <TableRow key={`user_${index}`}>
+                        <TableCell
                             sx={{
-                                display: 'flex',
-                                alignItems: 'inset',
-                                gap: '20px'
+                                padding: '40px 32px',
+                                paddingBottom: '25px'
                             }}
                         >
-                            <UserDetails user={user} />
-                            <UserActions user={user} tab={tab} />
-                        </Box>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                ml: '77px',
-                                mt: '12px'
-                            }}
-                        >
-                            {experienceLevels.map(item => <ExperienceLevel background={item.background} shortForm={item.shortForm} title={item.title} />)}
-                        </Box>
-                    </TableCell>
-                </TableRow>
-            ))}
-        </TableWrapper >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'inset',
+                                    gap: '20px'
+                                }}
+                            >
+                                <UserDetails user={user} />
+                                <UserActions user={user} tab={tab} />
+                            </Box>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    ml: '77px',
+                                    mt: '12px'
+                                }}
+                            >
+                                {experienceLevels.map((item) => (
+                                    <ExperienceLevel
+                                        background={item.background}
+                                        shortForm={item.shortForm}
+                                        title={item.title}
+                                    />
+                                ))}
+                            </Box>
+                        </TableCell>
+                    </TableRow>
+                ))}
+        </TableWrapper>
     );
-}
+};
 interface TabProps {
     data: Array<Object>;
     activeTab: string;

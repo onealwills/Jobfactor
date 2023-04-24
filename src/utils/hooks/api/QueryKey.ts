@@ -1,4 +1,4 @@
 export const QueryKeys = {
     RetrievePosts: 'retrieve-posts',
-    RetrieveAccount: 'retrieve-account',
+    RetrieveAccount: 'retrieve-account'
 };

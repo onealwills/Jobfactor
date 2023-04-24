@@ -1,4 +1,11 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow
+} from '@mui/material';
 import Pagination from '../../../components/Pagination';
 
 const TableWrapper = (props: PropTypes) => {
@@ -19,12 +26,12 @@ const TableWrapper = (props: PropTypes) => {
                 </TableBody>
             </Table>
         </TableContainer>
-    )
-}
+    );
+};
 interface PropTypes {
     data: Array<Object>;
     rowsPerPage: number;
     children: React.ReactNode;
-    handleChangePage: (page: number) => void
+    handleChangePage: (page: number) => void;
 }
-export default TableWrapper
+export default TableWrapper;

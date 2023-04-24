@@ -38,7 +38,7 @@ export const AuthContext = createContext<AuthContextType>({
     signOut: () => {},
     setAccessToken: () => {},
     setRefreshToken: () => {},
-    setIsAuthenticated: () => {},
+    setIsAuthenticated: () => {}
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -94,7 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     {
                         refreshToken: localStorage
                             .getItem(localStorageConstants.RefreshToken)
-                            ?.replace(/"/g, ''),
+                            ?.replace(/"/g, '')
                     }
                 );
                 const data = response.data;
@@ -132,10 +132,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         const account: Account = {
                             sub: decodedToken.sub,
                             primaryProfile: decodedToken.primaryProfile,
-                            email: decodedToken.email,
+                            email: decodedToken.email
                         };
                         setAccount(account);
-                    },
+                    }
                 }
             );
         } catch (error) {
@@ -166,7 +166,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 signOut,
                 setAccessToken,
                 setRefreshToken,
-                setIsAuthenticated,
+                setIsAuthenticated
             }}
         >
             {children}
@@ -183,7 +183,7 @@ export function useAuth() {
         signIn,
         signOut,
         setAccessToken,
-        setIsAuthenticated,
+        setIsAuthenticated
     } = useContext(AuthContext);
 
     const [isRefreshingToken, setIsRefreshingToken] = useState(false);
@@ -208,7 +208,7 @@ export function useAuth() {
                         const response = await axiosInstance.post(
                             '/authentication/refresh-tokens',
                             {
-                                refreshToken: refreshToken?.replace(/"/g, ''),
+                                refreshToken: refreshToken?.replace(/"/g, '')
                             }
                         );
                         const data = response.data;
@@ -234,6 +234,6 @@ export function useAuth() {
         isAuthenticated,
         account,
         signIn,
-        signOut,
+        signOut
     };
 }

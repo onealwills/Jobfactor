@@ -21,7 +21,7 @@ const CardWrapper = ({ children, title, tooltipText }: Props) => {
                 justifyContent: 'flex-start',
                 alignItems: 'center',
                 gap: '32px',
-                marginLeft: '15px',
+                marginLeft: '15px'
             }}
         >
             <Box
@@ -29,7 +29,7 @@ const CardWrapper = ({ children, title, tooltipText }: Props) => {
                     display: 'flex',
                     justifyContent: 'space-around',
                     alignItems: 'center',
-                    width: '100%',
+                    width: '100%'
                 }}
             >
                 <Typography
@@ -37,7 +37,7 @@ const CardWrapper = ({ children, title, tooltipText }: Props) => {
                         color: '#23282B',
                         fontSize: '20px',
                         fontFamily: 'Open Sans',
-                        fontWeight: '700',
+                        fontWeight: '700'
                     }}
                 >
                     {title}
@@ -57,9 +57,9 @@ const CardWrapper = ({ children, title, tooltipText }: Props) => {
                                     color: '#23282B',
                                     lineHeight: '24px',
                                     fontSize: '16px',
-                                    fontFamily: 'Open Sans',
-                                },
-                            },
+                                    fontFamily: 'Open Sans'
+                                }
+                            }
                         }}
                     >
                         <InfoOutlined sx={{ color: '#808080' }} />

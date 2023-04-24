@@ -20,27 +20,31 @@ const UserActions = (props: PropTypes) => {
                     color: '#808080',
                     mb: '10px'
                 }}
-            >{user.days} days</Typography>
+            >
+                {user.days} days
+            </Typography>
             <Button
-                variant='outlined'
+                variant="outlined"
                 sx={{
                     borderRadius: '8px',
-                    padding: "10px 36px",
+                    padding: '10px 36px',
                     fontSize: '14px',
                     fontWeight: '700',
                     textTransform: 'capitalize',
                     boxShadow: 'none',
-                    color: "#05668D"
+                    color: '#05668D'
                 }}
-            >{tab === 'sent' ? "Withdraw" : 'Ignore'}</Button>
-            {tab === 'received' &&
+            >
+                {tab === 'sent' ? 'Withdraw' : 'Ignore'}
+            </Button>
+            {tab === 'received' && (
                 <Button
                     sx={{
                         borderRadius: '8px',
                         background: '#05668D',
-                        padding: "10px 36px",
+                        padding: '10px 36px',
                         border: '1px solid #05668D',
-                        color: "#FFFFFF",
+                        color: '#FFFFFF',
                         fontSize: '14px',
                         fontWeight: '700',
                         textTransform: 'capitalize',
@@ -49,16 +53,18 @@ const UserActions = (props: PropTypes) => {
                             background: '#05668D'
                         }
                     }}
-                >Add</Button>
-            }
+                >
+                    Add
+                </Button>
+            )}
         </Box>
-    )
-}
+    );
+};
 interface PropTypes {
     user: User;
     tab: string;
 }
 type User = {
     days: number;
-}
-export default UserActions
+};
+export default UserActions;
