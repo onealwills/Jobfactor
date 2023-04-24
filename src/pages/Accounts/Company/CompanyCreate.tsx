@@ -1,7 +1,7 @@
 import { Box, Button, Checkbox, InputBase, InputLabel, Typography } from '@mui/material'
 import React from 'react'
 import OnboardingSteps from '../OnboardingSteps/OnboardingSteps'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { GlobalState, useStateMachine } from 'little-state-machine';
 import { CreateAccountType, CreateCompanyAccountRequest, CreateProAccountRequest } from '../../../utils/hooks/api/account/types';
@@ -42,9 +42,9 @@ function CompanyCreate() {
             const request: CreateCompanyAccountRequest = {
                 emailAddress: data.data.emailAddress,
                 password: data.data.password,
-                comapanyName: data.data.companyName
+                companyName: data.data.companyName
             }
-            console.log('account type pro');
+            console.log('account type company', request);
             
             createAccountMutation.mutate(request, {
                 onSuccess: async (data) => {
@@ -62,7 +62,7 @@ function CompanyCreate() {
         actions.updateStep(3);
         actions.updateAction(data);
         handleCreateAccount(state);
-        navigate('./confirmEmail');
+        navigate('/create-account/confirmEmail');
     };
 
     React.useEffect(() => {
@@ -587,11 +587,8 @@ function CompanyCreate() {
                             fontWeight={600}
                             fontSize={'16px'}
                             fontStyle={'semibold'}
-                            sx={{
-                                color: '#05668D',
-                            }}
                         >
-                            Sign in
+                            <Link to={'/login'} style={{color: '#05668D', textDecoration: 'none'}}>Sign in</Link>
                         </Typography>
                     </Box>
                 </Box>

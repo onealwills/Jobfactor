@@ -3,6 +3,7 @@ import React from 'react'
 import JobFactorIcon from '../../assets/icons/JobFactorIcon'
 import profileReview from './../../assets/images/profileReview.png';
 import EllipsisIcon from '../../assets/icons/EllipsisIcon';
+import { Link } from 'react-router-dom';
 
 
 const loginTitle = 'Professionals meet companies';
@@ -13,7 +14,7 @@ const cardReview =
 
 function Column() {
   return (
-      <div>
+      <>
           <Box
                     sx={{
                         backgroundColor: '#F1F1F1',
@@ -30,7 +31,9 @@ function Column() {
                     {/* Column1 */}
                     {/* Logo */}
                     <Box sx={{ mt: '51px', width: '80%', alignSelf: 'center' }}>
-                        <JobFactorIcon />
+                        <Link to={'/'}>
+                            <JobFactorIcon />
+                        </Link>
                     </Box>
                     <Box>
                         <Typography
@@ -131,7 +134,7 @@ function Column() {
                         </Box>
                     </Box>
                 </Box>
-    </div>
+    </>
   )
 }
 

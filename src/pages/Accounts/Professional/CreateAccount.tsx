@@ -42,20 +42,21 @@ function CreateAccount() {
                     sx={{
                         flexBasis: '66.66%',
                         justifyContent: 'center',
-                        ml: '120px',
                         mt: '82px',
+                        ml: '0px',
+                        mr: '40px',
                         mb: '323px',
                     }}
                 >
-                    {/* right column */}
                     <Box
                         sx={{
                             height: '495px',
-                            width: '599px',
+                            width: '100%',
                             display: 'flex',
                             alignItems: 'center',
                             flexDirection: 'column',
                         }}
+                        
                     >
                         <StateMachineProvider>
                             <Routes>

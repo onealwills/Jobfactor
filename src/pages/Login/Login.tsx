@@ -78,7 +78,9 @@ function Login() {
                     {/* Column1 */}
                     {/* Logo */}
                     <Box sx={{ mt: '51px', width: '80%', alignSelf: 'center' }}>
-                        <JobFactorIcon />
+                        <Link to={'/'}>
+                            <JobFactorIcon />
+                        </Link>
                     </Box>
                     <Box>
                         <Typography

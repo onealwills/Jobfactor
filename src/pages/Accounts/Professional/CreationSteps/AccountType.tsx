@@ -38,7 +38,7 @@ function AccountType() {
     };
     React.useEffect(() => {
         actions.updateStep(1);
-    }, [actions])
+    }, [])
 
     return (
         <>
@@ -203,6 +203,7 @@ function AccountType() {
                                 lineHeight: ' 20px',
                                 width: '46px',
                                 height: '20px',
+                                textDecoration: 'none'
                             }}
                         >
                             Sign in

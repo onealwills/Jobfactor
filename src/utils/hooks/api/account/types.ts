@@ -44,7 +44,7 @@ export interface CreateProAccountRequest {
 export interface CreateCompanyAccountRequest {
     emailAddress: string;
     password: string;
-    comapanyName: string;
+    companyName: string;
 }
 
 export enum PrimaryProfileType {

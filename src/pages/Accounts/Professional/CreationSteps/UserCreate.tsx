@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GlobalState, useStateMachine } from 'little-state-machine';
 import { updateAction, updateStep } from './updateAction';
 import UserFormIcon from '../../../../assets/icons/UserFormIcon';
@@ -53,7 +53,7 @@ function UserCreate() {
                 lastName: data.data.lastName,
                 password: data.data.password
             }
-            console.log('account type pro');
+            console.log('account type pro', request);
             
             createAccountMutation.mutate(request, {
                 onSuccess: async (data) => {
@@ -135,12 +135,12 @@ function UserCreate() {
                                 zIndex: 1,
                                 fontFamily: 'Open Sans',
                             }}
-                            htmlFor="fullName"
+                            htmlFor="firstName"
                         >
-                            Full name
+                            First name
                         </InputLabel>
 
-                        {/* full name */}
+                        {/* first name */}
                         <Controller
                             {...register('firstName', {
                                 required: 'Required field',
@@ -170,7 +170,7 @@ function UserCreate() {
                                             setError('firstName', {
                                                 type: 'required',
                                                 message:
-                                                    'Please provide your name',
+                                                    'Please provide your first name',
                                             });
                                         } else {
                                             clearErrors('firstName');
@@ -184,8 +184,8 @@ function UserCreate() {
                                         inputMode: 'text',
                                     }}
                                     inputRef={ref}
-                                    id="fullName"
-                                    placeholder="Enter your full name"
+                                    id="firstName"
+                                    placeholder="Enter your first name"
                                     startAdornment={<UserFormIcon />}
                                     rows={1}
                                     sx={{
@@ -214,6 +214,99 @@ function UserCreate() {
                             }}
                         >
                             {errors.firstName?.message}
+                        </Typography>
+                    </Box>
+
+                    <Box sx={{ width: '100%', position: 'relative', mt: '18px' }}>
+                        <InputLabel
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                position: 'absolute',
+                                top: '8px',
+                                left: '72px',
+                                zIndex: 1,
+                                fontFamily: 'Open Sans',
+                            }}
+                            htmlFor="lastName"
+                        >
+                            Last name
+                        </InputLabel>
+
+                        {/* last name */}
+                        <Controller
+                            {...register('lastName', {
+                                required: 'Required field',
+                            })}
+                            name="lastName"
+                            control={control}
+                            render={({
+                                field: { onChange, value, ref, onBlur },
+                                fieldState: { error },
+                                formState,
+                            }) => (
+                                <InputBase
+                                    required
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        if (e.target.value.length > 40) {
+                                            setError("lastName", {
+                                                type: 'maxLength',
+                                                message: 'Name must not exceed 40 characters'
+                                            });
+                                        } else {
+                                            clearErrors("lastName")
+                                        }
+                                    }}
+                                    onBlur={(e) => {if (!e.target.value)
+                                        {
+                                            setError('lastName', {
+                                                type: 'required',
+                                                message:
+                                                    'Please provide your last name',
+                                            });
+                                        } else {
+                                            clearErrors('lastName');
+                                        }}}
+                                    error={!!errors?.lastName}
+                                    inputProps={{
+                                        autoComplete: '',
+                                        form: {
+                                            autoComplete: 'off',
+                                        },
+                                        inputMode: 'text',
+                                    }}
+                                    inputRef={ref}
+                                    id="lastName"
+                                    placeholder="Enter your last name"
+                                    startAdornment={<UserFormIcon />}
+                                    rows={1}
+                                    sx={{
+                                        backgroundColor: '#FFFFFF',
+                                        width: '100%',
+                                        height: '70px',
+                                        padding: '0px 16px',
+                                        fontFamily: 'open sans',
+                                        color: '#23282B',
+                                        borderBottom: '1px solid #D9D9D9',
+                                        mb: '2px',
+                                        '& 	.MuiInputBase-input': {
+                                            ml: '20px',
+                                            position: 'relative',
+                                            top: '8px',
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                         <Typography
+                            sx={{
+                                color: 'red',
+                                fontSize: '12px',
+                                fontFamily: 'Open Sans',
+                            }}
+                        >
+                            {errors.lastName?.message}
                         </Typography>
                     </Box>
 
@@ -596,11 +689,8 @@ function UserCreate() {
                             fontWeight={600}
                             fontSize={'16px'}
                             fontStyle={'semibold'}
-                            sx={{
-                                color: '#05668D',
-                            }}
                         >
-                            Sign in
+                            <Link to={'/login'} style={{color: '#05668D', textDecoration: 'none'}}>Sign in</Link>
                         </Typography>
                     </Box>
                 </Box>
