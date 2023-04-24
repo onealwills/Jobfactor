@@ -1,35 +1,26 @@
-import {
-    Box,
-    Button,
-    Checkbox,
-    InputBase,
-    InputLabel,
-    Typography,
-} from '@mui/material';
-import OnboardingSteps from '../../OnboardingSteps/OnboardingSteps';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Box, Button, Checkbox, InputBase, InputLabel, Typography } from '@mui/material'
+import React from 'react'
+import OnboardingSteps from '../OnboardingSteps/OnboardingSteps'
 import { useNavigate } from 'react-router-dom';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { GlobalState, useStateMachine } from 'little-state-machine';
-import { updateAction, updateStep } from './updateAction';
-import UserFormIcon from '../../../../assets/icons/UserFormIcon';
-import EmailFormIcon from '../../../../assets/icons/EmailFormIcon';
-import PasswordFormIcon from '../../../../assets/icons/PasswordFormIcon';
-import ErrorFormIcon from '../../../../assets/icons/ErrorFormIcon';
-import GoogleIcon from '../../../../assets/icons/GoogleIcon';
-import OnboardingLineIcon from '../../../../assets/icons/OnboardingLineIcon';
-import React, { useEffect } from 'react';
-import { CreateAccountType, CreateProAccountRequest } from '../../../../utils/hooks/api/account/types';
-import { useCreateProAccount } from '../../../../utils/hooks/api/account/useCreateProAccount';
+import { CreateAccountType, CreateCompanyAccountRequest, CreateProAccountRequest } from '../../../utils/hooks/api/account/types';
+import { updateAction, updateStep } from '../Professional/CreationSteps/updateAction';
+import { useCreateCompanyAccount } from '../../../utils/hooks/api/account/useCreateProAccount';
+import EmailFormIcon from '../../../assets/icons/EmailFormIcon';
+import ErrorFormIcon from '../../../assets/icons/ErrorFormIcon';
+import GoogleIcon from '../../../assets/icons/GoogleIcon';
+import OnboardingLineIcon from '../../../assets/icons/OnboardingLineIcon';
+import PasswordFormIcon from '../../../assets/icons/PasswordFormIcon';
+import UserFormIcon from '../../../assets/icons/UserFormIcon';
 
-interface IUserInfo {
-    firstName: string;
-    lastName: string,
+interface ICompanyInfo {
     emailAddress: string;
     password: string;
+    companyName: string;
     termAgreement: boolean;
 }
-
-function UserCreate() {
+function CompanyCreate() {
     let navigate = useNavigate();
     const {
         control,
@@ -38,20 +29,20 @@ function UserCreate() {
         formState,
         register,
         clearErrors,
-    } = useForm<IUserInfo>();
+    } = useForm<ICompanyInfo>();
+    
     const { isDirty, isValid, errors } = formState;
     const { actions, state } = useStateMachine({ updateAction, updateStep });
 
-    const createAccountMutation = useCreateProAccount();
+    const createAccountMutation = useCreateCompanyAccount();
 
     const handleCreateAccount = async (data: GlobalState) => {
         console.log('handle create called')
-        if (data.data.accountType === CreateAccountType.Professional) {
-            const request: CreateProAccountRequest = {
+        if (data.data.accountType === CreateAccountType.Company) {
+            const request: CreateCompanyAccountRequest = {
                 emailAddress: data.data.emailAddress,
-                firstName: data.data.firstName,
-                lastName: data.data.lastName,
-                password: data.data.password
+                password: data.data.password,
+                comapanyName: data.data.companyName
             }
             console.log('account type pro');
             
@@ -65,22 +56,22 @@ function UserCreate() {
             })
         }
     }
-        
-    const onSubmit: SubmitHandler<IUserInfo> = async (data) => {
+
+    const onSubmit: SubmitHandler<ICompanyInfo> = async (data) => {
         console.log(data);
         actions.updateStep(3);
         actions.updateAction(data);
         handleCreateAccount(state);
-        navigate('/create-account/confirmEmail');
+        navigate('./confirmEmail');
     };
 
     React.useEffect(() => {
         actions.updateStep(2);
     }, []);
 
-    return (
-        <>
-            <Box
+  return (
+      <>
+             <Box
                 sx={{
                     height: '495px',
                     width: '599px',
@@ -90,8 +81,8 @@ function UserCreate() {
                 }}
             >
                 <OnboardingSteps />
-            </Box>
-            <Box
+          </Box>
+          <Box
                 sx={{
                     height: '640px',
                     width: '518px',
@@ -135,17 +126,17 @@ function UserCreate() {
                                 zIndex: 1,
                                 fontFamily: 'Open Sans',
                             }}
-                            htmlFor="fullName"
+                            htmlFor="companyName"
                         >
-                            Full name
+                            Company name
                         </InputLabel>
 
-                        {/* full name */}
+                        {/* company name */}
                         <Controller
-                            {...register('firstName', {
+                            {...register('companyName', {
                                 required: 'Required field',
                             })}
-                            name="firstName"
+                            name="companyName"
                             control={control}
                             render={({
                                 field: { onChange, value, ref, onBlur },
@@ -157,25 +148,25 @@ function UserCreate() {
                                     onChange={(e) => {
                                         onChange(e);
                                         if (e.target.value.length > 40) {
-                                            setError("firstName", {
+                                            setError("companyName", {
                                                 type: 'maxLength',
                                                 message: 'Name must not exceed 40 characters'
                                             });
                                         } else {
-                                            clearErrors("firstName")
+                                            clearErrors("companyName")
                                         }
                                     }}
                                     onBlur={(e) => {if (!e.target.value)
                                         {
-                                            setError('firstName', {
+                                            setError('companyName', {
                                                 type: 'required',
                                                 message:
-                                                    'Please provide your name',
+                                                    'Please provide the company name',
                                             });
                                         } else {
-                                            clearErrors('firstName');
+                                            clearErrors('companyName');
                                         }}}
-                                    error={!!errors?.firstName}
+                                    error={!!errors?.companyName}
                                     inputProps={{
                                         autoComplete: '',
                                         form: {
@@ -185,7 +176,7 @@ function UserCreate() {
                                     }}
                                     inputRef={ref}
                                     id="fullName"
-                                    placeholder="Enter your full name"
+                                    placeholder="Enter company name"
                                     startAdornment={<UserFormIcon />}
                                     rows={1}
                                     sx={{
@@ -213,7 +204,7 @@ function UserCreate() {
                                 fontFamily: 'Open Sans',
                             }}
                         >
-                            {errors.firstName?.message}
+                            {errors.companyName?.message}
                         </Typography>
                     </Box>
 
@@ -605,8 +596,9 @@ function UserCreate() {
                     </Box>
                 </Box>
             </Box>
-        </>
-    );
+
+      </>
+  )
 }
 
-export default UserCreate;
+export default CompanyCreate;

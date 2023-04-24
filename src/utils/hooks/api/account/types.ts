@@ -28,11 +28,23 @@ export interface ProfessionalProfile {
     lastUpdatedAt: number;
 }
 
+export interface CompanyProfile {
+    id: string;
+    companyName: string;
+    emailAddress: string;
+}
+
 export interface CreateProAccountRequest {
     emailAddress: string;
     firstName: string;
     lastName: string;
     password: string;
+}
+
+export interface CreateCompanyAccountRequest {
+    emailAddress: string;
+    password: string;
+    comapanyName: string;
 }
 
 export enum PrimaryProfileType {

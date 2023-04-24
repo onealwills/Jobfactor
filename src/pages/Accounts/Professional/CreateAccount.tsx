@@ -6,6 +6,7 @@ import AccountType from './CreationSteps/AccountType';
 import UserCreate from './CreationSteps/UserCreate';
 import EmailConfirmation from './CreationSteps/EmailConfirmation';
 import { CreateAccountType } from '../../../utils/hooks/api/account/types';
+import CompanyCreate from '../Company/CompanyCreate';
 
 createStore({
     data: {
@@ -13,7 +14,7 @@ createStore({
         firstName: '',
         lastName: '',
         emailAddress: '',
-        company: '',
+        companyName: '',
         step: 1,
         password: '',
         verifyEmail: false
@@ -60,7 +61,8 @@ function CreateAccount() {
                             <Routes>
                                 <Route path="/" element={<AccountType />} />
                                 <Route path="/userCreate" element={<UserCreate/>} />
-                                <Route path="/confirmEmail" element={<EmailConfirmation/>} />
+                                <Route path="/confirmEmail" element={<EmailConfirmation />} />
+                                <Route path="/companyCreate" element={<CompanyCreate/>} />
                             </Routes>
                         </StateMachineProvider>
                     </Box>

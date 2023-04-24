@@ -18,7 +18,7 @@ import { CreateAccountType } from '../../../../utils/hooks/api/account/types';
 
 
 interface IAccountType {
-    accountType: string;
+    accountType: CreateAccountType;
 }
 
 function AccountType() {
@@ -29,7 +29,12 @@ function AccountType() {
     const onSubmit: SubmitHandler<IAccountType> = async (data) => {
         console.log(data);
         actions.updateAction(data);
-        navigate("./userCreate");
+        if (data.accountType === CreateAccountType.Professional) {
+            navigate("./userCreate");
+        } else if (data.accountType === CreateAccountType.Company) {
+            navigate("./companyCreate")
+            console.log('Company chosen');
+        }
     };
     React.useEffect(() => {
         actions.updateStep(1);

@@ -9,7 +9,7 @@ declare module 'little-state-machine' {
             lastName: string,
             emailAddress: string,
             password: string,
-            company: string,
+            companyName: string,
             verifyEmail: boolean,
             step: number
         };

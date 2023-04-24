@@ -1,5 +1,5 @@
 import axiosInstance from '../axiosConfig'
-import { CreateProAccountRequest, ProfessionalProfile } from './types';
+import { CompanyProfile, CreateCompanyAccountRequest, CreateProAccountRequest, ProfessionalProfile } from './types';
 import { UseMutationResult, useMutation } from 'react-query';
 
 async function createProfessionalAccount(postRequest: CreateProAccountRequest):
@@ -12,17 +12,17 @@ async function createProfessionalAccount(postRequest: CreateProAccountRequest):
         return data;
 }
 
-// async function createCompanyAccount(postRequest: CreateCompanyAccountRequest):
-//     Promise<ProfessionalProfile> {
-//         const response = await axiosInstance.post(
-//             `/authentication/sign-up/company`,
-//             postRequest
-//         );
-//         const data = await response.data;
-//         return data;
-// }
+async function createCompanyAccount(postRequest: CreateCompanyAccountRequest):
+    Promise<CompanyProfile> {
+        const response = await axiosInstance.post(
+            `/authentication/sign-up/company`,
+            postRequest
+        );
+        const data = await response.data;
+        return data;
+}
 
-function useCreateProAccount(): UseMutationResult<
+export function useCreateProAccount(): UseMutationResult<
     ProfessionalProfile,
     unknown,
     CreateProAccountRequest
@@ -30,4 +30,11 @@ function useCreateProAccount(): UseMutationResult<
     return useMutation(createProfessionalAccount);
 }
 
-export default useCreateProAccount;
+export function useCreateCompanyAccount(): UseMutationResult<
+    CompanyProfile,
+    unknown,
+    CreateCompanyAccountRequest
+    > {
+    return useMutation(createCompanyAccount);
+}
+
