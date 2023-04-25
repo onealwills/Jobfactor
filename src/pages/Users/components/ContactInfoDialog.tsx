@@ -2,6 +2,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Button, Grid, Typography } from '@mui/material';
 import CustomDialog from './CustomDialog';
 
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import JobFactorIcon from '../../../assets/icons/JobfactorIconMui';
+import { Box } from '@mui/system';
+
 export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
     <Grid
         container
@@ -28,8 +35,6 @@ export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald 
                 startIcon={<EditIcon />}
             >
                 <Typography
-                    color={'#05668D'}
-                    fontFamily="open sans"
                     fontWeight={600}
                     fontSize={14}
                     sx={{
@@ -42,4 +47,28 @@ export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald 
             </Button>
         </Grid>
     </Grid>
+    <List
+      sx={{ width: '100%', maxWidth: 360 }}
+      component="nav"
+    >
+      <ListItemButton alignItems="flex-start">
+        <ListItemIcon>
+          <JobFactorIcon htmlColor="#05668D" />
+        </ListItemIcon>
+        <Box>
+            <Typography
+                fontWeight={600}
+                fontSize={16}
+            >
+                Your Profile
+            </Typography>
+            <Typography
+                fontSize={14}
+            >
+                Your Profile
+            </Typography>      
+        </Box>
+      </ListItemButton>
+    </List>
+
 </CustomDialog>)
