@@ -14,7 +14,7 @@ import JobFactorIcon from '../../assets/icons/JobFactorIcon';
 import PasswordFormIcon from '../../assets/icons/PasswordFormIcon';
 import profileReview from './../../assets/images/profileReview.png';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/context/AuthContext';
 import { useEffect } from 'react';
 
@@ -78,7 +78,9 @@ function Login() {
                     {/* Column1 */}
                     {/* Logo */}
                     <Box sx={{ mt: '51px', width: '80%', alignSelf: 'center' }}>
-                        <JobFactorIcon />
+                        <Link to={'/'}>
+                            <JobFactorIcon />
+                        </Link>
                     </Box>
                     <Box>
                         <Typography
@@ -493,7 +495,7 @@ function Login() {
                                     fontStyle={'semibold'}
                                     sx={{ color: '#05668D' }}
                                 >
-                                    Create account
+                                    <Link to={'/create-account'} style={{textDecoration: 'none', color: '#05668D'}}>Create account</Link>
                                 </Typography>
                             </Box>
                         </Box>
