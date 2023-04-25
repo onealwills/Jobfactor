@@ -1,8 +1,17 @@
-import { Toolbar, Drawer, Box, Typography } from '@mui/material';
+import {
+    Toolbar,
+    Drawer,
+    Box,
+    Typography,
+    CircularProgress
+} from '@mui/material';
 import SideNav from '../../components/Navigation/SideNav';
 import JobfactorAppBar from '../../components/JobfactorAppBar';
 import SideNavProfile from '../../assets/images/SideNavProfile.png';
 import { styled } from '@mui/material/styles';
+import { useAuth } from '../../utils/context/AuthContext';
+import { useEffect, useState } from 'react';
+import { PrimaryProfileType } from '../../utils/hooks/api/account/types';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     open?: boolean;
@@ -34,7 +43,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const drawerWidth = 240;
 
 function MainLayout(props: { children: React.ReactNode }) {
+    const { account } = useAuth();
+
     const { children } = props;
+
     return (
         <Box sx={{ display: 'flex' }}>
             <JobfactorAppBar />
@@ -68,33 +80,45 @@ function MainLayout(props: { children: React.ReactNode }) {
                         alignItems: 'center'
                     }}
                 >
-                    <Box sx={{ mt: '10px' }}>
-                        <img
-                            height={64}
-                            width={64}
-                            src={SideNavProfile}
-                            alt="profile"
-                        />
-                    </Box>
+                    {account?.sub ? (
+                        <>
+                            <Box sx={{ mt: '10px' }}>
+                                <img
+                                    height={64}
+                                    width={64}
+                                    src={SideNavProfile}
+                                    alt="profile"
+                                />
+                            </Box>
 
-                    <Typography
-                        sx={{ mt: '6px' }}
-                        color={'#23282B'}
-                        fontSize={16}
-                        fontFamily={'open sans'}
-                        fontWeight={700}
-                    >
-                        Jobfactor
-                    </Typography>
-                    <Typography
-                        sx={{ mt: '6px' }}
-                        color={'#808080'}
-                        fontSize={14}
-                        fontFamily={'open sans'}
-                        fontWeight={400}
-                    >
-                        Company account
-                    </Typography>
+                            <Typography
+                                sx={{ mt: '6px' }}
+                                color={'#23282B'}
+                                fontSize={16}
+                                fontFamily={'open sans'}
+                                fontWeight={700}
+                            >
+                                {account?.primaryProfile ===
+                                PrimaryProfileType.Professional
+                                    ? `${account?.professionalProfile.fullName}`
+                                    : `${account?.companyProfile.companyName}`}
+                            </Typography>
+                            <Typography
+                                sx={{ mt: '6px' }}
+                                color={'#808080'}
+                                fontSize={14}
+                                fontFamily={'open sans'}
+                                fontWeight={400}
+                            >
+                                {account?.primaryProfile ===
+                                PrimaryProfileType.Company
+                                    ? 'Company account'
+                                    : 'Personal account'}
+                            </Typography>
+                        </>
+                    ) : (
+                        <CircularProgress sx={{ color: '#05668D' }} />
+                    )}
                 </Box>
 
                 <Box sx={{ height: '20px', backgroundColor: '#FCFBF8' }} />

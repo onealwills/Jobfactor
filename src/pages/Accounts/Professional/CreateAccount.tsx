@@ -10,7 +10,8 @@ import CompanyCreate from '../Company/CompanyCreate';
 
 createStore({
     data: {
-        accountType: CreateAccountType.Professional || CreateAccountType.Company,
+        accountType:
+            CreateAccountType.Professional || CreateAccountType.Company,
         firstName: '',
         lastName: '',
         emailAddress: '',
@@ -18,11 +19,10 @@ createStore({
         step: 1,
         password: '',
         verifyEmail: false
-    },
+    }
 });
 
 function CreateAccount() {
-
     return (
         <>
             <Box
@@ -31,7 +31,7 @@ function CreateAccount() {
                     minHeight: '100vh',
                     flexDirection: { md: 'row', xs: 'column' },
                     backgroundColor: '#FCFBF8',
-                    width: '100%',
+                    width: '100%'
                 }}
             >
                 {/* left column */}
@@ -45,7 +45,7 @@ function CreateAccount() {
                         mt: '82px',
                         ml: '0px',
                         mr: '40px',
-                        mb: '323px',
+                        mb: '323px'
                     }}
                 >
                     <Box
@@ -54,16 +54,24 @@ function CreateAccount() {
                             width: '100%',
                             display: 'flex',
                             alignItems: 'center',
-                            flexDirection: 'column',
+                            flexDirection: 'column'
                         }}
-                        
                     >
                         <StateMachineProvider>
                             <Routes>
                                 <Route path="/" element={<AccountType />} />
-                                <Route path="/userCreate" element={<UserCreate/>} />
-                                <Route path="/confirmEmail" element={<EmailConfirmation />} />
-                                <Route path="/companyCreate" element={<CompanyCreate/>} />
+                                <Route
+                                    path="/userCreate"
+                                    element={<UserCreate />}
+                                />
+                                <Route
+                                    path="/confirmEmail"
+                                    element={<EmailConfirmation />}
+                                />
+                                <Route
+                                    path="/companyCreate"
+                                    element={<CompanyCreate />}
+                                />
                             </Routes>
                         </StateMachineProvider>
                     </Box>

@@ -495,7 +495,15 @@ function Login() {
                                     fontStyle={'semibold'}
                                     sx={{ color: '#05668D' }}
                                 >
-                                    <Link to={'/create-account'} style={{textDecoration: 'none', color: '#05668D'}}>Create account</Link>
+                                    <Link
+                                        to={'/create-account'}
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: '#05668D'
+                                        }}
+                                    >
+                                        Create account
+                                    </Link>
                                 </Typography>
                             </Box>
                         </Box>

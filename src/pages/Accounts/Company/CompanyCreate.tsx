@@ -1,11 +1,25 @@
-import { Box, Button, Checkbox, InputBase, InputLabel, Typography } from '@mui/material'
-import React from 'react'
-import OnboardingSteps from '../OnboardingSteps/OnboardingSteps'
+import {
+    Box,
+    Button,
+    Checkbox,
+    InputBase,
+    InputLabel,
+    Typography
+} from '@mui/material';
+import React from 'react';
+import OnboardingSteps from '../OnboardingSteps/OnboardingSteps';
 import { Link, useNavigate } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { GlobalState, useStateMachine } from 'little-state-machine';
-import { CreateAccountType, CreateCompanyAccountRequest, CreateProAccountRequest } from '../../../utils/hooks/api/account/types';
-import { updateAction, updateStep } from '../Professional/CreationSteps/updateAction';
+import {
+    CreateAccountType,
+    CreateCompanyAccountRequest,
+    CreateProAccountRequest
+} from '../../../utils/hooks/api/account/types';
+import {
+    updateAction,
+    updateStep
+} from '../Professional/CreationSteps/updateAction';
 import { useCreateCompanyAccount } from '../../../utils/hooks/api/account/useCreateProAccount';
 import EmailFormIcon from '../../../assets/icons/EmailFormIcon';
 import ErrorFormIcon from '../../../assets/icons/ErrorFormIcon';
@@ -28,24 +42,24 @@ function CompanyCreate() {
         setError,
         formState,
         register,
-        clearErrors,
+        clearErrors
     } = useForm<ICompanyInfo>();
-    
+
     const { isDirty, isValid, errors } = formState;
     const { actions, state } = useStateMachine({ updateAction, updateStep });
 
     const createAccountMutation = useCreateCompanyAccount();
 
     const handleCreateAccount = async (data: GlobalState) => {
-        console.log('handle create called')
+        console.log('handle create called');
         if (data.data.accountType === CreateAccountType.Company) {
             const request: CreateCompanyAccountRequest = {
                 emailAddress: data.data.emailAddress,
                 password: data.data.password,
                 companyName: data.data.companyName
-            }
+            };
             console.log('account type company', request);
-            
+
             createAccountMutation.mutate(request, {
                 onSuccess: async (data) => {
                     console.log(data);
@@ -53,9 +67,9 @@ function CompanyCreate() {
                 onError: (error) => {
                     console.error(error);
                 }
-            })
+            });
         }
-    }
+    };
 
     const onSubmit: SubmitHandler<ICompanyInfo> = async (data) => {
         console.log(data);
@@ -69,26 +83,26 @@ function CompanyCreate() {
         actions.updateStep(2);
     }, []);
 
-  return (
-      <>
-             <Box
+    return (
+        <>
+            <Box
                 sx={{
                     height: '495px',
                     width: '599px',
                     display: 'flex',
                     alignItems: 'center',
-                    flexDirection: 'column',
+                    flexDirection: 'column'
                 }}
             >
                 <OnboardingSteps />
-          </Box>
-          <Box
+            </Box>
+            <Box
                 sx={{
                     height: '640px',
                     width: '518px',
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center',
+                    alignItems: 'center'
                 }}
             >
                 <Box
@@ -98,7 +112,7 @@ function CompanyCreate() {
                         display: 'flex',
                         alignItems: 'center',
                         flexDirection: 'column',
-                        mb: '26px',
+                        mb: '26px'
                     }}
                 >
                     <Typography
@@ -109,7 +123,7 @@ function CompanyCreate() {
                             color: '#23282B',
                             display: 'flex',
                             alignSelf: 'start',
-                            mb: '32px',
+                            mb: '32px'
                         }}
                     >
                         Create Account
@@ -124,7 +138,7 @@ function CompanyCreate() {
                                 top: '8px',
                                 left: '72px',
                                 zIndex: 1,
-                                fontFamily: 'Open Sans',
+                                fontFamily: 'Open Sans'
                             }}
                             htmlFor="companyName"
                         >
@@ -134,45 +148,47 @@ function CompanyCreate() {
                         {/* company name */}
                         <Controller
                             {...register('companyName', {
-                                required: 'Required field',
+                                required: 'Required field'
                             })}
                             name="companyName"
                             control={control}
                             render={({
                                 field: { onChange, value, ref, onBlur },
                                 fieldState: { error },
-                                formState,
+                                formState
                             }) => (
                                 <InputBase
                                     required
                                     onChange={(e) => {
                                         onChange(e);
                                         if (e.target.value.length > 40) {
-                                            setError("companyName", {
-                                                type: 'maxLength',
-                                                message: 'Name must not exceed 40 characters'
-                                            });
-                                        } else {
-                                            clearErrors("companyName")
-                                        }
-                                    }}
-                                    onBlur={(e) => {if (!e.target.value)
-                                        {
                                             setError('companyName', {
-                                                type: 'required',
+                                                type: 'maxLength',
                                                 message:
-                                                    'Please provide the company name',
+                                                    'Name must not exceed 40 characters'
                                             });
                                         } else {
                                             clearErrors('companyName');
-                                        }}}
+                                        }
+                                    }}
+                                    onBlur={(e) => {
+                                        if (!e.target.value) {
+                                            setError('companyName', {
+                                                type: 'required',
+                                                message:
+                                                    'Please provide the company name'
+                                            });
+                                        } else {
+                                            clearErrors('companyName');
+                                        }
+                                    }}
                                     error={!!errors?.companyName}
                                     inputProps={{
                                         autoComplete: '',
                                         form: {
-                                            autoComplete: 'off',
+                                            autoComplete: 'off'
                                         },
-                                        inputMode: 'text',
+                                        inputMode: 'text'
                                     }}
                                     inputRef={ref}
                                     id="fullName"
@@ -191,24 +207,26 @@ function CompanyCreate() {
                                         '& 	.MuiInputBase-input': {
                                             ml: '20px',
                                             position: 'relative',
-                                            top: '8px',
-                                        },
+                                            top: '8px'
+                                        }
                                     }}
                                 />
                             )}
                         />
-                         <Typography
+                        <Typography
                             sx={{
                                 color: 'red',
                                 fontSize: '12px',
-                                fontFamily: 'Open Sans',
+                                fontFamily: 'Open Sans'
                             }}
                         >
                             {errors.companyName?.message}
                         </Typography>
                     </Box>
 
-                    <Box sx={{ width: '100%', position: 'relative', mt: '18px' }}>
+                    <Box
+                        sx={{ width: '100%', position: 'relative', mt: '18px' }}
+                    >
                         <InputLabel
                             sx={{
                                 color: '#23282B',
@@ -217,7 +235,7 @@ function CompanyCreate() {
                                 top: '8px',
                                 left: '72px',
                                 zIndex: 1,
-                                fontFamily: 'Open Sans',
+                                fontFamily: 'Open Sans'
                             }}
                             htmlFor="emailAddress"
                         >
@@ -229,15 +247,15 @@ function CompanyCreate() {
                                 required: 'Required field',
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: 'Invalid email address',
-                                },
+                                    message: 'Invalid email address'
+                                }
                             })}
                             name="emailAddress"
                             control={control}
                             render={({
                                 field: { onChange, onBlur, value, ref },
                                 fieldState: { error },
-                                formState,
+                                formState
                             }) => (
                                 <InputBase
                                     required
@@ -250,32 +268,31 @@ function CompanyCreate() {
                                         ) {
                                             setError('emailAddress', {
                                                 type: 'pattern',
-                                                message:
-                                                    'Invalid email address',
+                                                message: 'Invalid email address'
                                             });
                                         } else {
                                             clearErrors('emailAddress');
                                         }
                                     }}
                                     onBlur={(e) => {
-                                        if (!e.target.value)
-                                        {
+                                        if (!e.target.value) {
                                             setError('emailAddress', {
                                                 type: 'required',
                                                 message:
-                                                    'Please provide a valid email address',
+                                                    'Please provide a valid email address'
                                             });
                                         } else {
                                             clearErrors('emailAddress');
-                                        }}}
+                                        }
+                                    }}
                                     placeholder="Enter your email address"
                                     error={!!errors?.emailAddress}
                                     inputProps={{
                                         autoComplete: '',
                                         form: {
-                                            autoComplete: 'off',
+                                            autoComplete: 'off'
                                         },
-                                        inputMode: 'email',
+                                        inputMode: 'email'
                                     }}
                                     inputRef={ref}
                                     id="emailAddress"
@@ -293,8 +310,8 @@ function CompanyCreate() {
                                         '& 	.MuiInputBase-input': {
                                             ml: '20px',
                                             position: 'relative',
-                                            top: '8px',
-                                        },
+                                            top: '8px'
+                                        }
                                     }}
                                 />
                             )}
@@ -303,14 +320,16 @@ function CompanyCreate() {
                             sx={{
                                 color: 'red',
                                 fontSize: '12px',
-                                fontFamily: 'Open Sans',
+                                fontFamily: 'Open Sans'
                             }}
                         >
                             {errors.emailAddress?.message}
                         </Typography>
                     </Box>
 
-                    <Box sx={{ width: '100%', position: 'relative', mt: '18px' }}>
+                    <Box
+                        sx={{ width: '100%', position: 'relative', mt: '18px' }}
+                    >
                         <InputLabel
                             sx={{
                                 color: '#23282B',
@@ -319,7 +338,7 @@ function CompanyCreate() {
                                 top: '8px',
                                 left: '72px',
                                 zIndex: 1,
-                                fontFamily: 'Open Sans',
+                                fontFamily: 'Open Sans'
                             }}
                             htmlFor="password"
                         >
@@ -332,7 +351,7 @@ function CompanyCreate() {
                             render={({
                                 field: { onChange, onBlur, value, ref },
                                 fieldState: { error },
-                                formState,
+                                formState
                             }) => (
                                 <InputBase
                                     {...register('password', {
@@ -340,23 +359,24 @@ function CompanyCreate() {
                                         minLength: {
                                             value: 4,
                                             message:
-                                                'Passwords must be a minimum of 4 characters',
+                                                'Passwords must be a minimum of 4 characters'
                                         },
                                         pattern: {
                                             value: /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[^!#%]*[!#%])[A-Za-z0-9!#%]{8,32}$/gm,
-                                            message: 'err',
-                                        },
+                                            message: 'err'
+                                        }
                                     })}
                                     required
                                     onChange={(e) => {
                                         onChange(e);
                                         if (e.target.value.length < 4) {
-                                            setError("password", {
+                                            setError('password', {
                                                 type: 'minLength',
-                                                message: 'Passwords must be a minimum of 4 characters'
+                                                message:
+                                                    'Passwords must be a minimum of 4 characters'
                                             });
                                         } else {
-                                            clearErrors("password")
+                                            clearErrors('password');
                                         }
                                         if (
                                             !/^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[^!#%]*[!#%])[A-Za-z0-9!#%]{8,32}$/gm.test(
@@ -365,30 +385,29 @@ function CompanyCreate() {
                                         ) {
                                             setError('password', {
                                                 type: 'pattern',
-                                                message:
-                                                    'Invalid password',
+                                                message: 'Invalid password'
                                             });
                                         } else {
                                             clearErrors('password');
                                         }
                                     }}
                                     onBlur={(e) => {
-                                        if (!e.target.value)
-                                        {
+                                        if (!e.target.value) {
                                             setError('password', {
                                                 type: 'required',
                                                 message:
-                                                    'Please provide a valid password',
+                                                    'Please provide a valid password'
                                             });
                                         } else {
                                             clearErrors('password');
-                                        }}}
+                                        }
+                                    }}
                                     error={!!error}
                                     inputProps={{
                                         autoComplete: 'new-password',
                                         form: {
-                                            autoComplete: 'off',
-                                        },
+                                            autoComplete: 'off'
+                                        }
                                     }}
                                     inputRef={ref}
                                     name="password"
@@ -409,8 +428,8 @@ function CompanyCreate() {
                                         '& 	.MuiInputBase-input': {
                                             ml: '20px',
                                             position: 'relative',
-                                            top: '8px',
-                                        },
+                                            top: '8px'
+                                        }
                                     }}
                                 />
                             )}
@@ -419,7 +438,7 @@ function CompanyCreate() {
                             sx={{
                                 color: 'red',
                                 fontSize: '12px',
-                                fontFamily: 'Open Sans',
+                                fontFamily: 'Open Sans'
                             }}
                         >
                             {errors.password?.message}
@@ -431,7 +450,7 @@ function CompanyCreate() {
                                         display: 'flex',
                                         gap: '5px',
                                         mt: '10px',
-                                        alignContent: 'start',
+                                        alignContent: 'start'
                                     }}
                                 >
                                     <ErrorFormIcon />
@@ -439,7 +458,7 @@ function CompanyCreate() {
                                         sx={{
                                             color: '#808080',
                                             fontSize: '12px',
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Open Sans'
                                         }}
                                     >
                                         Password should contain uppercase
@@ -457,7 +476,7 @@ function CompanyCreate() {
                         display: 'flex',
                         alignSelf: 'start',
                         mb: '48px',
-                        width: '100%',
+                        width: '100%'
                     }}
                 >
                     <Controller
@@ -467,7 +486,7 @@ function CompanyCreate() {
                         render={({
                             field: { onChange, onBlur, ref },
                             fieldState: { invalid, isTouched, isDirty, error },
-                            formState,
+                            formState
                         }) => {
                             return (
                                 <Checkbox
@@ -478,11 +497,11 @@ function CompanyCreate() {
                                     name="termAgreement"
                                     inputProps={{
                                         'aria-label':
-                                            'I agree to all the Terms and Privacy policy',
+                                            'I agree to all the Terms and Privacy policy'
                                     }}
                                     sx={{
                                         color: '#D1D1D1',
-                                        padding: 0,
+                                        padding: 0
                                     }}
                                 />
                             );
@@ -493,7 +512,7 @@ function CompanyCreate() {
                             fontSize: '14px',
                             fontFamily: 'Open Sans',
                             color: '#23282B',
-                            ml: '12px',
+                            ml: '12px'
                         }}
                     >
                         I agree to all the Terms and Privacy policy
@@ -506,12 +525,12 @@ function CompanyCreate() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        justifyContent: 'center',
+                        justifyContent: 'center'
                     }}
                 >
                     <Button
                         sx={{
-                            height: '52px',
+                            height: '52px'
                         }}
                         variant="contained"
                         disabled={!isDirty || !isValid}
@@ -535,7 +554,7 @@ function CompanyCreate() {
                             mb: '6px',
                             position: 'relative',
                             justifyContent: 'center',
-                            width: '100%',
+                            width: '100%'
                         }}
                     >
                         <OnboardingLineIcon />
@@ -545,14 +564,14 @@ function CompanyCreate() {
                                 width: '90%',
                                 alignSelf: 'center',
                                 backgroundColor: '#D9D9D9',
-                                position: 'absolute',
+                                position: 'absolute'
                             }}
                         />
                         <Typography
                             sx={{
                                 px: '30px',
                                 backgroundColor: '#fcfbf8',
-                                zIndex: 1,
+                                zIndex: 1
                             }}
                         >
                             OR
@@ -565,7 +584,7 @@ function CompanyCreate() {
                         startIcon={<GoogleIcon />}
                         sx={{
                             height: '52px',
-                            width: '100%',
+                            width: '100%'
                         }}
                     >
                         <Typography fontWeight={'600'}>
@@ -576,7 +595,7 @@ function CompanyCreate() {
                     <Box
                         sx={{
                             display: 'flex',
-                            mt: '48px',
+                            mt: '48px'
                         }}
                     >
                         <Typography sx={{ color: '#808080', mr: '10px' }}>
@@ -588,14 +607,21 @@ function CompanyCreate() {
                             fontSize={'16px'}
                             fontStyle={'semibold'}
                         >
-                            <Link to={'/login'} style={{color: '#05668D', textDecoration: 'none'}}>Sign in</Link>
+                            <Link
+                                to={'/login'}
+                                style={{
+                                    color: '#05668D',
+                                    textDecoration: 'none'
+                                }}
+                            >
+                                Sign in
+                            </Link>
                         </Typography>
                     </Box>
                 </Box>
             </Box>
-
-      </>
-  )
+        </>
+    );
 }
 
 export default CompanyCreate;

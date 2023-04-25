@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import useAccountAuthenticate from '../hooks/api/authentication/useAccountAuthenticate';
 import { useLocalStorage } from 'usehooks-ts';
 import { localStorageConstants } from './constants';
-import axios from 'axios';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import axiosInstance from '../hooks/api/axiosConfig';
 import { PrimaryProfileType } from '../hooks/api/account/types';
@@ -11,6 +10,12 @@ interface Account {
     sub: string;
     primaryProfile: PrimaryProfileType;
     email: string;
+    companyProfile: {
+        companyName: string;
+    };
+    professionalProfile: {
+        fullName: string;
+    };
 }
 
 interface AuthContextType {
@@ -89,7 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (tokenExpiration && new Date() > new Date(tokenExpiration)) {
             // Token has expired - request a new one
             try {
-                const response = await await axiosInstance.post(
+                const response = await axiosInstance.post(
                     '/authentication/refresh-tokens',
                     {
                         refreshToken: localStorage
@@ -132,7 +137,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         const account: Account = {
                             sub: decodedToken.sub,
                             primaryProfile: decodedToken.primaryProfile,
-                            email: decodedToken.email
+                            email: decodedToken.email,
+                            companyProfile: {
+                                companyName:
+                                    decodedToken.companyProfile?.companyName
+                            },
+                            professionalProfile: {
+                                fullName:
+                                    decodedToken.professionalProfile?.fullName
+                            }
                         };
                         setAccount(account);
                     }

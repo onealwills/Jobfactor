@@ -6,7 +6,7 @@ import {
     RadioGroup,
     FormControlLabel,
     Radio,
-    Button,
+    Button
 } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,7 +15,6 @@ import { useStateMachine } from 'little-state-machine';
 import { updateAction, updateStep } from './updateAction';
 import React from 'react';
 import { CreateAccountType } from '../../../../utils/hooks/api/account/types';
-
 
 interface IAccountType {
     accountType: CreateAccountType;
@@ -30,15 +29,15 @@ function AccountType() {
         console.log(data);
         actions.updateAction(data);
         if (data.accountType === CreateAccountType.Professional) {
-            navigate("./userCreate");
+            navigate('./userCreate');
         } else if (data.accountType === CreateAccountType.Company) {
-            navigate("./companyCreate")
+            navigate('./companyCreate');
             console.log('Company chosen');
         }
     };
     React.useEffect(() => {
         actions.updateStep(1);
-    }, [])
+    }, []);
 
     return (
         <>
@@ -48,7 +47,7 @@ function AccountType() {
                     width: '599px',
                     display: 'flex',
                     alignItems: 'center',
-                    flexDirection: 'column',
+                    flexDirection: 'column'
                 }}
             >
                 <OnboardingSteps />
@@ -59,7 +58,7 @@ function AccountType() {
                         mt: '71px',
                         display: 'flex',
                         alignItems: 'center',
-                        flexDirection: 'column',
+                        flexDirection: 'column'
                     }}
                 >
                     <FormControl>
@@ -77,10 +76,8 @@ function AccountType() {
                         <Controller
                             rules={{ required: true }}
                             control={control}
-                            name='accountType'
-                            render={({
-                                field: { onChange },
-                            }) => (
+                            name="accountType"
+                            render={({ field: { onChange } }) => (
                                 <RadioGroup
                                     onChange={onChange}
                                     aria-labelledby="account-type"
@@ -93,8 +90,8 @@ function AccountType() {
                                             <Radio
                                                 sx={{
                                                     '&.Mui-checked': {
-                                                        color: '#05668D',
-                                                    },
+                                                        color: '#05668D'
+                                                    }
                                                 }}
                                             />
                                         }
@@ -112,7 +109,7 @@ function AccountType() {
                                             fontWeight: '400',
                                             fontSize: '16px',
                                             boxSizing: 'border-box',
-                                            mx: '0',
+                                            mx: '0'
                                         }}
                                     />
                                     <FormControlLabel
@@ -121,8 +118,8 @@ function AccountType() {
                                             <Radio
                                                 sx={{
                                                     '&.Mui-checked': {
-                                                        color: '#05668D',
-                                                    },
+                                                        color: '#05668D'
+                                                    }
                                                 }}
                                             />
                                         }
@@ -140,7 +137,7 @@ function AccountType() {
                                             fontWeight: '400',
                                             fontSize: '16px',
                                             boxSizing: 'border-box',
-                                            mx: '0',
+                                            mx: '0'
                                         }}
                                     />
                                 </RadioGroup>
@@ -163,7 +160,7 @@ function AccountType() {
                             gap: '8px',
                             display: 'flex',
                             justifyContent: 'center',
-                            alignItems: 'center',
+                            alignItems: 'center'
                         }}
                         onClick={handleSubmit(onSubmit)}
                         disabled={!isDirty || !isValid}
@@ -179,7 +176,7 @@ function AccountType() {
                             alignItems: 'center',
                             flex: 'none',
                             order: '1',
-                            flexGrow: '0',
+                            flexGrow: '0'
                         }}
                     >
                         <Typography
@@ -188,7 +185,7 @@ function AccountType() {
                             color={'#808080'}
                             sx={{
                                 mr: '20px',
-                                lineHeight: '24px',
+                                lineHeight: '24px'
                             }}
                         >
                             Already have an account?
