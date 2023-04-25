@@ -103,7 +103,7 @@ const CompanyInfo = (props: { jobInfo: IJobItem }) => {
                 </Box>
             </Box>
 
-            <ChipList chipsData={jobInfo.keywords} />
+            <ChipList chipsData={jobInfo.keywords} displayAll={false} />
         </Box>
     );
 };
@@ -127,7 +127,10 @@ const JobPostingRequirements = (props: { jobInfo: IJobItem }) => {
                 Requirements
             </Typography>
             <Box sx={{ mt: 2 }}>
-                <ChipList chipsData={jobInfo.requirements.keywords} />
+                <ChipList
+                    chipsData={jobInfo.requirements.keywords}
+                    displayAll={false}
+                />
             </Box>
             <Box
                 sx={{

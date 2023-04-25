@@ -5,14 +5,18 @@ const chipColorsMapping: Record<string, string> = {
     A: '#49B6FF',
     B: '#808080',
     E: '#F6C70E',
-    L: '#07AF22'
+    L: '#07AF22',
+    T: '#07AF22',
+    X: '#95C97A'
 };
 
 const chipInfoColorsMapping: Record<string, string> = {
     A: '#2E6F9B',
     B: '#4F4F4F',
     E: '#967A0C',
-    L: '#076B17'
+    L: '#076B17',
+    T: '#076B17',
+    X: '#5C7B4B'
 };
 
 const ChipInfo = (props: { type: string }) => {
@@ -57,20 +61,29 @@ const ChipItem = (props: { label: string; type: string }) => {
     );
 };
 const ChipList = (props: IChipProps) => {
-    const { chipsData } = props;
+    const { chipsData, displayAll } = props;
     return (
         <Box
             sx={{
-                mx: '15px',
+                mx: !displayAll ? '15px' : '-6px',
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: !displayAll ? 'center' : 'start',
                 alignItems: 'center'
             }}
         >
-            {chipsData.slice(0, 3).map((item) => (
-                <ChipItem label={item.name} type={item.type} />
-            ))}
-            {chipsData.length > 3 ? (
+            {!displayAll &&
+                chipsData
+                    .slice(0, 3)
+                    .map((item) => (
+                        <ChipItem label={item.name} type={item.type} />
+                    ))}
+
+            {displayAll &&
+                chipsData.map((item) => (
+                    <ChipItem label={item.name} type={item.type} />
+                ))}
+
+            {!displayAll && chipsData.length > 3 ? (
                 <Box sx={{ pr: 0.5 }}> {`+${chipsData.length - 3}`} </Box>
             ) : null}
         </Box>
@@ -79,6 +92,7 @@ const ChipList = (props: IChipProps) => {
 
 interface IChipProps {
     chipsData: { name: string; type: string }[];
+    displayAll?: boolean;
 }
 
 export default ChipList;
