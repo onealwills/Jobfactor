@@ -80,7 +80,8 @@ export default function CustomDialog({
 
     return (
         <Dialog
-            maxWidth={'md'}
+            maxWidth="md"
+            fullWidth
             onClose={handleClose}
             aria-labelledby="customized-dialog-title"
             open={!!open}

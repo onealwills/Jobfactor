@@ -100,8 +100,8 @@ function MainLayout(props: { children: React.ReactNode }) {
                             >
                                 {account?.primaryProfile ===
                                 PrimaryProfileType.Professional
-                                    ? `${account?.professionalProfile.fullName}`
-                                    : `${account?.companyProfile.companyName}`}
+                                    ? `${account?.professionalProfile?.fullName}`
+                                    : `${account?.companyProfile?.companyName}`}
                             </Typography>
                             <Typography
                                 sx={{ mt: '6px' }}

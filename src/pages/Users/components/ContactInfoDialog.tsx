@@ -3,11 +3,14 @@ import { Button, Grid, Typography } from '@mui/material';
 import CustomDialog from './CustomDialog';
 
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+
 import JobFactorIcon from '../../../assets/icons/JobfactorIconMui';
-import { Box } from '@mui/system';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
+import PlaceIcon from '@mui/icons-material/Place';
+import CakeIcon from '@mui/icons-material/Cake';
+
+import { ContactInfoListItem } from './ContactInfoListItem';
 
 export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
     <Grid
@@ -48,27 +51,18 @@ export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald 
         </Grid>
     </Grid>
     <List
-      sx={{ width: '100%', maxWidth: 360 }}
+      sx={{
+        width: '100%',
+      }}
       component="nav"
     >
-      <ListItemButton alignItems="flex-start">
-        <ListItemIcon>
-          <JobFactorIcon htmlColor="#05668D" />
-        </ListItemIcon>
-        <Box>
-            <Typography
-                fontWeight={600}
-                fontSize={16}
-            >
-                Your Profile
-            </Typography>
-            <Typography
-                fontSize={14}
-            >
-                Your Profile
-            </Typography>      
-        </Box>
-      </ListItemButton>
+      
+      <ContactInfoListItem icon={<JobFactorIcon />} title="Your Profile" subtitle="https://Ronaldrichald.info" />
+      <ContactInfoListItem icon={<PhoneIcon />} title="Phone" subtitle="+234 704 555 0114  (Office)" />
+      <ContactInfoListItem icon={<PlaceIcon />} title="Address" subtitle="3891 Ranchview Dr. Richardson, California 62639" />
+      <ContactInfoListItem icon={<EmailIcon />} title="Email" subtitle="Ronaldrichie@outlook.com" />
+      <ContactInfoListItem icon={<CakeIcon />} title="Birthday" subtitle="May 29" />
+
     </List>
 
 </CustomDialog>)
