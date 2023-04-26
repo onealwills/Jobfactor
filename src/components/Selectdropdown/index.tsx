@@ -3,9 +3,16 @@ import React from 'react';
 
 const SelectDropdown = (props: PropTypes) => {
     const [value, setValue] = React.useState('');
+    React.useEffect(() => {
+        if (props.defaultValue) {
+            setValue(props.defaultValue);
+        } else {
+            setValue('');
+        }
+    }, [props.defaultValue])
     return (
         <>
-            <FormControl>
+            <FormControl fullWidth>
                 <InputLabel
                     disabled
                     variant={props.variant ?? 'filled'}
@@ -14,6 +21,7 @@ const SelectDropdown = (props: PropTypes) => {
                     {props?.label}
                 </InputLabel>
                 <Select
+                    disabled={props.disabled ?? false}
                     value={value}
                     onChange={(e) => {
                         setValue(e.target.value);
@@ -47,5 +55,7 @@ interface PropTypes {
     style: React.CSSProperties;
     options: string[];
     label?: string;
+    defaultValue?: string;
+    disabled?: boolean
 }
 export default SelectDropdown;

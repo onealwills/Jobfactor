@@ -33,7 +33,7 @@ export default function SideNavItem(props: {
             setIsSelected(true);
         } else if (currentItem.submenu) {
             if (
-                location.pathname === currentItem.submenu[subMenuIndex].route &&
+                location.pathname === currentItem.submenu[subMenuIndex]?.route &&
                 currentItem.route === nav.route
             ) {
                 setIsSelected(true);

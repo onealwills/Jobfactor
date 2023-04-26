@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 interface Props {
     strokeWidth?: number;
@@ -18,7 +18,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
     const percentage = (value / divider) * 100;
 
     return (
-        <>
+        <Box component='span'>
             <svg
                 className={'CircularProgressbar'}
                 viewBox="0 0 100 100"
@@ -107,7 +107,7 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
             >
                 Jobfactor Score
             </Typography>
-        </>
+        </Box>
     );
 };
 
