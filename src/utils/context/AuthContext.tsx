@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import useAccountAuthenticate from '../hooks/api/authentication/useAccountAuthenticate';
 import { useLocalStorage } from 'usehooks-ts';
 import { localStorageConstants } from './constants';
-import axios from 'axios';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import axiosInstance from '../hooks/api/axiosConfig';
 import { PrimaryProfileType } from '../hooks/api/account/types';
@@ -11,6 +10,12 @@ interface Account {
     sub: string;
     primaryProfile: PrimaryProfileType;
     email: string;
+    companyProfile: {
+        companyName: string;
+    };
+    professionalProfile: {
+        fullName: string;
+    };
 }
 
 interface AuthContextType {
@@ -38,7 +43,7 @@ export const AuthContext = createContext<AuthContextType>({
     signOut: () => {},
     setAccessToken: () => {},
     setRefreshToken: () => {},
-    setIsAuthenticated: () => {},
+    setIsAuthenticated: () => {}
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -89,12 +94,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (tokenExpiration && new Date() > new Date(tokenExpiration)) {
             // Token has expired - request a new one
             try {
-                const response = await await axiosInstance.post(
+                const response = await axiosInstance.post(
                     '/authentication/refresh-tokens',
                     {
                         refreshToken: localStorage
                             .getItem(localStorageConstants.RefreshToken)
-                            ?.replace(/"/g, ''),
+                            ?.replace(/"/g, '')
                     }
                 );
                 const data = response.data;
@@ -133,9 +138,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             sub: decodedToken.sub,
                             primaryProfile: decodedToken.primaryProfile,
                             email: decodedToken.email,
+                            companyProfile: {
+                                companyName:
+                                    decodedToken.companyProfile?.companyName
+                            },
+                            professionalProfile: {
+                                fullName:
+                                    decodedToken.professionalProfile?.fullName
+                            }
                         };
                         setAccount(account);
-                    },
+                    }
                 }
             );
         } catch (error) {
@@ -166,7 +179,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 signOut,
                 setAccessToken,
                 setRefreshToken,
-                setIsAuthenticated,
+                setIsAuthenticated
             }}
         >
             {children}
@@ -183,7 +196,7 @@ export function useAuth() {
         signIn,
         signOut,
         setAccessToken,
-        setIsAuthenticated,
+        setIsAuthenticated
     } = useContext(AuthContext);
 
     const [isRefreshingToken, setIsRefreshingToken] = useState(false);
@@ -208,7 +221,7 @@ export function useAuth() {
                         const response = await axiosInstance.post(
                             '/authentication/refresh-tokens',
                             {
-                                refreshToken: refreshToken?.replace(/"/g, ''),
+                                refreshToken: refreshToken?.replace(/"/g, '')
                             }
                         );
                         const data = response.data;
@@ -234,6 +247,6 @@ export function useAuth() {
         isAuthenticated,
         account,
         signIn,
-        signOut,
+        signOut
     };
 }

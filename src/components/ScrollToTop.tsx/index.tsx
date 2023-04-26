@@ -1,13 +1,13 @@
-import { ArrowUpward } from '@mui/icons-material'
-import { Avatar } from '@mui/material'
-import React from 'react'
+import { ArrowUpward } from '@mui/icons-material';
+import { Avatar } from '@mui/material';
+import React from 'react';
 
 const ScrollToTop = () => {
     const [showTopBtn, setShowTopBtn] = React.useState(false);
     const goToTop = () => {
         window.scrollTo({
             top: 0,
-            behavior: 'smooth',
+            behavior: 'smooth'
         });
     };
     React.useEffect(() => {
@@ -21,7 +21,7 @@ const ScrollToTop = () => {
     }, []);
     return (
         <>
-            {showTopBtn &&
+            {showTopBtn && (
                 <Avatar
                     onClick={goToTop}
                     sx={{
@@ -31,14 +31,14 @@ const ScrollToTop = () => {
                         cursor: 'pointer',
                         width: '50px',
                         height: '50px',
-                        backgroundColor:'#D9D9D9'
+                        backgroundColor: '#D9D9D9'
                     }}
                 >
-                    <ArrowUpward sx={{ color: "#000000", fontSize: '18px' }} />
+                    <ArrowUpward sx={{ color: '#000000', fontSize: '18px' }} />
                 </Avatar>
-            }
+            )}
         </>
-    )
-}
+    );
+};
 
-export default ScrollToTop
+export default ScrollToTop;

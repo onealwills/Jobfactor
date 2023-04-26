@@ -10,27 +10,31 @@ const ExperienceLevel = (props: PropTypes) => {
                     color: '#FFFFFF',
                     background: props.background,
                     borderRadius: '6px',
-                    padding: "4px 8px",
+                    padding: '4px 8px',
                     display: 'flex',
                     gap: '8px',
-                    alignItems: 'center',
+                    alignItems: 'center'
                 }}
-            >{props.title}<Typography
-                sx={{
-                    fontWeight: '700',
-                    background: "rgba(5, 5, 5, 0.4)",
-                    padding: '0px 4px',
-                    lineHeight: '20px',
-                    borderRadius: '4px'
-                }}
-            >{props.shortForm}</Typography>
+            >
+                {props.title}
+                <Typography
+                    sx={{
+                        fontWeight: '700',
+                        background: 'rgba(5, 5, 5, 0.4)',
+                        padding: '0px 4px',
+                        lineHeight: '20px',
+                        borderRadius: '4px'
+                    }}
+                >
+                    {props.shortForm}
+                </Typography>
             </Typography>
         </Box>
-    )
-}
+    );
+};
 interface PropTypes {
     background: string;
     title: string;
-    shortForm: string
+    shortForm: string;
 }
 export default ExperienceLevel;

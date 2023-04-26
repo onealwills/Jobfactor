@@ -6,9 +6,9 @@ import ThemeProvider from './theme/JobFactorTheme';
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            refetchOnWindowFocus: false,
-        },
-    },
+            refetchOnWindowFocus: false
+        }
+    }
 });
 
 function App() {

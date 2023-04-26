@@ -1,0 +1,41 @@
+import React from 'react';
+import { Box, Button, Typography } from '@mui/material';
+
+const JobListHeader = (props: { title: string; description: string }) => {
+    const { title, description } = props;
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: '1px solid #D9D9D9',
+                pb: '20px',
+                pt: 1.5
+            }}
+        >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Typography variant="headlineSmallSemiBold" color="#23282B">
+                    {title}
+                </Typography>
+
+                <Typography variant="titleMediumRegular" color="#808080">
+                    {description}
+                </Typography>
+            </Box>
+            <Button
+                sx={{
+                    backgroundColor: '#FCFBF8',
+                    color: '#05668D',
+                    borderRadius: '8px',
+                    textTransform: 'none',
+                    maxHeight: '36px',
+                    mt: 1.5
+                }}
+            >
+                View all
+            </Button>
+        </Box>
+    );
+};
+
+export default JobListHeader;

@@ -6,7 +6,7 @@ import {
     createTheme,
     ThemeOptions,
     StyledEngineProvider,
-    ThemeProvider as MUIThemeProvider,
+    ThemeProvider as MUIThemeProvider
 } from '@mui/material/styles';
 
 declare module '@mui/material/Button' {
@@ -15,7 +15,6 @@ declare module '@mui/material/Button' {
     }
 }
 
-
 type Props = {
     children: React.ReactNode;
 };
@@ -23,11 +22,15 @@ type Props = {
 export default function ThemeProvider({ children }: Props) {
     const themeOptions: ThemeOptions = useMemo(
         () => ({
-            typography,
+            palette: {
+                background: {
+                    default: '#fcfbf8'
+                }
+            },
+            typography
         }),
-        [],
+        []
     );
-
 
     const jobFactorTheme = createTheme(themeOptions);
     jobFactorTheme.components = ComponentsOverrides(jobFactorTheme);
@@ -40,7 +43,3 @@ export default function ThemeProvider({ children }: Props) {
         </StyledEngineProvider>
     );
 }
-
-
-
-

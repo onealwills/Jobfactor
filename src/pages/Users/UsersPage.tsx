@@ -41,15 +41,17 @@ import { ContactInfoDialog } from './components/ContactInfoDialog';
 
 function UsersPage() {
     return (
-        <Container
-            style={{
-                paddingLeft: '35px',
-                paddingRight: '0px',
-                marginTop: '-48px',
-                maxWidth: '100%',
-            }}
-        >
-            <Grid container direction="column" gap={4}>
+        <Container style={{
+            paddingLeft: "35px",
+            paddingRight: "0px",
+            marginTop: "-48px",
+            maxWidth: "100%",
+        }}>
+            <Grid
+                container
+                direction="column"
+                gap={4}
+            >
                 <Grid item>
                     <Box
                         bgcolor="#fff"
@@ -64,7 +66,7 @@ function UsersPage() {
                                         height: '259px',
                                         width: '100%',
                                         objectFit: 'cover',
-                                        display: 'block',
+                                        display: 'block'
                                     }}
                                     alt="Cover"
                                     src={cover}
@@ -87,9 +89,9 @@ function UsersPage() {
                                     <Image
                                         src={profile}
                                         sx={{
-                                            width: '200px',
-                                            height: '200px',
-                                            objectFit: 'cover',
+                                            width: "200px",
+                                            height: "200px",
+                                            objectFit: "cover",
                                         }}
                                         alt="Ronald Richard"
                                         border="3px #fff solid"
@@ -170,13 +172,7 @@ function UsersPage() {
                                                         gap={2}
                                                         alignItems="center"
                                                     >
-                                                        <CircleIcon
-                                                            sx={{
-                                                                fontSize:
-                                                                    '7.25px',
-                                                            }}
-                                                            htmlColor="#494949"
-                                                        />
+                                                        <CircleIcon sx={{ fontSize: "7.25px" }} htmlColor="#494949" />
                                                         <Typography
                                                             component="span"
                                                             color="#808080"
@@ -186,13 +182,7 @@ function UsersPage() {
                                                         >
                                                             Product Designer
                                                         </Typography>
-                                                        <CheckCircleIcon
-                                                            htmlColor="#49B6FF"
-                                                            style={{
-                                                                marginLeft:
-                                                                    '-8px',
-                                                            }}
-                                                        />
+                                                        <CheckCircleIcon htmlColor="#49B6FF" style={{marginLeft: "-8px"}}/>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -257,79 +247,68 @@ function UsersPage() {
                 <Grid item>
                     <Grid container wrap="nowrap" spacing={2}>
                         <Grid item xs={8}>
-                            <Section px={0}>
-                                <Box px={5}>
+                           <Section px={0}>
+                            <Box px={5}>
+                                <Typography
+                                    component="h3"
+                                    color="#23282B"
+                                    fontFamily="open sans"
+                                    fontSize={20}
+                                    fontWeight={600}
+                                    mb={1}
+                                >
+                                    About me
+                                </Typography>
+                                <Typography
+                                    component="h4"
+                                    color="#808080"
+                                    fontFamily="open sans"
+                                    fontSize={16}
+                                    fontWeight={400}
+                                    mb={1.5}
+                                >
+                                    Tell the world about yourself.
+                                </Typography>
+                            </Box>
+                            <Divider />
+                            <Box px={5}>
+                                <Typography
+                                    component="p"
+                                    color="#808080"
+                                    fontFamily="open sans"
+                                    fontSize={16}
+                                    fontWeight={400}
+                                    mt={4}
+                                    mb={2.5}
+                                >
+                                    Hello! I'm Solomon, 
+                                    <br/><br/>
+                                    A web3 Product Designer with a dream of building a multimillion dollars design agency.
+                                    <br/>
+                                    With over 6 years of experience in experiential marketing, brand strategy, and design, I have worked across multiple verticals of businesses ranging from FMCG’s, E-commerce, Fin-tech, Ed-tech, and Prop-tech. ...
+                                </Typography>
+                                <Button
+                                    disableRipple
+                                    sx={{
+                                        backgroundColor: '#FCFBF8',
+                                        borderRadius: '8px',
+                                        padding: '0 16px'
+                                    }}
+                                    endIcon={<ExpandMoreRoundedIcon />}
+                                >
                                     <Typography
-                                        component="h3"
-                                        color="#23282B"
+                                        color={'#05668D'}
                                         fontFamily="open sans"
-                                        fontSize={20}
-                                        fontWeight={600}
-                                        mb={1}
+                                        fontWeight={700}
+                                        fontSize={14}
+                                        sx={{ textTransform: 'none', py: 1 }}
                                     >
-                                        About me
+                                        See more
                                     </Typography>
-                                    <Typography
-                                        component="h4"
-                                        color="#808080"
-                                        fontFamily="open sans"
-                                        fontSize={16}
-                                        fontWeight={400}
-                                        mb={1.5}
-                                    >
-                                        Tell the world about yourself.
-                                    </Typography>
-                                </Box>
-                                <Divider />
-                                <Box px={5}>
-                                    <Typography
-                                        component="p"
-                                        color="#808080"
-                                        fontFamily="open sans"
-                                        fontSize={16}
-                                        fontWeight={400}
-                                        mt={4}
-                                        mb={2.5}
-                                    >
-                                        Hello! I'm Solomon,
-                                        <br />
-                                        <br />
-                                        A web3 Product Designer with a dream of
-                                        building a multimillion dollars design
-                                        agency.
-                                        <br />
-                                        With over 6 years of experience in
-                                        experiential marketing, brand strategy,
-                                        and design, I have worked across
-                                        multiple verticals of businesses ranging
-                                        from FMCG’s, E-commerce, Fin-tech,
-                                        Ed-tech, and Prop-tech. ...
-                                    </Typography>
-                                    <Button
-                                        disableRipple
-                                        sx={{
-                                            backgroundColor: '#FCFBF8',
-                                            borderRadius: '8px',
-                                            padding: '0 16px',
-                                        }}
-                                        endIcon={<ExpandMoreRoundedIcon />}
-                                    >
-                                        <Typography
-                                            color={'#05668D'}
-                                            fontFamily="open sans"
-                                            fontWeight={700}
-                                            fontSize={14}
-                                            sx={{
-                                                textTransform: 'none',
-                                                py: 1,
-                                            }}
-                                        >
-                                            See more
-                                        </Typography>
-                                    </Button>
-                                </Box>
-                            </Section>
-                            <Section
+                                </Button>
+                            </Box>
+                           </Section>
+                           <Section 
                                 heading={
                                     <SectionHeading>
                                         Improve your Job matches
@@ -432,9 +411,9 @@ function UsersPage() {
                                             src={cambridge}
                                             alt="University of Birmingham"
                                             sx={{
-                                                width: '66px',
-                                                height: '100px',
-                                                objectFit: 'cover',
+                                                width: "66px",
+                                                height: "100px",
+                                                objectFit: "cover"
                                             }}
                                             border="3px #fff solid"
                                             borderRadius={2}
@@ -551,22 +530,22 @@ function UsersPage() {
                                 <EducationSummary
                                     data={{
                                         university: {
-                                            name: 'Birmingham University',
-                                            image: cambridge,
+                                            name: "Birmingham University",
+                                            image: cambridge
                                         },
-                                        major: 'MSc Power Systems',
-                                        yearStarted: '2016',
-                                        yearEnded: '2018',
+                                        major: "MSc Power Systems",
+                                        yearStarted: "2016",
+                                        yearEnded: "2018"
                                     }}
                                 />
                                 <EducationSummary
                                     data={{
                                         university: {
-                                            name: 'University of Saskatchewan',
+                                            name: "University of Saskatchewan",
                                         },
-                                        major: 'B.ENG Electrical Engineering',
-                                        yearStarted: '2020',
-                                        yearEnded: '2022',
+                                        major: "B.ENG Electrical Engineering",
+                                        yearStarted: "2020",
+                                        yearEnded: "2022"
                                     }}
                                 />
                             </Section>
@@ -581,54 +560,48 @@ function UsersPage() {
                                 px={2}
                                 py={0}
                             >
-                                <WorkSummary
-                                    data={{
-                                        employer: {
-                                            name: 'NASA',
-                                            image: nasa,
-                                        },
-                                        title: 'Lead Product Designer',
-                                        yearStarted: '2016',
-                                        rankings: [
-                                            Ranking.Leader,
-                                            Ranking.Expert,
-                                            Ranking.Advanced,
-                                            Ranking.Experienced,
-                                        ],
-                                    }}
-                                />
-                                <WorkSummary
-                                    data={{
-                                        employer: {
-                                            name: 'Huawei',
-                                            image: huawei,
-                                        },
-                                        title: 'Lead Product Designer',
-                                        yearStarted: '2016',
-                                        rankings: [
-                                            Ranking.Beginner,
-                                            Ranking.Advanced,
-                                            Ranking.Leader,
-                                            Ranking.Expert,
-                                        ],
-                                    }}
-                                />
-                                <WorkSummary
-                                    data={{
-                                        employer: {
-                                            name: 'The North Face',
-                                            image: northface,
-                                        },
-                                        title: 'Volunteer Service',
-                                        yearStarted: '2016',
-                                        rankings: [
-                                            Ranking.Experienced,
-                                            Ranking.Advanced,
-                                            Ranking.Leader,
-                                            Ranking.Expert,
-                                        ],
-                                    }}
-                                />
+                                <WorkSummary data={{
+                                    employer: {
+                                        name: "NASA",
+                                        image: nasa
+                                    },
+                                    title: "Lead Product Designer",
+                                    yearStarted: "2016",
+                                    rankings: [
+                                        Ranking.Leader,
+                                        Ranking.Expert,
+                                        Ranking.Advanced,
+                                        Ranking.Experienced,
+                                    ]
+                                }}/>
+                                <WorkSummary data={{
+                                    employer: {
+                                        name: "Huawei",
+                                        image: huawei
+                                    },
+                                    title: "Lead Product Designer",
+                                    yearStarted: "2016",
+                                    rankings: [
+                                        Ranking.Beginner,
+                                        Ranking.Advanced,
+                                        Ranking.Leader,
+                                        Ranking.Expert,
+                                    ]
+                                }}/>
+                                <WorkSummary data={{
+                                    employer: {
+                                        name: "The North Face",
+                                        image: northface
+                                    },
+                                    title: "Volunteer Service",
+                                    yearStarted: "2016",
+                                    rankings: [
+                                        Ranking.Experienced,
+                                        Ranking.Advanced,
+                                        Ranking.Leader,
+                                        Ranking.Expert,
+                                    ]
+                                }}/>
                             </Section>
 
                             <Section
@@ -739,22 +712,22 @@ function UsersPage() {
                             </Section>
 
                             <Button
-                                variant="contained"
-                                sx={{
-                                    backgroundColor: '#05668D',
-                                    borderRadius: '8px',
-                                    width: '100%',
-                                }}
-                            >
-                                <Typography
-                                    color={'#FFFFFF'}
-                                    fontFamily="open sans"
-                                    fontWeight={700}
-                                    fontSize={14}
-                                    sx={{ textTransform: 'none', py: 0.5 }}
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: '#05668D',
+                                        borderRadius: '8px',
+                                        width: "100%"
+                                    }}
                                 >
-                                    Upgrade to Premium plan
-                                </Typography>
+                                    <Typography
+                                        color={'#FFFFFF'}
+                                        fontFamily="open sans"
+                                        fontWeight={700}
+                                        fontSize={14}
+                                        sx={{ textTransform: 'none', py: .5 }}
+                                    >
+                                        Upgrade to Premium plan
+                                    </Typography>
                             </Button>
                         </Grid>
                     </Grid>
