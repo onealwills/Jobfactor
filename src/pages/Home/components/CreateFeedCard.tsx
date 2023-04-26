@@ -10,14 +10,14 @@ function CreateFeedCard() {
             sx={{
                 height: 'fit-content',
                 p: '20px',
-                backgroundColor: 'white',
+                backgroundColor: 'white'
             }}
         >
             <Box sx={{ display: 'flex', gap: '16px' }}>
-                <img height={72} width={72} src={SideNavProfile} alt='icon' />
+                <img height={72} width={72} src={SideNavProfile} alt="icon" />
                 <InputBase
                     rows={4}
-                    defaultValue='What’s happening?'
+                    defaultValue="What’s happening?"
                     sx={{
                         backgroundColor: '#FCFBF8',
                         width: '100%',
@@ -26,7 +26,7 @@ function CreateFeedCard() {
                         paddingTop: '24px',
                         paddingLeft: '32px',
                         fontFamily: 'open sans',
-                        color: '#23282B',
+                        color: '#23282B'
                     }}
                     multiline
                 />
@@ -38,7 +38,7 @@ function CreateFeedCard() {
                     mt: '28px',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
+                    alignItems: 'center'
                 }}
             >
                 <Box sx={{ display: 'flex', gap: '32px' }}>
@@ -46,13 +46,13 @@ function CreateFeedCard() {
                         sx={{
                             alignItems: 'center',
                             display: 'flex',
-                            gap: '10px',
+                            gap: '10px'
                         }}
                     >
                         <IconButton
-                            edge='start'
-                            color='inherit'
-                            aria-label='photo'
+                            edge="start"
+                            color="inherit"
+                            aria-label="photo"
                         >
                             <PhotoIcon />
                         </IconButton>
@@ -62,13 +62,13 @@ function CreateFeedCard() {
                         sx={{
                             alignItems: 'center',
                             display: 'flex',
-                            gap: '10px',
+                            gap: '10px'
                         }}
                     >
                         <IconButton
-                            edge='start'
-                            color='inherit'
-                            aria-label='photo'
+                            edge="start"
+                            color="inherit"
+                            aria-label="photo"
                         >
                             <VideoIcon />
                         </IconButton>
@@ -78,23 +78,20 @@ function CreateFeedCard() {
                         sx={{
                             alignItems: 'center',
                             display: 'flex',
-                            gap: '10px',
+                            gap: '10px'
                         }}
                     >
                         <IconButton
-                            edge='start'
-                            color='inherit'
-                            aria-label='photo'
+                            edge="start"
+                            color="inherit"
+                            aria-label="photo"
                         >
                             <ArticleIcon />
                         </IconButton>
                         Article
                     </Box>
                 </Box>
-                <Button
-                    variant='contained'
-                    sx={{ maxWidth: 100, py:1 }}
-                >
+                <Button variant="contained" sx={{ maxWidth: 100, py: 1 }}>
                     Post
                 </Button>
             </Box>

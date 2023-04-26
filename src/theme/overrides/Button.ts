@@ -11,8 +11,8 @@ export default function Button(theme: Theme) {
         MuiButton: {
             defaultProps: {
                 disableElevation: true,
-                disableFocusRipple: true,
-                disableRipple: true,
+                disableFocusRipple: false,
+                disableRipple: false
             },
 
             variants: [
@@ -29,9 +29,9 @@ export default function Button(theme: Theme) {
                         color: '#05668D',
                         fontFamily: 'open sans',
                         '&:hover': {
-                            border: '1px solid #05668D',
-                        },
-                    },
+                            border: '1px solid #05668D'
+                        }
+                    }
                 },
                 {
                     props: { variant: 'contained' },
@@ -39,17 +39,18 @@ export default function Button(theme: Theme) {
                         backgroundColor: '#05668D',
                         color: 'white',
                         textTransform: 'none',
+                        borderRadius: '8px',
                         paddingY: '8px',
                         fontWeight: 700,
                         fontSize: 16,
                         width: '100%',
                         '&:hover': {
                             backgroundColor: '#05668D',
-                            color: 'white',
-                        },
-                    },
-                },
-            ],
-        },
+                            color: 'white'
+                        }
+                    }
+                }
+            ]
+        }
     };
 }

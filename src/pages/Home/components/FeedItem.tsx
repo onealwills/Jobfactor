@@ -18,13 +18,13 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                 backgroundColor: 'white',
                 mt: 1,
                 mb: '32px',
-                borderRadius: '12px',
+                borderRadius: '12px'
             }}
         >
             <Box
                 sx={{
                     display: 'flex',
-                    gap: '24px',
+                    gap: '24px'
                 }}
             >
                 <Box>
@@ -34,14 +34,14 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                     <Box
                         sx={{
                             display: 'flex',
-                            justifyContent: 'space-between',
+                            justifyContent: 'space-between'
                         }}
                     >
                         <Box
                             sx={{
                                 display: 'flex',
                                 gap: '24px',
-                                alignItems: 'center',
+                                alignItems: 'center'
                             }}
                         >
                             <Typography
@@ -99,7 +99,7 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                     marginRight:
                                         index !== feed.images.length - 1
                                             ? '12px'
-                                            : undefined,
+                                            : undefined
                                 }}
                             />
                         ))}
@@ -111,21 +111,21 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                             display: 'flex',
                             gap: '24px',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
+                            justifyContent: 'space-between'
                         }}
                     >
                         <Box
                             sx={{
                                 display: 'flex',
                                 gap: '24px',
-                                alignItems: 'center',
+                                alignItems: 'center'
                             }}
                         >
                             <Box
                                 sx={{
                                     display: 'flex',
                                     gap: '18px',
-                                    alignItems: 'center',
+                                    alignItems: 'center'
                                 }}
                             >
                                 <ViewIcon />
@@ -135,7 +135,7 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                 sx={{
                                     display: 'flex',
                                     gap: '18px',
-                                    alignItems: 'center',
+                                    alignItems: 'center'
                                 }}
                             >
                                 <LikesIcon />
@@ -145,7 +145,7 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                 sx={{
                                     display: 'flex',
                                     gap: '18px',
-                                    alignItems: 'center',
+                                    alignItems: 'center'
                                 }}
                             >
                                 <CommentIcon />
@@ -155,7 +155,7 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                 sx={{
                                     display: 'flex',
                                     gap: '18px',
-                                    alignItems: 'center',
+                                    alignItems: 'center'
                                 }}
                             >
                                 <ShareIcon />

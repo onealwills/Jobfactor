@@ -35,24 +35,38 @@ function HomePage() {
                     <FeedList />
                 </Grid>
                 <Grid item sx={{ minWidth: '370px' }}>
-                    <CardWrapper title='Suggestions' tooltipText={"We offer suggestions to you based on your preferences to help improve your profile."}>
+                    <CardWrapper
+                        title="Suggestions"
+                        tooltipText={
+                            'We offer suggestions to you based on your preferences to help improve your profile.'
+                        }
+                    >
                         <>
                             <CardBox
                                 title="Rate your company"
-                                list={[{ name: 'Rate Jobfactor' }, { name: 'Rate Google' }]}
+                                list={[
+                                    { name: 'Rate Jobfactor' },
+                                    { name: 'Rate Google' }
+                                ]}
                                 btnText="Review all"
                                 tooltipText="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea enim sit modi ipsa voluptatem sint aliquid explicabo!."
                                 icon={<TeamIcon />}
                             />
                             <CardBox
                                 title="Pending connections"
-                                list={[{ name: 'Chika Okoto', img: chika }, { name: 'Jobs Philips', img: philips }]}
+                                list={[
+                                    { name: 'Chika Okoto', img: chika },
+                                    { name: 'Jobs Philips', img: philips }
+                                ]}
                                 btnText="View connections"
                                 icon={<ConnectionsIcon />}
                             />
                             <CardBox
                                 title="Improve your skills"
-                                list={[{ name: 'UI/UX Design' }, { name: 'Cloud Development ' }]}
+                                list={[
+                                    { name: 'UI/UX Design' },
+                                    { name: 'Cloud Development ' }
+                                ]}
                                 btnText="View available courses"
                                 icon={<HatIcon />}
                             />

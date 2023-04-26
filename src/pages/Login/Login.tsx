@@ -3,7 +3,7 @@ import {
     Checkbox,
     Button,
     InputBase,
-    InputLabel,
+    InputLabel
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import EllipsisIcon from '../../assets/icons/EllipsisIcon';
@@ -14,7 +14,7 @@ import JobFactorIcon from '../../assets/icons/JobFactorIcon';
 import PasswordFormIcon from '../../assets/icons/PasswordFormIcon';
 import profileReview from './../../assets/images/profileReview.png';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/context/AuthContext';
 import { useEffect } from 'react';
 
@@ -36,7 +36,7 @@ function Login() {
     const {
         control,
         handleSubmit,
-        formState: { isValid, errors },
+        formState: { isValid, errors }
     } = useForm<ILoginForm>();
 
     useEffect(() => {
@@ -58,7 +58,7 @@ function Login() {
                     flexDirection: { md: 'row', xs: 'column' },
                     alignItems: 'center',
                     backgroundColor: '#FCFBF8',
-                    width: '100%',
+                    width: '100%'
                 }}
             >
                 {/* left column */}
@@ -72,13 +72,15 @@ function Login() {
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         minWidth: { lg: '553px', xs: '50%' },
-                        gap: '40px',
+                        gap: '40px'
                     }}
                 >
                     {/* Column1 */}
                     {/* Logo */}
                     <Box sx={{ mt: '51px', width: '80%', alignSelf: 'center' }}>
-                        <JobFactorIcon />
+                        <Link to={'/'}>
+                            <JobFactorIcon />
+                        </Link>
                     </Box>
                     <Box>
                         <Typography
@@ -93,7 +95,7 @@ function Login() {
                                 px: '53px',
                                 color: '#23282B',
                                 lineHeight: '52px',
-                                opacity: '0.85',
+                                opacity: '0.85'
                             }}
                         >
                             {loginTitle}
@@ -106,7 +108,7 @@ function Login() {
                                 color: '#23282B',
                                 textAlign: 'left',
                                 px: '53px',
-                                opacity: '0.65',
+                                opacity: '0.65'
                             }}
                         >
                             {loginSubHeading}
@@ -118,7 +120,7 @@ function Login() {
                                 borderRadius: '8px',
                                 padding: '24px 20px',
                                 backgroundColor: '#FFFFFF',
-                                mb: '24px',
+                                mb: '24px'
                             }}
                         >
                             <Typography
@@ -130,7 +132,7 @@ function Login() {
                                     lineHeight: '28px',
                                     mb: '28px',
                                     color: '#23282B',
-                                    opacity: '0.75',
+                                    opacity: '0.75'
                                 }}
                             >
                                 {cardReiew}
@@ -138,9 +140,9 @@ function Login() {
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <img
                                     src={profileReview}
-                                    alt='Reviewer Avatar'
-                                    height='64'
-                                    width='64'
+                                    alt="Reviewer Avatar"
+                                    height="64"
+                                    width="64"
                                 ></img>
                                 <Box sx={{ ml: '16px' }}>
                                     <Typography
@@ -149,7 +151,7 @@ function Login() {
                                             fontFamily: 'open sans',
                                             fontWeight: '700',
                                             opacity: ' 0.9',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     >
                                         Mark Fisher
@@ -159,7 +161,7 @@ function Login() {
                                             fontSize: '14px',
                                             fontFamily: 'open sans',
                                             opacity: ' 0.75',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     >
                                         Professional
@@ -172,7 +174,7 @@ function Login() {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 mt: '24px',
-                                mb: '80px',
+                                mb: '80px'
                             }}
                         >
                             <EllipsisIcon />
@@ -187,7 +189,7 @@ function Login() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         mx: '40px',
-                        my: '40px',
+                        my: '40px'
                     }}
                 >
                     {/* login form */}
@@ -195,7 +197,7 @@ function Login() {
                         sx={{
                             maxWidth: '519px',
                             width: '100%',
-                            margin: '0 auto',
+                            margin: '0 auto'
                         }}
                     >
                         <Box>
@@ -203,7 +205,7 @@ function Login() {
                                 fontFamily={'open sans'}
                                 fontWeight={'600'}
                                 fontSize={'32px'}
-                                color='#23282B'
+                                color="#23282B"
                             >
                                 Welcome back,
                             </Typography>
@@ -218,21 +220,21 @@ function Login() {
                                             top: '8px',
                                             left: '72px',
                                             zIndex: 1,
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Open Sans'
                                         }}
-                                        htmlFor='email'
+                                        htmlFor="email"
                                     >
                                         Email
                                     </InputLabel>
                                     {/* Email Address Input */}
                                     <Controller
-                                        name='emailAddress'
+                                        name="emailAddress"
                                         control={control}
                                         render={({
-                                                     field: { onChange, value },
-                                                     fieldState: { error },
-                                                     formState,
-                                                 }) => (
+                                            field: { onChange, value },
+                                            fieldState: { error },
+                                            formState
+                                        }) => (
                                             <InputBase
                                                 required
                                                 onChange={onChange}
@@ -240,11 +242,11 @@ function Login() {
                                                 inputProps={{
                                                     autoComplete: '',
                                                     form: {
-                                                        autoComplete: 'off',
+                                                        autoComplete: 'off'
                                                     },
-                                                    inputMode: 'email',
+                                                    inputMode: 'email'
                                                 }}
-                                                id='email'
+                                                id="email"
                                                 startAdornment={
                                                     <EmailFormIcon />
                                                 }
@@ -262,8 +264,8 @@ function Login() {
                                                     '& 	.MuiInputBase-input': {
                                                         ml: '20px',
                                                         position: 'relative',
-                                                        top: '8px',
-                                                    },
+                                                        top: '8px'
+                                                    }
                                                 }}
                                             />
                                         )}
@@ -279,21 +281,21 @@ function Login() {
                                             top: '8px',
                                             left: '72px',
                                             zIndex: 1,
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Open Sans'
                                         }}
-                                        htmlFor='password'
+                                        htmlFor="password"
                                     >
                                         Password
                                     </InputLabel>
                                     {/* Password Input */}
                                     <Controller
-                                        name='password'
+                                        name="password"
                                         control={control}
                                         render={({
-                                                     field: { onChange, value },
-                                                     fieldState: { error },
-                                                     formState,
-                                                 }) => (
+                                            field: { onChange, value },
+                                            fieldState: { error },
+                                            formState
+                                        }) => (
                                             <InputBase
                                                 required
                                                 onChange={onChange}
@@ -302,17 +304,17 @@ function Login() {
                                                     autoComplete:
                                                         'new-password',
                                                     form: {
-                                                        autoComplete: 'off',
-                                                    },
+                                                        autoComplete: 'off'
+                                                    }
                                                 }}
-                                                name='password'
-                                                id='password'
+                                                name="password"
+                                                id="password"
                                                 startAdornment={
                                                     <PasswordFormIcon />
                                                 }
                                                 rows={1}
                                                 placeholder={'*********'}
-                                                type='password'
+                                                type="password"
                                                 sx={{
                                                     backgroundColor: '#FFFFFF',
                                                     width: '100%',
@@ -325,8 +327,8 @@ function Login() {
                                                     '& 	.MuiInputBase-input': {
                                                         ml: '20px',
                                                         position: 'relative',
-                                                        top: '8px',
-                                                    },
+                                                        top: '8px'
+                                                    }
                                                 }}
                                             />
                                         )}
@@ -340,7 +342,7 @@ function Login() {
                                     gap: '5px',
                                     alignContent: 'center',
                                     mb: '28px',
-                                    mt: '12px',
+                                    mt: '12px'
                                 }}
                             >
                                 <InfoIcon />
@@ -348,7 +350,7 @@ function Login() {
                                     sx={{
                                         color: '#808080',
                                         fontSize: '12px',
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Open Sans'
                                     }}
                                 >
                                     Password should contain uppercase letter(s),
@@ -361,13 +363,13 @@ function Login() {
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                     mb: '56px',
-                                    mr: '16px',
+                                    mr: '16px'
                                 }}
                             >
                                 <Box
                                     sx={{
                                         display: 'flex',
-                                        alignItems: 'center',
+                                        alignItems: 'center'
                                     }}
                                 >
                                     {/* <Controller
@@ -380,13 +382,13 @@ function Login() {
                                             return ( */}
                                     <Checkbox
                                         checked
-                                        name='Remember me?'
+                                        name="Remember me?"
                                         inputProps={{
-                                            'aria-label': 'Remember Me?',
+                                            'aria-label': 'Remember Me?'
                                         }}
                                         sx={{
                                             color: '#D1D1D1',
-                                            padding: 0,
+                                            padding: 0
                                         }}
                                     />
                                     {/* )
@@ -397,7 +399,7 @@ function Login() {
                                             fontSize: '14px',
                                             fontFamily: 'Open Sans',
                                             color: '#23282B',
-                                            ml: '12px',
+                                            ml: '12px'
                                         }}
                                     >
                                         Remember me?
@@ -408,7 +410,7 @@ function Login() {
                                         fontFamily: 'Open Sans',
                                         fontWeight: '600',
                                         fontSize: '14px',
-                                        color: '#05668D',
+                                        color: '#05668D'
                                     }}
                                 >
                                     Forgot Password?
@@ -423,12 +425,12 @@ function Login() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                justifyContent: 'center',
+                                justifyContent: 'center'
                             }}
                         >
                             <Button
                                 sx={{ py: 1.5, width: '90%' }}
-                                variant='contained'
+                                variant="contained"
                                 disabled={!isValid}
                                 onClick={handleSubmit(onSubmit)}
                             >
@@ -443,7 +445,7 @@ function Login() {
                                     mb: '6px',
                                     position: 'relative',
                                     justifyContent: 'center',
-                                    width: '100%',
+                                    width: '100%'
                                 }}
                             >
                                 {/* <LineIcon /> */}
@@ -453,14 +455,14 @@ function Login() {
                                         width: '90%',
                                         alignSelf: 'center',
                                         backgroundColor: '#D9D9D9',
-                                        position: 'absolute',
+                                        position: 'absolute'
                                     }}
                                 />
                                 <Typography
                                     sx={{
                                         px: '30px',
                                         backgroundColor: '#fcfbf8',
-                                        zIndex: 1,
+                                        zIndex: 1
                                     }}
                                 >
                                     OR
@@ -470,16 +472,15 @@ function Login() {
 
                             <Button
                                 sx={{ py: 1.5, width: '90%', mt: 1 }}
-                                variant='outlined'
+                                variant="outlined"
                                 startIcon={<GoogleIcon />}
-
                             >
                                 Sign in with google
                             </Button>
                             <Box
                                 sx={{
                                     display: 'flex',
-                                    mt: '48px',
+                                    mt: '48px'
                                 }}
                             >
                                 <Typography
@@ -494,7 +495,15 @@ function Login() {
                                     fontStyle={'semibold'}
                                     sx={{ color: '#05668D' }}
                                 >
-                                    Create account
+                                    <Link
+                                        to={'/create-account'}
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: '#05668D'
+                                        }}
+                                    >
+                                        Create account
+                                    </Link>
                                 </Typography>
                             </Box>
                         </Box>
