@@ -32,7 +32,9 @@ const UserActions = (props: PropTypes) => {
                     fontWeight: '700',
                     textTransform: 'capitalize',
                     boxShadow: 'none',
-                    color: '#05668D'
+                    color: '#05668D',
+                    width: '120px',
+                    minWidth: '120px',
                 }}
             >
                 {tab === 'sent' ? 'Withdraw' : 'Ignore'}
@@ -48,6 +50,8 @@ const UserActions = (props: PropTypes) => {
                         fontSize: '14px',
                         fontWeight: '700',
                         textTransform: 'capitalize',
+                        width: '120px',
+                        minWidth: '120px',
                         boxShadow: 'none',
                         ':hover': {
                             background: '#05668D'
