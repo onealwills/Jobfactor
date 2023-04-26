@@ -102,6 +102,15 @@ const PrivateRoutes = () => {
         /> */}
 
         <Route
+          path="sent-requests"
+          element={
+            <RequireAuth>
+              <MainLayout children={<ReviewsPage />} />
+            </RequireAuth>
+          }
+        />
+
+        <Route
           path="courses"
           element={
             <RequireAuth>

@@ -119,7 +119,7 @@ const sideNavOptions: Menu[] = [
       },
       {
         label: 'Sent requests',
-        route: '/pending-connections',
+        route: '/sent-requests',
       },
       {
         label: 'Recieved requests',
