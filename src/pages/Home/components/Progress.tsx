@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import React from 'react';
 
 interface Props {
     strokeWidth?: number;
@@ -16,7 +17,24 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
 
     const diameter = Math.PI * 2 * radius;
     const percentage = (value / divider) * 100;
-
+    const [color, setColor] = React.useState('transparent')
+    React.useEffect(() => {
+        if (value === 250) {
+            setColor('#808080');
+        } else if (value > 250 && value <= 400) {
+            setColor('#E75541');
+        } else if (value > 400 && value <= 500) {
+            setColor('#F6C70E');
+        } else if (value > 500 && value <= 600) {
+            setColor('#49B6FF');
+        } else if (value > 600 && value <= 700) {
+            setColor('#95C97A');
+        } else if (value > 700 || value >= divider) {
+            setColor('#07AF22');
+        } else {
+            setColor('transparent');
+        }
+    }, [value, divider])
     return (
         <>
             <svg
@@ -67,12 +85,11 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                     strokeWidth={strokeWidth}
                     fillOpacity={0}
                     style={{
-                        stroke: '#058FEC',
+                        stroke: color,
                         strokeLinecap: 'round',
                         strokeDasharray: `${diameter}px ${diameter}px`,
-                        strokeDashoffset: `${
-                            ((100 - percentage) / 100) * diameter
-                        }px`,
+                        strokeDashoffset: `${((100 - percentage) / 100) * diameter
+                            }px`,
                         transform: 'rotate(0.5turn)',
                         transformOrigin: 'center center',
                         transition: 'stroke-dashoffset 0.5s ease 0s'
