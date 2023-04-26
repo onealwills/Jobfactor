@@ -25,7 +25,7 @@ function HomePage() {
                     <FeedbackCard />
                 </Grid>
                 <Grid item sx={{ textAlign: 'center', minWidth: '370px' }}>
-                    <Progress value={550} divider={1000} />
+                    <Progress value={340} divider={800} />
                 </Grid>
             </Grid>
 
