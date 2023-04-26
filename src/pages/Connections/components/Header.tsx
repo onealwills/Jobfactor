@@ -1,7 +1,7 @@
 import { Grid, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import SelectDropdown from '../../../components/Selectdropdown';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import WestIcon from '@mui/icons-material/West';
+import MoreIcon from '../../../assets/icons/MoreIcon';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
@@ -52,7 +52,7 @@ const Header = (props: PropTypes) => {
                     }}
                 >
                     <IconButton onClick={() => navigate('/')}>
-                        <WestIcon />
+                        <ArrowLeftIcon />
                     </IconButton>
                     <Typography
                         component={'h1'}
@@ -83,7 +83,7 @@ const Header = (props: PropTypes) => {
                         handleChange={(e: any) => sortData(e.target.value)}
                     />
                     <IconButton onClick={handleClick}>
-                        <MoreVertIcon />
+                        <MoreIcon />
                     </IconButton>
                 </Grid>
             </Grid>

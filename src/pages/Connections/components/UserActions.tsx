@@ -31,6 +31,8 @@ const UserActions = (props: PropTypes) => {
                     fontWeight: '700',
                     textTransform: 'capitalize',
                     boxShadow: 'none',
+                    width: '120px',
+                    minWidth: '120px',
                     color: '#05668D'
                 }}
             >
@@ -46,6 +48,8 @@ const UserActions = (props: PropTypes) => {
                     fontWeight: '700',
                     textTransform: 'capitalize',
                     boxShadow: 'none',
+                    width: '120px',
+                    minWidth: '120px',
                     color: '#FFFFFF',
                     ':hover': {
                         background: '#05668D'

@@ -1,4 +1,4 @@
-import { Box, TableCell, TableRow } from '@mui/material';
+import { Box, TableCell, TableRow, Typography } from '@mui/material';
 import ExperienceLevel from './ExperienceLevel';
 import TableWrapper from './TableWrapper';
 import UserActions from './UserActions';
@@ -67,6 +67,26 @@ const TabPanel = (props: TabProps) => {
                                         title={item.title}
                                     />
                                 ))}
+                                <Typography
+                                    component={'div'}
+                                    sx={{
+                                        width: '7px',
+                                        height: '7px',
+                                        borderRadius: '100px',
+                                        background: '#494949',
+                                        border: '2px solid #494949'
+                                    }}
+                                /> <Typography
+                                    component={'div'}
+                                    sx={{
+                                        ml: '8px',
+                                        width: '7px',
+                                        height: '7px',
+                                        borderRadius: '100px',
+                                        background: '#494949',
+                                        border: '2px solid #494949'
+                                    }}
+                                />
                             </Box>
                         </TableCell>
                     </TableRow>

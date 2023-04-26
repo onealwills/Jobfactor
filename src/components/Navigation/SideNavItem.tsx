@@ -43,7 +43,7 @@ export default function SideNavItem(props: {
         } else {
             setIsSelected(false);
         }
-    }, [currentItem, location.pathname, nav.route, nav.submenu]);
+    }, [currentItem, location.pathname, nav.route, nav.submenu, subMenuIndex]);
 
     const handleClick = () => {
         handleActiveMenu();
