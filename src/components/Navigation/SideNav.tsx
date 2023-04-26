@@ -78,11 +78,11 @@ const sideNavOptions: Menu[] = [
                 route: ''
             },
             {
-                label: 'My followers',
+                label: 'My connections',
                 route: '/connections'
             },
             {
-                label: 'Pending followers',
+                label: 'Pending connections',
                 route: '/pending-connections'
             }
         ]
