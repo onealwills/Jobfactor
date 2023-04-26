@@ -11,15 +11,8 @@ import OnboardingSteps from '../OnboardingSteps/OnboardingSteps';
 import { Link, useNavigate } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { GlobalState, useStateMachine } from 'little-state-machine';
-import {
-    CreateAccountType,
-    CreateCompanyAccountRequest,
-    CreateProAccountRequest
-} from '../../../utils/hooks/api/account/types';
-import {
-    updateAction,
-    updateStep
-} from '../Professional/CreationSteps/updateAction';
+import { CreateAccountType, CreateCompanyAccountRequest, CreateProAccountRequest } from '../../../utils/hooks/api/account/types';
+import { clearAction, updateAction, updateStep } from '../Professional/CreationSteps/updateAction';
 import { useCreateCompanyAccount } from '../../../utils/hooks/api/account/useCreateProAccount';
 import EmailFormIcon from '../../../assets/icons/EmailFormIcon';
 import ErrorFormIcon from '../../../assets/icons/ErrorFormIcon';
@@ -46,37 +39,37 @@ function CompanyCreate() {
     } = useForm<ICompanyInfo>();
 
     const { isDirty, isValid, errors } = formState;
-    const { actions, state } = useStateMachine({ updateAction, updateStep });
+    const { actions, state, getState } = useStateMachine({ updateAction, updateStep, clearAction });
 
     const createAccountMutation = useCreateCompanyAccount();
 
     const handleCreateAccount = async (data: GlobalState) => {
-        console.log('handle create called');
         if (data.data.accountType === CreateAccountType.Company) {
             const request: CreateCompanyAccountRequest = {
                 emailAddress: data.data.emailAddress,
                 password: data.data.password,
                 companyName: data.data.companyName
-            };
-            console.log('account type company', request);
-
-            createAccountMutation.mutate(request, {
-                onSuccess: async (data) => {
-                    console.log(data);
-                },
-                onError: (error) => {
-                    console.error(error);
-                }
-            });
+            }
+            
+            if (request !== undefined) {
+                createAccountMutation.mutate(request, {
+                    onSuccess: async (data) => {
+                        console.log({onSuccess: data});
+                        actions.clearAction();
+                        navigate('/create-account/confirmEmail');
+                    },
+                    onError: (error) => {
+                        console.error(error);
+                        alert(error);
+                    }
+                })
+            }
         }
     };
 
     const onSubmit: SubmitHandler<ICompanyInfo> = async (data) => {
-        console.log(data);
-        actions.updateStep(3);
         actions.updateAction(data);
-        handleCreateAccount(state);
-        navigate('/create-account/confirmEmail');
+        handleCreateAccount(getState());
     };
 
     React.useEffect(() => {

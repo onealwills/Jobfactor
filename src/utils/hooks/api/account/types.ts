@@ -54,5 +54,6 @@ export enum PrimaryProfileType {
 
 export enum CreateAccountType {
     Professional = 'PROFESSIONAL',
-    Company = 'COMPANY'
+    Company = 'COMPANY',
+    NotSelected = ''
 }

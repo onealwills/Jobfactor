@@ -10,8 +10,7 @@ import CompanyCreate from '../Company/CompanyCreate';
 
 createStore({
     data: {
-        accountType:
-            CreateAccountType.Professional || CreateAccountType.Company,
+        accountType: CreateAccountType.NotSelected,
         firstName: '',
         lastName: '',
         emailAddress: '',
