@@ -10,9 +10,9 @@ import EmailIcon from '@mui/icons-material/Email';
 import PlaceIcon from '@mui/icons-material/Place';
 import CakeIcon from '@mui/icons-material/Cake';
 
-import { ContactInfoListItem } from './ContactInfoListItem';
+import ProfileInfoListItem from './ProfileInfoListItem';
 
-export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
+const ViewProfileInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
     <Grid
         pt={1}
         container
@@ -58,12 +58,14 @@ export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald 
       component="nav"
     >
       
-      <ContactInfoListItem icon={<JobFactorIcon />} title="Your Profile" subtitle="https://Ronaldrichald.info" />
-      <ContactInfoListItem icon={<PhoneIcon />} title="Phone" subtitle="+234 704 555 0114  (Office)" />
-      <ContactInfoListItem icon={<PlaceIcon />} title="Address" subtitle="3891 Ranchview Dr. Richardson, California 62639" />
-      <ContactInfoListItem icon={<EmailIcon />} title="Email" subtitle="Ronaldrichie@outlook.com" />
-      <ContactInfoListItem icon={<CakeIcon />} title="Birthday" subtitle="May 29" />
+      <ProfileInfoListItem icon={<JobFactorIcon />} title="Your Profile" subtitle="https://Ronaldrichald.info" />
+      <ProfileInfoListItem icon={<PhoneIcon />} title="Phone" subtitle="+234 704 555 0114  (Office)" />
+      <ProfileInfoListItem icon={<PlaceIcon />} title="Address" subtitle="3891 Ranchview Dr. Richardson, California 62639" />
+      <ProfileInfoListItem icon={<EmailIcon />} title="Email" subtitle="Ronaldrichie@outlook.com" />
+      <ProfileInfoListItem icon={<CakeIcon />} title="Birthday" subtitle="May 29" />
 
     </List>
 
 </CustomDialog>)
+
+export default ViewProfileInfoDialog;

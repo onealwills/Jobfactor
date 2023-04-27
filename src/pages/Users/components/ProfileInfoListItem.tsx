@@ -4,13 +4,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
 
-interface IContactInfoListItemProps {
+interface IProfileInfoListItemProps {
     icon?: React.ReactNode;
     title: React.ReactNode;
     subtitle: React.ReactNode;
 }
 
-export const ContactInfoListItem = ({ icon, title, subtitle }: IContactInfoListItemProps) => (
+const ProfileInfoListItem = ({ icon, title, subtitle }: IProfileInfoListItemProps) => (
     <ListItem alignItems="flex-start" sx={{p: 1, ml: -1}}>
         {icon && (
             <ListItemIcon sx={{mt: 0, mr: 3, color: "#05668D", minWidth: "auto",}}>
@@ -32,3 +32,5 @@ export const ContactInfoListItem = ({ icon, title, subtitle }: IContactInfoListI
         </Grid>
     </ListItem>
 )
+
+export default ProfileInfoListItem;

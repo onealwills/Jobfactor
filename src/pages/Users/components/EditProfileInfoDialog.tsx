@@ -10,9 +10,9 @@ import EmailIcon from '@mui/icons-material/Email';
 import PlaceIcon from '@mui/icons-material/Place';
 import CakeIcon from '@mui/icons-material/Cake';
 
-import { ContactInfoListItem } from './ContactInfoListItem';
+import ProfileInfoListItem from './ProfileInfoListItem';
 
-export const ProfileInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
+const EditProfileInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
     <List
       sx={{
         width: '100%',
@@ -20,8 +20,8 @@ export const ProfileInfoDialog = () => (<CustomDialog open={true} title="Ronald 
       component="nav"
     >
       
-      <ContactInfoListItem title="Your Profile" subtitle="https://Ronaldrichald.info" />
-      <ContactInfoListItem title="Email" subtitle="Ronaldrichie@outlook.com" />
+      <ProfileInfoListItem title="Your Profile" subtitle="https://Ronaldrichald.info" />
+      <ProfileInfoListItem title="Email" subtitle="Ronaldrichie@outlook.com" />
     </List>
     <Grid>
         <Grid item columns={7}>
@@ -32,3 +32,5 @@ export const ProfileInfoDialog = () => (<CustomDialog open={true} title="Ronald 
         </Grid>
     </Grid>
 </CustomDialog>)
+
+export default EditProfileInfoDialog;
