@@ -57,14 +57,6 @@ const sideNavOptions: Menu[] = [
             {
                 label: 'Jobfactor Score',
                 route: '/jobfactor-score'
-            },
-            {
-                label: 'News & products',
-                route: '/news-products'
-            },
-            {
-                label: 'Employees',
-                route: '/employees'
             }
         ]
     },
