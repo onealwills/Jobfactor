@@ -4,9 +4,16 @@ import ArrowDown from '../../assets/icons/ArrowDown';
 
 const SelectDropdown = (props: PropTypes) => {
     const [value, setValue] = React.useState('');
+    React.useEffect(() => {
+        if (props.defaultValue) {
+            setValue(props.defaultValue);
+        } else {
+            setValue('');
+        }
+    }, [props.defaultValue])
     return (
         <>
-            <FormControl>
+            <FormControl fullWidth={!props.halfWidth}>
                 <InputLabel
                     disabled
                     variant={props.variant ?? 'filled'}
@@ -14,7 +21,8 @@ const SelectDropdown = (props: PropTypes) => {
                     {props?.label}
                 </InputLabel>
                 <Select
-                    IconComponent={(props) => <ArrowDown {...props}/>}
+                    disabled={props.disabled ?? false}
+                    IconComponent={(props) => <ArrowDown {...props} />}
                     value={value}
                     onChange={(e) => {
                         setValue(e.target.value);
@@ -50,5 +58,8 @@ interface PropTypes {
     style: React.CSSProperties;
     options: string[];
     label?: string;
+    defaultValue?: string;
+    disabled?: boolean;
+    halfWidth?: boolean;
 }
 export default SelectDropdown;
