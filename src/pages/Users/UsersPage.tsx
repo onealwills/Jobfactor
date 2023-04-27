@@ -36,8 +36,7 @@ import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 import { Ranking } from './types/Ranking';
-import CustomizedDialogs from './components/CustomDialog';
-import { ContactInfoDialog } from './components/ContactInfoDialog';
+import { ProfileInfoDialog } from './components/ProfileInfoDialog';
 
 function UsersPage() {
     return (
@@ -733,7 +732,7 @@ function UsersPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <ContactInfoDialog />
+            <ProfileInfoDialog />
         </Container>
     );
 }

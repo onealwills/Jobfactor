@@ -14,6 +14,7 @@ import { ContactInfoListItem } from './ContactInfoListItem';
 
 export const ContactInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
     <Grid
+        pt={1}
         container
         alignItems="center"
     >
