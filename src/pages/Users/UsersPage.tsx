@@ -23,8 +23,6 @@ import cambridge from '../../assets/images/cambridge.jpg';
 import nasa from '../../assets/images/nasa.png';
 import huawei from '../../assets/images/huawei.png';
 import northface from '../../assets/images/northface.png';
-
-import Progress from '../Home/components/Progress';
 import InfoChip from './components/InfoChip';
 import Section from './components/Section';
 import SectionHeading from './components/SectionHeading';
@@ -36,6 +34,7 @@ import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 import { Ranking } from './types/Ranking';
+import ScoreCard from '../../components/ScoreCard.tsx';
 
 function UsersPage() {
     return (
@@ -246,7 +245,7 @@ function UsersPage() {
                             </Grid>
                             <Grid item flexShrink={1}>
                                 <Box py={1}>
-                                    <Progress value={550} divider={1000} />
+                                    <ScoreCard value={550} divider={1000} />
                                 </Box>
                             </Grid>
                         </Grid>

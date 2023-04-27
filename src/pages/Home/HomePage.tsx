@@ -3,7 +3,6 @@ import AchievementsCard from './components/AchievementsCard';
 import FeedbackCard from './components/FeedbackCard';
 import CreateFeedCard from './components/CreateFeedCard';
 import FeedList from './components/FeedList';
-import Progress from './components/Progress';
 import CardWrapper from './components/CardWrapper';
 import CardBox from './components/CardBox';
 import chika from '../../assets/images/chika.png';
@@ -13,6 +12,7 @@ import ConnectionsIcon from '../../assets/icons/ConnectionsIcon';
 import HatIcon from '../../assets/icons/HatIcon';
 import Footer from '../../components/Footer';
 import ScrollToTop from '../../components/ScrollToTop.tsx';
+import ScoreCard from '../../components/ScoreCard.tsx';
 
 function HomePage() {
     return (
@@ -25,7 +25,7 @@ function HomePage() {
                     <FeedbackCard />
                 </Grid>
                 <Grid item sx={{ textAlign: 'center', minWidth: '370px' }}>
-                    <Progress value={340} divider={800} />
+                    <ScoreCard value={340} divider={800} />
                 </Grid>
             </Grid>
 

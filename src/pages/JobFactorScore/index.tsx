@@ -1,9 +1,9 @@
 import { Box, Button, FormHelperText, IconButton, TextField, Typography } from '@mui/material';
 import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon';
 import SelectDropdown from '../../components/Selectdropdown';
-import Progress from '../Home/components/Progress';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
+import ScoreCard from '../../components/ScoreCard.tsx';
 
 const JobFactorScore = () => {
     const navigate = useNavigate();
@@ -49,7 +49,7 @@ const JobFactorScore = () => {
                         Jobfactor score metrics
                     </Typography>
                 </Box>
-                <Progress value={550} divider={1000} />
+                <ScoreCard value={550} divider={1000} />
             </Box>
             <Box
                 sx={{

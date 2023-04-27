@@ -13,7 +13,7 @@ const SelectDropdown = (props: PropTypes) => {
     }, [props.defaultValue])
     return (
         <>
-            <FormControl fullWidth>
+            <FormControl fullWidth={!props.halfWidth}>
                 <InputLabel
                     disabled
                     variant={props.variant ?? 'filled'}
@@ -22,7 +22,7 @@ const SelectDropdown = (props: PropTypes) => {
                 </InputLabel>
                 <Select
                     disabled={props.disabled ?? false}
-                    IconComponent={(props) => <ArrowDown {...props}/>}
+                    IconComponent={(props) => <ArrowDown {...props} />}
                     value={value}
                     onChange={(e) => {
                         setValue(e.target.value);
@@ -59,6 +59,7 @@ interface PropTypes {
     options: string[];
     label?: string;
     defaultValue?: string;
-    disabled?: boolean
+    disabled?: boolean;
+    halfWidth?: boolean;
 }
 export default SelectDropdown;

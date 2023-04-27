@@ -7,7 +7,7 @@ interface Props {
     divider?: number;
 }
 
-const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
+const ScoreCard = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
     const radius = 50 - strokeWidth / 2;
     const pathDescription = `
       M 50,50 m 0,-${radius}
@@ -128,4 +128,4 @@ const Progress = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
     );
 };
 
-export default Progress;
+export default ScoreCard;

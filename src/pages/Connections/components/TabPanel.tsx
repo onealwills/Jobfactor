@@ -1,8 +1,8 @@
 import { Box, TableCell, TableRow, Typography } from '@mui/material';
-import ExperienceLevel from './ExperienceLevel';
-import TableWrapper from './TableWrapper';
-import UserActions from './UserActions';
-import UserDetails from './UserDetails';
+import ExperienceLevel from '../../Connections/components/ExperienceLevel';
+import TableWrapper from '../../Connections/components/TableWrapper';
+import UserActions from '../../Connections/components/UserActions';
+import UserDetails from '../../Connections/components//UserDetails';
 import React from 'react';
 
 const experienceLevels = [
@@ -49,7 +49,7 @@ const TabPanel = (props: TabProps) => {
                                 }}
                             >
                                 <UserDetails user={user} />
-                                <UserActions user={user} tab={tab} />
+                                <UserActions user={user} tab={tab} title={'PendingConnectionPage'} />
                             </Box>
                             <Box
                                 sx={{

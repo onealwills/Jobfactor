@@ -179,7 +179,7 @@ function ConnectionsPage() {
 
     return (
         <Box sx={{ ml: '35px' }}>
-            <Header setUsers={setUsers} data={data} />
+            <Header setUsers={setUsers} data={data} tittle={'ConnectionPage'} />
             <Grid container mt={'20px'}>
                 <TableWrapper
                     handleChangePage={handleChangePage}
@@ -207,7 +207,7 @@ function ConnectionsPage() {
                                         }}
                                     >
                                         <UserDetails user={user} />
-                                        <UserActions user={user} />
+                                        <UserActions user={user} title={'ConnectionPage'} />
                                     </Box>
                                     <Box
                                         sx={{
@@ -237,7 +237,7 @@ function ConnectionsPage() {
                                         /> <Typography
                                             component={'div'}
                                             sx={{
-                                                ml:'8px',
+                                                ml: '8px',
                                                 width: '7px',
                                                 height: '7px',
                                                 borderRadius: '100px',
