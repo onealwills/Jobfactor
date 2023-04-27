@@ -89,11 +89,11 @@ export default function CustomDialog({
               "& .MuiDialogContent-root": {
                 paddingX: 4,
                 paddingBottom: actions ? 3 : 4,
+                paddingTop: 0,
               },
               "& .MuiDialogActions-root": {
                 paddingX: 4,
                 paddingY: 2.5,
-                paddingTop: 0,
               }
             }}
         >
