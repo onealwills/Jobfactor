@@ -4,6 +4,8 @@ import CustomDialog from './CustomDialog';
 import List from '@mui/material/List';
 
 import ProfileInfoListItem from './ProfileInfoListItem';
+import Input from '../../common/Input';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 const EditProfileInfoDialog = () => (<CustomDialog open={true} title="Ronald Richard">
     <List
@@ -23,6 +25,9 @@ const EditProfileInfoDialog = () => (<CustomDialog open={true} title="Ronald Ric
         <Grid item columns={5}>
             
         </Grid>
+        <Input InputProps={{
+          startAdornment: (<PhoneIcon />)
+        }}></Input>
     </Grid>
 </CustomDialog>)
 
