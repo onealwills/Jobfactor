@@ -82,7 +82,33 @@ const sideNavOptions: Menu[] = [
     {
         icon: BriefCaseIcon,
         label: 'Jobs',
-        route: '/my-jobs'
+        route: '/my-jobs',
+        submenu: [
+            {
+                label: 'Jobs',
+                route: ''
+            },
+            {
+                label: 'All jobs',
+                route: '/my-jobs'
+            },
+            {
+                label: 'Saved jobs',
+                route: '#'
+            },
+            {
+                label: 'Job preference',
+                route: '/job-preference'
+            },
+            {
+                label: 'Applied jobs',
+                route: '#'
+            },
+            {
+                label: 'Career Planning',
+                route: '#'
+            }
+        ]
     },
     {
         icon: MessagesIcon,
@@ -135,7 +161,7 @@ function SideNav() {
     };
     useEffect(() => {
         handleActiveMenu();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
     return (

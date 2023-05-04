@@ -32,7 +32,7 @@ const Submenu = (props: PropTypes) => {
                                 boxShadow: 'none',
                                 color: '#494949',
                                 fontFamily: 'Open Sans',
-                                fontWeight: '700',
+                                fontWeight: '400',
                                 fontSize: '14px',
                                 width: '100%',
                                 display: 'flex',
@@ -43,7 +43,7 @@ const Submenu = (props: PropTypes) => {
                                 '&:hover': {
                                     backgroundColor: '#FFFAF1',
                                     boxShadow: 'none',
-                                    color: '#494949'
+                                    color: '#494949',
                                 }
                             }}
                             onClick={() => props.setHideMenu(false)}
@@ -64,7 +64,7 @@ const Submenu = (props: PropTypes) => {
                                             ? '#05668D'
                                             : '#FFFAF1',
                                     cursor: 'pointer',
-                                    fontWeight: 700,
+                                    fontWeight: 500,
                                     color:
                                         location.pathname === item.route
                                             ? '#FFFFFF'

@@ -40,10 +40,7 @@ function MyJobsPage() {
     return (
         <Box
             sx={{
-                mt: -6,
-                ml: 2,
-                mx: '40px',
-                maxWidth: 1072
+                marginLeft: '15px'
             }}
         >
             <JobsHeader />
