@@ -4,6 +4,7 @@ import JobsList from './components/JobsList/JobsList';
 import AspiringJobs from './components/AspiringJobs';
 import { IJobItem } from './types/IJobItem';
 import shellLogo from '../../assets/images/shellLogo.png';
+import ApplyJob from './components/JobItem/ApplyJob';
 
 function MyJobsPage() {
     const item: IJobItem = {
