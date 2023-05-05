@@ -330,6 +330,62 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         );
     };
 
+<<<<<<< HEAD
+=======
+const JobPostingCTA = (props: { jobInfo: IJobItem }) => {
+    const { jobInfo } = props;
+    const jobId = 1234;
+    const navigate = useNavigate();
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                backgroundColor: 'white'
+            }}
+        >
+            {!jobInfo?.alreadyapply ?
+                <Button
+                    variant="contained"
+                    sx={{
+                        py: '12px',
+                        px: '150px',
+                        width: '90%'
+                    }}
+                >
+                    Apply
+                </Button>
+                :
+                <Button
+                    variant="contained"
+                    sx={{
+                        py: '12px',
+                        px: '150px',
+                        width: '90%'
+                    }}
+                    disabled={true}
+                >
+                    Applied
+                </Button>
+            }
+            <Button
+                variant="outlined"
+                onClick={() => navigate(`/my-jobs/${jobId}`)}
+                sx={{
+                    py: '12px',
+                    mt: 1,
+                    width: '90%'
+                }}
+            >
+                View Details
+            </Button>
+        </Box>
+    );
+};
+const JobItem = (props: { jobInfo: IJobItem }) => {
+    const { jobInfo } = props;
+>>>>>>> feature/3665-3593-3666-JobsPreference
     return (
         <Box
             sx={{
@@ -342,8 +398,12 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         >
             <CompanyInfo jobInfo={jobInfo} />
             <JobPostingRequirements jobInfo={jobInfo} />
+<<<<<<< HEAD
             <JobPostingCTA />
             <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
+=======
+            <JobPostingCTA jobInfo={jobInfo} />
+>>>>>>> feature/3665-3593-3666-JobsPreference
         </Box>
     );
 };

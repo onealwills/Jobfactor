@@ -3,7 +3,6 @@ import React from 'react';
 import JobFactorIcon from '../../assets/icons/JobFactorIcon';
 import profileReview from './../../assets/images/profileReview.png';
 import EllipsisIcon from '../../assets/icons/EllipsisIcon';
-import { Link } from 'react-router-dom';
 
 const loginTitle = 'Professionals meet companies';
 const loginSubHeading =
@@ -11,9 +10,9 @@ const loginSubHeading =
 const cardReview =
     'Absolutely amazing, the vetting algorithym is the best at proving ones level of experience';
 
-function OnBoardingSidePanel() {
+function Column() {
     return (
-        <>
+        <div>
             <Box
                 sx={{
                     backgroundColor: '#F1F1F1',
@@ -30,9 +29,7 @@ function OnBoardingSidePanel() {
                 {/* Column1 */}
                 {/* Logo */}
                 <Box sx={{ mt: '51px', width: '80%', alignSelf: 'center' }}>
-                    <Link to={'/'}>
-                        <JobFactorIcon />
-                    </Link>
+                    <JobFactorIcon />
                 </Box>
                 <Box>
                     <Typography
@@ -133,8 +130,8 @@ function OnBoardingSidePanel() {
                     </Box>
                 </Box>
             </Box>
-        </>
+        </div>
     );
 }
 
-export default OnBoardingSidePanel;
+export default Column;

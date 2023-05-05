@@ -11,7 +11,8 @@ declare module 'little-state-machine' {
             password: string,
             companyName: string,
             verifyEmail: boolean,
-            step: number
-        };
+            step: number,
+            resetPassword: string
+        }
     }
 }

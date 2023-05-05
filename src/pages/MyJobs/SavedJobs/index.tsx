@@ -1,12 +1,11 @@
 import { Box } from '@mui/material';
-import JobsHeader from './components/JobsHeader';
-import JobsList from './components/JobsList/JobsList';
-import AspiringJobs from './components/AspiringJobs';
-import { IJobItem } from './types/IJobItem';
-import shellLogo from '../../assets/images/shellLogo.png';
-import ApplyJob from './components/JobItem/ApplyJob';
+import JobsHeader from '../components/JobsHeader';
+import JobsList from '../components/JobsList/JobsList';
+import AspiringJobs from '../components/AspiringJobs';
+import { IJobItem } from '../types/IJobItem';
+import shellLogo from '../../../assets/images/shellLogo.png';
 
-function MyJobsPage() {
+function SavedJobs() {
     const item: IJobItem = {
         companyName: 'Shell Energy',
         location: 'Lagos',
@@ -70,4 +69,4 @@ function MyJobsPage() {
     );
 }
 
-export default MyJobsPage;
+export default SavedJobs;
