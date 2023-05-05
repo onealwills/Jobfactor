@@ -290,7 +290,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     backgroundColor: 'white'
                 }}
             >
-                {(!jobInfo?.alreadyapply || !alreadyapply) ?
+                {(!jobInfo?.alreadyapply && !alreadyapply) ?
                     <Button
                         variant="contained"
                         sx={{
@@ -329,24 +329,22 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         );
     };
 
-    const JobItem = (props: { jobInfo: IJobItem }) => {
-        const { jobInfo } = props;
-        return (
-            <Box
-                sx={{
-                    maxWidth: 520,
-                    width: '100%',
-                    backgroundColor: '#FCFBF8',
-                    borderRadius: '8px',
-                    mb: 4
-                }}
-            >
-                <CompanyInfo jobInfo={jobInfo} />
-                <JobPostingRequirements jobInfo={jobInfo} />
-                <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
-                <JobPostingCTA jobInfo={jobInfo} />
-            </Box>
-        );
-    };
+    return (
+        <Box
+            sx={{
+                maxWidth: 520,
+                width: '100%',
+                backgroundColor: '#FCFBF8',
+                borderRadius: '8px',
+                mb: 4
+            }}
+        >
+            <CompanyInfo jobInfo={jobInfo} />
+            <JobPostingRequirements jobInfo={jobInfo} />
+            <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
+            <JobPostingCTA jobInfo={jobInfo} />
+        </Box>
+    );
+}
 
-    export default JobItem;
+export default JobItem;
