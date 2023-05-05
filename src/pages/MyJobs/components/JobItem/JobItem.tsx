@@ -23,7 +23,6 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         }
     }
 
-
     const CompanyInfo = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
         return (
@@ -277,7 +276,9 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         );
     };
 
-    const JobPostingCTA = () => {
+
+    const JobPostingCTA = (props: { jobInfo: IJobItem }) => {
+        const { jobInfo } = props;
         const jobId = 1234;
         const navigate = useNavigate();
         return (
@@ -289,7 +290,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     backgroundColor: 'white'
                 }}
             >
-                {!alreadyapply ?
+                {(!jobInfo?.alreadyapply || !alreadyapply) ?
                     <Button
                         variant="contained"
                         sx={{
@@ -297,20 +298,18 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             px: '150px',
                             width: '90%'
                         }}
-                        onClick={() => { setApplyjob(true) }}
                     >
                         Apply
                     </Button>
                     :
-
-                    <Button disabled={true} variant="contained"
+                    <Button
+                        variant="contained"
                         sx={{
                             py: '12px',
                             px: '150px',
-                            width: '90%',
-                            backgroundColor: '#EDEDED',
-                            color: '#808080'
+                            width: '90%'
                         }}
+                        disabled={true}
                     >
                         Applied
                     </Button>
@@ -330,82 +329,24 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         );
     };
 
-<<<<<<< HEAD
-=======
-const JobPostingCTA = (props: { jobInfo: IJobItem }) => {
-    const { jobInfo } = props;
-    const jobId = 1234;
-    const navigate = useNavigate();
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                backgroundColor: 'white'
-            }}
-        >
-            {!jobInfo?.alreadyapply ?
-                <Button
-                    variant="contained"
-                    sx={{
-                        py: '12px',
-                        px: '150px',
-                        width: '90%'
-                    }}
-                >
-                    Apply
-                </Button>
-                :
-                <Button
-                    variant="contained"
-                    sx={{
-                        py: '12px',
-                        px: '150px',
-                        width: '90%'
-                    }}
-                    disabled={true}
-                >
-                    Applied
-                </Button>
-            }
-            <Button
-                variant="outlined"
-                onClick={() => navigate(`/my-jobs/${jobId}`)}
+    const JobItem = (props: { jobInfo: IJobItem }) => {
+        const { jobInfo } = props;
+        return (
+            <Box
                 sx={{
-                    py: '12px',
-                    mt: 1,
-                    width: '90%'
+                    maxWidth: 520,
+                    width: '100%',
+                    backgroundColor: '#FCFBF8',
+                    borderRadius: '8px',
+                    mb: 4
                 }}
             >
-                View Details
-            </Button>
-        </Box>
-    );
-};
-const JobItem = (props: { jobInfo: IJobItem }) => {
-    const { jobInfo } = props;
->>>>>>> feature/3665-3593-3666-JobsPreference
-    return (
-        <Box
-            sx={{
-                maxWidth: 520,
-                width: '100%',
-                backgroundColor: '#FCFBF8',
-                borderRadius: '8px',
-                mb: 4
-            }}
-        >
-            <CompanyInfo jobInfo={jobInfo} />
-            <JobPostingRequirements jobInfo={jobInfo} />
-<<<<<<< HEAD
-            <JobPostingCTA />
-            <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
-=======
-            <JobPostingCTA jobInfo={jobInfo} />
->>>>>>> feature/3665-3593-3666-JobsPreference
-        </Box>
-    );
-};
+                <CompanyInfo jobInfo={jobInfo} />
+                <JobPostingRequirements jobInfo={jobInfo} />
+                <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
+                <JobPostingCTA jobInfo={jobInfo} />
+            </Box>
+        );
+    };
 
-export default JobItem;
+    export default JobItem;
