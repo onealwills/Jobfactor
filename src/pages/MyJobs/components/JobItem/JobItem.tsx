@@ -261,7 +261,8 @@ const JobPostingRequirements = (props: { jobInfo: IJobItem }) => {
     );
 };
 
-const JobPostingCTA = () => {
+const JobPostingCTA = (props: { jobInfo: IJobItem }) => {
+    const { jobInfo } = props;
     const jobId = 1234;
     const navigate = useNavigate();
     return (
@@ -273,16 +274,30 @@ const JobPostingCTA = () => {
                 backgroundColor: 'white'
             }}
         >
-            <Button
-                variant="contained"
-                sx={{
-                    py: '12px',
-                    px: '150px',
-                    width: '90%'
-                }}
-            >
-                Apply
-            </Button>
+            {!jobInfo?.alreadyapply ?
+                <Button
+                    variant="contained"
+                    sx={{
+                        py: '12px',
+                        px: '150px',
+                        width: '90%'
+                    }}
+                >
+                    Apply
+                </Button>
+                :
+                <Button
+                    variant="contained"
+                    sx={{
+                        py: '12px',
+                        px: '150px',
+                        width: '90%'
+                    }}
+                    disabled={true}
+                >
+                    Applied
+                </Button>
+            }
             <Button
                 variant="outlined"
                 onClick={() => navigate(`/my-jobs/${jobId}`)}
@@ -311,7 +326,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         >
             <CompanyInfo jobInfo={jobInfo} />
             <JobPostingRequirements jobInfo={jobInfo} />
-            <JobPostingCTA />
+            <JobPostingCTA jobInfo={jobInfo} />
         </Box>
     );
 };

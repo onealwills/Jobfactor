@@ -13,4 +13,5 @@ export interface IJobItem {
         responsibilities: string[];
     };
     posted: string;
+    alreadyapply?: boolean;
 }

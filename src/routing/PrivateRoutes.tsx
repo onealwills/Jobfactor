@@ -16,6 +16,8 @@ import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
 import JobFactorScore from '../pages/JobFactorScore';
 import JobPreference from '../pages/MyJobs/JobPreference';
+import SavedJobs from '../pages/MyJobs/SavedJobs';
+import AppliedJobs from '../pages/MyJobs/AppliedJobs';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -138,6 +140,22 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <MainLayout children={<JobPreference />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="save-job"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<SavedJobs />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="job-applied"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<AppliedJobs />} />
                         </RequireAuth>
                     }
                 />

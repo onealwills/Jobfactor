@@ -94,7 +94,7 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Saved jobs',
-                route: '#'
+                route: '/save-job'
             },
             {
                 label: 'Job preference',
@@ -102,7 +102,7 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Applied jobs',
-                route: '#'
+                route: '/job-applied'
             },
             {
                 label: 'Career Planning',
