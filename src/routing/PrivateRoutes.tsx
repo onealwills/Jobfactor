@@ -15,6 +15,7 @@ import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
 import JobFactorScore from '../pages/JobFactorScore';
+import JobPreference from '../pages/MyJobs/JobPreference';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -129,6 +130,14 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <MainLayout children={<JobFactorScore />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="job-preference"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobPreference />} />
                         </RequireAuth>
                     }
                 />
