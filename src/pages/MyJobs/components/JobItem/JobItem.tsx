@@ -298,6 +298,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             px: '150px',
                             width: '90%'
                         }}
+                        onClick={() => { setApplyjob(true) }}
                     >
                         Apply
                     </Button>
