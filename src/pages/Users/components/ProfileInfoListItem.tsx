@@ -3,14 +3,16 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 interface IProfileInfoListItemProps {
     icon?: React.ReactNode;
     title: React.ReactNode;
-    subtitle: React.ReactNode;
+    subtitle?: React.ReactNode;
+    children?: React.ReactNode;
 }
 
-const ProfileInfoListItem = ({ icon, title, subtitle }: IProfileInfoListItemProps) => (
+const ProfileInfoListItem = ({ children, icon, title, subtitle }: IProfileInfoListItemProps) => (
     <ListItem alignItems="flex-start" sx={{p: 1, ml: -1}}>
         {icon && (
             <ListItemIcon sx={{mt: 0, mr: 3, color: "#05668D", minWidth: "auto",}}>
@@ -24,11 +26,18 @@ const ProfileInfoListItem = ({ icon, title, subtitle }: IProfileInfoListItemProp
             >
                 {title}
             </Typography>
-            <Typography
-                fontSize={14}
-            >
-                {subtitle}
-            </Typography>      
+            {subtitle && (
+                <Typography
+                    fontSize={14}
+                >
+                    {subtitle}
+                </Typography>      
+            )}
+            {children && (
+                <Box>
+                    { children }
+                </Box>
+            )}
         </Grid>
     </ListItem>
 )

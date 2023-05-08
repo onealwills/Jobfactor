@@ -111,7 +111,14 @@ export default function CustomDialog({
                 }}
             />
             <DialogContent>{children}</DialogContent>
-            {actions && <DialogActions>{actions}</DialogActions>}
+            {actions && (
+                <Box bgcolor="#FFFAF1">
+                    <DialogActions>
+                        {actions}
+                    </DialogActions>
+                </Box>
+            )
+            }
         </Dialog>
     );
 }

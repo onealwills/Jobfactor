@@ -13,6 +13,9 @@ import ProfileInfoListItem from './ProfileInfoListItem';
 import PhoneFormIcon from '../../../assets/icons/PhoneFormIcon';
 import LocationFormIcon from '../../../assets/icons/LocationFormIcon';
 import BirthdayFormIcon from '../../../assets/icons/BirthdayFormIcon';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import AddIcon from '@mui/icons-material/Add';
 
 const EditProfileInfoDialog = () => {
 
@@ -23,7 +26,20 @@ const EditProfileInfoDialog = () => {
   } = useForm();
 
   return (
-    <CustomDialog open={true} title="Ronald Richard">
+    <CustomDialog
+        open={true}
+        title="Ronald Richard"
+        actions={
+            <Grid container justifyContent="space-between">
+                <Button variant="contained" sx={{ color: '#FFFFFF', mr: 1.25, width: 'auto' }}>
+                    Save
+                </Button>
+                <Button variant="contained" sx={{ color: '#FFFFFF', mr: 1.2, width: 'auto' }}>
+                    Save
+                </Button>
+            </Grid>
+        }
+    >
       <List
         sx={{
           width: '100%',
@@ -281,6 +297,27 @@ const EditProfileInfoDialog = () => {
               )}
           />
         </Box>
+        <ProfileInfoListItem title="Website">
+            <Button
+                disableRipple
+                variant="contained"
+                sx={{
+                    backgroundColor: '#FCFBF8',
+                    width: "auto"
+                }}
+                startIcon={<AddIcon htmlColor="#05668D" />}
+            >
+                <Typography
+                    color={'#05668D'}
+                    fontFamily="open sans"
+                    fontWeight={600}
+                    fontSize={14}
+                    sx={{ textTransform: 'none' }}
+                >
+                    Add Website
+                </Typography>
+            </Button>
+        </ProfileInfoListItem>
   </CustomDialog>)
 }
 
