@@ -7,8 +7,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-const JobsHeader = () => {
+const JobsHeader = (props: { title: string }) => {
 
+    const { title } = props;
     const [date, setDate] = React.useState('');
     const [location, setLocation] = React.useState('');
     const [type, setType] = React.useState('');
@@ -44,7 +45,7 @@ const JobsHeader = () => {
             >
                 <ArrowLeftIcon />
                 <Typography variant="headlineMediumSemiBold" color="#23282B">
-                    Jobs
+                    {title}
                 </Typography>
             </Box>
             <Box

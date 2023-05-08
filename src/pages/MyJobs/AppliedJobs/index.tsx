@@ -43,7 +43,7 @@ function AppliedJobs() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader />
+            <JobsHeader title='Applied Jobs' />
             <JobsList
                 title={'Recommended for you'}
                 description={'Based on your profile'}

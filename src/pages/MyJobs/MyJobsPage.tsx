@@ -43,7 +43,7 @@ function MyJobsPage() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader />
+            <JobsHeader title='Jobs' />
             <JobsList
                 title={'Recommended for you'}
                 description={'Based on your profile'}

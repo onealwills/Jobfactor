@@ -43,7 +43,7 @@ function SavedJobs() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader />
+            <JobsHeader title='Saved Jobs'/>
             <JobsList
                 title={'Recommended for you'}
                 description={'Based on your profile'}
