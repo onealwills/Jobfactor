@@ -351,7 +351,7 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                 </Box>
                 <Box sx={{ marginTop: '24px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Box>
-                        <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#494949' }}>{'1 of 2'}</p>
+                        <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#494949' }}>{'2 of 2'}</p>
                     </Box>
                     <Box sx={{ gap: '10px', display: 'flex' }}>
                         {!showall &&
