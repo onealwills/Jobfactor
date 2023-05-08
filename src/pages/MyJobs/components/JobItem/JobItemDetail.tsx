@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import { ArrowLeftIcon } from '../../../../assets/icons/ArrowLeftIcon';
 import JobDetailItemTrashIcon from '../../../../assets/icons/JobDetailItemTrashIcon';
@@ -9,11 +9,15 @@ import xteraSolutionLogo from '../../../../assets/images/xteraSolutionLogo.png';
 import { useNavigate } from 'react-router-dom';
 import ChipList from '../Chips/ChipList';
 import { IJobItemDetail } from '../../types/IJobItemDetail';
+import { useLocation } from 'react-router-dom';
 import ApplyJob from './ApplyJob';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 
 const JobItemDetail = (props: { jobId?: string }) => {
+
+    const location = useLocation()
+    const jobdata = location?.state
 
     const [applyjob, setApplyjob] = useState<boolean>(false);
     const [alreadyapply, setAlreadyApply] = useState<boolean>(false);
@@ -25,6 +29,14 @@ const JobItemDetail = (props: { jobId?: string }) => {
             setAlreadyApply(true)
         }
     }
+
+    useEffect(() => {
+        if (jobdata !== '') {
+            if (jobdata?.savedjob) {
+                setSelectedAction([...selectedaction, 4])
+            }
+        }
+    }, [jobdata])
 
     const jobItem: IJobItemDetail = {
         companyDescription:
@@ -90,7 +102,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
             descriptions: [
                 'Carry1st is the leading publisher of social games and interactive content in Africa. We work with studios across the globe - from Addis Ababa to Sofia to New York City - to level up their games and scale them in dynamic, new markets. To serve our customers in Africa, we’ve built out a proprietary payments and ecommerce experience which gives our users the ability to pay for digital content, even when they don’t have a credit card.',
                 'Our team is as diverse as our partners - hailing from 14 countries and companies like King, Rovio, War gaming, The Carlyle Group and Morgan Stanley. We’re a passionate, international team that works hard and has a sense of humor. We value originality of thinking, thoughtfulness and courage. Carry1st is a fully remote, distributed company and we are looking for the best people to join us as we rapidly innovate and scale.'
-            ]
+            ],
         }
     };
 
@@ -154,7 +166,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             {jobItem.heading}
                         </Typography>
                     </Box>
-                    {!alreadyapply ?
+                    {(!alreadyapply && !jobdata?.alreadyapply) ?
                         <Box
                             sx={{
                                 display: 'flex',
@@ -253,7 +265,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                     >
                                         <IconButton>
                                             {selectedaction?.includes(item?.id) ?
-                                                <item.coloricon style={{color:'#FFC24C'}} />
+                                                <item.coloricon style={{ color: '#FFC24C' }} />
                                                 :
                                                 <item.icon />
 

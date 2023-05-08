@@ -11,40 +11,40 @@ const chipColorsMapping: Record<string, string> = {
 };
 
 const chipInfoColorsMapping: Record<string, string> = {
-    A: '#2E6F9B',
-    B: '#4F4F4F',
+    A: '#49B6FF',
+    B: '#E75541',
     E: '#967A0C',
     L: '#076B17',
     T: '#076B17',
-    X: '#5C7B4B'
+    X: '#F6C70E'
 };
 
-const ChipInfo = (props: { type: string }) => {
-    const { type } = props;
+const ChipInfo = (props: { type: string, showbackgrond?: boolean }) => {
+    const { type, showbackgrond } = props;
     return (
         <Box
             sx={{
-                backgroundColor: chipInfoColorsMapping[type],
+                backgroundColor: showbackgrond ? 'rgba(5, 5, 5, 0.4)' : chipInfoColorsMapping[type],
                 height: 18,
                 width: 18,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderRadius: '4px'
+                borderRadius: '4px',
             }}
         >
             {type}
         </Box>
     );
 };
-const ChipItem = (props: { label: string; type: string }) => {
-    const { label, type } = props;
+const ChipItem = (props: { label: string; type: string, showbackgrond?: boolean }) => {
+    const { label, type, showbackgrond } = props;
     return (
         <Chip
-            onDelete={() => {}}
-            deleteIcon={<ChipInfo type={type} />}
+            onDelete={() => { }}
+            deleteIcon={<ChipInfo type={type} showbackgrond={showbackgrond} />}
             sx={{
-                backgroundColor: chipColorsMapping[type],
+                backgroundColor: showbackgrond ? chipColorsMapping[type] : '#808080',
                 m: 1,
                 color: 'white',
                 fontWeight: 600,
@@ -75,12 +75,12 @@ const ChipList = (props: IChipProps) => {
                 chipsData
                     .slice(0, 3)
                     .map((item) => (
-                        <ChipItem label={item.name} type={item.type} />
+                        <ChipItem label={item.name} type={item.type} showbackgrond={item?.showbackground} />
                     ))}
 
             {displayAll &&
                 chipsData.map((item) => (
-                    <ChipItem label={item.name} type={item.type} />
+                    <ChipItem label={item.name} type={item.type} showbackgrond={item?.showbackground} />
                 ))}
 
             {!displayAll && chipsData.length > 3 ? (
@@ -91,7 +91,7 @@ const ChipList = (props: IChipProps) => {
 };
 
 interface IChipProps {
-    chipsData: { name: string; type: string }[];
+    chipsData: { name: string; type: string, showbackground?: boolean }[];
     displayAll?: boolean;
 }
 

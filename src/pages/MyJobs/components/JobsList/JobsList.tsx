@@ -10,8 +10,9 @@ const JobsList = (props: {
     title: string;
     description: string;
     showMetrics?: boolean;
+    showheader?: boolean;
 }) => {
-    const { data, title, description, showMetrics } = props;
+    const { data, title, description, showMetrics, showheader } = props;
     const theme = useTheme();
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -19,7 +20,7 @@ const JobsList = (props: {
     return (
         <Box sx={{ backgroundColor: '#FFFFFF', mt: '28px' }}>
             <Box sx={{ mx: 4 }}>
-                <JobListHeader title={title} description={description} />
+                {showheader && <JobListHeader title={title} description={description} />}
                 {showMetrics ? <JobMetrics /> : null}
                 <Grid
                     container

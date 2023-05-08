@@ -12,10 +12,10 @@ function AppliedJobs() {
         jobTitle: 'Product Designer',
         companyLogo: shellLogo,
         keywords: [
-            { name: 'Office Environment', type: 'L' },
-            { name: 'Job Security', type: 'A' },
-            { name: 'Job Security', type: 'E' },
-            { name: 'Job Security', type: 'E' }
+            { name: 'Office Environment', type: 'L', showbackground: true },
+            { name: 'Job Security', type: 'A', showbackground: true },
+            { name: 'Job Security', type: 'E', showbackground: true },
+            { name: 'Job Security', type: 'E', showbackground: true }
         ],
         jobType: 'Full-time',
         salary: 'N250,000 a month',
@@ -23,10 +23,9 @@ function AppliedJobs() {
         requirements: {
             minJobFactorScore: 550,
             keywords: [
-                { name: 'Visual Design', type: 'B' },
-                { name: 'Motion Design', type: 'B' },
-                { name: 'Prototyping', type: 'B' },
-                { name: 'Prototyping', type: 'B' }
+                { name: 'Visual Design', type: 'B', showbackground: false },
+                { name: 'Motion Design', type: 'A', showbackground: false },
+                { name: 'Prototyping', type: 'X', showbackground: false },
             ],
             responsibilities: [
                 'Experience as a UI/UX designer or similar role for digital products and services ',

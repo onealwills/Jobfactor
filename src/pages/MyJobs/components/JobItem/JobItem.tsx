@@ -7,6 +7,7 @@ import JobSalaryIcon from '../../../../assets/icons/JobSalaryIcon';
 import JobTypeIcon from '../../../../assets/icons/JobTypeIcon';
 import JobBookmarkIcon from '../../../../assets/icons/JobBookmarkIcon';
 import VerifiedIcon from '../../../../assets/icons/VerifiedIcon';
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import ApplyJob from './ApplyJob';
 
 
@@ -42,7 +43,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     }}
                 >
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Box sx={{ mt: 1 }}>
+                        <Box>
                             <img
                                 height={80}
                                 width={80}
@@ -66,8 +67,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 2,
-                                        mt: 1
+                                        gap: '8px',
                                     }}
                                 >
                                     <Typography
@@ -78,13 +78,14 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                             color: '#808080',
                                             textTransform: 'uppercase'
                                         }}
+
                                     >
                                         {jobInfo.companyName}
-                                    </Typography>{' '}
+                                    </Typography>
                                     <VerifiedIcon />
                                 </Box>
                             </Box>
-                            <Box sx={{ mt: 0.75 }}>
+                            <Box>
                                 <Typography
                                     sx={{
                                         fontFamily: 'Open Sans',
@@ -114,7 +115,13 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                         >
                             {jobInfo.jobFitMetric}
                         </Box>
-                        <JobBookmarkIcon />
+                        {jobInfo?.savedjob ?
+                            <Box sx={{ backgroundColor: '#FCFBF8', width: '40px', height: '40px', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <TurnedInIcon style={{ color: '#FFC24C' }} />
+                            </Box>
+                            :
+                            <JobBookmarkIcon />
+                        }
                     </Box>
                 </Box>
 
@@ -127,7 +134,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
         return (
             <Box
-                sx={{ backgroundColor: '#FCFBF8', mt: '24px', pb: 10, px: '20px' }}
+                sx={{ backgroundColor: '#FCFBF8', padding: '20px' }}
             >
                 <Typography
                     sx={{
@@ -271,6 +278,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     >
                         Posted {jobInfo.posted}
                     </Typography>
+                    <JobPostingCTA jobInfo={jobInfo} />
                 </Box>
             </Box>
         );
@@ -286,17 +294,16 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center',
-                    backgroundColor: 'white'
+                    alignItems: 'flex-start',
+                    marginTop: '20px'
                 }}
             >
                 {(!jobInfo?.alreadyapply && !alreadyapply) ?
                     <Button
                         variant="contained"
                         sx={{
-                            py: '12px',
-                            px: '150px',
-                            width: '90%'
+                            padding: '10px 15px',
+                            width: 'fit-content'
                         }}
                         onClick={() => { setApplyjob(true) }}
                     >
@@ -306,9 +313,8 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     <Button
                         variant="contained"
                         sx={{
-                            py: '12px',
-                            px: '150px',
-                            width: '90%'
+                            padding: '10px 15px',
+                            width: 'fit-content'
                         }}
                         disabled={true}
                     >
@@ -317,16 +323,16 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                 }
                 <Button
                     variant="outlined"
-                    onClick={() => navigate(`/my-jobs/${jobId}`)}
+                    onClick={() => navigate(`/my-jobs/${jobId}`, { state: jobInfo })}
                     sx={{
-                        py: '12px',
-                        mt: 1,
-                        width: '90%'
+                        padding: '10px 15px',
+                        width: 'fit-content',
+                        mt: 1
                     }}
                 >
                     View Details
                 </Button>
-            </Box>
+            </Box >
         );
     };
 
@@ -343,7 +349,6 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
             <CompanyInfo jobInfo={jobInfo} />
             <JobPostingRequirements jobInfo={jobInfo} />
             <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
-            <JobPostingCTA jobInfo={jobInfo} />
         </Box>
     );
 }
