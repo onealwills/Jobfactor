@@ -732,7 +732,6 @@ function UsersPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <EditProfileInfoDialog />
         </Container>
     );
 }

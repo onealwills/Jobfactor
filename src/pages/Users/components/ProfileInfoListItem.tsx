@@ -8,11 +8,12 @@ import Box from '@mui/material/Box';
 interface IProfileInfoListItemProps {
     icon?: React.ReactNode;
     title: React.ReactNode;
+    onClick?: (e?: React.MouseEvent<HTMLDivElement>) => void;
     subtitle?: React.ReactNode;
     children?: React.ReactNode;
 }
 
-const ProfileInfoListItem = ({ children, icon, title, subtitle }: IProfileInfoListItemProps) => (
+const ProfileInfoListItem = ({ onClick, children, icon, title, subtitle }: IProfileInfoListItemProps) => (
     <ListItem alignItems="flex-start" sx={{p: 1, ml: -1}}>
         {icon && (
             <ListItemIcon sx={{mt: 0, mr: 3, color: "#05668D", minWidth: "auto",}}>
@@ -29,6 +30,7 @@ const ProfileInfoListItem = ({ children, icon, title, subtitle }: IProfileInfoLi
             {subtitle && (
                 <Typography
                     fontSize={14}
+                    color={onClick ? "#05668D" : "#808080"}
                 >
                     {subtitle}
                 </Typography>      
