@@ -9,9 +9,19 @@ import {
 import Pagination from '../../../components/Pagination';
 
 const TableWrapper = (props: PropTypes) => {
-    const { children, data, rowsPerPage, handleChangePage } = props;
+    const { data, rowsPerPage, handleChangePage, activeTab, tab, children } = props;
     return (
-        <TableContainer component={Paper}>
+        <TableContainer
+            component={Paper}
+            sx={(activeTab !== undefined && activeTab !== '') ? {
+                display: activeTab === tab ? '' : 'none',
+                width: '100%',
+                borderTopLeftRadius: 0,
+                borderTopRightRadius: 0
+            }
+                : {}
+            }
+        >
             <Table sx={{ minWidth: 650 }}>
                 <TableBody>
                     {children}
@@ -31,6 +41,8 @@ const TableWrapper = (props: PropTypes) => {
 interface PropTypes {
     data: Array<Object>;
     rowsPerPage: number;
+    activeTab?: string;
+    tab?: string;
     children: React.ReactNode;
     handleChangePage: (page: number) => void;
 }

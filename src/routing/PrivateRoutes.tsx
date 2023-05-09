@@ -11,9 +11,10 @@ import HelpSupportPage from '../pages/HelpSupport/HelpSupportPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import HomePage from '../pages/Home/HomePage';
 import UsersPage from '../pages/Users/UsersPage';
-import PendingConnection from '../pages/PendingConnctions/PendingConnection';
+import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
+import JobFactorScore from '../pages/JobFactorScore';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -115,12 +116,19 @@ const PrivateRoutes = () => {
                         </RequireAuth>
                     }
                 />
-
                 <Route
                     path="help-support"
                     element={
                         <RequireAuth>
                             <MainLayout children={<HelpSupportPage />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="jobfactor-score"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobFactorScore />} />
                         </RequireAuth>
                     }
                 />
