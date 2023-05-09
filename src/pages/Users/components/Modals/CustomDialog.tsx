@@ -15,6 +15,7 @@ export interface DialogProps {
     onClose?: () => void;
     children?: React.ReactNode;
     size?: 'default';
+    contentPaddingX?: boolean;
 }
 
 export interface DialogTitleProps {
@@ -71,6 +72,7 @@ export default function CustomDialog({
     open,
     title,
     onClose,
+    contentPaddingX,
     children
 }: DialogProps) {
     function handleClose() {
@@ -86,7 +88,7 @@ export default function CustomDialog({
             open={!!open}
             sx={{
                 '& .MuiDialogContent-root': {
-                    paddingX: 4,
+                    paddingX: (contentPaddingX === undefined || contentPaddingX) ? 4 : 0,
                     paddingBottom: actions ? 3 : 4,
                     paddingTop: 0
                 },

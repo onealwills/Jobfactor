@@ -61,6 +61,7 @@ const EditContactInfoDialog = (props: IEditContactInfoDialogProps) => {
                     <Button
                         variant="outlined"
                         sx={{
+                            backgroundColor: 'transparent',
                             width: 'auto',
                             height: '36px',
                             borderRadius: '20px',
