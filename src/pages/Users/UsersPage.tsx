@@ -34,7 +34,7 @@ import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 import { Ranking } from './types/Ranking';
-import EditProfileInfoDialog from './components/EditProfileInfoDialog';
+import EditProfileInfoDialog from './components/EditContactInfoDialog';
 import ScoreCard from '../../components/ScoreCard.tsx';
 import { useState } from 'react';
 import EditProfileAboutMeDialog from './components/Modals/EditProfileAboutMeDialog';
