@@ -8,13 +8,19 @@ import Box from '@mui/material/Box';
 interface IProfileInfoListItemProps {
     icon?: React.ReactNode;
     title: React.ReactNode;
-    onClick?: (e?: React.MouseEvent<HTMLDivElement>) => void;
+    onClick?: (event?: React.MouseEvent<HTMLLIElement>) => void;
     subtitle?: React.ReactNode;
     children?: React.ReactNode;
 }
 
 const ProfileInfoListItem = ({ onClick, children, icon, title, subtitle }: IProfileInfoListItemProps) => (
-    <ListItem alignItems="flex-start" sx={{p: 1, ml: -1}}>
+    <ListItem
+        alignItems="flex-start" sx={{p: 1, ml: -1}}
+        onClick={onClick ? onClick : undefined}
+        style={{
+            cursor: onClick ? "pointer" : "default",
+        }}
+    >
         {icon && (
             <ListItemIcon sx={{mt: 0, mr: 3, color: "#05668D", minWidth: "auto",}}>
                 { icon }

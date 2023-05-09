@@ -66,10 +66,12 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                 <ProfileInfoListItem
                     title="Your Profile"
                     subtitle="https://Ronaldrichald.info"
+                    onClick={() => { /* handle navigate profile link */}}
                 />
                 <ProfileInfoListItem
                     title="Email"
                     subtitle="Ronaldrichie@outlook.com"
+                    onClick={() => { /* handle navigate email link */}}
                 />
             </List>
             <Grid container gap={1} wrap="nowrap">

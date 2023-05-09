@@ -38,6 +38,7 @@ import EditProfileInfoDialog from './components/EditProfileInfoDialog';
 import ScoreCard from '../../components/ScoreCard.tsx';
 import { useState } from 'react';
 import EditProfileAboutMeDialog from './components/Modals/EditProfileAboutMeDialog';
+import EditIcon from '../../assets/icons/EditIcon';
 
 function UsersPage() {
     const [openProfileModal, setOpenProfileModal] = useState(false);
@@ -46,6 +47,11 @@ function UsersPage() {
     const handleOnEditAboutMe = () => {
         setOpenAboutMeModal(true);
     };
+
+    const handleOnEditProfile = () => {
+        setOpenProfileModal(true);
+    };
+
     return (
         <Container
             style={{
@@ -156,7 +162,7 @@ function UsersPage() {
                                             gap={2}
                                             alignItems="center"
                                         >
-                                            <Grid container gap={1.75}>
+
                                                 <Grid item>
                                                     <Typography
                                                         component="h2"
@@ -170,7 +176,7 @@ function UsersPage() {
                                                     </Typography>
                                                 </Grid>
 
-                                                <Grid item marginTop="auto">
+                                                <Grid item>
                                                     <Grid
                                                         container
                                                         gap={2}
@@ -199,10 +205,28 @@ function UsersPage() {
                                                                     '-8px'
                                                             }}
                                                         />
-                                                    </Grid>
+                                                        <Grid item ml={1}>
+                                                            <Button 
+                                                                variant="contained"
+                                                                style={{
+                                                                    width: 'auto',
+                                                                    minWidth: 'auto',
+                                                                    color: '#808080',
+                                                                    backgroundColor: '#F2F2F2',
+                                                                }}
+                                                                sx={{
+                                                                    px: 1,
+                                                                    py: 1.25,
+                                                                }}
+                                                                onClick={handleOnEditProfile}
+                                                            >
+                                                                <EditIcon fontSize="small" />
+                                                            </Button>
+                                                        </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
+                                        
                                     </Grid>
                                     <Grid item>
                                         <Typography
@@ -247,6 +271,23 @@ function UsersPage() {
                                                     type="email"
                                                     label="Ronaldrichie@hotmail.com"
                                                 />
+                                            </Grid>
+                                            <Grid item ml={2}>
+                                                <Button 
+                                                    variant="contained"
+                                                    style={{
+                                                        width: 'auto',
+                                                        minWidth: 'auto',
+                                                        color: '#808080',
+                                                        backgroundColor: '#F2F2F2',
+                                                    }}
+                                                    sx={{
+                                                        px: 1,
+                                                        py: 1.25,
+                                                    }}
+                                                >
+                                                    <EditIcon fontSize="small" />
+                                                </Button>
                                             </Grid>
                                         </Grid>
                                     </Grid>
