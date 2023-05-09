@@ -1,7 +1,7 @@
 import { Grid, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
+import MoreIcon from '../../../assets/icons/MoreIcon';
 import SelectDropdown from '../../../components/Selectdropdown';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import WestIcon from '@mui/icons-material/West';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
@@ -16,6 +16,7 @@ const Header = (props: PropTypes) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     const sortData = (type: string) => {
         let sortedData: Array<Object> = [];
         if (type === 'A-Z') {
@@ -31,6 +32,7 @@ const Header = (props: PropTypes) => {
         props?.setUsers(sortedData);
         setAnchorEl(null);
     };
+
     return (
         <>
             <Grid
@@ -52,7 +54,7 @@ const Header = (props: PropTypes) => {
                     }}
                 >
                     <IconButton onClick={() => navigate('/')}>
-                        <WestIcon />
+                        <ArrowLeftIcon />
                     </IconButton>
                     <Typography
                         component={'h1'}
@@ -73,17 +75,20 @@ const Header = (props: PropTypes) => {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         alignItems: 'center',
-                        gap: '12px'
+                        gap: '12px',
                     }}
                 >
-                    <SelectDropdown
-                        label="Sort"
-                        options={['A-Z', 'Z-A']}
-                        style={{ width: '91px', height: '50px' }}
-                        handleChange={(e: any) => sortData(e.target.value)}
-                    />
+                    {props.tittle === 'ConnectionPage' &&
+                        <SelectDropdown
+                            label="Sort"
+                            halfWidth={true}
+                            options={['A-Z', 'Z-A']}
+                            style={{ width: '90px', height: '50px'}}
+                            handleChange={(e: any) => sortData(e.target.value)}
+                        />
+                    }
                     <IconButton onClick={handleClick}>
-                        <MoreVertIcon />
+                        <MoreIcon />
                     </IconButton>
                 </Grid>
             </Grid>
@@ -107,11 +112,14 @@ const Header = (props: PropTypes) => {
         </>
     );
 };
+
 interface PropTypes {
     data: data[];
     setUsers: (data: Object[]) => void;
+    tittle: string
 }
 type data = {
     name: string;
 };
+
 export default Header;

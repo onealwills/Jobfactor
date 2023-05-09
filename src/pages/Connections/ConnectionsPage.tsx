@@ -6,7 +6,8 @@ import UserDetails from './components/UserDetails';
 import TableWrapper from './components/TableWrapper';
 import company from '../../assets/images/company.png';
 import ExperienceLevel from './components/ExperienceLevel';
-import { Box, Grid, TableCell, TableRow } from '@mui/material';
+import { Box, Grid, TableCell, TableRow, Typography } from '@mui/material';
+
 
 const data = [
     {
@@ -178,7 +179,7 @@ function ConnectionsPage() {
 
     return (
         <Box sx={{ ml: '35px' }}>
-            <Header setUsers={setUsers} data={data} />
+            <Header setUsers={setUsers} data={data} tittle={'ConnectionPage'} />
             <Grid container mt={'20px'}>
                 <TableWrapper
                     handleChangePage={handleChangePage}
@@ -206,7 +207,7 @@ function ConnectionsPage() {
                                         }}
                                     >
                                         <UserDetails user={user} />
-                                        <UserActions user={user} />
+                                        <UserActions user={user} title={'ConnectionPage'} />
                                     </Box>
                                     <Box
                                         sx={{
@@ -224,6 +225,26 @@ function ConnectionsPage() {
                                                 title={item.title}
                                             />
                                         ))}
+                                        <Typography
+                                            component={'div'}
+                                            sx={{
+                                                width: '7px',
+                                                height: '7px',
+                                                borderRadius: '100px',
+                                                background: '#494949',
+                                                border: '2px solid #494949'
+                                            }}
+                                        /> <Typography
+                                            component={'div'}
+                                            sx={{
+                                                ml: '8px',
+                                                width: '7px',
+                                                height: '7px',
+                                                borderRadius: '100px',
+                                                background: '#494949',
+                                                border: '2px solid #494949'
+                                            }}
+                                        />
                                     </Box>
                                 </TableCell>
                             </TableRow>
