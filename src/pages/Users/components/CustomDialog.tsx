@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -35,7 +34,7 @@ function CustomDialogTitle(props: DialogTitleProps) {
                 pt: 3.75,
                 pb: 2.25,
                 display: 'flex',
-                alignItems: 'center',
+                alignItems: 'center'
             }}
             {...other}
         >
@@ -57,7 +56,7 @@ function CustomDialogTitle(props: DialogTitleProps) {
                     sx={{
                         bgcolor: '#808080',
                         color: '#FFFFFF',
-                        p: 0.625,
+                        p: 0.625
                     }}
                 >
                     <CloseIcon sx={{ fontSize: '12.75px' }} />
@@ -72,7 +71,7 @@ export default function CustomDialog({
     open,
     title,
     onClose,
-    children,
+    children
 }: DialogProps) {
     function handleClose() {
         if (onClose) onClose();
@@ -86,15 +85,15 @@ export default function CustomDialog({
             aria-labelledby="customized-dialog-title"
             open={!!open}
             sx={{
-              "& .MuiDialogContent-root": {
-                paddingX: 4,
-                paddingBottom: actions ? 3 : 4,
-                paddingTop: 0,
-              },
-              "& .MuiDialogActions-root": {
-                paddingX: 4,
-                paddingY: 2.5,
-              }
+                '& .MuiDialogContent-root': {
+                    paddingX: 4,
+                    paddingBottom: actions ? 3 : 4,
+                    paddingTop: 0
+                },
+                '& .MuiDialogActions-root': {
+                    paddingX: 4,
+                    paddingY: 2.5
+                }
             }}
         >
             <CustomDialogTitle
@@ -107,18 +106,15 @@ export default function CustomDialog({
                 sx={{
                     mx: 4,
                     mb: 0.125,
-                    borderBottomWidth: 2,
+                    borderBottomWidth: 2
                 }}
             />
             <DialogContent>{children}</DialogContent>
             {actions && (
                 <Box bgcolor="#FFFAF1">
-                    <DialogActions>
-                        {actions}
-                    </DialogActions>
+                    <DialogActions>{actions}</DialogActions>
                 </Box>
-            )
-            }
+            )}
         </Dialog>
     );
 }

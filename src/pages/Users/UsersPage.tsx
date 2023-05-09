@@ -36,8 +36,10 @@ import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 import { Ranking } from './types/Ranking';
 import EditProfileInfoDialog from './components/EditProfileInfoDialog';
 import ScoreCard from '../../components/ScoreCard.tsx';
+import { useState } from 'react';
 
 function UsersPage() {
+    const [openProfileModal, setOpenProfileModal] = useState(true);
     return (
         <Container
             style={{
@@ -758,7 +760,10 @@ function UsersPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <EditProfileInfoDialog />
+            <EditProfileInfoDialog
+                open={openProfileModal}
+                setOpen={setOpenProfileModal}
+            />
         </Container>
     );
 }
