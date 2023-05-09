@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Box, Divider } from '@mui/material';
-import CloseIcon from '../../../assets/icons/CloseIcon';
+import CloseIcon from '../../../../assets/icons/CloseIcon';
 
 export interface DialogProps {
     open: boolean;

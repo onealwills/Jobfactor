@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { ChangeEvent, useState } from 'react';
-import CustomDialog from '../CustomDialog';
+import CustomDialog from './CustomDialog';
 
 interface IEditProfileAboutMeDialogProps {
     open: boolean;

@@ -2,36 +2,40 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import InputBase from '@mui/material/InputBase';
-import EmailFormIcon from '../../../assets/icons/EmailFormIcon';
+import EmailFormIcon from '../../../../assets/icons/EmailFormIcon';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 import CustomDialog from './CustomDialog';
 
 import List from '@mui/material/List';
 
-import ProfileInfoListItem from './ProfileInfoListItem';
-import PhoneFormIcon from '../../../assets/icons/PhoneFormIcon';
-import LocationFormIcon from '../../../assets/icons/LocationFormIcon';
-import BirthdayFormIcon from '../../../assets/icons/BirthdayFormIcon';
+import ProfileInfoListItem from '../ProfileInfoListItem';
+import PhoneFormIcon from '../../../../assets/icons/PhoneFormIcon';
+import LocationFormIcon from '../../../../assets/icons/LocationFormIcon';
+import BirthdayFormIcon from '../../../../assets/icons/BirthdayFormIcon';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
+
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
 import { useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 
-import JobFactorIcon from '../../../assets/icons/JobfactorIconMui';
+import JobFactorIcon from '../../../../assets/icons/JobfactorIconMui';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import PlaceIcon from '@mui/icons-material/Place';
 import CakeIcon from '@mui/icons-material/Cake';
 
-interface IEditProfileInfoDialogProps {
+interface IEditContactInfoDialogProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EditContactInfoDialog = (props: IEditProfileInfoDialogProps) => {
+const EditContactInfoDialog = (props: IEditContactInfoDialogProps) => {
 
     const [ editing, setEditing ] = useState<boolean>(false);
 
@@ -53,18 +57,43 @@ const EditContactInfoDialog = (props: IEditProfileInfoDialogProps) => {
             onClose={handleOnClose}
             title="Ronald Richard"
             actions={editing &&
-                <Grid container justifyContent="space-between">
+                <Grid container justifyContent="space-between" alignItems="center">
                     <Button
-                        variant="contained"
-                        sx={{ color: '#FFFFFF', mr: 1.25, width: 'auto' }}
+                        variant="outlined"
+                        sx={{
+                            width: 'auto',
+                            height: '36px',
+                            borderRadius: '20px',
+                            lineHeight: 1,
+                        }}
+                        startIcon={<PeopleAltIcon htmlColor="#49B6FF"/>}
+                        endIcon={<ArrowDropDownIcon />}
                     >
-                        Save
+                        <Typography
+                            fontWeight={400}
+                            fontSize={14}
+                            sx={{
+                                textTransform: 'none',
+                            }}
+                            lineHeight={1}
+                        >
+                            Connections
+                        </Typography>
                     </Button>
                     <Button
                         variant="contained"
-                        sx={{ color: '#FFFFFF', mr: 1.2, width: 'auto' }}
+                        sx={{ color: '#FFFFFF', width: 'auto' }}
                     >
-                        Save
+                        <Typography
+                            fontWeight={600}
+                            fontSize={14}
+                            sx={{
+                                textTransform: 'none',
+                                py: .75,
+                            }}
+                        >
+                            Save
+                        </Typography>
                     </Button>
                 </Grid>
             }
