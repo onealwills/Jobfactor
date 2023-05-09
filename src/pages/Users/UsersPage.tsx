@@ -34,22 +34,22 @@ import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
 import { Ranking } from './types/Ranking';
-import EditProfileInfoDialog from './components/EditContactInfoDialog';
+import EditContactInfoDialog from './components/EditContactInfoDialog';
 import ScoreCard from '../../components/ScoreCard.tsx';
 import { useState } from 'react';
 import EditProfileAboutMeDialog from './components/Modals/EditProfileAboutMeDialog';
 import EditIcon from '../../assets/icons/EditIcon';
 
 function UsersPage() {
-    const [openProfileModal, setOpenProfileModal] = useState(false);
+    const [openContactInfoModal, setOpenContactInfoModal] = useState(false);
     const [openAboutMeModal, setOpenAboutMeModal] = useState(false);
 
     const handleOnEditAboutMe = () => {
         setOpenAboutMeModal(true);
     };
 
-    const handleOnEditProfile = () => {
-        setOpenProfileModal(true);
+    const handleOnEditContactInfo = () => {
+        setOpenContactInfoModal(true);
     };
 
     return (
@@ -218,7 +218,6 @@ function UsersPage() {
                                                                     px: 1,
                                                                     py: 1.25,
                                                                 }}
-                                                                onClick={handleOnEditProfile}
                                                             >
                                                                 <EditIcon fontSize="small" />
                                                             </Button>
@@ -285,6 +284,7 @@ function UsersPage() {
                                                         px: 1,
                                                         py: 1.25,
                                                     }}
+                                                    onClick={handleOnEditContactInfo}
                                                 >
                                                     <EditIcon fontSize="small" />
                                                 </Button>
@@ -853,9 +853,9 @@ function UsersPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <EditProfileInfoDialog
-                open={openProfileModal}
-                setOpen={setOpenProfileModal}
+            <EditContactInfoDialog
+                open={openContactInfoModal}
+                setOpen={setOpenContactInfoModal}
             />
             <EditProfileAboutMeDialog
                 open={openAboutMeModal}
