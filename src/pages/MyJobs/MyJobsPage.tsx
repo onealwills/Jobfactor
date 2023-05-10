@@ -4,6 +4,7 @@ import JobsList from './components/JobsList/JobsList';
 import AspiringJobs from './components/AspiringJobs';
 import { IJobItem } from './types/IJobItem';
 import shellLogo from '../../assets/images/shellLogo.png';
+import ApplyJob from './components/JobItem/ApplyJob';
 
 function MyJobsPage() {
     const item: IJobItem = {
@@ -12,10 +13,10 @@ function MyJobsPage() {
         jobTitle: 'Product Designer',
         companyLogo: shellLogo,
         keywords: [
-            { name: 'Office Environment', type: 'L' },
-            { name: 'Job Security', type: 'A' },
-            { name: 'Job Security', type: 'E' },
-            { name: 'Job Security', type: 'E' }
+            { name: 'Office Environment', type: 'L', showbackground: true },
+            { name: 'Job Security', type: 'A', showbackground: true },
+            { name: 'Job Security', type: 'E', showbackground: true },
+            { name: 'Job Security', type: 'E', showbackground: true }
         ],
         jobType: 'Full-time',
         salary: 'N250,000 a month',
@@ -23,10 +24,9 @@ function MyJobsPage() {
         requirements: {
             minJobFactorScore: 550,
             keywords: [
-                { name: 'Visual Design', type: 'B' },
-                { name: 'Motion Design', type: 'B' },
-                { name: 'Prototyping', type: 'B' },
-                { name: 'Prototyping', type: 'B' }
+                { name: 'Visual Design', type: 'B', showbackground: false },
+                { name: 'Motion Design', type: 'A', showbackground: false },
+                { name: 'Prototyping', type: 'X', showbackground: false }
             ],
             responsibilities: [
                 'Experience as a UI/UX designer or similar role for digital products and services ',
@@ -40,18 +40,16 @@ function MyJobsPage() {
     return (
         <Box
             sx={{
-                mt: -6,
-                ml: 2,
-                mx: '40px',
-                maxWidth: 1072
+                marginLeft: '15px'
             }}
         >
-            <JobsHeader />
+            <JobsHeader title="Jobs" />
             <JobsList
                 title={'Recommended for you'}
                 description={'Based on your profile'}
                 data={data}
                 showMetrics={true}
+                showheader={true}
             />
             <AspiringJobs />
             <JobsList
@@ -59,6 +57,7 @@ function MyJobsPage() {
                 description={'Because you expressed interest in remote work'}
                 data={data}
                 showMetrics={false}
+                showheader={true}
             />
             <JobsList
                 title={'More jobs for you'}
@@ -67,6 +66,7 @@ function MyJobsPage() {
                 }
                 data={data}
                 showMetrics={false}
+                showheader={true}
             />
         </Box>
     );

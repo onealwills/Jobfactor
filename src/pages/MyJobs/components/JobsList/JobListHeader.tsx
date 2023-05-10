@@ -24,11 +24,12 @@ const JobListHeader = (props: { title: string; description: string }) => {
             </Box>
             <Button
                 sx={{
-                    backgroundColor: '#FCFBF8',
+                    backgroundColor: '#F2F2F2',
                     color: '#05668D',
-                    borderRadius: '8px',
+                    borderRadius: '5px',
                     textTransform: 'none',
                     maxHeight: '36px',
+                    padding: '5px 15px',
                     mt: 1.5
                 }}
             >

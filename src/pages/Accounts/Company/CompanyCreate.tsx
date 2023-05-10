@@ -11,8 +11,16 @@ import OnboardingSteps from '../OnboardingSteps/OnboardingSteps';
 import { Link, useNavigate } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { GlobalState, useStateMachine } from 'little-state-machine';
-import { CreateAccountType, CreateCompanyAccountRequest, CreateProAccountRequest } from '../../../utils/hooks/api/account/types';
-import { clearAction, updateAction, updateStep } from '../Professional/CreationSteps/updateAction';
+import {
+    CreateAccountType,
+    CreateCompanyAccountRequest,
+    CreateProAccountRequest
+} from '../../../utils/hooks/api/account/types';
+import {
+    clearAction,
+    updateAction,
+    updateStep
+} from '../Professional/CreationSteps/updateAction';
 import { useCreateCompanyAccount } from '../../../utils/hooks/api/account/useCreateProAccount';
 import EmailFormIcon from '../../../assets/icons/EmailFormIcon';
 import ErrorFormIcon from '../../../assets/icons/ErrorFormIcon';
@@ -39,7 +47,11 @@ function CompanyCreate() {
     } = useForm<ICompanyInfo>();
 
     const { isDirty, isValid, errors } = formState;
-    const { actions, state, getState } = useStateMachine({ updateAction, updateStep, clearAction });
+    const { actions, state, getState } = useStateMachine({
+        updateAction,
+        updateStep,
+        clearAction
+    });
 
     const createAccountMutation = useCreateCompanyAccount();
 
@@ -49,12 +61,11 @@ function CompanyCreate() {
                 emailAddress: data.data.emailAddress,
                 password: data.data.password,
                 companyName: data.data.companyName
-            }
-            
+            };
+
             if (request !== undefined) {
                 createAccountMutation.mutate(request, {
                     onSuccess: async (data) => {
-                        console.log({onSuccess: data});
                         actions.clearAction();
                         navigate('/create-account/confirmEmail');
                     },
@@ -62,7 +73,7 @@ function CompanyCreate() {
                         console.error(error);
                         alert(error);
                     }
-                })
+                });
             }
         }
     };
