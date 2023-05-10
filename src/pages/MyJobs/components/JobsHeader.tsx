@@ -8,7 +8,6 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const JobsHeader = (props: { title: string }) => {
-
     const { title } = props;
     const [date, setDate] = React.useState('');
     const [location, setLocation] = React.useState('');
@@ -17,11 +16,9 @@ const JobsHeader = (props: { title: string }) => {
     const handleChange = (event: SelectChangeEvent, filter: string) => {
         if (filter === 'date') {
             setDate(event.target.value as string);
-        }
-        else if (filter === 'location') {
+        } else if (filter === 'location') {
             setLocation(event.target.value as string);
-        }
-        else if (filter === 'type') {
+        } else if (filter === 'type') {
             setType(event.target.value as string);
         }
     };
@@ -57,12 +54,16 @@ const JobsHeader = (props: { title: string }) => {
             >
                 <Box sx={{ minWidth: 150 }}>
                     <FormControl variant="filled" sx={{ m: 1, minWidth: 150 }}>
-                        <InputLabel id="demo-simple-select-filled-label">Date Posted</InputLabel>
+                        <InputLabel id="demo-simple-select-filled-label">
+                            Date Posted
+                        </InputLabel>
                         <Select
                             labelId="demo-simple-select-filled-label"
                             id="demo-simple-select-filled"
                             value={date}
-                            onChange={(e) => { handleChange(e, 'date') }}
+                            onChange={(e) => {
+                                handleChange(e, 'date');
+                            }}
                         >
                             <MenuItem value="">
                                 <em>None</em>
@@ -75,12 +76,16 @@ const JobsHeader = (props: { title: string }) => {
                 </Box>
                 <Box sx={{ minWidth: 150 }}>
                     <FormControl variant="filled" sx={{ m: 1, minWidth: 150 }}>
-                        <InputLabel id="demo-simple-select-filled-label">Location Type</InputLabel>
+                        <InputLabel id="demo-simple-select-filled-label">
+                            Location Type
+                        </InputLabel>
                         <Select
                             labelId="demo-simple-select-filled-label"
                             id="demo-simple-select-filled"
                             value={location}
-                            onChange={(e) => { handleChange(e, 'location') }}
+                            onChange={(e) => {
+                                handleChange(e, 'location');
+                            }}
                         >
                             <MenuItem value="">
                                 <em>None</em>
@@ -93,12 +98,16 @@ const JobsHeader = (props: { title: string }) => {
                 </Box>
                 <Box sx={{ minWidth: 150 }}>
                     <FormControl variant="filled" sx={{ m: 1, minWidth: 150 }}>
-                        <InputLabel id="demo-simple-select-filled-label">Job Type</InputLabel>
+                        <InputLabel id="demo-simple-select-filled-label">
+                            Job Type
+                        </InputLabel>
                         <Select
                             labelId="demo-simple-select-filled-label"
                             id="demo-simple-select-filled"
                             value={type}
-                            onChange={(e) => { handleChange(e, 'type') }}
+                            onChange={(e) => {
+                                handleChange(e, 'type');
+                            }}
                         >
                             <MenuItem value="">
                                 <em>None</em>

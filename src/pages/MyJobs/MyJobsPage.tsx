@@ -26,7 +26,7 @@ function MyJobsPage() {
             keywords: [
                 { name: 'Visual Design', type: 'B', showbackground: false },
                 { name: 'Motion Design', type: 'A', showbackground: false },
-                { name: 'Prototyping', type: 'X', showbackground: false },
+                { name: 'Prototyping', type: 'X', showbackground: false }
             ],
             responsibilities: [
                 'Experience as a UI/UX designer or similar role for digital products and services ',
@@ -43,7 +43,7 @@ function MyJobsPage() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader title='Jobs' />
+            <JobsHeader title="Jobs" />
             <JobsList
                 title={'Recommended for you'}
                 description={'Based on your profile'}

@@ -17,7 +17,7 @@ const ScoreCard = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
 
     const diameter = Math.PI * 2 * radius;
     const percentage = (value / divider) * 100;
-    const [color, setColor] = React.useState('transparent')
+    const [color, setColor] = React.useState('transparent');
     React.useEffect(() => {
         if (value === 250) {
             setColor('#808080');
@@ -34,9 +34,9 @@ const ScoreCard = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
         } else {
             setColor('transparent');
         }
-    }, [value, divider])
+    }, [value, divider]);
     return (
-        <Box component='span'>
+        <Box component="span">
             <svg
                 className={'CircularProgressbar'}
                 viewBox="0 0 100 100"
@@ -88,8 +88,9 @@ const ScoreCard = ({ strokeWidth = 12, value = 0, divider = 100 }: Props) => {
                         stroke: color,
                         strokeLinecap: 'round',
                         strokeDasharray: `${diameter}px ${diameter}px`,
-                        strokeDashoffset: `${((100 - percentage) / 100) * diameter
-                            }px`,
+                        strokeDashoffset: `${
+                            ((100 - percentage) / 100) * diameter
+                        }px`,
                         transform: 'rotate(0.5turn)',
                         transformOrigin: 'center center',
                         transition: 'stroke-dashoffset 0.5s ease 0s'

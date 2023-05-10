@@ -31,7 +31,7 @@ const Pagination = (props: any) => {
                                 variant="contained"
                                 sx={{
                                     background: '#FCFBF8',
-                                    textTransform:'capitalize',
+                                    textTransform: 'capitalize',
                                     color: '#05668D',
                                     boxShadow: 'none',
                                     ':hover': {
@@ -100,7 +100,7 @@ const Pagination = (props: any) => {
                                 variant="contained"
                                 sx={{
                                     background: '#FCFBF8',
-                                    textTransform:'capitalize',
+                                    textTransform: 'capitalize',
                                     color: '#05668D',
                                     boxShadow: 'none',
                                     ':hover': {

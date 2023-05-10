@@ -305,7 +305,6 @@ function PendingConnection() {
         setTab(type);
     };
 
-
     React.useEffect(() => {
         setUsers(data);
     }, []);
@@ -313,7 +312,11 @@ function PendingConnection() {
     return (
         <>
             <Box sx={{ ml: '35px' }}>
-                <Header setUsers={setUsers} data={data} tittle={'PendingConnections'} />
+                <Header
+                    setUsers={setUsers}
+                    data={data}
+                    tittle={'PendingConnections'}
+                />
                 <Grid container mt={'20px'}>
                     <Tabs changeTab={changeTab} tab={tab} />
                     <TabPanel activeTab={tab} tab={'sent'} data={companies} />

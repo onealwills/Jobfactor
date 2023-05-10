@@ -10,7 +10,6 @@ import VerifiedIcon from '../../../../assets/icons/VerifiedIcon';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import ApplyJob from './ApplyJob';
 
-
 const JobItem = (props: { jobInfo: IJobItem }) => {
     const { jobInfo } = props;
 
@@ -18,11 +17,11 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
     const [alreadyapply, setAlreadyApply] = useState<boolean>(false);
 
     const onHideJob = (e: any) => {
-        setApplyjob(false)
+        setApplyjob(false);
         if (e === 'submit') {
-            setAlreadyApply(true)
+            setAlreadyApply(true);
         }
-    }
+    };
 
     const CompanyInfo = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
@@ -67,7 +66,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '8px',
+                                        gap: '8px'
                                     }}
                                 >
                                     <Typography
@@ -78,7 +77,6 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                             color: '#808080',
                                             textTransform: 'uppercase'
                                         }}
-
                                     >
                                         {jobInfo.companyName}
                                     </Typography>
@@ -115,13 +113,23 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                         >
                             {jobInfo.jobFitMetric}
                         </Box>
-                        {jobInfo?.savedjob ?
-                            <Box sx={{ backgroundColor: '#FCFBF8', width: '40px', height: '40px', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {jobInfo?.savedjob ? (
+                            <Box
+                                sx={{
+                                    backgroundColor: '#FCFBF8',
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}
+                            >
                                 <TurnedInIcon style={{ color: '#FFC24C' }} />
                             </Box>
-                            :
+                        ) : (
                             <JobBookmarkIcon />
-                        }
+                        )}
                     </Box>
                 </Box>
 
@@ -133,9 +141,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
     const JobPostingRequirements = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
         return (
-            <Box
-                sx={{ backgroundColor: '#FCFBF8', padding: '20px' }}
-            >
+            <Box sx={{ backgroundColor: '#FCFBF8', padding: '20px' }}>
                 <Typography
                     sx={{
                         fontFamily: 'Open Sans',
@@ -173,7 +179,10 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     >
                         Minimum JobFactor Score:
                     </Typography>
-                    <Typography variant={'titleSmallSemiBold'} color={'#808080'}>
+                    <Typography
+                        variant={'titleSmallSemiBold'}
+                        color={'#808080'}
+                    >
                         {jobInfo.requirements.minJobFactorScore}
                     </Typography>
                 </Box>
@@ -284,7 +293,6 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         );
     };
 
-
     const JobPostingCTA = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
         const jobId = 1234;
@@ -298,18 +306,20 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     marginTop: '20px'
                 }}
             >
-                {(!jobInfo?.alreadyapply && !alreadyapply) ?
+                {!jobInfo?.alreadyapply && !alreadyapply ? (
                     <Button
                         variant="contained"
                         sx={{
                             padding: '10px 15px',
                             width: 'fit-content'
                         }}
-                        onClick={() => { setApplyjob(true) }}
+                        onClick={() => {
+                            setApplyjob(true);
+                        }}
                     >
                         Apply
                     </Button>
-                    :
+                ) : (
                     <Button
                         variant="contained"
                         sx={{
@@ -320,10 +330,12 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     >
                         Applied
                     </Button>
-                }
+                )}
                 <Button
                     variant="outlined"
-                    onClick={() => navigate(`/my-jobs/${jobId}`, { state: jobInfo })}
+                    onClick={() =>
+                        navigate(`/my-jobs/${jobId}`, { state: jobInfo })
+                    }
                     sx={{
                         padding: '10px 15px',
                         width: 'fit-content',
@@ -332,7 +344,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                 >
                     View Details
                 </Button>
-            </Box >
+            </Box>
         );
     };
 
@@ -348,9 +360,14 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         >
             <CompanyInfo jobInfo={jobInfo} />
             <JobPostingRequirements jobInfo={jobInfo} />
-            <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
+            <ApplyJob
+                showModal={applyjob}
+                hideModal={(e) => {
+                    onHideJob(e);
+                }}
+            />
         </Box>
     );
-}
+};
 
 export default JobItem;

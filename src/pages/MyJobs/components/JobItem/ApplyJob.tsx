@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Typography, IconButton, InputBase } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { styled } from '@mui/material/styles';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import LinearProgress, {
+    linearProgressClasses
+} from '@mui/material/LinearProgress';
 import profile from '../../../../assets/images/profile.png';
 import Edit from '../../../../assets/icons/Edit';
 import Cancel from '../../../../assets/icons/Cancel';
@@ -17,7 +19,6 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 
-
 const modalstyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -30,27 +31,32 @@ const modalstyle = {
     p: 4,
     outline: 'none',
     maxHeight: 800,
-    overflowY: 'auto',
-
+    overflowY: 'auto'
 };
 
 interface ApplyJobProps {
-    showmoadl: boolean,
-    Hidemodal: (e?: any) => void
+    showModal: boolean;
+    hideModal: (e?: any) => void;
 }
 
-const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
-
+const ApplyJob = ({ showModal, hideModal }: ApplyJobProps) => {
     const [progress, setProgress] = useState<number>(25);
     const [showall, setShowAll] = useState<boolean>(false);
 
     useEffect(() => {
-        setProgress(25)
-        setShowAll(false)
-    }, [showmoadl])
+        setProgress(25);
+        setShowAll(false);
+    }, [showModal]);
+
+    const handleShow = () => {
+        if (showall) {
+            setShowAll(false);
+        } else {
+            setProgress(progress - 25);
+        }
+    };
 
     const ProgressBar = () => {
-
         const ProgressBarLiner = styled(LinearProgress)(({ theme }) => ({
             height: 10,
             borderRadius: 5,
@@ -59,41 +65,99 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
             },
             [`& .${linearProgressClasses.bar}`]: {
                 borderRadius: 5,
-                backgroundColor: '#FFC24C',
-            },
-        }
-        ));
+                backgroundColor: '#FFC24C'
+            }
+        }));
 
         return (
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}
+            >
                 <Box sx={{ width: '95%' }}>
                     <ProgressBarLiner variant="determinate" value={progress} />
                 </Box>
                 <Box sx={{ minWidth: 30, textAlign: 'right' }}>
-                    <Typography variant="body2" color="text.secondary">{`${Math.round(progress)}%`}</Typography>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                    >{`${Math.round(progress)}%`}</Typography>
                 </Box>
             </Box>
-        )
-    }
+        );
+    };
 
     const ContactInfo = () => {
         return (
             <>
                 <Box sx={{ display: 'flex', width: '100%', marginTop: '20px' }}>
                     <Box>
-                        <img height={80} width={80} src={profile} alt="icon" style={{ borderRadius: 100 }} />
+                        <img
+                            height={80}
+                            width={80}
+                            src={profile}
+                            alt="icon"
+                            style={{ borderRadius: 100 }}
+                        />
                     </Box>
-                    <Box sx={{ marginLeft: '15px' }} >
-                        <p style={{ marginBottom: '4px', marginTop: 0, fontSize: '16px', fontWeight: '700' }}>{'Ronald Richards'}</p>
-                        <p style={{ marginBottom: '4px', marginTop: 0, fontSize: '16px', fontWeight: '400' }}>{'Product Designer'}</p>
-                        <p style={{ marginBottom: '4px', marginTop: 0, fontSize: '14px', fontWeight: '400', color: '#808080' }}>{'Austin , USA'}</p>
+                    <Box sx={{ marginLeft: '15px' }}>
+                        <p
+                            style={{
+                                marginBottom: '4px',
+                                marginTop: 0,
+                                fontSize: '16px',
+                                fontWeight: '700'
+                            }}
+                        >
+                            {'Ronald Richards'}
+                        </p>
+                        <p
+                            style={{
+                                marginBottom: '4px',
+                                marginTop: 0,
+                                fontSize: '16px',
+                                fontWeight: '400'
+                            }}
+                        >
+                            {'Product Designer'}
+                        </p>
+                        <p
+                            style={{
+                                marginBottom: '4px',
+                                marginTop: 0,
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                color: '#808080'
+                            }}
+                        >
+                            {'Austin , USA'}
+                        </p>
                     </Box>
                 </Box>
-                <Box sx={{ marginTop: '24px', display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                <Box
+                    sx={{
+                        marginTop: '24px',
+                        display: 'flex',
+                        width: '100%',
+                        justifyContent: 'space-between'
+                    }}
+                >
                     <Box>
-                        <p style={{ margin: 0, fontSize: '20px', fontWeight: '600', color: '#23282B' }}>{'Contact Info'}</p>
+                        <p
+                            style={{
+                                margin: '0px',
+                                fontSize: '20px',
+                                fontWeight: '600',
+                                color: '#23282B'
+                            }}
+                        >
+                            {'Contact Info'}
+                        </p>
                     </Box>
-                    {!showall ?
+                    {!showall ? (
                         <Box
                             sx={{
                                 alignItems: 'center',
@@ -103,8 +167,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                 color: '#05668D',
                                 fontWeight: '700',
                                 backgroundColor: '#FCFBF8',
-                                borderRadius: "8px",
-                                padding: '0 12px'
+                                borderRadius: '8px',
+                                padding: '0px 12px'
                             }}
                         >
                             <IconButton
@@ -117,7 +181,7 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                             </IconButton>
                             Edit
                         </Box>
-                        :
+                    ) : (
                         <Box
                             sx={{
                                 alignItems: 'center',
@@ -127,8 +191,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                 color: '#05668D',
                                 fontWeight: '700',
                                 backgroundColor: '#FCFBF8',
-                                borderRadius: "8px",
-                                padding: '0 12px'
+                                borderRadius: '8px',
+                                padding: '0px 12px'
                             }}
                         >
                             Edit
@@ -141,79 +205,241 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                 <Edit />
                             </IconButton>
                         </Box>
-                    }
+                    )}
                 </Box>
                 <Box sx={{ width: '100%', marginTop: '12px' }}>
-                    <Box sx={{ marginBottom: '15px', display: 'flex', width: '100%' }}>
+                    <Box
+                        sx={{
+                            marginBottom: '15px',
+                            display: 'flex',
+                            width: '100%'
+                        }}
+                    >
                         <Box sx={{ width: '40px' }}>
                             <LogoIcon />
                         </Box>
                         <Box sx={{ width: '95%' }}>
-                            <p style={{ margin: 0, marginBottom: '8px', fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Yoour Profile'}</p>
-                            <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#055C7F' }}>{'https://RonaldRichards.info'}</p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    marginBottom: '8px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#23282B'
+                                }}
+                            >
+                                {'Yoour Profile'}
+                            </p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    fontSize: '14px',
+                                    fontWeight: '400',
+                                    color: '#055C7F'
+                                }}
+                            >
+                                {'https://RonaldRichards.info'}
+                            </p>
                         </Box>
                     </Box>
                     <Box></Box>
-                    <Box sx={{ marginBottom: '15px', display: 'flex', width: '100%' }}>
+                    <Box
+                        sx={{
+                            marginBottom: '15px',
+                            display: 'flex',
+                            width: '100%'
+                        }}
+                    >
                         <Box sx={{ width: '40px' }}>
                             <Phone />
                         </Box>
                         <Box sx={{ width: '95%' }}>
-                            <p style={{ margin: 0, marginBottom: '8px', fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Phone'}</p>
-                            <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#23282B' }}>{'+234704 5550114'} <span style={{ color: '#808080' }}>{'(office)'}</span></p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    marginBottom: '8px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#23282B'
+                                }}
+                            >
+                                {'Phone'}
+                            </p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    fontSize: '14px',
+                                    fontWeight: '400',
+                                    color: '#23282B'
+                                }}
+                            >
+                                {'+234704 5550114'}{' '}
+                                <span style={{ color: '#808080' }}>
+                                    {'(office)'}
+                                </span>
+                            </p>
                         </Box>
                     </Box>
-                    <Box sx={{ marginBottom: '15px', display: 'flex', width: '100%' }}>
+                    <Box
+                        sx={{
+                            marginBottom: '15px',
+                            display: 'flex',
+                            width: '100%'
+                        }}
+                    >
                         <Box sx={{ width: '40px' }}>
                             <Location />
                         </Box>
                         <Box sx={{ width: '95%' }}>
-                            <p style={{ margin: 0, marginBottom: '8px', fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Address'}</p>
-                            <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#055C7F' }}>{'3891 Ranchview Dr. Richardson, California 62639'}</p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    marginBottom: '8px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#23282B'
+                                }}
+                            >
+                                {'Address'}
+                            </p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    fontSize: '14px',
+                                    fontWeight: '400',
+                                    color: '#055C7F'
+                                }}
+                            >
+                                {
+                                    '3891 Ranchview Dr. Richardson, California 62639'
+                                }
+                            </p>
                         </Box>
                     </Box>
-                    <Box sx={{ marginBottom: '15px', display: 'flex', width: '100%' }}>
+                    <Box
+                        sx={{
+                            marginBottom: '15px',
+                            display: 'flex',
+                            width: '100%'
+                        }}
+                    >
                         <Box sx={{ width: '40px' }}>
                             <Mail />
                         </Box>
                         <Box sx={{ width: '95%' }}>
-                            <p style={{ margin: 0, marginBottom: '8px', fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Email'}</p>
-                            <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#055C7F' }}>{'Ronaldrichie@outlook.com'}</p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    marginBottom: '8px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#23282B'
+                                }}
+                            >
+                                {'Email'}
+                            </p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    fontSize: '14px',
+                                    fontWeight: '400',
+                                    color: '#055C7F'
+                                }}
+                            >
+                                {'Ronaldrichie@outlook.com'}
+                            </p>
                         </Box>
                     </Box>
-                    <Box sx={{ marginBottom: '15px', display: 'flex', width: '100%' }}>
+                    <Box
+                        sx={{
+                            marginBottom: '15px',
+                            display: 'flex',
+                            width: '100%'
+                        }}
+                    >
                         <Box sx={{ width: '40px' }}>
                             <Birthday />
                         </Box>
                         <Box sx={{ width: '95%' }}>
-                            <p style={{ margin: 0, marginBottom: '8px', fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Birthday'}</p>
-                            <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#055C7F' }}>{'May 29'}</p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    marginBottom: '8px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#23282B'
+                                }}
+                            >
+                                {'Birthday'}
+                            </p>
+                            <p
+                                style={{
+                                    margin: '0px',
+                                    fontSize: '14px',
+                                    fontWeight: '400',
+                                    color: '#055C7F'
+                                }}
+                            >
+                                {'May 29'}
+                            </p>
                         </Box>
                     </Box>
                 </Box>
-                {!showall &&
+                {!showall ? (
                     <Box sx={{ width: '100%', marginTop: '30px' }}>
-                        <Button variant="contained" sx={{ py: 1 }} onClick={() => { setProgress(progress + 25) }}>
+                        <Button
+                            variant="contained"
+                            sx={{ py: 1 }}
+                            onClick={() => {
+                                setProgress(progress + 25);
+                            }}
+                        >
                             Next
                         </Button>
                     </Box>
-                }
+                ) : null}
             </>
-        )
-    }
+        );
+    };
 
     const EducationInfo = () => {
         return (
             <>
                 <Box sx={{ marginTop: '20px' }}>
-                    <p style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Education'}</p>
+                    <p
+                        style={{
+                            margin: '0px',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#23282B'
+                        }}
+                    >
+                        {'Education'}
+                    </p>
                 </Box>
-                <Box sx={{ marginTop: '24px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box
+                    sx={{
+                        marginTop: '24px',
+                        display: 'flex',
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}
+                >
                     <Box>
-                        <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#494949' }}>{'1 of 2'}</p>
+                        <p
+                            style={{
+                                margin: '0px',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                color: '#494949'
+                            }}
+                        >
+                            {'1 of 2'}
+                        </p>
                     </Box>
                     <Box sx={{ gap: '10px', display: 'flex' }}>
-                        {!showall &&
+                        {!showall ? (
                             <Box
                                 sx={{
                                     alignItems: 'center',
@@ -223,8 +449,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                     color: '#05668D',
                                     fontWeight: '700',
                                     backgroundColor: '#FCFBF8',
-                                    borderRadius: "8px",
-                                    padding: '0 12px'
+                                    borderRadius: '8px',
+                                    padding: '0px 12px'
                                 }}
                             >
                                 Remove
@@ -237,7 +463,7 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                     <Delete />
                                 </IconButton>
                             </Box>
-                        }
+                        ) : null}
                         <Box
                             sx={{
                                 alignItems: 'center',
@@ -247,8 +473,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                 color: '#05668D',
                                 fontWeight: '700',
                                 backgroundColor: '#FCFBF8',
-                                borderRadius: "8px",
-                                padding: '0 12px'
+                                borderRadius: '8px',
+                                padding: '0px 12px'
                             }}
                         >
                             Edit
@@ -263,43 +489,127 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                         </Box>
                     </Box>
                 </Box>
-                <Box sx={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFFAF1', borderRadius: '5px' }}>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                <Box
+                    sx={{
+                        marginTop: '15px',
+                        padding: '15px',
+                        backgroundColor: '#FFFAF1',
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             Degree:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             Bachelor of Engineering - BENG
                         </Typography>
                     </Box>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             School:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             University of Nigeria Nsukka
                         </Typography>
                     </Box>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             Major / Field of study :
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             Electrical Engineering
                         </Typography>
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             Dates of employment:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             May 2017 - September 2022
                         </Typography>
                     </Box>
                 </Box>
-                {!showall &&
+                {!showall ? (
                     <>
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '15px', marginBottom: '80px' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                marginTop: '15px',
+                                marginBottom: '80px'
+                            }}
+                        >
                             <Box
                                 sx={{
                                     alignItems: 'center',
@@ -309,8 +619,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                     color: '#05668D',
                                     fontWeight: '700',
                                     backgroundColor: '#FCFBF8',
-                                    borderRadius: "8px",
-                                    padding: '0 12px'
+                                    borderRadius: '8px',
+                                    padding: '0px 12px'
                                 }}
                             >
                                 <IconButton
@@ -324,37 +634,86 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                 Add more
                             </Box>
                         </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between'
+                            }}
+                        >
                             <Box sx={{ width: '35%' }}>
-                                <Button style={{ backgroundColor: '#fff', color: '#05668D', borderWidth: 1, borderColor: '#05668D', borderStyle: 'solid' }} variant="contained" sx={{ py: 1 }} onClick={() => { setProgress(progress - 25) }}>
+                                <Button
+                                    style={{
+                                        backgroundColor: '#fff',
+                                        color: '#05668D',
+                                        borderWidth: 1,
+                                        borderColor: '#05668D',
+                                        borderStyle: 'solid'
+                                    }}
+                                    variant="contained"
+                                    sx={{ py: 1 }}
+                                    onClick={() => {
+                                        setProgress(progress - 25);
+                                    }}
+                                >
                                     Back
                                 </Button>
                             </Box>
                             <Box sx={{ width: '64%' }}>
-                                <Button variant="contained" sx={{ py: 1, display: 'flex', gap: '10px' }} onClick={() => { setProgress(progress + 25) }}>
-                                    Next  <EastIcon />
+                                <Button
+                                    variant="contained"
+                                    sx={{ py: 1, display: 'flex', gap: '10px' }}
+                                    onClick={() => {
+                                        setProgress(progress + 25);
+                                    }}
+                                >
+                                    Next <EastIcon />
                                 </Button>
                             </Box>
                         </Box>
                     </>
-                }
-
+                ) : null}
             </>
-        )
-    }
+        );
+    };
 
     const WorkExperience = () => {
         return (
             <>
                 <Box sx={{ marginTop: '20px' }}>
-                    <p style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Work Experience'}</p>
+                    <p
+                        style={{
+                            margin: '0px',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#23282B'
+                        }}
+                    >
+                        {'Work Experience'}
+                    </p>
                 </Box>
-                <Box sx={{ marginTop: '24px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box
+                    sx={{
+                        marginTop: '24px',
+                        display: 'flex',
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}
+                >
                     <Box>
-                        <p style={{ margin: 0, fontSize: '14px', fontWeight: '400', color: '#494949' }}>{'2 of 2'}</p>
+                        <p
+                            style={{
+                                margin: '0px',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                color: '#494949'
+                            }}
+                        >
+                            {'2 of 2'}
+                        </p>
                     </Box>
                     <Box sx={{ gap: '10px', display: 'flex' }}>
-                        {!showall &&
+                        {!showall ? (
                             <Box
                                 sx={{
                                     alignItems: 'center',
@@ -364,8 +723,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                     color: '#05668D',
                                     fontWeight: '700',
                                     backgroundColor: '#FCFBF8',
-                                    borderRadius: "8px",
-                                    padding: '0 12px'
+                                    borderRadius: '8px',
+                                    padding: '0px 12px'
                                 }}
                             >
                                 Remove
@@ -378,7 +737,7 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                     <Delete />
                                 </IconButton>
                             </Box>
-                        }
+                        ) : null}
                         <Box
                             sx={{
                                 alignItems: 'center',
@@ -388,8 +747,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                 color: '#05668D',
                                 fontWeight: '700',
                                 backgroundColor: '#FCFBF8',
-                                borderRadius: "8px",
-                                padding: '0 12px'
+                                borderRadius: '8px',
+                                padding: '0px 12px'
                             }}
                         >
                             Edit
@@ -404,51 +763,156 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                         </Box>
                     </Box>
                 </Box>
-                <Box sx={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFFAF1', borderRadius: '5px' }}>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                <Box
+                    sx={{
+                        marginTop: '15px',
+                        padding: '15px',
+                        backgroundColor: '#FFFAF1',
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             Your title:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             Product designer
                         </Typography>
                     </Box>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             Company:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             Xtera Solutions
                         </Typography>
                     </Box>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             Dates of employment:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             May 2017 - September 2022
                         </Typography>
                     </Box>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
                             Industry:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
                             Fintech
                         </Typography>
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex' }}>
-                        <Typography sx={{ color: '#808080', fontSize: '14px', fontWeight: '400', paddingRight: '15px' }}>
-                            Description::
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                paddingRight: '15px'
+                            }}
+                        >
+                            Description:
                         </Typography>
-                        <Typography sx={{ color: '#23282B', fontSize: '14px', fontWeight: '400' }}>
-                            Mi orci hendrerit eget nunc adipiscing elit augue. Leo tristique auctor commodo id nullam nam. Sed quam quis odio volutpat lobortis urna ac gravida.
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '14px',
+                                fontWeight: '400'
+                            }}
+                        >
+                            Mi orci hendrerit eget nunc adipiscing elit augue.
+                            Leo tristique auctor commodo id nullam nam. Sed quam
+                            quis odio volutpat lobortis urna ac gravida.
                         </Typography>
                     </Box>
                 </Box>
-                {!showall &&
+                {!showall ? (
                     <>
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '15px', marginBottom: '80px' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                marginTop: '15px',
+                                marginBottom: '80px'
+                            }}
+                        >
                             <Box
                                 sx={{
                                     alignItems: 'center',
@@ -458,8 +922,8 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                     color: '#05668D',
                                     fontWeight: '700',
                                     backgroundColor: '#FCFBF8',
-                                    borderRadius: "8px",
-                                    padding: '0 12px'
+                                    borderRadius: '8px',
+                                    padding: '0px 12px'
                                 }}
                             >
                                 <IconButton
@@ -473,43 +937,114 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                                 Add more
                             </Box>
                         </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between'
+                            }}
+                        >
                             <Box sx={{ width: '35%' }}>
-                                <Button style={{ backgroundColor: '#fff', color: '#05668D', borderWidth: 1, borderColor: '#05668D', borderStyle: 'solid' }} variant="contained" sx={{ py: 1 }} onClick={() => { setProgress(progress - 25) }}>
+                                <Button
+                                    style={{
+                                        backgroundColor: '#fff',
+                                        color: '#05668D',
+                                        borderWidth: 1,
+                                        borderColor: '#05668D',
+                                        borderStyle: 'solid'
+                                    }}
+                                    variant="contained"
+                                    sx={{ py: 1 }}
+                                    onClick={() => {
+                                        setProgress(progress - 25);
+                                    }}
+                                >
                                     Back
                                 </Button>
                             </Box>
                             <Box sx={{ width: '64%' }}>
-                                <Button variant="contained" sx={{ py: 1, display: 'flex', gap: '10px' }} onClick={() => { setProgress(progress + 25) }}>
-                                    Next  <EastIcon />
+                                <Button
+                                    variant="contained"
+                                    sx={{ py: 1, display: 'flex', gap: '10px' }}
+                                    onClick={() => {
+                                        setProgress(progress + 25);
+                                    }}
+                                >
+                                    Next <EastIcon />
                                 </Button>
                             </Box>
                         </Box>
                     </>
-                }
+                ) : null}
             </>
-        )
-    }
+        );
+    };
 
     const CoverLetter = () => {
         return (
             <>
                 <Box sx={{ marginTop: '20px' }}>
-                    <p style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#23282B' }}>{'Cover Letter'}</p>
+                    <p
+                        style={{
+                            margin: '0px',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#23282B'
+                        }}
+                    >
+                        {'Cover Letter'}
+                    </p>
                 </Box>
-                <Box sx={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFFAF1', borderRadius: '5px' }}>
-                    <Box sx={{ width: '100%', display: 'flex', marginBottom: '10px', alignItems: 'center' }}>
+                <Box
+                    sx={{
+                        marginTop: '15px',
+                        padding: '15px',
+                        backgroundColor: '#FFFAF1',
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: '10px',
+                            alignItems: 'center'
+                        }}
+                    >
                         <Box>
-                            <MailOutlineIcon style={{ fontSize: '18px', color: '#808080', fontWeight: '400' }} />
+                            <MailOutlineIcon
+                                style={{
+                                    fontSize: '18px',
+                                    color: '#808080',
+                                    fontWeight: '400'
+                                }}
+                            />
                         </Box>
-                        <Typography sx={{ marginBottom: '5px', padding: '0 12px', color: '#808080' }}>|</Typography>
-                        <Typography sx={{ fontSize: '14px', fontWeight: '400', color: '#808080' }}>Cover letter</Typography>
+                        <Typography
+                            sx={{
+                                marginBottom: '5px',
+                                padding: '0px 12px',
+                                color: '#808080'
+                            }}
+                        >
+                            |
+                        </Typography>
+                        <Typography
+                            sx={{
+                                fontSize: '14px',
+                                fontWeight: '400',
+                                color: '#808080'
+                            }}
+                        >
+                            Cover letter
+                        </Typography>
                     </Box>
                     <Box sx={{ width: '100%' }}>
                         <InputBase
                             rows={!showall ? 10 : 0}
                             placeholder="Write something"
-                            defaultValue={'Lorem ipsum dolor sit amet consectetur. Nec natoque ornare eleifend nascetur. Cras a lectus pretium gravida porttitor amet nisl volutpat turpis. Semper auctor quam scelerisque eget nulla rhoncus lorem purus eu. Vel sit cursus vehicula accumsan commodo odio urna.'}
+                            defaultValue={
+                                'Lorem ipsum dolor sit amet consectetur. Nec natoque ornare eleifend nascetur. Cras a lectus pretium gravida porttitor amet nisl volutpat turpis. Semper auctor quam scelerisque eget nulla rhoncus lorem purus eu. Vel sit cursus vehicula accumsan commodo odio urna.'
+                            }
                             sx={{
                                 backgroundColor: '#FCFBF8',
                                 width: '100%',
@@ -523,79 +1058,156 @@ const ApplyJob = ({ showmoadl, Hidemodal }: ApplyJobProps) => {
                         />
                     </Box>
                 </Box>
-                {!showall ?
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
+                {!showall ? (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            marginTop: '30px'
+                        }}
+                    >
                         <Box sx={{ width: '35%' }}>
-                            <Button style={{ backgroundColor: '#fff', color: '#05668D', borderWidth: 1, borderColor: '#05668D', borderStyle: 'solid' }} variant="contained" sx={{ py: 1 }} onClick={() => { setProgress(progress - 25) }}>
+                            <Button
+                                style={{
+                                    backgroundColor: '#fff',
+                                    color: '#05668D',
+                                    borderWidth: 1,
+                                    borderColor: '#05668D',
+                                    borderStyle: 'solid'
+                                }}
+                                variant="contained"
+                                sx={{ py: 1 }}
+                                onClick={() => {
+                                    setProgress(progress - 25);
+                                }}
+                            >
                                 Back
                             </Button>
                         </Box>
                         <Box sx={{ width: '64%' }}>
-                            <Button variant="contained" sx={{ py: 1, display: 'flex', gap: '10px' }} onClick={() => { setShowAll(true) }}>
-                                Next  <EastIcon />
+                            <Button
+                                variant="contained"
+                                sx={{ py: 1, display: 'flex', gap: '10px' }}
+                                onClick={() => {
+                                    setShowAll(true);
+                                }}
+                            >
+                                Next <EastIcon />
                             </Button>
                         </Box>
                     </Box>
-                    :
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '40px' }}>
+                ) : (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            width: '100%',
+                            marginTop: '40px'
+                        }}
+                    >
                         <Box sx={{ width: '35%' }}>
-                            <Button style={{ backgroundColor: '#fff', color: '#05668D', borderWidth: 1, borderColor: '#05668D', borderStyle: 'solid' }} variant="contained" sx={{ py: 1 }} onClick={() => { setShowAll(false) }}>
+                            <Button
+                                style={{
+                                    backgroundColor: '#fff',
+                                    color: '#05668D',
+                                    borderWidth: 1,
+                                    borderColor: '#05668D',
+                                    borderStyle: 'solid'
+                                }}
+                                variant="contained"
+                                sx={{ py: 1 }}
+                                onClick={() => {
+                                    setShowAll(false);
+                                }}
+                            >
                                 Back
                             </Button>
                         </Box>
                         <Box sx={{ width: '64%' }}>
-                            <Button variant="contained" sx={{ py: 1, display: 'flex', gap: '10px' }} onClick={() => { Hidemodal('submit') }}>
+                            <Button
+                                variant="contained"
+                                sx={{ py: 1, display: 'flex', gap: '10px' }}
+                                onClick={() => {
+                                    hideModal('submit');
+                                }}
+                            >
                                 Submit
                             </Button>
                         </Box>
                     </Box>
-                }
+                )}
             </>
-        )
-    }
+        );
+    };
 
     return (
-
         <Modal
-            open={showmoadl}
-            onClose={Hidemodal}
+            open={showModal}
+            onClose={hideModal}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
             <Box sx={modalstyle}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: 0, borderBottomWidth: 1, borderBottomColor: '#CCC', borderStyle: 'solid', marginBottom: '15px', paddingBottom: 1 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
-                        {progress > 25 &&
-                            <Box sx={{ cursor: 'pointer' }} onClick={() => { !showall ? setProgress(progress - 25) : setShowAll(false) }}>
-                                <KeyboardBackspaceIcon style={{ color: '#808080', fontWeight: '400' }} />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        border: 0,
+                        borderBottomWidth: 1,
+                        borderBottomColor: '#CCC',
+                        borderStyle: 'solid',
+                        marginBottom: '15px',
+                        paddingBottom: 1
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '15px'
+                        }}
+                    >
+                        {progress > 25 && (
+                            <Box
+                                sx={{ cursor: 'pointer' }}
+                                onClick={() => {
+                                    handleShow();
+                                }}
+                            >
+                                <KeyboardBackspaceIcon
+                                    style={{
+                                        color: '#808080',
+                                        fontWeight: '400'
+                                    }}
+                                />
                             </Box>
-                        }
+                        )}
                         <Box>
-                            <h4 style={{ marginTop: 0, marginBottom: 0 }}>Apply to Xteria Solutions</h4>
+                            <h4 style={{ marginTop: 0, marginBottom: 0 }}>
+                                Apply to Xteria Solutions
+                            </h4>
                         </Box>
                     </Box>
                     <Box>
-                        <div style={{ cursor: 'pointer' }} onClick={() => { Hidemodal() }}>
+                        <div
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                hideModal();
+                            }}
+                        >
                             <Cancel />
                         </div>
                     </Box>
                 </Box>
                 <ProgressBar />
-                {(progress === 25 || showall) &&
-                    <ContactInfo />
-                }
-                {(progress === 50 || showall) &&
-                    <EducationInfo />
-                }
-                {(progress === 75 || showall) &&
-                    <WorkExperience />
-                }
-                {(progress === 100 || showall) &&
-                    <CoverLetter />
-                }
+                {(progress === 25 || showall) && <ContactInfo />}
+                {(progress === 50 || showall) && <EducationInfo />}
+                {(progress === 75 || showall) && <WorkExperience />}
+                {(progress === 100 || showall) && <CoverLetter />}
             </Box>
         </Modal>
     );
-}
+};
 
-export default ApplyJob
+export default ApplyJob;

@@ -20,7 +20,9 @@ const JobsList = (props: {
     return (
         <Box sx={{ backgroundColor: '#FFFFFF', mt: '28px' }}>
             <Box sx={{ mx: 4 }}>
-                {showheader && <JobListHeader title={title} description={description} />}
+                {showheader && (
+                    <JobListHeader title={title} description={description} />
+                )}
                 {showMetrics ? <JobMetrics /> : null}
                 <Grid
                     container

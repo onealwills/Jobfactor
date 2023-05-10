@@ -3,8 +3,6 @@ import { Box, Typography } from '@mui/material';
 import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 
 const Header = () => {
-
-    
     return (
         <Box
             sx={{
@@ -12,7 +10,7 @@ const Header = () => {
                 alignContent: 'center',
                 gap: 4,
                 backgroundColor: '#fff',
-                padding:'24px'
+                padding: '24px'
             }}
         >
             <ArrowLeftIcon />
@@ -21,7 +19,8 @@ const Header = () => {
                     Job Preference
                 </Typography>
                 <Typography sx={{ color: '#808080', marginTop: '20px' }}>
-                    Update as needed to get better recommendation on Jobfactor. Employers may see these when your resume is set to public
+                    Update as needed to get better recommendation on Jobfactor.
+                    Employers may see these when your resume is set to public
                 </Typography>
             </Box>
         </Box>

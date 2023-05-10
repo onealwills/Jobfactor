@@ -13,30 +13,28 @@ import { useLocation } from 'react-router-dom';
 import ApplyJob from './ApplyJob';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
-
 const JobItemDetail = (props: { jobId?: string }) => {
-
-    const location = useLocation()
-    const jobdata = location?.state
+    const location = useLocation();
+    const jobdata = location?.state;
 
     const [applyjob, setApplyjob] = useState<boolean>(false);
     const [alreadyapply, setAlreadyApply] = useState<boolean>(false);
     const [selectedaction, setSelectedAction] = useState<any>([]);
 
     const onHideJob = (e: any) => {
-        setApplyjob(false)
+        setApplyjob(false);
         if (e === 'submit') {
-            setAlreadyApply(true)
+            setAlreadyApply(true);
         }
-    }
+    };
 
     useEffect(() => {
         if (jobdata !== '') {
             if (jobdata?.savedjob) {
-                setSelectedAction([...selectedaction, 4])
+                setSelectedAction([...selectedaction, 4]);
             }
         }
-    }, [jobdata])
+    }, [jobdata]);
 
     const jobItem: IJobItemDetail = {
         companyDescription:
@@ -102,7 +100,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
             descriptions: [
                 'Carry1st is the leading publisher of social games and interactive content in Africa. We work with studios across the globe - from Addis Ababa to Sofia to New York City - to level up their games and scale them in dynamic, new markets. To serve our customers in Africa, we’ve built out a proprietary payments and ecommerce experience which gives our users the ability to pay for digital content, even when they don’t have a credit card.',
                 'Our team is as diverse as our partners - hailing from 14 countries and companies like King, Rovio, War gaming, The Carlyle Group and Morgan Stanley. We’re a passionate, international team that works hard and has a sense of humor. We value originality of thinking, thoughtfulness and courage. Carry1st is a fully remote, distributed company and we are looking for the best people to join us as we rapidly innovate and scale.'
-            ],
+            ]
         }
     };
 
@@ -111,27 +109,25 @@ const JobItemDetail = (props: { jobId?: string }) => {
             id: 1,
             label: 'Hide',
             icon: JobDetailItemTrashIcon,
-            coloricon: BookmarkIcon,
-
+            coloricon: BookmarkIcon
         },
         {
             id: 2,
             label: 'Flag',
             icon: JobDetailItemFlagIcon,
-            coloricon: BookmarkIcon,
+            coloricon: BookmarkIcon
         },
         {
             id: 3,
             label: 'Share',
             icon: JobDetailItemShareIcon,
-            coloricon: BookmarkIcon,
-
+            coloricon: BookmarkIcon
         },
         {
             id: 4,
             label: 'Save',
             icon: JobDetailItemBookmarkIcon,
-            coloricon: BookmarkIcon,
+            coloricon: BookmarkIcon
         }
     ];
 
@@ -166,29 +162,44 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             {jobItem.heading}
                         </Typography>
                     </Box>
-                    {(!alreadyapply && !jobdata?.alreadyapply) ?
+                    {!alreadyapply && !jobdata?.alreadyapply ? (
                         <Box
                             sx={{
                                 display: 'flex',
                                 gap: 2.5
                             }}
                         >
-                            <Button variant="contained" sx={{ py: 1.5, px: 7 }} onClick={() => { setApplyjob(true) }}>
+                            <Button
+                                variant="contained"
+                                sx={{ py: 1.5, px: 7 }}
+                                onClick={() => {
+                                    setApplyjob(true);
+                                }}
+                            >
                                 Apply
                             </Button>
                         </Box>
-                        :
+                    ) : (
                         <Box
                             sx={{
                                 display: 'flex',
                                 gap: 2.5
                             }}
                         >
-                            <Button disabled={true} variant="contained" sx={{ py: 1.5, px: 7, backgroundColor: '#EDEDED', color: '#808080' }}>
+                            <Button
+                                disabled={true}
+                                variant="contained"
+                                sx={{
+                                    py: 1.5,
+                                    px: 7,
+                                    backgroundColor: '#EDEDED',
+                                    color: '#808080'
+                                }}
+                            >
                                 Applied
                             </Button>
                         </Box>
-                    }
+                    )}
                 </Box>
                 <Box
                     sx={{
@@ -239,7 +250,10 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                     </Typography>
                                 </Box>
                             </Box>
-                            <Typography variant="bodyLargeRegular" color="#808080">
+                            <Typography
+                                variant="bodyLargeRegular"
+                                color="#808080"
+                            >
                                 {jobItem.aboutCompany.address}
                             </Typography>
                         </Box>
@@ -254,22 +268,35 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                             flexDirection: 'column'
                                         }}
                                         onClick={() => {
-                                            if (selectedaction?.includes(item?.id)) {
-                                                let filter = selectedaction?.filter((x: any) => x != item?.id)
-                                                setSelectedAction(filter)
-                                            }
-                                            else {
-                                                setSelectedAction([...selectedaction, item?.id])
+                                            if (
+                                                selectedaction?.includes(
+                                                    item?.id
+                                                )
+                                            ) {
+                                                let filter =
+                                                    selectedaction?.filter(
+                                                        (x: any) =>
+                                                            x != item?.id
+                                                    );
+                                                setSelectedAction(filter);
+                                            } else {
+                                                setSelectedAction([
+                                                    ...selectedaction,
+                                                    item?.id
+                                                ]);
                                             }
                                         }}
                                     >
                                         <IconButton>
-                                            {selectedaction?.includes(item?.id) ?
-                                                <item.coloricon style={{ color: '#FFC24C' }} />
-                                                :
+                                            {selectedaction?.includes(
+                                                item?.id
+                                            ) ? (
+                                                <item.coloricon
+                                                    style={{ color: '#FFC24C' }}
+                                                />
+                                            ) : (
                                                 <item.icon />
-
-                                            }
+                                            )}
                                         </IconButton>
                                         <Typography
                                             variant="bodyMediumSemiBold"
@@ -277,12 +304,12 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                         >
                                             {item.label}
                                         </Typography>
-                                    </Box >
+                                    </Box>
                                 </>
                             );
                         })}
                     </Box>
-                </Box >
+                </Box>
             </>
         );
     };
@@ -291,7 +318,9 @@ const JobItemDetail = (props: { jobId?: string }) => {
         const { jobItem } = props;
         return (
             <Box sx={{ p: 4 }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}>
+                <Box
+                    sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}
+                >
                     <Typography variant="titleLargeBold" color="#23282B">
                         Job Description
                     </Typography>
@@ -391,7 +420,12 @@ const JobItemDetail = (props: { jobId?: string }) => {
                     bulletPoints={jobItem.additionalPerks}
                 />
                 <Box
-                    sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 3 }}
+                    sx={{
+                        mt: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 3
+                    }}
                 >
                     <Typography variant="bodyLargeRegular" color="#808080">
                         Application Closing Date:{' '}
@@ -445,7 +479,12 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <circle cx="4" cy="4" r="3.5" fill="#808080" />
+                                    <circle
+                                        cx="4"
+                                        cy="4"
+                                        r="3.5"
+                                        fill="#808080"
+                                    />
                                 </svg>
                             </Box>
                             <Typography
@@ -472,7 +511,12 @@ const JobItemDetail = (props: { jobId?: string }) => {
                 <Box sx={{ mt: 2 }} />
                 <JobItemSectionHR height={'2px'} />
                 <Box sx={{ mt: 3 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}
+                    >
                         <Box sx={{ display: 'flex', gap: 1.5 }}>
                             <Box>
                                 <img
@@ -482,7 +526,12 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                     alt={'company logo'}
                                 />
                             </Box>
-                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column'
+                                }}
+                            >
                                 <Box
                                     sx={{
                                         display: 'flex',
@@ -533,7 +582,11 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             {jobItem.aboutCompany.industry}
                         </Typography>
                         <Box
-                            sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1.5
+                            }}
                         >
                             <svg
                                 width="6"
@@ -546,7 +599,8 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             </svg>
 
                             <Typography variant="titleLargeSemiBold">
-                                {jobItem.aboutCompany.numberOfEmployees} employees
+                                {jobItem.aboutCompany.numberOfEmployees}{' '}
+                                employees
                             </Typography>
                         </Box>
                         <Box
@@ -568,7 +622,8 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             </svg>
 
                             <Typography variant="titleLargeSemiBold">
-                                {jobItem.aboutCompany.employeesOnJF} on JobFactor
+                                {jobItem.aboutCompany.employeesOnJF} on
+                                JobFactor
                             </Typography>
                         </Box>
                     </Box>
@@ -610,7 +665,12 @@ const JobItemDetail = (props: { jobId?: string }) => {
             <JobDescription jobItem={jobItem} />
             <JobItemSectionHR height={'1px'} />
             <JobItemAboutCompany jobItem={jobItem} />
-            <ApplyJob showmoadl={applyjob} Hidemodal={(e) => { onHideJob(e) }} />
+            <ApplyJob
+                showModal={applyjob}
+                hideModal={(e) => {
+                    onHideJob(e);
+                }}
+            />
         </Box>
     );
 };

@@ -43,5 +43,3 @@ function UserIcon2(props: { isHover: boolean; isSelected: boolean }) {
 }
 
 export default UserIcon2;
-
-

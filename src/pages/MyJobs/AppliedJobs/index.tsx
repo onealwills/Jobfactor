@@ -25,7 +25,7 @@ function AppliedJobs() {
             keywords: [
                 { name: 'Visual Design', type: 'B', showbackground: false },
                 { name: 'Motion Design', type: 'A', showbackground: false },
-                { name: 'Prototyping', type: 'X', showbackground: false },
+                { name: 'Prototyping', type: 'X', showbackground: false }
             ],
             responsibilities: [
                 'Experience as a UI/UX designer or similar role for digital products and services ',
@@ -43,7 +43,7 @@ function AppliedJobs() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader title='Applied Jobs' />
+            <JobsHeader title="Applied Jobs" />
             <JobsList
                 title={'Recommended for you'}
                 description={'Based on your profile'}

@@ -43,7 +43,7 @@ const Submenu = (props: PropTypes) => {
                                 '&:hover': {
                                     backgroundColor: '#FFFAF1',
                                     boxShadow: 'none',
-                                    color: '#494949',
+                                    color: '#494949'
                                 }
                             }}
                             onClick={() => props.setHideMenu(false)}
