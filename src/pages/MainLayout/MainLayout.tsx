@@ -100,7 +100,7 @@ function MainLayout(props: { children: React.ReactNode }) {
                             >
                                 {account?.primaryProfile ===
                                 PrimaryProfileType.Professional
-                                    ? `${account?.professionalProfile.fullName}`
+                                    ? `${account?.professionalProfile?.fullName}`
                                     : `${account?.companyProfile?.companyName}`}
                             </Typography>
                             <Typography
