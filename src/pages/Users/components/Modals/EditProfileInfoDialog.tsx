@@ -145,6 +145,179 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                     </Grid>
                 </Box>
             </Box>
+            <Box px={4} mt={2}>
+                <Box sx={{ position: 'relative' }}>
+                            <InputLabel
+                                sx={{
+                                    color: '#808080',
+                                    fontSize: '14px',
+                                    position: 'absolute',
+                                    top: '8px',
+                                    left: '72px',
+                                    zIndex: 1,
+                                    fontFamily: 'Open Sans'
+                                }}
+                                htmlFor="phone"
+                            >
+                                Phone
+                            </InputLabel>
+                            {/* Email Address Input */}
+                            <Controller
+                                name="emailAddress"
+                                control={control}
+                                render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                    formState
+                                }) => (
+                                    <InputBase
+                                        required
+                                        onChange={onChange}
+                                        error={!!errors?.emailAddress}
+                                        inputProps={{
+                                            autoComplete: '',
+                                            form: {
+                                                autoComplete: 'off'
+                                            },
+                                            inputMode: 'email'
+                                        }}
+                                        id="email"
+                                        startAdornment={<PhoneFormIcon />}
+                                        rows={1}
+                                        sx={{
+                                            backgroundColor: '#FCFBF8',
+                                            width: '100%',
+                                            height: '70px',
+                                            padding: '0px 16px',
+                                            fontFamily: 'open sans',
+                                            color: '#23282B',
+                                            borderBottom: '1px solid #D9D9D9',
+                                            mb: '20px',
+                                            '& 	.MuiInputBase-input': {
+                                                ml: '20px',
+                                                position: 'relative',
+                                                top: '8px'
+                                            }
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Box>
+                        <Box sx={{ position: 'relative' }}>
+                            <InputLabel
+                                sx={{
+                                    color: '#808080',
+                                    fontSize: '14px',
+                                    position: 'absolute',
+                                    top: '8px',
+                                    left: '72px',
+                                    zIndex: 1,
+                                    fontFamily: 'Open Sans'
+                                }}
+                                htmlFor="phone"
+                            >
+                                Phone
+                            </InputLabel>
+                            {/* Email Address Input */}
+                            <Controller
+                                name="emailAddress"
+                                control={control}
+                                render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                    formState
+                                }) => (
+                                    <InputBase
+                                        required
+                                        onChange={onChange}
+                                        error={!!errors?.emailAddress}
+                                        inputProps={{
+                                            autoComplete: '',
+                                            form: {
+                                                autoComplete: 'off'
+                                            },
+                                            inputMode: 'email'
+                                        }}
+                                        id="email"
+                                        startAdornment={<PhoneFormIcon />}
+                                        rows={1}
+                                        sx={{
+                                            backgroundColor: '#FCFBF8',
+                                            width: '100%',
+                                            height: '70px',
+                                            padding: '0px 16px',
+                                            fontFamily: 'open sans',
+                                            color: '#23282B',
+                                            borderBottom: '1px solid #D9D9D9',
+                                            mb: '20px',
+                                            '& 	.MuiInputBase-input': {
+                                                ml: '20px',
+                                                position: 'relative',
+                                                top: '8px'
+                                            }
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Box>
+                        <Box sx={{ position: 'relative' }}>
+                            <InputLabel
+                                sx={{
+                                    color: '#808080',
+                                    fontSize: '14px',
+                                    position: 'absolute',
+                                    top: '8px',
+                                    left: '72px',
+                                    zIndex: 1,
+                                    fontFamily: 'Open Sans'
+                                }}
+                                htmlFor="phone"
+                            >
+                                Phone
+                            </InputLabel>
+                            {/* Email Address Input */}
+                            <Controller
+                                name="emailAddress"
+                                control={control}
+                                render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                    formState
+                                }) => (
+                                    <InputBase
+                                        required
+                                        onChange={onChange}
+                                        error={!!errors?.emailAddress}
+                                        inputProps={{
+                                            autoComplete: '',
+                                            form: {
+                                                autoComplete: 'off'
+                                            },
+                                            inputMode: 'email'
+                                        }}
+                                        id="email"
+                                        startAdornment={<PhoneFormIcon />}
+                                        rows={1}
+                                        sx={{
+                                            backgroundColor: '#FCFBF8',
+                                            width: '100%',
+                                            height: '70px',
+                                            padding: '0px 16px',
+                                            fontFamily: 'open sans',
+                                            color: '#23282B',
+                                            borderBottom: '1px solid #D9D9D9',
+                                            mb: '20px',
+                                            '& 	.MuiInputBase-input': {
+                                                ml: '20px',
+                                                position: 'relative',
+                                                top: '8px'
+                                            }
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Box>
+            </Box>
         </CustomDialog>);
 };
 
