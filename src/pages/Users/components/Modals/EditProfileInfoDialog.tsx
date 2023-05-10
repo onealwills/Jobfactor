@@ -179,176 +179,172 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
             </Box>
             <Box px={4} mt={2}>
                 <Box sx={{ position: 'relative' }}>
-                            <InputLabel
-                                sx={{
-                                    color: '#808080',
-                                    fontSize: '14px',
-                                    position: 'absolute',
-                                    top: '8px',
-                                    left: '72px',
-                                    zIndex: 1,
-                                    fontFamily: 'Open Sans'
+                    <InputLabel
+                        sx={{
+                            color: '#808080',
+                            fontSize: '14px',
+                            position: 'absolute',
+                            top: '8px',
+                            left: '72px',
+                            zIndex: 1,
+                            fontFamily: 'Open Sans'
+                        }}
+                        htmlFor="fullName"
+                    >
+                        Full name
+                    </InputLabel>
+                    <Controller
+                        name="fullName"
+                        control={control}
+                        render={({
+                            field: { onChange, value },
+                            fieldState: { error },
+                            formState
+                        }) => (
+                            <InputBase
+                                required
+                                onChange={onChange}
+                                inputProps={{
+                                    autoComplete: '',
+                                    form: {
+                                        autoComplete: 'off'
+                                    },
+                                    inputMode: 'text'
                                 }}
-                                htmlFor="phone"
-                            >
-                                Phone
-                            </InputLabel>
-                            {/* Email Address Input */}
-                            <Controller
-                                name="emailAddress"
-                                control={control}
-                                render={({
-                                    field: { onChange, value },
-                                    fieldState: { error },
-                                    formState
-                                }) => (
-                                    <InputBase
-                                        required
-                                        onChange={onChange}
-                                        error={!!errors?.emailAddress}
-                                        inputProps={{
-                                            autoComplete: '',
-                                            form: {
-                                                autoComplete: 'off'
-                                            },
-                                            inputMode: 'email'
-                                        }}
-                                        id="email"
-                                        startAdornment={<ProfileFormIcon />}
-                                        rows={1}
-                                        sx={{
-                                            backgroundColor: '#FCFBF8',
-                                            width: '100%',
-                                            height: '70px',
-                                            padding: '0px 16px',
-                                            fontFamily: 'open sans',
-                                            color: '#23282B',
-                                            borderBottom: '1px solid #D9D9D9',
-                                            mb: '20px',
-                                            '& 	.MuiInputBase-input': {
-                                                ml: '20px',
-                                                position: 'relative',
-                                                top: '8px'
-                                            }
-                                        }}
-                                    />
-                                )}
-                            />
-                        </Box>
-                        <Box sx={{ position: 'relative' }}>
-                            <InputLabel
+                                id="fullName"
+                                startAdornment={<ProfileFormIcon />}
+                                rows={1}
                                 sx={{
-                                    color: '#808080',
-                                    fontSize: '14px',
-                                    position: 'absolute',
-                                    top: '8px',
-                                    left: '72px',
-                                    zIndex: 1,
-                                    fontFamily: 'Open Sans'
+                                    backgroundColor: '#FFFAF1',
+                                    width: '100%',
+                                    height: '70px',
+                                    padding: '0px 16px',
+                                    fontFamily: 'open sans',
+                                    color: '#23282B',
+                                    borderBottom: '1px solid #D9D9D9',
+                                    mb: '20px',
+                                    '& 	.MuiInputBase-input': {
+                                        ml: '20px',
+                                        position: 'relative',
+                                        top: '8px'
+                                    }
                                 }}
-                                htmlFor="phone"
-                            >
-                                Phone
-                            </InputLabel>
-                            {/* Email Address Input */}
-                            <Controller
-                                name="emailAddress"
-                                control={control}
-                                render={({
-                                    field: { onChange, value },
-                                    fieldState: { error },
-                                    formState
-                                }) => (
-                                    <InputBase
-                                        required
-                                        onChange={onChange}
-                                        error={!!errors?.emailAddress}
-                                        inputProps={{
-                                            autoComplete: '',
-                                            form: {
-                                                autoComplete: 'off'
-                                            },
-                                            inputMode: 'email'
-                                        }}
-                                        id="email"
-                                        startAdornment={<BriefcaseFormIcon />}
-                                        rows={1}
-                                        sx={{
-                                            backgroundColor: '#FCFBF8',
-                                            width: '100%',
-                                            height: '70px',
-                                            padding: '0px 16px',
-                                            fontFamily: 'open sans',
-                                            color: '#23282B',
-                                            borderBottom: '1px solid #D9D9D9',
-                                            mb: '20px',
-                                            '& 	.MuiInputBase-input': {
-                                                ml: '20px',
-                                                position: 'relative',
-                                                top: '8px'
-                                            }
-                                        }}
-                                    />
-                                )}
                             />
-                        </Box>
-                        <Box sx={{ position: 'relative' }}>
-                            <InputLabel
+                        )}
+                    />
+                </Box>
+                <Box sx={{ position: 'relative' }}>
+                    <InputLabel
+                        sx={{
+                            color: '#808080',
+                            fontSize: '14px',
+                            position: 'absolute',
+                            top: '8px',
+                            left: '72px',
+                            zIndex: 1,
+                            fontFamily: 'Open Sans'
+                        }}
+                        htmlFor="jobTitle"
+                    >
+                        Job title
+                    </InputLabel>
+                    {/* Email Address Input */}
+                    <Controller
+                        name="jobTitle"
+                        control={control}
+                        render={({
+                            field: { onChange, value },
+                            fieldState: { error },
+                            formState
+                        }) => (
+                            <InputBase
+                                required
+                                onChange={onChange}
+                                inputProps={{
+                                    autoComplete: '',
+                                    form: {
+                                        autoComplete: 'off'
+                                    },
+                                    inputMode: 'text'
+                                }}
+                                id="jobTitle"
+                                startAdornment={<BriefcaseFormIcon />}
+                                rows={1}
                                 sx={{
-                                    color: '#808080',
-                                    fontSize: '14px',
-                                    position: 'absolute',
-                                    top: '8px',
-                                    left: '72px',
-                                    zIndex: 1,
-                                    fontFamily: 'Open Sans'
+                                    backgroundColor: '#FFFAF1',
+                                    width: '100%',
+                                    height: '70px',
+                                    padding: '0px 16px',
+                                    fontFamily: 'open sans',
+                                    color: '#23282B',
+                                    borderBottom: '1px solid #D9D9D9',
+                                    mb: '20px',
+                                    '& 	.MuiInputBase-input': {
+                                        ml: '20px',
+                                        position: 'relative',
+                                        top: '8px'
+                                    }
                                 }}
-                                htmlFor="phone"
-                            >
-                                Phone
-                            </InputLabel>
-                            {/* Email Address Input */}
-                            <Controller
-                                name="emailAddress"
-                                control={control}
-                                render={({
-                                    field: { onChange, value },
-                                    fieldState: { error },
-                                    formState
-                                }) => (
-                                    <InputBase
-                                        required
-                                        onChange={onChange}
-                                        error={!!errors?.emailAddress}
-                                        inputProps={{
-                                            autoComplete: '',
-                                            form: {
-                                                autoComplete: 'off'
-                                            },
-                                            inputMode: 'email'
-                                        }}
-                                        id="email"
-                                        startAdornment={<ProfileFormIcon />}
-                                        rows={1}
-                                        sx={{
-                                            backgroundColor: '#FCFBF8',
-                                            width: '100%',
-                                            height: '70px',
-                                            padding: '0px 16px',
-                                            fontFamily: 'open sans',
-                                            color: '#23282B',
-                                            borderBottom: '1px solid #D9D9D9',
-                                            mb: '20px',
-                                            '& 	.MuiInputBase-input': {
-                                                ml: '20px',
-                                                position: 'relative',
-                                                top: '8px'
-                                            }
-                                        }}
-                                    />
-                                )}
                             />
-                        </Box>
+                        )}
+                    />
+                </Box>
+                <Box sx={{ position: 'relative' }}>
+                    <InputLabel
+                        sx={{
+                            color: '#808080',
+                            fontSize: '14px',
+                            position: 'absolute',
+                            top: '8px',
+                            left: '72px',
+                            zIndex: 1,
+                            fontFamily: 'Open Sans'
+                        }}
+                        htmlFor="tagline"
+                    >
+                        Professional tagline or summary
+                    </InputLabel>
+                    {/* Email Address Input */}
+                    <Controller
+                        name="tagline"
+                        control={control}
+                        render={({
+                            field: { onChange, value },
+                            fieldState: { error },
+                            formState
+                        }) => (
+                            <InputBase
+                                required
+                                onChange={onChange}
+                                inputProps={{
+                                    autoComplete: '',
+                                    form: {
+                                        autoComplete: 'off'
+                                    },
+                                    inputMode: 'text'
+                                }}
+                                id="tagline"
+                                startAdornment={<ProfileFormIcon />}
+                                rows={1}
+                                sx={{
+                                    backgroundColor: '#FFFAF1',
+                                    width: '100%',
+                                    height: '70px',
+                                    padding: '0px 16px',
+                                    fontFamily: 'open sans',
+                                    color: '#23282B',
+                                    borderBottom: '1px solid #D9D9D9',
+                                    mb: '20px',
+                                    '& 	.MuiInputBase-input': {
+                                        ml: '20px',
+                                        position: 'relative',
+                                        top: '8px'
+                                    }
+                                }}
+                            />
+                        )}
+                    />
+                </Box>
             </Box>
         </CustomDialog>);
 };
