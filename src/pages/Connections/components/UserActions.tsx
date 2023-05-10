@@ -1,7 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 
 const UserActions = (props: PropTypes) => {
-
     const { user, tab, title } = props;
 
     return (
@@ -36,12 +35,16 @@ const UserActions = (props: PropTypes) => {
                     boxShadow: 'none',
                     color: '#05668D',
                     width: '120px',
-                    minWidth: '120px',
+                    minWidth: '120px'
                 }}
             >
-                {title === 'ConnectionPage' ? 'Withdraw' : tab === 'sent' ? 'Withdraw' : 'Ignore'}
+                {title === 'ConnectionPage'
+                    ? 'Withdraw'
+                    : tab === 'sent'
+                    ? 'Withdraw'
+                    : 'Ignore'}
             </Button>
-            {title === 'PendingConnectionPage' ?
+            {title === 'PendingConnectionPage' ? (
                 <>
                     {tab === 'received' && (
                         <Button
@@ -66,7 +69,7 @@ const UserActions = (props: PropTypes) => {
                         </Button>
                     )}
                 </>
-                :
+            ) : (
                 <Button
                     sx={{
                         borderRadius: '8px',
@@ -87,7 +90,7 @@ const UserActions = (props: PropTypes) => {
                 >
                     Message
                 </Button>
-            }
+            )}
         </Box>
     );
 };

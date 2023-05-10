@@ -1,12 +1,11 @@
 import { Box } from '@mui/material';
-import JobsHeader from './components/JobsHeader';
-import JobsList from './components/JobsList/JobsList';
-import AspiringJobs from './components/AspiringJobs';
-import { IJobItem } from './types/IJobItem';
-import shellLogo from '../../assets/images/shellLogo.png';
-import ApplyJob from './components/JobItem/ApplyJob';
+import JobsHeader from '../components/JobsHeader';
+import JobsList from '../components/JobsList/JobsList';
+import AspiringJobs from '../components/AspiringJobs';
+import { IJobItem } from '../types/IJobItem';
+import shellLogo from '../../../assets/images/shellLogo.png';
 
-function MyJobsPage() {
+function SavedJobs() {
     const item: IJobItem = {
         companyName: 'Shell Energy',
         location: 'Lagos',
@@ -33,7 +32,8 @@ function MyJobsPage() {
                 'Coordinate with the UI design team on issues like navigation, page routing... '
             ]
         },
-        posted: '3 days ago'
+        posted: '3 days ago',
+        savedjob: true
     };
     const data: IJobItem[] = Array.from(Array(2).keys()).map(() => item);
 
@@ -43,13 +43,12 @@ function MyJobsPage() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader title="Jobs" />
+            <JobsHeader title="Saved Jobs" />
             <JobsList
                 title={'Recommended for you'}
                 description={'Based on your profile'}
                 data={data}
                 showMetrics={true}
-                showheader={true}
             />
             <AspiringJobs />
             <JobsList
@@ -57,7 +56,6 @@ function MyJobsPage() {
                 description={'Because you expressed interest in remote work'}
                 data={data}
                 showMetrics={false}
-                showheader={true}
             />
             <JobsList
                 title={'More jobs for you'}
@@ -66,10 +64,9 @@ function MyJobsPage() {
                 }
                 data={data}
                 showMetrics={false}
-                showheader={true}
             />
         </Box>
     );
 }
 
-export default MyJobsPage;
+export default SavedJobs;

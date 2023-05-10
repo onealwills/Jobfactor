@@ -10,14 +10,11 @@ const SelectDropdown = (props: PropTypes) => {
         } else {
             setValue('');
         }
-    }, [props.defaultValue])
+    }, [props.defaultValue]);
     return (
         <>
             <FormControl fullWidth={!props.halfWidth}>
-                <InputLabel
-                    disabled
-                    variant={props.variant ?? 'filled'}
-                >
+                <InputLabel disabled variant={props.variant ?? 'filled'}>
                     {props?.label}
                 </InputLabel>
                 <Select
