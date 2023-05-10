@@ -47,7 +47,6 @@ const EditContactInfoDialog = (props: IEditContactInfoDialogProps) => {
     } = useForm();
 
     const handleOnClose = () => {
-        console.log('set the state to close');
         setOpen(false);
     };
 
