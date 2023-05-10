@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import InputBase from '@mui/material/InputBase';
-import EmailFormIcon from '../../../../assets/icons/EmailFormIcon';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 import cover from '../../../../assets/images/cover.jpg';
@@ -10,28 +9,18 @@ import profile from '../../../../assets/images/profile-sq.png';
 
 import CustomDialog from './CustomDialog';
 
-import List from '@mui/material/List';
-
-import ProfileInfoListItem from '../ProfileInfoListItem';
-import PhoneFormIcon from '../../../../assets/icons/PhoneFormIcon';
-import LocationFormIcon from '../../../../assets/icons/LocationFormIcon';
-import BirthdayFormIcon from '../../../../assets/icons/BirthdayFormIcon';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
-
-import EditIcon from '@mui/icons-material/Edit';
-
-import JobFactorIcon from '../../../../assets/icons/JobfactorIconMui';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
-import PlaceIcon from '@mui/icons-material/Place';
-import CakeIcon from '@mui/icons-material/Cake';
+import IconButton from '@mui/material/IconButton';
 
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Image from '../../../../components/Image';
+import BriefcaseFormIcon from '../../../../assets/icons/BriefcaseFormIcon';
+import ProfileFormIcon from '../../../../assets/icons/ProfileFormIcon';
+
+import CameraIcon from '../../../../assets/icons/CameraIconMui';
+import TrashIcon from '../../../../assets/icons/TrashIconMui';
 
 interface IEditProfileInfoDialogProps {
     open: boolean;
@@ -106,28 +95,61 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                 overflow="hidden"
             >
                 <Box position="relative" pb={6} mt={2}>
-                    <img
-                        style={{
-                            height: '200px',
-                            width: '100%',
-                            objectFit: 'cover',
-                            display: 'block'
-                        }}
-                        alt="Cover"
-                        src={cover}
-                    />
                     <Grid
                         container
-                        gap={3}
+                        alignItems="center"
+                        justifyContent="space-around"
+                        position="relative"
+                        height="200px"
+                    >
+                        <img
+                            style={{
+                                height: '200px',
+                                width: '100%',
+                                objectFit: 'cover',
+                                display: 'block',
+                                position: 'absolute',
+                            }}
+                            alt="Cover"
+                            src={cover}
+                        />
+
+                        <Grid container gap={2.5} width="auto">
+                            <IconButton style={{
+                                backgroundColor: '#0000003F',
+                                color: "#FFFFFF",
+                                width: "44px",
+                                height: "44px",
+                            }}>
+                                <CameraIcon />
+                            </IconButton>
+                            <IconButton style={{
+                                backgroundColor: '#0000003F',
+                                color: "#FFFFFF",
+                                width: "44px",
+                                height: "44px",
+                            }}>
+                                <TrashIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        container
                         position={'absolute'}
                         bottom={0}
+                        justifyContent="center"
+                        alignItems="center"
+                        width="150px"
+                        height="150px"
+                        ml={4}
                     >
                         <Box
-                            ml={4}
                             borderRadius="50%"
                             overflow="hidden"
                             width="fit-content"
-                            position="relative"
+                            position="absolute"
+                            bottom={0}
                         >
                             <Image
                                 src={profile}
@@ -141,6 +163,16 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                                 borderRadius="50%"
                                 display="block"
                             />
+                        </Box>
+                        <Box mt={9}>
+                            <IconButton style={{
+                                backgroundColor: '#0000003F',
+                                color: "#FFFFFF",
+                                width: "44px",
+                                height: "44px",
+                            }}>
+                                    <CameraIcon />
+                            </IconButton>  
                         </Box>
                     </Grid>
                 </Box>
@@ -182,7 +214,7 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                                             inputMode: 'email'
                                         }}
                                         id="email"
-                                        startAdornment={<PhoneFormIcon />}
+                                        startAdornment={<ProfileFormIcon />}
                                         rows={1}
                                         sx={{
                                             backgroundColor: '#FCFBF8',
@@ -239,7 +271,7 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                                             inputMode: 'email'
                                         }}
                                         id="email"
-                                        startAdornment={<PhoneFormIcon />}
+                                        startAdornment={<BriefcaseFormIcon />}
                                         rows={1}
                                         sx={{
                                             backgroundColor: '#FCFBF8',
@@ -296,7 +328,7 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                                             inputMode: 'email'
                                         }}
                                         id="email"
-                                        startAdornment={<PhoneFormIcon />}
+                                        startAdornment={<ProfileFormIcon />}
                                         rows={1}
                                         sx={{
                                             backgroundColor: '#FCFBF8',
