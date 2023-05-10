@@ -26,19 +26,17 @@ function AccountType() {
     const { actions } = useStateMachine({ updateAction, updateStep });
     let navigate = useNavigate();
     const onSubmit: SubmitHandler<IAccountType> = async (data) => {
-        console.log({accountType: data});
         actions.updateAction(data);
         if (data.accountType === CreateAccountType.Professional) {
             navigate('./userCreate');
         } else if (data.accountType === CreateAccountType.Company) {
             navigate('./companyCreate');
-            console.log('Company chosen');
         }
     };
     React.useEffect(() => {
         actions.updateStep(1);
         actions.updateAction();
-    }, [])
+    }, []);
 
     return (
         <>

@@ -49,7 +49,11 @@ const TabPanel = (props: TabProps) => {
                                 }}
                             >
                                 <UserDetails user={user} />
-                                <UserActions user={user} tab={tab} title={'PendingConnectionPage'} />
+                                <UserActions
+                                    user={user}
+                                    tab={tab}
+                                    title={'PendingConnectionPage'}
+                                />
                             </Box>
                             <Box
                                 sx={{
@@ -76,7 +80,8 @@ const TabPanel = (props: TabProps) => {
                                         background: '#494949',
                                         border: '2px solid #494949'
                                     }}
-                                /> <Typography
+                                />{' '}
+                                <Typography
                                     component={'div'}
                                     sx={{
                                         ml: '8px',

@@ -17,6 +17,8 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/context/AuthContext';
 import { useEffect } from 'react';
+import ErrorFormIcon from '../../assets/icons/ErrorFormIcon';
+import OnboardingLineIcon from '../../assets/icons/OnboardingLineIcon';
 
 interface ILoginForm {
     emailAddress: string;
@@ -36,8 +38,12 @@ function Login() {
     const {
         control,
         handleSubmit,
-        formState: { isValid, errors }
+        setError,
+        register,
+        clearErrors,
+        formState
     } = useForm<ILoginForm>();
+    const { isDirty, isValid, errors } = formState;
 
     useEffect(() => {
         if (isAuthenticated && !!accessToken) {
@@ -202,9 +208,7 @@ function Login() {
                     >
                         <Box>
                             <Typography
-                                fontFamily={'open sans'}
-                                fontWeight={'600'}
-                                fontSize={'32px'}
+                                variant="headlineLargeSemiBold"
                                 color="#23282B"
                             >
                                 Welcome back,
@@ -214,7 +218,7 @@ function Login() {
                                 <Box sx={{ position: 'relative' }}>
                                     <InputLabel
                                         sx={{
-                                            color: '#808080',
+                                            color: '#23282B',
                                             fontSize: '14px',
                                             position: 'absolute',
                                             top: '8px',
@@ -247,6 +251,7 @@ function Login() {
                                                     inputMode: 'email'
                                                 }}
                                                 id="email"
+                                                placeholder="Enter your email address"
                                                 startAdornment={
                                                     <EmailFormIcon />
                                                 }
@@ -272,10 +277,13 @@ function Login() {
                                     />
                                 </Box>
 
-                                <Box sx={{ position: 'relative' }}>
+                                {/* password */}
+                                <Box
+                                    sx={{ width: '100%', position: 'relative' }}
+                                >
                                     <InputLabel
                                         sx={{
-                                            color: '#808080',
+                                            color: '#23282B',
                                             fontSize: '14px',
                                             position: 'absolute',
                                             top: '8px',
@@ -287,19 +295,24 @@ function Login() {
                                     >
                                         Password
                                     </InputLabel>
-                                    {/* Password Input */}
                                     <Controller
                                         name="password"
                                         control={control}
                                         render={({
-                                            field: { onChange, value },
+                                            field: {
+                                                onChange,
+                                                onBlur,
+                                                value,
+                                                ref
+                                            },
                                             fieldState: { error },
                                             formState
                                         }) => (
                                             <InputBase
+                                                {...register('password', {
+                                                    required: 'Required field'
+                                                })}
                                                 required
-                                                onChange={onChange}
-                                                error={!!error}
                                                 inputProps={{
                                                     autoComplete:
                                                         'new-password',
@@ -307,19 +320,21 @@ function Login() {
                                                         autoComplete: 'off'
                                                     }
                                                 }}
+                                                inputRef={ref}
                                                 name="password"
                                                 id="password"
                                                 startAdornment={
                                                     <PasswordFormIcon />
                                                 }
                                                 rows={1}
-                                                placeholder={'*********'}
+                                                placeholder={'********'}
                                                 type="password"
                                                 sx={{
                                                     backgroundColor: '#FFFFFF',
                                                     width: '100%',
                                                     height: '70px',
                                                     padding: '0px 16px',
+                                                    mb: '2px',
                                                     fontFamily: 'open sans',
                                                     color: '#23282B',
                                                     borderBottom:
@@ -334,177 +349,197 @@ function Login() {
                                         )}
                                     />
                                 </Box>
-                            </Box>
 
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    gap: '5px',
-                                    alignContent: 'center',
-                                    mb: '28px',
-                                    mt: '12px'
-                                }}
-                            >
-                                <InfoIcon />
-                                <Typography
-                                    sx={{
-                                        color: '#808080',
-                                        fontSize: '12px',
-                                        fontFamily: 'Open Sans'
-                                    }}
-                                >
-                                    Password should contain uppercase letter(s),
-                                    numbers(s) and special character(s)
-                                </Typography>
-                            </Box>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    mb: '56px',
-                                    mr: '16px'
-                                }}
-                            >
+                                {/* removed error message */}
+                                {/* <div>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            gap: '5px',
+                                            mt: '10px',
+                                            alignContent: 'start'
+                                        }}
+                                    >
+                                        <ErrorFormIcon />
+                                        <Typography
+                                            sx={{
+                                                color: '#808080',
+                                                fontSize: '12px',
+                                                fontFamily: 'Open Sans'
+                                            }}
+                                        >
+                                            Password should contain uppercase
+                                            letter(s), numbers(s) and special
+                                            character(s)
+                                        </Typography>
+                                    </Box>
+                                </div> */}
+
                                 <Box
                                     sx={{
                                         display: 'flex',
-                                        alignItems: 'center'
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        mt: '32px',
+                                        mb: '56px',
+                                        mr: '16px'
                                     }}
                                 >
-                                    {/* <Controller
-                                        name="rememberMe"
-                                        control={control}
-                                        render={({
-                                            field: { value },
-                                            formState,
-                                        }) => {
-                                            return ( */}
-                                    <Checkbox
-                                        checked
-                                        name="Remember me?"
-                                        inputProps={{
-                                            'aria-label': 'Remember Me?'
-                                        }}
+                                    <Box
                                         sx={{
-                                            color: '#D1D1D1',
-                                            padding: 0
-                                        }}
-                                    />
-                                    {/* )
-                                        }}
-                                    /> */}
-                                    <Typography
-                                        sx={{
-                                            fontSize: '14px',
-                                            fontFamily: 'Open Sans',
-                                            color: '#23282B',
-                                            ml: '12px'
+                                            display: 'flex',
+                                            alignItems: 'center'
                                         }}
                                     >
-                                        Remember me?
-                                    </Typography>
-                                </Box>
-                                <Typography
-                                    sx={{
-                                        fontFamily: 'Open Sans',
-                                        fontWeight: '600',
-                                        fontSize: '14px',
-                                        color: '#05668D'
-                                    }}
-                                >
-                                    Forgot Password?
-                                </Typography>
-                            </Box>
-                        </Box>
-
-                        {/*  */}
-                        <Box
-                            sx={{
-                                width: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Button
-                                sx={{ py: 1.5, width: '90%' }}
-                                variant="contained"
-                                disabled={!isValid}
-                                onClick={handleSubmit(onSubmit)}
-                            >
-                                Login
-                            </Button>
-
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    mt: '12px',
-                                    mb: '6px',
-                                    position: 'relative',
-                                    justifyContent: 'center',
-                                    width: '100%'
-                                }}
-                            >
-                                {/* <LineIcon /> */}
-                                <Box
-                                    sx={{
-                                        height: '1px',
-                                        width: '90%',
-                                        alignSelf: 'center',
-                                        backgroundColor: '#D9D9D9',
-                                        position: 'absolute'
-                                    }}
-                                />
-                                <Typography
-                                    sx={{
-                                        px: '30px',
-                                        backgroundColor: '#fcfbf8',
-                                        zIndex: 1
-                                    }}
-                                >
-                                    OR
-                                </Typography>
-                                {/* <LineIcon /> */}
-                            </Box>
-
-                            <Button
-                                sx={{ py: 1.5, width: '90%', mt: 1 }}
-                                variant="outlined"
-                                startIcon={<GoogleIcon />}
-                            >
-                                Sign in with google
-                            </Button>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    mt: '48px'
-                                }}
-                            >
-                                <Typography
-                                    sx={{ color: '#808080', mr: '10px' }}
-                                >
-                                    Don’t have an account?
-                                </Typography>
-                                {/* Text link */}
-                                <Typography
-                                    fontWeight={600}
-                                    fontSize={'16px'}
-                                    fontStyle={'semibold'}
-                                    sx={{ color: '#05668D' }}
-                                >
-                                    <Link
-                                        to={'/create-account'}
-                                        style={{
-                                            textDecoration: 'none',
+                                        <Controller
+                                            name="rememberMe"
+                                            control={control}
+                                            rules={{ required: false }}
+                                            render={({
+                                                field: { onChange, ref },
+                                                fieldState: {
+                                                    isTouched,
+                                                    isDirty
+                                                },
+                                                formState
+                                            }) => {
+                                                return (
+                                                    <Checkbox
+                                                        onChange={onChange}
+                                                        inputRef={ref}
+                                                        name="rememberMe"
+                                                        inputProps={{
+                                                            'aria-label':
+                                                                'Remember me?'
+                                                        }}
+                                                        sx={{
+                                                            color: '#D1D1D1',
+                                                            padding: 0
+                                                        }}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                        <Typography
+                                            variant="labelLargeRegular"
+                                            sx={{
+                                                color: '#23282B'
+                                            }}
+                                        >
+                                            Remember me?
+                                        </Typography>
+                                    </Box>
+                                    <Typography
+                                        variant="bodyMediumSemiBold"
+                                        sx={{
                                             color: '#05668D'
                                         }}
                                     >
-                                        Create account
-                                    </Link>
-                                </Typography>
+                                        <Link
+                                            to={'/forgot-password'}
+                                            style={{
+                                                color: '#05668D',
+                                                textDecoration: 'none'
+                                            }}
+                                        >
+                                            Forgot Password?
+                                        </Link>
+                                    </Typography>
+                                </Box>
+                            </Box>
+
+                            {/* Buttons */}
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Button
+                                    sx={{ height: '52px' }}
+                                    variant="contained"
+                                    onClick={handleSubmit(onSubmit)}
+                                >
+                                    <Typography variant="bodyLargeBold">
+                                        Login
+                                    </Typography>
+                                </Button>
+
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        position: 'relative',
+                                        justifyContent: 'center',
+                                        width: '100%'
+                                    }}
+                                >
+                                    <OnboardingLineIcon />
+                                    <Box
+                                        sx={{
+                                            height: '1px',
+                                            width: '90%',
+                                            alignSelf: 'center',
+                                            backgroundColor: '#D9D9D9',
+                                            position: 'absolute'
+                                        }}
+                                    />
+                                    <Typography
+                                        variant="bodyLargeRegular"
+                                        sx={{
+                                            px: '30px',
+                                            py: '12px',
+                                            backgroundColor: '#fcfbf8',
+                                            zIndex: 1
+                                        }}
+                                    >
+                                        OR
+                                    </Typography>
+                                    <OnboardingLineIcon />
+                                </Box>
+
+                                <Button
+                                    sx={{
+                                        height: '52px',
+                                        width: '100%'
+                                    }}
+                                    variant="outlined"
+                                    startIcon={<GoogleIcon />}
+                                >
+                                    <Typography variant="bodyLargeSemiBold">
+                                        Sign in with Google
+                                    </Typography>
+                                </Button>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        mt: '48px'
+                                    }}
+                                >
+                                    <Typography
+                                        variant="bodyLargeRegular"
+                                        sx={{ color: '#808080', mr: '10px' }}
+                                    >
+                                        Don’t have an account?
+                                    </Typography>
+                                    <Typography
+                                        variant="bodyLargeSemiBold"
+                                        sx={{ color: '#05668D' }}
+                                    >
+                                        <Link
+                                            to={'/create-account'}
+                                            style={{
+                                                textDecoration: 'none',
+                                                color: '#05668D'
+                                            }}
+                                        >
+                                            Create account
+                                        </Link>
+                                    </Typography>
+                                </Box>
                             </Box>
                         </Box>
                     </Box>

@@ -8,7 +8,6 @@ import company from '../../assets/images/company.png';
 import ExperienceLevel from './components/ExperienceLevel';
 import { Box, Grid, TableCell, TableRow, Typography } from '@mui/material';
 
-
 const data = [
     {
         image,
@@ -207,7 +206,10 @@ function ConnectionsPage() {
                                         }}
                                     >
                                         <UserDetails user={user} />
-                                        <UserActions user={user} title={'ConnectionPage'} />
+                                        <UserActions
+                                            user={user}
+                                            title={'ConnectionPage'}
+                                        />
                                     </Box>
                                     <Box
                                         sx={{
@@ -234,7 +236,8 @@ function ConnectionsPage() {
                                                 background: '#494949',
                                                 border: '2px solid #494949'
                                             }}
-                                        /> <Typography
+                                        />{' '}
+                                        <Typography
                                             component={'div'}
                                             sx={{
                                                 ml: '8px',

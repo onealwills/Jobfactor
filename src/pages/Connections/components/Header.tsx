@@ -75,18 +75,18 @@ const Header = (props: PropTypes) => {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         alignItems: 'center',
-                        gap: '12px',
+                        gap: '12px'
                     }}
                 >
-                    {props.tittle === 'ConnectionPage' &&
+                    {props.tittle === 'ConnectionPage' && (
                         <SelectDropdown
                             label="Sort"
                             halfWidth={true}
                             options={['A-Z', 'Z-A']}
-                            style={{ width: '90px', height: '50px'}}
+                            style={{ width: '90px', height: '50px' }}
                             handleChange={(e: any) => sortData(e.target.value)}
                         />
-                    }
+                    )}
                     <IconButton onClick={handleClick}>
                         <MoreIcon />
                     </IconButton>
@@ -116,7 +116,7 @@ const Header = (props: PropTypes) => {
 interface PropTypes {
     data: data[];
     setUsers: (data: Object[]) => void;
-    tittle: string
+    tittle: string;
 }
 type data = {
     name: string;
