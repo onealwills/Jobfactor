@@ -18,6 +18,7 @@ import JobFactorScore from '../pages/JobFactorScore';
 import JobPreference from '../pages/MyJobs/JobPreference';
 import SavedJobs from '../pages/MyJobs/SavedJobs';
 import AppliedJobs from '../pages/MyJobs/AppliedJobs';
+import UserQualificationsPage from '../pages/Users/UserQualifications/UserQualificationsPage';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -47,6 +48,15 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <MainLayout children={<UsersPage />} />
+                        </RequireAuth>
+                    }
+                />
+
+                <Route
+                    path="users/qualifications"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<UserQualificationsPage />} />
                         </RequireAuth>
                     }
                 />
