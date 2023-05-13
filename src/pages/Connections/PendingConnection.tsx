@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabs from './components/Tabs';
-import Header from './components/Header';
+import Header from '../Connections/components/Header';
 import { Box, Grid } from '@mui/material';
 import TabPanel from './components/TabPanel';
 import image from '../../assets/images/feed2.png';
@@ -299,15 +299,24 @@ const companies = [
 
 function PendingConnection() {
     const [tab, setTab] = React.useState<string>('sent');
+    const [users, setUsers] = React.useState<Array<Object>>([]);
 
     const changeTab = (type: string) => {
         setTab(type);
     };
 
+    React.useEffect(() => {
+        setUsers(data);
+    }, []);
+
     return (
         <>
             <Box sx={{ ml: '35px' }}>
-                <Header />
+                <Header
+                    setUsers={setUsers}
+                    data={data}
+                    tittle={'PendingConnections'}
+                />
                 <Grid container mt={'20px'}>
                     <Tabs changeTab={changeTab} tab={tab} />
                     <TabPanel activeTab={tab} tab={'sent'} data={companies} />

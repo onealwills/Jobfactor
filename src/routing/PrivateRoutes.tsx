@@ -12,10 +12,13 @@ import HelpSupportPage from '../pages/HelpSupport/HelpSupportPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import HomePage from '../pages/Home/HomePage';
 import UsersPage from '../pages/Users/UsersPage';
-import PendingConnection from '../pages/PendingConnctions/PendingConnection';
+import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
-// import SuggestedReviews from '../pages/Reviews';
+import JobFactorScore from '../pages/JobFactorScore';
+import JobPreference from '../pages/MyJobs/JobPreference';
+import SavedJobs from '../pages/MyJobs/SavedJobs';
+import AppliedJobs from '../pages/MyJobs/AppliedJobs';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
@@ -130,20 +133,51 @@ const PrivateRoutes = () => {
           }
         />
 
-        <Route
-          path="settings"
-          element={
-            <RequireAuth>
-              <MainLayout children={<SettingsPage />} />
-            </RequireAuth>
-          }
-        />
-
+                <Route
+                    path="settings"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<SettingsPage />} />
+                        </RequireAuth>
+                    }
+                />
                 <Route
                     path="help-support"
                     element={
                         <RequireAuth>
                             <MainLayout children={<HelpSupportPage />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="jobfactor-score"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobFactorScore />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="job-preference"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobPreference />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="save-job"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<SavedJobs />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="job-applied"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<AppliedJobs />} />
                         </RequireAuth>
                     }
                 />

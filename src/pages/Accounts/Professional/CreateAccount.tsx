@@ -17,7 +17,8 @@ createStore({
         companyName: '',
         step: 1,
         password: '',
-        verifyEmail: false
+        verifyEmail: false,
+        resetPassword: ''
     }
 });
 

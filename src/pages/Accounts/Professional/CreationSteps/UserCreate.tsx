@@ -43,33 +43,34 @@ function UserCreate() {
         clearErrors
     } = useForm<IUserInfo>();
     const { isDirty, isValid, errors } = formState;
-    const { actions, state, getState } = useStateMachine({ updateAction, updateStep, clearAction });
+    const { actions, state, getState } = useStateMachine({
+        updateAction,
+        updateStep,
+        clearAction
+    });
 
     const createAccountMutation = useCreateProAccount();
 
     const handleCreateAccount = async (data: GlobalState) => {
         if (data.data.accountType === CreateAccountType.Professional) {
-            
             const request: CreateProAccountRequest = {
                 emailAddress: data.data.emailAddress,
                 firstName: data.data.firstName,
                 lastName: data.data.lastName,
                 password: data.data.password
-            }
-            console.log({request});
-            
+            };
+
             if (request !== undefined) {
                 createAccountMutation.mutate(request, {
                     onSuccess: async (data) => {
-                        console.log({onSuccess: data});
                         actions.clearAction();
-                        navigate('/create-account/confirmEmail');                    
+                        navigate('/create-account/confirmEmail');
                     },
                     onError: (error) => {
                         console.error(error);
                         alert(error);
                     }
-                })
+                });
             }
         }
     };
@@ -634,9 +635,7 @@ function UserCreate() {
                         onClick={handleSubmit(onSubmit)}
                     >
                         <Typography
-                            fontSize={'16px'}
-                            fontWeight={700}
-                            fontStyle={'bold'}
+                            variant="bodyLargeBold"
                             textTransform="capitalize"
                         >
                             Create Account

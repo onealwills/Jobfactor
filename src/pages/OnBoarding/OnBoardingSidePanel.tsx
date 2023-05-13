@@ -11,7 +11,7 @@ const loginSubHeading =
 const cardReview =
     'Absolutely amazing, the vetting algorithym is the best at proving ones level of experience';
 
-function Column() {
+function OnBoardingSidePanel() {
     return (
         <>
             <Box
@@ -137,4 +137,4 @@ function Column() {
     );
 }
 
-export default Column;
+export default OnBoardingSidePanel;
