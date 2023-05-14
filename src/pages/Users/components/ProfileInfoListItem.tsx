@@ -13,41 +13,43 @@ interface IProfileInfoListItemProps {
     children?: React.ReactNode;
 }
 
-const ProfileInfoListItem = ({ onClick, children, icon, title, subtitle }: IProfileInfoListItemProps) => (
+const ProfileInfoListItem = ({
+    onClick,
+    children,
+    icon,
+    title,
+    subtitle
+}: IProfileInfoListItemProps) => (
     <ListItem
-        alignItems="flex-start" sx={{p: 1, ml: -1}}
+        alignItems="flex-start"
+        sx={{ p: 1, ml: -1 }}
         onClick={onClick ? onClick : undefined}
         style={{
-            cursor: onClick ? "pointer" : "default",
+            cursor: onClick ? 'pointer' : 'default'
         }}
     >
         {icon && (
-            <ListItemIcon sx={{mt: 0, mr: 3, color: "#05668D", minWidth: "auto",}}>
-                { icon }
+            <ListItemIcon
+                sx={{ mt: 0, mr: 3, color: '#05668D', minWidth: 'auto' }}
+            >
+                {icon}
             </ListItemIcon>
         )}
         <Grid container gap={1} flexDirection="column">
-            <Typography
-                fontWeight={600}
-                fontSize={16}
-            >
+            <Typography fontWeight={600} fontSize={16}>
                 {title}
             </Typography>
             {subtitle && (
                 <Typography
                     fontSize={14}
-                    color={onClick ? "#05668D" : "#808080"}
+                    color={onClick ? '#05668D' : '#808080'}
                 >
                     {subtitle}
-                </Typography>      
+                </Typography>
             )}
-            {children && (
-                <Box>
-                    { children }
-                </Box>
-            )}
+            {children && <Box>{children}</Box>}
         </Grid>
     </ListItem>
-)
+);
 
 export default ProfileInfoListItem;

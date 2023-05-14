@@ -11,28 +11,26 @@ import MoreIcon from '../../../assets/icons/MoreIcon';
 import VerifiedIcon from '../../../assets/icons/VerifiedIcon';
 import Downward from '../../../assets/icons/Downward';
 
-
 export const FeedItem = (props: { feed: IFeedItem }) => {
     const { feed } = props;
 
-    const DescriptionRef = React.useRef<HTMLDivElement>(null)
+    const DescriptionRef = React.useRef<HTMLDivElement>(null);
 
     const [show, setShow] = useState(false);
 
     const onShowHidden = () => {
         if (DescriptionRef.current != null) {
             DescriptionRef.current.style.height = '100%';
-            setShow(true)
+            setShow(true);
         }
-    }
+    };
 
     const onHide = () => {
         if (DescriptionRef.current != null) {
             DescriptionRef.current.style.height = '70px';
-            setShow(false)
+            setShow(false);
         }
-    }
-
+    };
 
     return (
         <Box
@@ -51,7 +49,11 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                 }}
             >
                 <Box>
-                    <img src={feed.profileImage} alt="feed" style={{ width: 80, height: 80, borderRadius: 100 }} />
+                    <img
+                        src={feed.profileImage}
+                        alt="feed"
+                        style={{ width: 80, height: 80, borderRadius: 100 }}
+                    />
                 </Box>
                 <Box sx={{}}>
                     <Box
@@ -103,32 +105,76 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                 //key={index}
                                 variant="body1"
                                 component="div"
-                                sx={feed?.description?.length > 200 ? { whiteSpace: 'pre-line', mb: 1, height: '70px', overflow: 'hidden' } : { whiteSpace: 'pre-line', mb: 1 }}
+                                sx={
+                                    feed?.description?.length > 200
+                                        ? {
+                                              whiteSpace: 'pre-line',
+                                              mb: 1,
+                                              height: '70px',
+                                              overflow: 'hidden'
+                                          }
+                                        : { whiteSpace: 'pre-line', mb: 1 }
+                                }
                             >
                                 {feed.description}
                             </Typography>
                             {/* ))} */}
                         </Typography>
-                        {feed?.description?.length > 200 &&
+                        {feed?.description?.length > 200 && (
                             <>
-                                {!show ?
+                                {!show ? (
                                     <Box>
-                                        <Button variant="contained" sx={{ maxWidth: 'fit-content', gap: "10px", py: '5px', background: '#FCFBF8', color: '#05668D', fontSize: '14px', fontWeight: '700' }} onClick={() => { onShowHidden() }}>
+                                        <Button
+                                            variant="contained"
+                                            sx={{
+                                                maxWidth: 'fit-content',
+                                                gap: '10px',
+                                                py: '5px',
+                                                background: '#FCFBF8',
+                                                color: '#05668D',
+                                                fontSize: '14px',
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => {
+                                                onShowHidden();
+                                            }}
+                                        >
                                             See More
                                         </Button>
                                     </Box>
-                                    :
+                                ) : (
                                     <Box>
-                                        <Button variant="contained" sx={{ maxWidth: 'fit-content', gap: "10px", py: '5px', background: '#FCFBF8', color: '#05668D', fontSize: '14px', fontWeight: '700' }} onClick={() => { onHide() }}>
+                                        <Button
+                                            variant="contained"
+                                            sx={{
+                                                maxWidth: 'fit-content',
+                                                gap: '10px',
+                                                py: '5px',
+                                                background: '#FCFBF8',
+                                                color: '#05668D',
+                                                fontSize: '14px',
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => {
+                                                onHide();
+                                            }}
+                                        >
                                             See Less
                                         </Button>
                                     </Box>
-                                }
+                                )}
                             </>
-                        }
+                        )}
                     </Box>
 
-                    <Box sx={{ mt: '36px', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                    <Box
+                        sx={{
+                            mt: '36px',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexWrap: 'wrap'
+                        }}
+                    >
                         {feed.images.map((image: any, index) => (
                             <img
                                 key={index}

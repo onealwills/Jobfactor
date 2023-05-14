@@ -15,9 +15,6 @@ import ScrollToTop from '../../components/ScrollToTop.tsx';
 import ScoreCard from '../../components/ScoreCard.tsx';
 
 function HomePage() {
-
-
-
     return (
         <>
             <Box sx={{ mt: -9, ml: 2 }}>
@@ -82,7 +79,7 @@ function HomePage() {
                 <ScrollToTop />
             </Box>
         </>
-    )
+    );
 }
 
 export default HomePage;

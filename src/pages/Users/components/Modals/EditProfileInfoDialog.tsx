@@ -28,7 +28,6 @@ interface IEditProfileInfoDialogProps {
 }
 
 const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
-
     const { open, setOpen } = props;
     const {
         control,
@@ -47,7 +46,11 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
             title="Edit profile info"
             contentPaddingX={false}
             actions={
-                <Grid container justifyContent="space-between" alignItems="center">
+                <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
                     <Button
                         variant="outlined"
                         sx={{
@@ -55,16 +58,16 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                             width: 'auto',
                             height: '36px',
                             borderRadius: '20px',
-                            lineHeight: 1,
+                            lineHeight: 1
                         }}
-                        startIcon={<PeopleAltIcon htmlColor="#49B6FF"/>}
+                        startIcon={<PeopleAltIcon htmlColor="#49B6FF" />}
                         endIcon={<ArrowDropDownIcon />}
                     >
                         <Typography
                             fontWeight={400}
                             fontSize={14}
                             sx={{
-                                textTransform: 'none',
+                                textTransform: 'none'
                             }}
                             lineHeight={1}
                         >
@@ -80,7 +83,7 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                             fontSize={14}
                             sx={{
                                 textTransform: 'none',
-                                py: .75,
+                                py: 0.75
                             }}
                         >
                             Save
@@ -89,10 +92,7 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                 </Grid>
             }
         >
-            <Box
-                bgcolor="#fff"
-                overflow="hidden"
-            >
+            <Box bgcolor="#fff" overflow="hidden">
                 <Box position="relative" pb={6} mt={2}>
                     <Grid
                         container
@@ -107,27 +107,31 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                                 width: '100%',
                                 objectFit: 'cover',
                                 display: 'block',
-                                position: 'absolute',
+                                position: 'absolute'
                             }}
                             alt="Cover"
                             src={cover}
                         />
 
                         <Grid container gap={2.5} width="auto">
-                            <IconButton style={{
-                                backgroundColor: '#0000003F',
-                                color: "#FFFFFF",
-                                width: "44px",
-                                height: "44px",
-                            }}>
+                            <IconButton
+                                style={{
+                                    backgroundColor: '#0000003F',
+                                    color: '#FFFFFF',
+                                    width: '44px',
+                                    height: '44px'
+                                }}
+                            >
                                 <CameraIcon />
                             </IconButton>
-                            <IconButton style={{
-                                backgroundColor: '#0000003F',
-                                color: "#FFFFFF",
-                                width: "44px",
-                                height: "44px",
-                            }}>
+                            <IconButton
+                                style={{
+                                    backgroundColor: '#0000003F',
+                                    color: '#FFFFFF',
+                                    width: '44px',
+                                    height: '44px'
+                                }}
+                            >
                                 <TrashIcon />
                             </IconButton>
                         </Grid>
@@ -164,14 +168,16 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                             />
                         </Box>
                         <Box mt={9}>
-                            <IconButton style={{
-                                backgroundColor: '#0000003F',
-                                color: "#FFFFFF",
-                                width: "44px",
-                                height: "44px",
-                            }}>
-                                    <CameraIcon />
-                            </IconButton>  
+                            <IconButton
+                                style={{
+                                    backgroundColor: '#0000003F',
+                                    color: '#FFFFFF',
+                                    width: '44px',
+                                    height: '44px'
+                                }}
+                            >
+                                <CameraIcon />
+                            </IconButton>
                         </Box>
                     </Grid>
                 </Box>
@@ -345,7 +351,8 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                     />
                 </Box>
             </Box>
-        </CustomDialog>);
+        </CustomDialog>
+    );
 };
 
 export default EditProfileInfoDialog;

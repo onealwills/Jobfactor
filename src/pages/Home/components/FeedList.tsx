@@ -6,9 +6,7 @@ import feed1 from '../../../assets/images/feed1.png';
 import feed2_1 from '../../../assets/images/feed2_1.png';
 import feed1_1 from '../../../assets/images/feed1_1.png';
 
-
 function FeedList() {
-
     const [feeds, setFeeds] = useState<any>([
         {
             profileImage: feed1,
@@ -23,20 +21,19 @@ function FeedList() {
             images: [feed1_1, feed2_1],
             isAccountVerified: true
         }
-    ])
+    ]);
 
     const updateFeeds = async () => {
-        let feedlist = localStorage.getItem('feedsdata')
-        feedlist = JSON.parse(feedlist as any)
+        let feedlist = localStorage.getItem('feedsdata');
+        feedlist = JSON.parse(feedlist as any);
         if (feedlist !== null && feedlist !== undefined) {
-            setFeeds([feedlist, ...feeds])
+            setFeeds([feedlist, ...feeds]);
         }
-    }
+    };
 
     useEffect(() => {
-        updateFeeds()
-    }, [])
-
+        updateFeeds();
+    }, []);
 
     return (
         <Grid container spacing={2} sx={{ mt: 1 }}>
