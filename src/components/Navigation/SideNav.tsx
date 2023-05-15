@@ -116,6 +116,33 @@ const sideNavOptions: Menu[] = [
         route: '/messages'
     },
     {
+        icon: MessagesIcon,
+        label: 'Reviews',
+        route: '/reviews',
+        submenu: [
+            {
+                label: 'Reviews',
+                route: ''
+            },
+            {
+                label: 'Suggested Reviews',
+                route: '/reviews'
+            },
+            {
+                label: 'Company Ratings',
+                route: '/reviews/company-ratings'
+            },
+            {
+                label: 'Sent requests',
+                route: '/reviews/sent-requests'
+            },
+            {
+                label: 'Recieved requests',
+                route: '/reviews/received-requests'
+            }
+        ]
+    },
+    {
         icon: BookIcon,
         label: 'Courses',
         route: '/courses'
