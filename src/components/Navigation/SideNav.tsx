@@ -92,6 +92,18 @@ const sideNavOptions: Menu[] = [
                 route: ''
             },
             {
+                label: 'job postings',
+                route: '/job-posting'
+            },
+            {
+                label: 'Applications',
+                route: '/job-applications'
+            },
+            {
+                label: 'Saved applications',
+                route: '/save-applications'
+            },
+            {
                 label: 'All jobs',
                 menuProfile: 'professional',
                 enable: true,

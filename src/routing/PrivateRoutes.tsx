@@ -15,6 +15,11 @@ import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
 import JobFactorScore from '../pages/JobFactorScore';
+import JobPostings from '../pages/MyJobs/JobPostings';
+import JobPostDetail from '../pages/MyJobs/components/JobPost/JobPostDetail';
+import JobApplications from '../pages/MyJobs/JobApplications';
+import SavedApplications from '../pages/MyJobs/SavedApplications';
+import NewJobPost from '../pages/MyJobs/NewJobPost';
 import JobPreference from '../pages/MyJobs/JobPreference';
 import SavedJobs from '../pages/MyJobs/SavedJobs';
 import AppliedJobs from '../pages/MyJobs/AppliedJobs';
@@ -83,7 +88,6 @@ const PrivateRoutes = () => {
                         </RequireAuth>
                     }
                 />
-
                 <Route
                     path="messages"
                     element={
@@ -136,6 +140,14 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
+                    path="job-posting"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobPostings />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
                     path="job-preference"
                     element={
                         <RequireAuth>
@@ -144,10 +156,42 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
+                    path="job-postdetail/:id"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobPostDetail />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
                     path="save-job"
                     element={
                         <RequireAuth>
                             <MainLayout children={<SavedJobs />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="job-applications"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobApplications />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="save-applications"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<SavedApplications />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="new-jobpost"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<NewJobPost />} />
                         </RequireAuth>
                     }
                 />

@@ -117,9 +117,9 @@ function CreateFeedCard() {
             </Box>
             {showmodal && (
                 <PostCards
-                    ShowModal={showmodal}
+                    showModal={showmodal}
                     data={data}
-                    HideModal={() => {
+                    hideModal={() => {
                         setShowModal(false);
                     }}
                 />

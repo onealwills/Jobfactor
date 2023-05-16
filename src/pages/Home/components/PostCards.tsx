@@ -48,12 +48,15 @@ const childmodalstyle = {
 };
 
 interface PostCardProps {
-    ShowModal: boolean;
-    data: any;
-    HideModal: (e?: any) => void;
+    showModal: boolean;
+    data: userInfo;
+    hideModal: (e?: any) => void;
 }
-
-const PostCards = ({ ShowModal, data, HideModal }: PostCardProps) => {
+interface userInfo{
+    userimage:string,
+    username:string,
+}
+const PostCards = ({ showModal, data, hideModal }: PostCardProps) => {
     const [editorText, setEditorText] = useState<string>('');
     const [assetArea, setAssetArea] = useState<string[]>([]);
     const [open, setOpen] = React.useState(false);
@@ -90,7 +93,7 @@ const PostCards = ({ ShowModal, data, HideModal }: PostCardProps) => {
             isAccountVerified: true
         };
         localStorage.setItem('feedsdata', JSON.stringify(temp));
-        HideModal();
+        hideModal();
         window.location.reload();
         reset();
     };
@@ -191,8 +194,8 @@ const PostCards = ({ ShowModal, data, HideModal }: PostCardProps) => {
 
     return (
         <Modal
-            open={ShowModal}
-            onClose={HideModal}
+            open={showModal}
+            onClose={hideModal}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
@@ -216,7 +219,7 @@ const PostCards = ({ ShowModal, data, HideModal }: PostCardProps) => {
                         </h4>
                     </Box>
                     <Box>
-                        <div style={{ cursor: 'pointer' }} onClick={HideModal}>
+                        <div style={{ cursor: 'pointer' }} onClick={hideModal}>
                             <ClearIcon />
                         </div>
                     </Box>
