@@ -1,6 +1,6 @@
 import Container from '@mui/material/Container';
 
-function UserQualificationsPage() {
+function UserQualifications() {
     return (
         <Container
             style={{
@@ -15,4 +15,4 @@ function UserQualificationsPage() {
     );
 }
 
-export default UserQualificationsPage;
+export default UserQualifications;

@@ -11,7 +11,7 @@ import NotificationsPage from '../pages/Notifications/NotificationsPags';
 import HelpSupportPage from '../pages/HelpSupport/HelpSupportPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import HomePage from '../pages/Home/HomePage';
-import UsersPage from '../pages/Users/UsersPage';
+import UsersPage from '../pages/Users';
 import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
@@ -19,7 +19,6 @@ import JobFactorScore from '../pages/JobFactorScore';
 import JobPreference from '../pages/MyJobs/JobPreference';
 import SavedJobs from '../pages/MyJobs/SavedJobs';
 import AppliedJobs from '../pages/MyJobs/AppliedJobs';
-import UserQualificationsPage from '../pages/Users/UserQualifications/UserQualificationsPage';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -47,23 +46,13 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
-                    path="users"
+                    path="users/:slug?"
                     element={
                         <RequireAuth>
                             <MainLayout children={<UsersPage />} />
                         </RequireAuth>
                     }
                 />
-
-                <Route
-                    path="users/qualifications"
-                    element={
-                        <RequireAuth>
-                            <MainLayout children={<UserQualificationsPage />} />
-                        </RequireAuth>
-                    }
-                />
-
                 <Route
                     path="connections"
                     element={

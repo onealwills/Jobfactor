@@ -5,41 +5,41 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import {
-    Box,
-    Typography,
-    IconButton,
-    Grid,
-    Container,
-    Divider,
-    Button,
-    List,
-    ListItem
-} from '@mui/material';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
-import cover from '../../assets/images/cover.jpg';
-import profile from '../../assets/images/profile-sq.png';
-import cambridge from '../../assets/images/cambridge.jpg';
-import nasa from '../../assets/images/nasa.png';
-import huawei from '../../assets/images/huawei.png';
-import northface from '../../assets/images/northface.png';
-import InfoChip from './components/InfoChip';
-import Section from './components/Section';
-import SectionHeading from './components/SectionHeading';
-import Image from '../../components/Image';
-import MedalIcon from '../../assets/icons/MedalIcon';
-import EducationSummary from './components/EducationSummary';
-import WorkSummary from './components/WorkSummary';
-import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
-import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
-import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
-import { Ranking } from './types/Ranking';
-import EditContactInfoDialog from './components/Modals/EditContactInfoDialog';
-import ScoreCard from '../../components/ScoreCard.tsx';
+import cover from '../../../assets/images/cover.jpg';
+import profile from '../../../assets/images/profile-sq.png';
+import cambridge from '../../../assets/images/cambridge.jpg';
+import nasa from '../../../assets/images/nasa.png';
+import huawei from '../../../assets/images/huawei.png';
+import northface from '../../../assets/images/northface.png';
+import InfoChip from '../components/InfoChip';
+import Section from '../components/Section';
+import SectionHeading from '../components/SectionHeading';
+import Image from '../../../components/Image';
+import MedalIcon from '../../../assets/icons/MedalIcon';
+import EducationSummary from '../components/EducationSummary';
+import WorkSummary from '../components/WorkSummary';
+import AnalyticsProfile from '../../../assets/icons/AnalyticsProfile';
+import AnalyticsSearch from '../../../assets/icons/AnalyticsSearch';
+import AnalyticsGraph from '../../../assets/icons/AnalyticsGraph';
+import { Ranking } from '../types/Ranking';
+import EditContactInfoDialog from '../components/Modals/EditContactInfoDialog';
+import ScoreCard from '../../../components/ScoreCard.tsx';
 import { useState } from 'react';
-import EditProfileAboutMeDialog from './components/Modals/EditProfileAboutMeDialog';
-import EditIcon from '../../assets/icons/EditIcon';
-import EditProfileInfoDialog from './components/Modals/EditProfileInfoDialog';
+import EditProfileAboutMeDialog from '../components/Modals/EditProfileAboutMeDialog';
+import EditIcon from '../../../assets/icons/EditIcon';
+import EditProfileInfoDialog from '../components/Modals/EditProfileInfoDialog';
+
+import { Link } from 'react-router-dom';
 
 function UsersPage() {
     const [openContactInfoModal, setOpenContactInfoModal] = useState(false);
@@ -438,81 +438,86 @@ function UsersPage() {
                                 py={2.5}
                             >
                                 <List>
-                                    <ListItem sx={{ padding: 0 }}>
-                                        <Grid
-                                            container
-                                            wrap="nowrap"
-                                            alignItems="center"
-                                        >
-                                            <Grid flexGrow={1} item>
-                                                <Typography
-                                                    component="h4"
-                                                    color="#23282B"
-                                                    fontFamily="open sans"
-                                                    fontSize={16}
-                                                    fontWeight={600}
-                                                    mb={1}
-                                                >
-                                                    Qualifications
-                                                </Typography>
-                                                <Typography
-                                                    component="p"
-                                                    color="#808080"
-                                                    fontFamily="open sans"
-                                                    fontSize={16}
-                                                    fontWeight={400}
-                                                >
-                                                    Highlight your skills,
-                                                    education and experience
-                                                </Typography>
+                                    <Link to="/users/qualifications" style={{ textDecoration: 'none' }}>
+                                        <ListItem sx={{ padding: 0 }}>
+                                            <Grid
+                                                container
+                                                wrap="nowrap"
+                                                alignItems="center"
+                                            >
+                                                <Grid flexGrow={1} item>
+                                                    <Typography
+                                                        component="h4"
+                                                        color="#23282B"
+                                                        fontFamily="open sans"
+                                                        fontSize={16}
+                                                        fontWeight={600}
+                                                        mb={1}
+                                                    >
+                                                        Qualifications
+                                                    </Typography>
+                                                    <Typography
+                                                        component="p"
+                                                        color="#808080"
+                                                        fontFamily="open sans"
+                                                        fontSize={16}
+                                                        fontWeight={400}
+                                                    >
+                                                        Highlight your skills,
+                                                        education and experience
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item>
+                                                    <ArrowRightIcon
+                                                        fontSize="large"
+                                                        htmlColor="#055C7F"
+                                                    />
+                                                </Grid>
                                             </Grid>
-                                            <Grid item>
-                                                <ArrowRightIcon
-                                                    fontSize="large"
-                                                    htmlColor="#055C7F"
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </ListItem>
+                                        </ListItem>
+                                    </Link>
+                                    
                                     <Box py={4.5}>
                                         <Divider />
                                     </Box>
-                                    <ListItem sx={{ padding: 0 }}>
-                                        <Grid
-                                            container
-                                            wrap="nowrap"
-                                            alignItems="center"
-                                        >
-                                            <Grid flexGrow={1} item>
-                                                <Typography
-                                                    component="h4"
-                                                    color="#23282B"
-                                                    fontFamily="open sans"
-                                                    fontSize={16}
-                                                    fontWeight={600}
-                                                    mb={1}
-                                                >
-                                                    Job Preference
-                                                </Typography>
-                                                <Typography
-                                                    component="p"
-                                                    color="#808080"
-                                                    fontFamily="open sans"
-                                                    fontSize={16}
-                                                    fontWeight={400}
-                                                >
-                                                    Save specific details about
-                                                    your desired job
-                                                </Typography>
+                                    <Link to="/users/job-preference" style={{ textDecoration: 'none' }}>
+                                        <ListItem sx={{ padding: 0 }}>
+                                            <Grid
+                                                container
+                                                wrap="nowrap"
+                                                alignItems="center"
+                                            >
+                                                <Grid flexGrow={1} item>
+                                                    <Typography
+                                                        component="h4"
+                                                        color="#23282B"
+                                                        fontFamily="open sans"
+                                                        fontSize={16}
+                                                        fontWeight={600}
+                                                        mb={1}
+                                                    >
+                                                        Job Preference
+                                                    </Typography>
+                                                    <Typography
+                                                        component="p"
+                                                        color="#808080"
+                                                        fontFamily="open sans"
+                                                        fontSize={16}
+                                                        fontWeight={400}
+                                                    >
+                                                        Save specific details about
+                                                        your desired job
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item>
+                                                    <ArrowRightIcon
+                                                        fontSize="large"
+                                                        htmlColor="#055C7F"
+                                                    />
+                                                </Grid>
                                             </Grid>
-                                            <Grid item>
-                                                <ArrowRightIcon
-                                                    fontSize="large"
-                                                    htmlColor="#055C7F"
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </ListItem>
+                                        </ListItem>
+                                    </Link>
                                 </List>
                             </Section>
                             <Section

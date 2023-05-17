@@ -5,10 +5,9 @@ import SentRequests from './SentRequests';
 import SuggestedReviews from './SuggestedReviews';
 import CompanyRatings from './CompanyRatings';
 import ReceivedRequests from './ReceivedRequests';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const ReviewsView = () => {
-    // const location = useLocation();
     const { slug } = useParams();
 
     const getSelectedReviewsPage = () => {

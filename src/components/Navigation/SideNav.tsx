@@ -52,11 +52,11 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Activities',
-                route: '/activities'
+                route: '/users/activities'
             },
             {
                 label: 'Jobfactor Score',
-                route: '/jobfactor-score'
+                route: '/users/score'
             }
         ]
     },

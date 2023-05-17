@@ -18,13 +18,15 @@ interface HeaderActionProps {
 
 interface PageHeaderProps {
     pageTitle: string;
+    actions?: React.ReactNode;
+    onBackNavigate?: string;
 }
 
 const HeaderActions = ({ children }: HeaderActionProps) => {
     return <>{children}</>;
 };
 
-const PageHeader = ({ pageTitle }: PageHeaderProps) => {
+const PageHeader = ({ actions, pageTitle, onBackNavigate }: PageHeaderProps) => {
     const navigate = useNavigate();
 
     return (
@@ -48,7 +50,7 @@ const PageHeader = ({ pageTitle }: PageHeaderProps) => {
                         gap: '25px'
                     }}
                 >
-                    <IconButton onClick={() => navigate('/')}>
+                    <IconButton onClick={() => navigate(onBackNavigate || '/')}>
                         <WestIcon />
                     </IconButton>
                     <Typography
@@ -75,8 +77,12 @@ const PageHeader = ({ pageTitle }: PageHeaderProps) => {
                     }}
                 >
                     <HeaderActions>
-                        <Button variant="outlined">Replace All</Button>
-                        <Button variant="contained">Request Review</Button>
+                        {actions !== undefined ? actions : (
+                            <>
+                                <Button variant="outlined">Replace All</Button>
+                                <Button variant="contained">Request Review</Button>
+                            </>
+                        )}
                     </HeaderActions>
                 </Grid>
             </Grid>
