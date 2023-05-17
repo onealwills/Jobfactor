@@ -11,6 +11,7 @@ import HelpSupportPage from '../pages/HelpSupport/HelpSupportPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import HomePage from '../pages/Home/HomePage';
 import UsersPage from '../pages/Users/UsersPage';
+import Activities from '../pages/Activities/ActivitiesPage';
 import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
@@ -55,7 +56,14 @@ const PrivateRoutes = () => {
                         </RequireAuth>
                     }
                 />
-
+                <Route
+                    path="activities"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<Activities />} />
+                        </RequireAuth>
+                    }
+                />
                 <Route
                     path="connections"
                     element={
