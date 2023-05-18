@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import BriefcaseIcon from '../../../assets/icons/BriefcaseIconMui';
+import AddQualificationDialog from '../components/Modals/AddQualificationDialog';
 
 function UserQualifications() {
+
+    const [open, setOpen] = useState<boolean>(false);
+
+    const handleAddQualification = () => {
+        setOpen(true);
+    };
+
     return (
         <>
             <Paper
@@ -30,6 +38,7 @@ function UserQualifications() {
                 }}
                 variant="contained"
                 endIcon={<BriefcaseIcon />}
+                onClick={handleAddQualification}
             >
                 <Typography
                     component="span"
@@ -39,6 +48,8 @@ function UserQualifications() {
                     Add a Qualification
                 </Typography>
             </Button>
+
+            <AddQualificationDialog open={open} setOpen={setOpen} />
         </>
     );
 }
