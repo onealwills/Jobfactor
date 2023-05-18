@@ -29,6 +29,8 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import PlaceIcon from '@mui/icons-material/Place';
 import CakeIcon from '@mui/icons-material/Cake';
+import CommonRadioDropdown from '../../../common/CommonRadioDropdown';
+import BriefcaseFormIcon from '../../../../assets/icons/BriefcaseFormIcon';
 
 interface IAddQualificationDialogProps {
     open: boolean;
@@ -80,7 +82,19 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
                 </Button>
             }
         >
-           
+           <CommonRadioDropdown
+            label="Qualifications"
+            placeholder="Please select"
+            startAdornment={<BriefcaseFormIcon />}
+            options={[
+                {label: 'Education', value: 'education'},
+                {label: 'Work experience', value: 'work-experience'},
+                {label: 'Volunteer service', value: 'volunteer-service'},
+                {label: 'License and certifications', value: 'license-and-certifications'},
+                {label: 'Tests', value: 'tests'},
+                {label: 'Awards', value: 'awards'},
+            ]}
+           />
         </CommonDialog>
     );
 };
