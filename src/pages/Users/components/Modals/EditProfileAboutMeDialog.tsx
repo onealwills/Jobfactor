@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { ChangeEvent, useState } from 'react';
-import CustomDialog from './CustomDialog';
+import CommonDialog from '../../../common/CommonDialog';
 
 interface IEditProfileAboutMeDialogProps {
     open: boolean;
@@ -31,7 +31,7 @@ const EditProfileAboutMeDialog = (props: IEditProfileAboutMeDialogProps) => {
     };
 
     return (
-        <CustomDialog open={open} onClose={handleOnClose} title="About me">
+        <CommonDialog open={open} onClose={handleOnClose} title="About me">
             <Stack>
                 <Typography
                     variant="bodyLargeRegular"
@@ -77,7 +77,7 @@ const EditProfileAboutMeDialog = (props: IEditProfileAboutMeDialogProps) => {
             <Button variant="contained" sx={{ width: 76 }}>
                 Save
             </Button>
-        </CustomDialog>
+        </CommonDialog>
     );
 };
 
