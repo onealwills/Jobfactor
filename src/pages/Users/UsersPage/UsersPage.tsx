@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItem';
 
 import cover from '../../../assets/images/cover.jpg';
 import profile from '../../../assets/images/profile-sq.png';
@@ -40,6 +40,7 @@ import EditIcon from '../../../assets/icons/EditIcon';
 import EditProfileInfoDialog from '../components/Modals/EditProfileInfoDialog';
 
 import { Link } from 'react-router-dom';
+import ListItem from '@mui/material/ListItem';
 
 function UsersPage() {
     const [openContactInfoModal, setOpenContactInfoModal] = useState(false);
@@ -168,7 +169,6 @@ function UsersPage() {
                                             gap={2}
                                             alignItems="center"
                                         >
-
                                                 <Grid item>
                                                     <Typography
                                                         component="h2"
@@ -438,86 +438,93 @@ function UsersPage() {
                                 py={2.5}
                             >
                                 <List>
-                                    <Link to="/users/qualifications" style={{ textDecoration: 'none' }}>
-                                        <ListItem sx={{ padding: 0 }}>
-                                            <Grid
-                                                container
-                                                wrap="nowrap"
-                                                alignItems="center"
-                                            >
-                                                <Grid flexGrow={1} item>
-                                                    <Typography
-                                                        component="h4"
-                                                        color="#23282B"
-                                                        fontFamily="open sans"
-                                                        fontSize={16}
-                                                        fontWeight={600}
-                                                        mb={1}
-                                                    >
-                                                        Qualifications
-                                                    </Typography>
-                                                    <Typography
-                                                        component="p"
-                                                        color="#808080"
-                                                        fontFamily="open sans"
-                                                        fontSize={16}
-                                                        fontWeight={400}
-                                                    >
-                                                        Highlight your skills,
-                                                        education and experience
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <ArrowRightIcon
-                                                        fontSize="large"
-                                                        htmlColor="#055C7F"
-                                                    />
-                                                </Grid>
+                                    <ListItemButton
+                                        component={Link}
+                                        to="/users/qualifications"
+                                        style={{ textDecoration: 'none' }}
+                                        sx={{ padding: 0 }}
+                                    >
+                                        <Grid
+                                            container
+                                            wrap="nowrap"
+                                            alignItems="center"
+                                        >
+                                            <Grid flexGrow={1} item>
+                                                <Typography
+                                                    component="h4"
+                                                    color="#23282B"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={600}
+                                                    mb={1}
+                                                >
+                                                    Qualifications
+                                                </Typography>
+                                                <Typography
+                                                    component="p"
+                                                    color="#808080"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={400}
+                                                >
+                                                    Highlight your skills,
+                                                    education and experience
+                                                </Typography>
                                             </Grid>
-                                        </ListItem>
-                                    </Link>
+                                            <Grid item>
+                                                <ArrowRightIcon
+                                                    fontSize="large"
+                                                    htmlColor="#055C7F"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </ListItemButton>
                                     
                                     <Box py={4.5}>
                                         <Divider />
                                     </Box>
-                                    <Link to="/users/job-preference" style={{ textDecoration: 'none' }}>
-                                        <ListItem sx={{ padding: 0 }}>
-                                            <Grid
-                                                container
-                                                wrap="nowrap"
-                                                alignItems="center"
-                                            >
-                                                <Grid flexGrow={1} item>
-                                                    <Typography
-                                                        component="h4"
-                                                        color="#23282B"
-                                                        fontFamily="open sans"
-                                                        fontSize={16}
-                                                        fontWeight={600}
-                                                        mb={1}
-                                                    >
-                                                        Job Preference
-                                                    </Typography>
-                                                    <Typography
-                                                        component="p"
-                                                        color="#808080"
-                                                        fontFamily="open sans"
-                                                        fontSize={16}
-                                                        fontWeight={400}
-                                                    >
-                                                        Save specific details about
-                                                        your desired job
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <ArrowRightIcon
-                                                        fontSize="large"
-                                                        htmlColor="#055C7F"
-                                                    />
-                                                </Grid>
+
+                                    <ListItemButton 
+                                        component={Link}
+                                        to="/users/qualifications"
+                                        style={{ textDecoration: 'none' }}
+                                        sx={{ padding: 0 }}
+                                    >
+                                        <Grid
+                                            container
+                                            wrap="nowrap"
+                                            alignItems="center"
+                                        >
+                                            <Grid flexGrow={1} item>
+                                                <Typography
+                                                    component="h4"
+                                                    color="#23282B"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={600}
+                                                    mb={1}
+                                                >
+                                                    Job Preference
+                                                </Typography>
+                                                <Typography
+                                                    component="p"
+                                                    color="#808080"
+                                                    fontFamily="open sans"
+                                                    fontSize={16}
+                                                    fontWeight={400}
+                                                >
+                                                    Save specific details about
+                                                    your desired job
+                                                </Typography>
                                             </Grid>
-                                        </ListItem>
-                                    </Link>
+                                            <Grid item>
+                                                <ArrowRightIcon
+                                                    fontSize="large"
+                                                    htmlColor="#055C7F"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </ListItemButton>
                                 </List>
                             </Section>
                             <Section

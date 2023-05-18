@@ -4,23 +4,16 @@ import { Box, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import UsersPage from './UsersPage/UsersPage';
 import UserQualifications from './UserQualifications/UserQualifications';
+
 const UsersView = () => {
     const { slug } = useParams();
 
-    const getSelectedUsersPage = () => {
-        switch (slug) {
-            case 'qualifications':
-                return <UserQualifications />;
-            default:
-                return <UsersPage />;
-        }
-    };
-
-    return (
-        <Paper>
-            <Box sx={{ ml: '35px' }}>{getSelectedUsersPage()}</Box>
-        </Paper>
-    );
+    switch (slug) {
+        case 'qualifications':
+            return <UserQualifications />;
+        default:
+            return <UsersPage />;
+    }
 };
 
 const WrappedView = () => {
