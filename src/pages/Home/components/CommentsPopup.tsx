@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -17,66 +17,82 @@ import JobBookmarkIcon from '../../../assets/icons/JobBookmarkIcon';
 import Slider1 from '../../../assets/images/slider1.png';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TextField from '@mui/material/TextField';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import { IFeedItem } from '../types/IFeedItem';
 
 type PropTypes = {
-    open: boolean,
-    handleClose: () => void,
-    data: IFeedItem
-}
+    open: boolean;
+    handleClose: () => void;
+    data: IFeedItem;
+};
 
 const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
     const feed = {
         ...data,
-        commentsData: [{
-            id: "ec2561c4-f13d-48fb-be8a-aafdc694c49e",
-            sourceUserId: "8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e",
-            targetUserId: "1ccc4f29-9349-4d11-8f66-d2e15ba721b8",
-            message: "Hello, how are you?",
-            fullName: 'John Deo',
-            replies: [{
-                id: "ec2561c4-f13d-48fb-be8a-aafdc694c49e",
-                sourceUserId: "8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e",
-                targetUserId: "1ccc4f29-9349-4d11-8f66-d2e15ba721b8",
-                message: "Hello, how are you?",
+        commentsData: [
+            {
+                id: 'ec2561c4-f13d-48fb-be8a-aafdc694c49e',
+                sourceUserId: '8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e',
+                targetUserId: '1ccc4f29-9349-4d11-8f66-d2e15ba721b8',
+                message: 'Hello, how are you?',
                 fullName: 'John Deo',
-                isAccountVerified: true,
-                replies: []
-            }, {
-                id: "ec2561c4-f13d-48fb-be8a-aafdc694c49e",
-                fullName: 'John Deo',
-                sourceUserId: "8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e",
-                targetUserId: "1ccc4f29-9349-4d11-8f66-d2e15ba721b8",
-                message: "Hello, how are you?",
-                replies: [{
-                    id: "ec2561c4-f13d-48fb-be8a-aafdc694c49e",
-                    fullName: 'John Deo',
-                    sourceUserId: "8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e",
-                    targetUserId: "1ccc4f29-9349-4d11-8f66-d2e15ba721b8",
-                    message: "Hello, how are you?",
-                    replies: []
-                }, {
-                    id: "ec2561c4-f13d-48fb-be8a-aafdc694c49e",
-                    sourceUserId: "8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e",
-                    fullName: 'John Deo',
-                    targetUserId: "1ccc4f29-9349-4d11-8f66-d2e15ba721b8",
-                    message: "Hello, how are you?",
-                    replies: [{
-                        id: "ec2561c4-f13d-48fb-be8a-aafdc694c49e",
-                        sourceUserId: "8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e",
-                        targetUserId: "1ccc4f29-9349-4d11-8f66-d2e15ba721b8",
-                        message: "Hello, how are you?",
+                replies: [
+                    {
+                        id: 'ec2561c4-f13d-48fb-be8a-aafdc694c49e',
+                        sourceUserId: '8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e',
+                        targetUserId: '1ccc4f29-9349-4d11-8f66-d2e15ba721b8',
+                        message: 'Hello, how are you?',
                         fullName: 'John Deo',
                         isAccountVerified: true,
                         replies: []
-                    }]
-                }]
-            }]
-        }]
-    }
+                    },
+                    {
+                        id: 'ec2561c4-f13d-48fb-be8a-aafdc694c49e',
+                        fullName: 'John Deo',
+                        sourceUserId: '8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e',
+                        targetUserId: '1ccc4f29-9349-4d11-8f66-d2e15ba721b8',
+                        message: 'Hello, how are you?',
+                        replies: [
+                            {
+                                id: 'ec2561c4-f13d-48fb-be8a-aafdc694c49e',
+                                fullName: 'John Deo',
+                                sourceUserId:
+                                    '8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e',
+                                targetUserId:
+                                    '1ccc4f29-9349-4d11-8f66-d2e15ba721b8',
+                                message: 'Hello, how are you?',
+                                replies: []
+                            },
+                            {
+                                id: 'ec2561c4-f13d-48fb-be8a-aafdc694c49e',
+                                sourceUserId:
+                                    '8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e',
+                                fullName: 'John Deo',
+                                targetUserId:
+                                    '1ccc4f29-9349-4d11-8f66-d2e15ba721b8',
+                                message: 'Hello, how are you?',
+                                replies: [
+                                    {
+                                        id: 'ec2561c4-f13d-48fb-be8a-aafdc694c49e',
+                                        sourceUserId:
+                                            '8fbcf5ef-7ab2-4bb0-941e-bc8d91429e4e',
+                                        targetUserId:
+                                            '1ccc4f29-9349-4d11-8f66-d2e15ba721b8',
+                                        message: 'Hello, how are you?',
+                                        fullName: 'John Deo',
+                                        isAccountVerified: true,
+                                        replies: []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
     return (
         <Dialog
             open={open}
@@ -90,7 +106,9 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
             scroll="paper"
         >
             <Grid container sx={{ width: '1200px', height: '100%' }}>
-                <Grid item xs={6}
+                <Grid
+                    item
+                    xs={6}
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
@@ -101,54 +119,82 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                         showStatus={false}
                         showIndicators={false}
                         showThumbs={false}
-                        renderArrowNext={(clickHandler: () => void) => <IconButton
-                            sx={{
-                                background: 'rgba(255, 255, 255, 0.7)',
-                                width: '44px',
-                                height: '44px',
-                                filter: "drop-shadow(4px 4px 15px rgba(0, 0, 0, 0.15))",
-                                backdropFilter: 'blur(1px)',
-                                position: 'absolute',
-                                top: 0,
-                                zIndex: '99',
-                                bottom: 0,
-                                margin: 'auto',
-                                right: '35px'
-                            }}
-                            onClick={clickHandler}
-                        >
-                            <ArrowForwardIcon />
-                        </IconButton>
-                        }
-                        renderArrowPrev={(clickHandler: () => void) => <IconButton
-                            sx={{
-                                background: 'rgba(255, 255, 255, 0.7)',
-                                width: '44px',
-                                height: '44px',
-                                filter: "drop-shadow(4px 4px 15px rgba(0, 0, 0, 0.15))",
-                                backdropFilter: 'blur(1px)',
-                                position: 'absolute',
-                                top: 0,
-                                zIndex: '99',
-                                bottom: 0,
-                                margin: 'auto',
-                                left: '35px'
-                            }}
-                            onClick={clickHandler}
-
-                        >
-                            <ArrowBack />
-                        </IconButton>
-                        }
+                        renderArrowNext={(clickHandler: () => void) => (
+                            <IconButton
+                                sx={{
+                                    background: 'rgba(255, 255, 255, 0.7)',
+                                    width: '44px',
+                                    height: '44px',
+                                    filter: 'drop-shadow(4px 4px 15px rgba(0, 0, 0, 0.15))',
+                                    backdropFilter: 'blur(1px)',
+                                    position: 'absolute',
+                                    top: 0,
+                                    zIndex: '99',
+                                    bottom: 0,
+                                    margin: 'auto',
+                                    right: '35px'
+                                }}
+                                onClick={clickHandler}
+                            >
+                                <ArrowForwardIcon />
+                            </IconButton>
+                        )}
+                        renderArrowPrev={(clickHandler: () => void) => (
+                            <IconButton
+                                sx={{
+                                    background: 'rgba(255, 255, 255, 0.7)',
+                                    width: '44px',
+                                    height: '44px',
+                                    filter: 'drop-shadow(4px 4px 15px rgba(0, 0, 0, 0.15))',
+                                    backdropFilter: 'blur(1px)',
+                                    position: 'absolute',
+                                    top: 0,
+                                    zIndex: '99',
+                                    bottom: 0,
+                                    margin: 'auto',
+                                    left: '35px'
+                                }}
+                                onClick={clickHandler}
+                            >
+                                <ArrowBack />
+                            </IconButton>
+                        )}
                     >
                         <div>
-                            <img src={Slider1} style={{ maxHeight: '481px', width: '100%', height: '100%', maxWidth: '721px' }} alt='slider_1' />
+                            <img
+                                src={Slider1}
+                                style={{
+                                    maxHeight: '481px',
+                                    width: '100%',
+                                    height: '100%',
+                                    maxWidth: '721px'
+                                }}
+                                alt="slider_1"
+                            />
                         </div>
                         <div>
-                            <img src={Slider1} style={{ maxHeight: '481px', width: '100%', height: '100%', maxWidth: '721px' }} alt='slider_2' />
+                            <img
+                                src={Slider1}
+                                style={{
+                                    maxHeight: '481px',
+                                    width: '100%',
+                                    height: '100%',
+                                    maxWidth: '721px'
+                                }}
+                                alt="slider_2"
+                            />
                         </div>
                         <div>
-                            <img src={Slider1} style={{ maxHeight: '481px', width: '100%', height: '100%', maxWidth: '721px' }} alt='slider_3' />
+                            <img
+                                src={Slider1}
+                                style={{
+                                    maxHeight: '481px',
+                                    width: '100%',
+                                    height: '100%',
+                                    maxWidth: '721px'
+                                }}
+                                alt="slider_3"
+                            />
                         </div>
                     </Carousel>
                 </Grid>
@@ -174,7 +220,10 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                             gap: '16px'
                         }}
                     >
-                        <Avatar src={feed?.profileImage} sx={{ width: '56px', height: '56px' }} />
+                        <Avatar
+                            src={feed?.profileImage}
+                            sx={{ width: '56px', height: '56px' }}
+                        />
 
                         <Box
                             sx={{
@@ -217,9 +266,9 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                                     </Box>
                                     <Button
                                         sx={{
-                                            padding: "10px 16px",
-                                            background: "#F2F2F2",
-                                            borderRadius: "8px",
+                                            padding: '10px 16px',
+                                            background: '#F2F2F2',
+                                            borderRadius: '8px',
                                             textTransform: 'capitalize',
                                             fontFamily: 'Open Sans',
                                             fontWeight: '600',
@@ -255,24 +304,33 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                         sx={{
                             display: 'block',
                             pl: 0,
-                            pr: 0,
+                            pr: 0
                         }}
                     >
                         <Box
                             sx={{
                                 width: '100%',
                                 pl: '20px',
-                                pr: '20px',
+                                pr: '20px'
                             }}
                         >
                             <Box>
-                                <IconButton sx={{ p: 0, m: 0, }} >
+                                <IconButton sx={{ p: 0, m: 0 }}>
                                     <UploadIcon color="#494949" />
                                 </IconButton>
-                                <IconButton sx={{ p: 0, m: 0, ml: '22px !important', mr: '11px' }} >
-                                    <FavoriteBorderIcon sx={{ color: "#494949", }} />
+                                <IconButton
+                                    sx={{
+                                        p: 0,
+                                        m: 0,
+                                        ml: '22px !important',
+                                        mr: '11px'
+                                    }}
+                                >
+                                    <FavoriteBorderIcon
+                                        sx={{ color: '#494949' }}
+                                    />
                                 </IconButton>
-                                <IconButton sx={{ p: 0, m: 0, }} >
+                                <IconButton sx={{ p: 0, m: 0 }}>
                                     <JobBookmarkIcon color="#494949" />
                                 </IconButton>
                             </Box>
@@ -288,18 +346,38 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                                 <Box
                                     sx={{
                                         display: 'flex',
-                                        alignItems: 'center',
+                                        alignItems: 'center'
                                     }}
                                 >
-                                    <Avatar sx={{ width: '24px', height: '24px' }}>T</Avatar>
-                                    <Avatar sx={{ width: '24px', height: '24px', mr: '-3px' }}>T</Avatar>
-                                    <Avatar sx={{ width: '24px', height: '24px', mr: '-3px' }}>T</Avatar>
+                                    <Avatar
+                                        sx={{ width: '24px', height: '24px' }}
+                                    >
+                                        T
+                                    </Avatar>
+                                    <Avatar
+                                        sx={{
+                                            width: '24px',
+                                            height: '24px',
+                                            mr: '-3px'
+                                        }}
+                                    >
+                                        T
+                                    </Avatar>
+                                    <Avatar
+                                        sx={{
+                                            width: '24px',
+                                            height: '24px',
+                                            mr: '-3px'
+                                        }}
+                                    >
+                                        T
+                                    </Avatar>
                                     <Typography
                                         sx={{
                                             fontFamily: 'Open Sans',
                                             letterSpacing: '0.0015em',
                                             color: '#23282B',
-                                            ml: "12px"
+                                            ml: '12px'
                                         }}
                                     >
                                         Liked by
@@ -308,14 +386,19 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                                                 fontWeight: '600'
                                             }}
                                             component="span"
-                                        > Jrichard_
+                                        >
+                                            {' '}
+                                            Jrichard_
                                         </Typography>
-                                        and    <Typography
+                                        and{' '}
+                                        <Typography
                                             sx={{
                                                 fontWeight: '600'
                                             }}
                                             component="span"
-                                        > others
+                                        >
+                                            {' '}
+                                            others
                                         </Typography>
                                     </Typography>
                                 </Box>
@@ -335,8 +418,8 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                         <Box
                             sx={{
                                 background: '#FCFBF8',
-                                borderTop: "0.5px solid #D9D9D9",
-                                padding: "16px 20px",
+                                borderTop: '0.5px solid #D9D9D9',
+                                padding: '16px 20px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '20px',
@@ -351,13 +434,13 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                                         border: '0'
                                     }
                                 }}
-                                placeholder='Add a comment...'
+                                placeholder="Add a comment..."
                             />
                             <Button
                                 sx={{
-                                    padding: "12px 35px",
-                                    background: "#EDEDED",
-                                    borderRadius: "8px",
+                                    padding: '12px 35px',
+                                    background: '#EDEDED',
+                                    borderRadius: '8px',
                                     textTransform: 'capitalize',
                                     fontFamily: 'Open Sans',
                                     fontWeight: '600',
@@ -371,35 +454,38 @@ const CommentsPopup = ({ open, handleClose, data }: PropTypes) => {
                         </Box>
                     </DialogActions>
                 </Grid>
-            </Grid >
-        </Dialog >
-    )
-}
+            </Grid>
+        </Dialog>
+    );
+};
 
 type itemType = {
-    item: comments
-}
+    item: comments;
+};
 type comments = {
-    id: string,
-    sourceUserId: string,
-    targetUserId: string,
-    message: string,
-    profileImage?: string,
-    fullName: string,
-    isAccountVerified?: boolean,
-    replies: Array<comments>
-}
+    id: string;
+    sourceUserId: string;
+    targetUserId: string;
+    message: string;
+    profileImage?: string;
+    fullName: string;
+    isAccountVerified?: boolean;
+    replies: Array<comments>;
+};
 const CommentBox = ({ item }: itemType) => {
-    const [showReplies, setShowReplies] = React.useState(false)
+    const [showReplies, setShowReplies] = React.useState(false);
     return (
         <Box
             sx={{
                 display: 'flex',
                 width: '100%',
-                gap: '16px',
+                gap: '16px'
             }}
         >
-            <Avatar src={item?.profileImage} sx={{ width: '56px', height: '56px' }} />
+            <Avatar
+                src={item?.profileImage}
+                sx={{ width: '56px', height: '56px' }}
+            />
             <Box sx={{ width: '100%' }}>
                 <Box
                     sx={{
@@ -430,7 +516,9 @@ const CommentBox = ({ item }: itemType) => {
                         </Typography>
                         {item?.isAccountVerified ? <VerifiedIcon /> : null}
                     </Box>
-                    <FavoriteBorderIcon sx={{ color: '#808080', fontSize: '20px', mr: '5px' }} />
+                    <FavoriteBorderIcon
+                        sx={{ color: '#808080', fontSize: '20px', mr: '5px' }}
+                    />
                 </Box>
                 <Typography
                     sx={{
@@ -447,17 +535,17 @@ const CommentBox = ({ item }: itemType) => {
                         fontFamily: 'Open Sans',
                         letterSpacing: '0.0015em',
                         color: '#808080',
-                        mt: "12px"
+                        mt: '12px'
                     }}
                 >
                     2d
                 </Typography>
-                {item?.replies?.length > 0 ?
+                {item?.replies?.length > 0 ? (
                     <Button
                         sx={{
-                            padding: "4px 16px",
-                            background: "#F2F2F2",
-                            borderRadius: "8px",
+                            padding: '4px 16px',
+                            background: '#F2F2F2',
+                            borderRadius: '8px',
                             textTransform: 'capitalize',
                             fontFamily: 'Open Sans',
                             fontWeight: '600',
@@ -472,14 +560,12 @@ const CommentBox = ({ item }: itemType) => {
                     >
                         View replies ({item?.replies?.length})
                     </Button>
-                    : null
-                }
-                {showReplies ?
-                    item?.replies?.map(x => <CommentBox item={x} />)
-                    : null
-                }
+                ) : null}
+                {showReplies
+                    ? item?.replies?.map((x) => <CommentBox item={x} />)
+                    : null}
             </Box>
         </Box>
     );
-}
-export default CommentsPopup
+};
+export default CommentsPopup;

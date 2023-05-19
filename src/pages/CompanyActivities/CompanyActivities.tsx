@@ -11,21 +11,20 @@ import {
     ImageList,
     ImageListItem
 } from '@mui/material';
-import cover from '../../assets/images/cover.jpg';
-import profile from '../../assets/images/profile-sq.png';
+import cover from '../../assets/images/companyCover.png';
+import profile from '../../assets/images/companyProfile.png';
 import InfoChip from '../Users/components/InfoChip';
-import Section from './components/Section';
+import Section from '../Activities/components/Section';
 import SectionHeading from '../Users/components/SectionHeading';
 import Image from '../../components/Image';
 import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
-import EditContactInfoDialog from '../Users/components/Modals/EditContactInfoDialog';
+import ContactInfoModal from '../AboutCompany/components/ContactInfoModal';
 import ScoreCard from '../../components/ScoreCard.tsx';
 import { useState } from 'react';
-import EditProfileAboutMeDialog from '../Users/components/Modals/EditProfileAboutMeDialog';
 import EditIcon from '../../assets/icons/EditIcon';
-import EditProfileInfoDialog from '../Users/components/Modals/EditProfileInfoDialog';
+import EditProfileModal from '../AboutCompany/components/EditProfileModal';
 import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon';
 import image1 from '../../assets/images/galleryImage1.png';
 import image2 from '../../assets/images/galleryImage2.png';
@@ -37,7 +36,7 @@ import feedImg from '../../assets/images/slider1.png';
 import profImg1 from '../../assets/images/profileReview.png';
 import profImg2 from '../../assets/images/feed2.png';
 import profImg3 from '../../assets/images/SideNavProfile.png';
-import ProfileList from './components/ProfileList';
+import ProfileList from '../Activities/components/ProfileList';
 import { useNavigate } from 'react-router-dom';
 import { FeedItem } from '../Home/components/FeedItem';
 
@@ -46,7 +45,7 @@ const images = [image1, image2, image3, image4, image5, image6];
 const data = [
     {
         profileImage: profile,
-        fullName: 'Ronald Richard',
+        fullName: 'Jobfactor Inc.',
         jobTitle: 'Product Designer',
         description:
             'Hello everyone,If you wan to get started in brand design you can send me a private message so I can put you through all you will need to get started. #startyourtechjourneynow',
@@ -59,7 +58,7 @@ const data = [
     },
     {
         profileImage: profile,
-        fullName: 'Ronald Richard',
+        fullName: 'Jobfactor Inc.',
         jobTitle: 'Product Designer',
         description: 'test',
         views: 2456,
@@ -91,9 +90,8 @@ const professionals = [
     }
 ];
 
-function Activities() {
+function CompanyActivities() {
     const [openContactInfoModal, setOpenContactInfoModal] = useState(false);
-    const [openAboutMeModal, setOpenAboutMeModal] = useState(false);
     const [openProfileInfoModal, setOpenProfileInfoModal] = useState(false);
     const navigate = useNavigate();
 
@@ -169,7 +167,7 @@ function Activities() {
                                                 lineHeight: '32px'
                                             }}
                                         >
-                                            Ronald Richard
+                                            Jobfactor Inc.
                                         </Typography>
                                     </Box>
                                     <Box
@@ -209,7 +207,7 @@ function Activities() {
                                             height: '200px',
                                             objectFit: 'cover'
                                         }}
-                                        alt="Ronald Richard"
+                                        alt="Jobfactor Inc."
                                         border="3px #fff solid"
                                         borderRadius="50%"
                                         display="block"
@@ -277,7 +275,7 @@ function Activities() {
                                                     fontSize={28}
                                                     fontWeight={600}
                                                 >
-                                                    Ronald Richard
+                                                    Jobfactor Inc.
                                                 </Typography>
                                             </Grid>
 
@@ -300,7 +298,7 @@ function Activities() {
                                                         fontSize={16}
                                                         fontWeight={400}
                                                     >
-                                                        Product Designer
+                                                        Founded in 1986
                                                     </Typography>
                                                     <CheckCircleIcon
                                                         htmlColor="#49B6FF"
@@ -342,8 +340,7 @@ function Activities() {
                                             fontSize={16}
                                             fontWeight={400}
                                         >
-                                            Web3 Product Designer | I want to
-                                            design extraordinary things
+                                            Beyond resume, beyond Linkedin
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -593,15 +590,11 @@ function Activities() {
                     </Grid>
                 </Grid>
             </Grid>
-            <EditContactInfoDialog
+            <ContactInfoModal
                 open={openContactInfoModal}
                 setOpen={setOpenContactInfoModal}
             />
-            <EditProfileAboutMeDialog
-                open={openAboutMeModal}
-                setOpen={setOpenAboutMeModal}
-            />
-            <EditProfileInfoDialog
+            <EditProfileModal
                 open={openProfileInfoModal}
                 setOpen={setOpenProfileInfoModal}
             />
@@ -609,4 +602,4 @@ function Activities() {
     );
 }
 
-export default Activities;
+export default CompanyActivities;

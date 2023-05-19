@@ -1,14 +1,14 @@
-import React from 'react'
-import Box from '@mui/material/Box'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
+import React from 'react';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 interface propTypes {
-    profileImage: string,
-    fullName: string,
-    jobTitle: string,
-    score: number
+    profileImage: string;
+    fullName: string;
+    jobTitle: string;
+    score: number;
 }
 const ProfileList = ({ data }: { data: propTypes }) => {
     return (
@@ -24,7 +24,7 @@ const ProfileList = ({ data }: { data: propTypes }) => {
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: "15px"
+                    gap: '15px'
                 }}
             >
                 <Avatar
@@ -49,7 +49,7 @@ const ProfileList = ({ data }: { data: propTypes }) => {
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: "15px"
+                            gap: '15px'
                         }}
                     >
                         <Typography
@@ -82,7 +82,7 @@ const ProfileList = ({ data }: { data: propTypes }) => {
             </Box>
             <Button
                 sx={{
-                    padding: "11px 17px",
+                    padding: '11px 17px',
                     background: '#F2F2F2',
                     borderRadius: '8px',
                     fontFamily: 'Open Sans',
@@ -97,7 +97,7 @@ const ProfileList = ({ data }: { data: propTypes }) => {
                 Connect
             </Button>
         </Box>
-    )
-}
+    );
+};
 
-export default ProfileList
+export default ProfileList;

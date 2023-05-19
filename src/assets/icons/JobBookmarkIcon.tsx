@@ -1,6 +1,6 @@
 import React from 'react';
 
-const JobBookmarkIcon = ({ color = "#808080" }) => {
+const JobBookmarkIcon = ({ color = '#808080' }) => {
     return (
         <svg
             width="40"

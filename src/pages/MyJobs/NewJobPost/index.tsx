@@ -1,4 +1,13 @@
-import { Box, Typography, Button, InputBase, IconButton, Select, MenuItem, Paper } from '@mui/material';
+import {
+    Box,
+    Typography,
+    Button,
+    InputBase,
+    IconButton,
+    Select,
+    MenuItem,
+    Paper
+} from '@mui/material';
 import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -123,7 +132,7 @@ const NewJobPost = () => {
                                     {...params}
                                     label="Required skills"
                                     placeholder="Add Skills"
-                                    name='skills'
+                                    name="skills"
                                 />
                             )}
                         />
@@ -265,7 +274,13 @@ const NewJobPost = () => {
                                 return (
                                     <li>
                                         {item?.title} {' - '}{' '}
-                                        <span style={{ color: getCompetencyColor((item?.competency ?? "")) }}>
+                                        <span
+                                            style={{
+                                                color: getCompetencyColor(
+                                                    item?.competency ?? ''
+                                                )
+                                            }}
+                                        >
                                             {item?.competency}
                                         </span>
                                     </li>
@@ -471,7 +486,7 @@ const NewJobPost = () => {
                         }}
                         multiline
                     />
-                ) :
+                ) : (
                     <Box
                         sx={{
                             padding: '20px',
@@ -486,9 +501,9 @@ const NewJobPost = () => {
                             return null;
                         })}
                     </Box>
-                }
+                )}
             </Box>
-        </Box >
+        </Box>
     );
     const Additional2 = (
         <Box sx={{ marginTop: '30px' }}>
@@ -518,7 +533,7 @@ const NewJobPost = () => {
                         }}
                         multiline
                     />
-                ) :
+                ) : (
                     <Box
                         sx={{
                             padding: '20px',
@@ -533,7 +548,7 @@ const NewJobPost = () => {
                             return null;
                         })}
                     </Box>
-                }
+                )}
             </Box>
         </Box>
     );
@@ -568,7 +583,7 @@ const NewJobPost = () => {
                         >
                             You are one step closer to finding Top Talent
                         </Typography>
-                        {edit ?
+                        {edit ? (
                             <Button
                                 sx={{
                                     color: '#808080',
@@ -590,8 +605,7 @@ const NewJobPost = () => {
                             >
                                 Edit
                             </Button>
-                            : null
-                        }
+                        ) : null}
                     </Box>
                     <Typography
                         sx={{
@@ -602,7 +616,7 @@ const NewJobPost = () => {
                     >
                         * Indicates required
                     </Typography>
-                    {step === 1 ?
+                    {step === 1 ? (
                         <>
                             <Box sx={{ marginTop: '30px' }}>
                                 <Typography fontSize={'16px'} color="#494949">
@@ -611,12 +625,14 @@ const NewJobPost = () => {
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={jobTitle}
-                                        onChange={(e) => setJobTitle(e.target.value)}
-                                        placeholder='Ex: Product Designer'
+                                        onChange={(e) =>
+                                            setJobTitle(e.target.value)
+                                        }
+                                        placeholder="Ex: Product Designer"
                                         fullWidth
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     />
                                 </Box>
@@ -629,13 +645,17 @@ const NewJobPost = () => {
                                     <Select
                                         fullWidth
                                         value={workPlaceType}
-                                        onChange={(e) => setWorkPlaceType(e.target.value)}
+                                        onChange={(e) =>
+                                            setWorkPlaceType(e.target.value)
+                                        }
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     >
-                                        <MenuItem value={'Please select'}>Please select</MenuItem>
+                                        <MenuItem value={'Please select'}>
+                                            Please select
+                                        </MenuItem>
                                         <MenuItem value={20}>Twenty</MenuItem>
                                         <MenuItem value={30}>Thirty</MenuItem>
                                     </Select>
@@ -649,15 +669,23 @@ const NewJobPost = () => {
                                     <Select
                                         fullWidth
                                         value={jobType}
-                                        onChange={(e) => setJobType(e.target.value)}
+                                        onChange={(e) =>
+                                            setJobType(e.target.value)
+                                        }
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     >
-                                        <MenuItem value={'Full time'}>Full time</MenuItem>
-                                        <MenuItem value={'Part time'}>Part time</MenuItem>
-                                        <MenuItem value={'Contract'}>Contract</MenuItem>
+                                        <MenuItem value={'Full time'}>
+                                            Full time
+                                        </MenuItem>
+                                        <MenuItem value={'Part time'}>
+                                            Part time
+                                        </MenuItem>
+                                        <MenuItem value={'Contract'}>
+                                            Contract
+                                        </MenuItem>
                                     </Select>
                                 </Box>
                             </Box>
@@ -668,12 +696,14 @@ const NewJobPost = () => {
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={location}
-                                        onChange={(e) => setLocation(e.target.value)}
-                                        placeholder='Ex: Lagos, Nigeria'
+                                        onChange={(e) =>
+                                            setLocation(e.target.value)
+                                        }
+                                        placeholder="Ex: Lagos, Nigeria"
                                         fullWidth
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     />
                                 </Box>
@@ -685,12 +715,14 @@ const NewJobPost = () => {
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={yearsOfExp}
-                                        onChange={(e) => setYearsOfExp(e.target.value)}
-                                        placeholder='Ex: 2 years'
+                                        onChange={(e) =>
+                                            setYearsOfExp(e.target.value)
+                                        }
+                                        placeholder="Ex: 2 years"
                                         fullWidth
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     />
                                 </Box>
@@ -702,12 +734,14 @@ const NewJobPost = () => {
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={minimumScore}
-                                        onChange={(e) => setMinimumScore(e.target.value)}
-                                        placeholder='Ex: 650'
+                                        onChange={(e) =>
+                                            setMinimumScore(e.target.value)
+                                        }
+                                        placeholder="Ex: 650"
                                         fullWidth
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B',
+                                            color: '#23282B'
                                         }}
                                     />
                                 </Box>
@@ -716,10 +750,22 @@ const NewJobPost = () => {
                                 <Typography fontSize={'16px'} color="#494949">
                                     Salary range
                                 </Typography>
-                                <Box sx={{ marginTop: '8px', border: '1px solid #ccc', padding: '20px 12px', borderRadius: '5px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                <Box
+                                    sx={{
+                                        marginTop: '8px',
+                                        border: '1px solid #ccc',
+                                        padding: '20px 12px',
+                                        borderRadius: '5px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '16px'
+                                    }}
+                                >
                                     <Select
                                         value={currency}
-                                        onChange={(e) => setCurrency(e.target.value)}
+                                        onChange={(e) =>
+                                            setCurrency(e.target.value)
+                                        }
                                         sx={{
                                             fontFamily: 'Open Sans',
                                             color: '#23282B',
@@ -731,12 +777,24 @@ const NewJobPost = () => {
                                         }}
                                     >
                                         <MenuItem value={'NGN'}>NGN</MenuItem>
-                                        <MenuItem value={'Dollar'}>Dollar</MenuItem>
-                                        <MenuItem value={'Rupees'}>Rupees</MenuItem>
+                                        <MenuItem value={'Dollar'}>
+                                            Dollar
+                                        </MenuItem>
+                                        <MenuItem value={'Rupees'}>
+                                            Rupees
+                                        </MenuItem>
                                     </Select>
                                     <Paper
                                         component="form"
-                                        sx={{ p: '8px 12px', display: 'flex', alignItems: 'center', background: '#EDEDED', boxShadow: 'none', borderBottom: '1px solid #808080', maxWidth: '130px' }}
+                                        sx={{
+                                            p: '8px 12px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            background: '#EDEDED',
+                                            boxShadow: 'none',
+                                            borderBottom: '1px solid #808080',
+                                            maxWidth: '130px'
+                                        }}
                                     >
                                         <Typography
                                             sx={{
@@ -751,7 +809,9 @@ const NewJobPost = () => {
                                         <InputBase
                                             sx={{ ml: 1, flex: 1 }}
                                             value={minSalary}
-                                            onChange={(e) => setMinSalary(e.target.value)}
+                                            onChange={(e) =>
+                                                setMinSalary(e.target.value)
+                                            }
                                         />
                                     </Paper>
                                     <Typography
@@ -766,7 +826,15 @@ const NewJobPost = () => {
                                     </Typography>
                                     <Paper
                                         component="form"
-                                        sx={{ p: '8px 12px', display: 'flex', alignItems: 'center', background: '#EDEDED', boxShadow: 'none', borderBottom: '1px solid #808080', maxWidth: '130px' }}
+                                        sx={{
+                                            p: '8px 12px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            background: '#EDEDED',
+                                            boxShadow: 'none',
+                                            borderBottom: '1px solid #808080',
+                                            maxWidth: '130px'
+                                        }}
                                     >
                                         <Typography
                                             sx={{
@@ -781,28 +849,49 @@ const NewJobPost = () => {
                                         <InputBase
                                             sx={{ ml: 1, flex: 1 }}
                                             value={maxSalary}
-                                            onChange={(e) => setMaxSalary(e.target.value)}
+                                            onChange={(e) =>
+                                                setMaxSalary(e.target.value)
+                                            }
                                         />
                                     </Paper>
                                 </Box>
                             </Box>
                         </>
-                        :
-                        step === 2 ?
-                            <>
-                                {RequiredSkills}
-                                {AboutRole}
-                                {Summary}
-                                {Responsibilities}
-                                {DeadLine}
-                                {Additional1}
-                                {Additional2}
-                            </>
-                            :
-                            <>
+                    ) : step === 2 ? (
+                        <>
+                            {RequiredSkills}
+                            {AboutRole}
+                            {Summary}
+                            {Responsibilities}
+                            {DeadLine}
+                            {Additional1}
+                            {Additional2}
+                        </>
+                    ) : (
+                        <>
+                            <Box sx={{ marginTop: '30px' }}>
+                                <Typography fontSize={'16px'} color="#494949">
+                                    About the role
+                                </Typography>
+                                <Box sx={{ marginTop: '10px' }}>
+                                    <Box
+                                        sx={{
+                                            padding: '20px',
+                                            border: '1px solid #CCC',
+                                            color: '#808080'
+                                        }}
+                                    >
+                                        {overview}
+                                    </Box>
+                                </Box>
+                            </Box>
+                            {location ? (
                                 <Box sx={{ marginTop: '30px' }}>
-                                    <Typography fontSize={'16px'} color="#494949">
-                                        About the role
+                                    <Typography
+                                        fontSize={'16px'}
+                                        color="#494949"
+                                    >
+                                        Location
                                     </Typography>
                                     <Box sx={{ marginTop: '10px' }}>
                                         <Box
@@ -812,59 +901,50 @@ const NewJobPost = () => {
                                                 color: '#808080'
                                             }}
                                         >
-                                            {overview}
+                                            {location}
                                         </Box>
                                     </Box>
                                 </Box>
-                                {location ?
-                                    <Box sx={{ marginTop: '30px' }}>
-                                        <Typography fontSize={'16px'} color="#494949">
-                                            Location
-                                        </Typography>
-                                        <Box sx={{ marginTop: '10px' }}>
-                                            <Box
-                                                sx={{
-                                                    padding: '20px',
-                                                    border: '1px solid #CCC',
-                                                    color: '#808080'
-                                                }}
-                                            >
-                                                {location}
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                                    :
-                                    null
-                                }
-                                <Box sx={{ marginTop: '30px' }}>
-                                    <Typography fontSize={'16px'} color="#494949">
-                                        Summary of the role
-                                    </Typography>
-                                    <Box sx={{ marginTop: '10px' }}>
-                                        <Box
-                                            sx={{
-                                                padding: '20px',
-                                                border: '1px solid #CCC',
-                                                color: '#808080'
-                                            }}
-                                        >
-                                            {yearsOfExp ? <li>{yearsOfExp}</li> : null}
-                                            {qualifications.split('\n').map((item) => {
+                            ) : null}
+                            <Box sx={{ marginTop: '30px' }}>
+                                <Typography fontSize={'16px'} color="#494949">
+                                    Summary of the role
+                                </Typography>
+                                <Box sx={{ marginTop: '10px' }}>
+                                    <Box
+                                        sx={{
+                                            padding: '20px',
+                                            border: '1px solid #CCC',
+                                            color: '#808080'
+                                        }}
+                                    >
+                                        {yearsOfExp ? (
+                                            <li>{yearsOfExp}</li>
+                                        ) : null}
+                                        {qualifications
+                                            .split('\n')
+                                            .map((item) => {
                                                 if (item !== '') {
-                                                    return <li key={`item_${item}`}>{item}</li>;
+                                                    return (
+                                                        <li
+                                                            key={`item_${item}`}
+                                                        >
+                                                            {item}
+                                                        </li>
+                                                    );
                                                 }
                                                 return null;
                                             })}
-                                        </Box>
                                     </Box>
                                 </Box>
-                                {Responsibilities}
-                                {DeadLine}
-                                {RequiredSkills}
-                                {(step === 3 && additional1) ? Additional1 : null}
-                                {(step === 3 && additional2) ? Additional2 : null}
-                            </>
-                    }
+                            </Box>
+                            {Responsibilities}
+                            {DeadLine}
+                            {RequiredSkills}
+                            {step === 3 && additional1 ? Additional1 : null}
+                            {step === 3 && additional2 ? Additional2 : null}
+                        </>
+                    )}
 
                     <Box sx={{ textAlign: 'center', marginTop: '30px' }}>
                         <Button
@@ -875,29 +955,34 @@ const NewJobPost = () => {
                                 minWidth: '300px'
                             }}
                             disabled={
-                                (step === 1 ? !jobTitle :
-                                    selectedSkills?.length === 0 ||
-                                    qualifications === '' ||
-                                    overview === '' ||
-                                    responsibilities === '' ||
-                                    deadLine === '')
+                                (
+                                    step === 1
+                                        ? !jobTitle
+                                        : selectedSkills?.length === 0 ||
+                                          qualifications === '' ||
+                                          overview === '' ||
+                                          responsibilities === '' ||
+                                          deadLine === ''
+                                )
                                     ? true
                                     : false
                             }
                             onClick={() => {
                                 if (step === 1) {
-                                    setStep(2)
+                                    setStep(2);
                                 }
                                 if (step === 2) {
                                     setEdit(true);
-                                    setStep(3)
+                                    setStep(3);
                                 }
                                 if (step === 3) {
                                     setShowPopup(true);
                                 }
                             }}
                         >
-                            {step === 3 ? "Post Job Opening" : "Save and Continue"}
+                            {step === 3
+                                ? 'Post Job Opening'
+                                : 'Save and Continue'}
                         </Button>
                     </Box>
                 </Box>

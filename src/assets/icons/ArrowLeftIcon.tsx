@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ArrowLeftIcon = ({ color = "#494949" }) => {
+export const ArrowLeftIcon = ({ color = '#494949' }) => {
     return (
         <svg
             width="36"

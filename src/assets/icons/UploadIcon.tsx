@@ -1,4 +1,4 @@
-function UploadIcon({ color = "#05668D" }) {
+function UploadIcon({ color = '#05668D' }) {
     return (
         <svg
             width="24"

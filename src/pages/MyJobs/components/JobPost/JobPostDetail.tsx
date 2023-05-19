@@ -136,7 +136,11 @@ const JobPostDetail = () => {
                             <li>
                                 {item?.key} {' - '}{' '}
                                 <span
-                                    style={{ color: getCompetencyColor((item?.status ?? "")) }}
+                                    style={{
+                                        color: getCompetencyColor(
+                                            item?.status ?? ''
+                                        )
+                                    }}
                                 >
                                     {item?.status}
                                 </span>

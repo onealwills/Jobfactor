@@ -7,21 +7,18 @@ import DialogContentText from '@mui/material/DialogContentText';
 import PopupCheckmark from '../../../../assets/icons/PopupCheckmark';
 
 interface PropTypes {
-    open: boolean,
-    handleClose: () => void,
-    handleOnPostAnother: () => void
+    open: boolean;
+    handleClose: () => void;
+    handleOnPostAnother: () => void;
 }
 const DialogBox = ({ open, handleClose, handleOnPostAnother }: PropTypes) => {
     const navigate = useNavigate();
     return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-        >
+        <Dialog open={open} onClose={handleClose}>
             <DialogContent
                 sx={{
-                    padding: "64px 32px",
-                    display: "flex",
+                    padding: '64px 32px',
+                    display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: '32px',
@@ -30,8 +27,8 @@ const DialogBox = ({ open, handleClose, handleOnPostAnother }: PropTypes) => {
             >
                 <Box
                     sx={{
-                        padding: "0px",
-                        display: "flex",
+                        padding: '0px',
+                        display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         gap: '8px'
@@ -62,7 +59,7 @@ const DialogBox = ({ open, handleClose, handleOnPostAnother }: PropTypes) => {
                         textTransform: 'capitalize',
                         minWidth: '193px',
                         '&:hover': {
-                            background: "#ccc"
+                            background: '#ccc'
                         }
                     }}
                     onClick={handleOnPostAnother}
@@ -87,8 +84,8 @@ const DialogBox = ({ open, handleClose, handleOnPostAnother }: PropTypes) => {
                     Continue
                 </Button>
             </DialogContent>
-        </Dialog >
-    )
-}
+        </Dialog>
+    );
+};
 
 export default DialogBox;
