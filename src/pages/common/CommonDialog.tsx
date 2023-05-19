@@ -2,7 +2,7 @@ import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
+import DialogActions, { DialogActionsProps } from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Box, Divider } from '@mui/material';
@@ -16,6 +16,7 @@ export interface DialogProps {
     children?: React.ReactNode;
     size?: 'default';
     contentPaddingX?: boolean;
+    ActionsProps?: DialogActionsProps;
 }
 
 export interface DialogTitleProps {
@@ -73,6 +74,7 @@ export default function CommonDialog({
     title,
     onClose,
     contentPaddingX,
+    ActionsProps,
     children
 }: DialogProps) {
     function handleClose() {
@@ -113,9 +115,15 @@ export default function CommonDialog({
             />
             <DialogContent>{children}</DialogContent>
             {actions && (
-                <Box bgcolor="#FFFAF1">
-                    <DialogActions>{actions}</DialogActions>
-                </Box>
+                <DialogActions
+                    {...ActionsProps}
+                    sx={{
+                        bgcolor: "#FFFAF1",
+                        ...ActionsProps?.sx
+                    }}
+                >
+                    {actions}
+                </DialogActions>
             )}
         </Dialog>
     );

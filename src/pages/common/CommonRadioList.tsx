@@ -15,8 +15,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Grid } from '@mui/material';
 
 interface Option {
-  value: string;
   label: string;
+  value: any;
 }
 
 interface CommonRadioDropdownProps {
@@ -25,6 +25,7 @@ interface CommonRadioDropdownProps {
   description?: string;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
+  onSelect?: (value: any) => void;
 }
 
 const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
@@ -32,6 +33,7 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
   label,
   description,
   startAdornment,
+  onSelect,
 }) => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
@@ -39,6 +41,7 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
     const selectedValue = event.target.value;
     const selectedOption = options.find((option) => option.value === selectedValue);
     setSelectedOption(selectedOption || null);
+    onSelect && onSelect(selectedOption);
   };
 
   return (
@@ -127,7 +130,7 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
                 )
               })}
             </RadioGroup>
-          </Box>
+          </Box> 
       </Box>
     </FormControl>
   );
