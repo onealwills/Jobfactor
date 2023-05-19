@@ -36,13 +36,12 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
             DescriptionRef.current.style.height = '70px';
             setShow(false);
         }
-    }
+    };
     useEffect(() => {
         if (feed?.likes) {
             setLikes(feed?.likes);
         }
-    }, [feed?.likes])
-
+    }, [feed?.likes]);
 
     return (
         <>
@@ -61,7 +60,11 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                     }}
                 >
                     <Box>
-                        <img src={feed.profileImage} alt="feed" style={{ width: 80, height: 80, borderRadius: 100 }} />
+                        <img
+                            src={feed.profileImage}
+                            alt="feed"
+                            style={{ width: 80, height: 80, borderRadius: 100 }}
+                        />
                     </Box>
                     <Box sx={{}}>
                         <Box
@@ -113,32 +116,76 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                     //key={index}
                                     variant="body1"
                                     component="div"
-                                    sx={feed?.description?.length > 200 ? { whiteSpace: 'pre-line', mb: 1, height: '70px', overflow: 'hidden' } : { whiteSpace: 'pre-line', mb: 1 }}
+                                    sx={
+                                        feed?.description?.length > 200
+                                            ? {
+                                                  whiteSpace: 'pre-line',
+                                                  mb: 1,
+                                                  height: '70px',
+                                                  overflow: 'hidden'
+                                              }
+                                            : { whiteSpace: 'pre-line', mb: 1 }
+                                    }
                                 >
                                     {feed.description}
                                 </Typography>
                                 {/* ))} */}
                             </Typography>
-                            {feed?.description?.length > 200 &&
+                            {feed?.description?.length > 200 && (
                                 <>
-                                    {!show ?
+                                    {!show ? (
                                         <Box>
-                                            <Button variant="contained" sx={{ maxWidth: 'fit-content', gap: "10px", py: '5px', background: '#FCFBF8', color: '#05668D', fontSize: '14px', fontWeight: '700' }} onClick={() => { onShowHidden() }}>
+                                            <Button
+                                                variant="contained"
+                                                sx={{
+                                                    maxWidth: 'fit-content',
+                                                    gap: '10px',
+                                                    py: '5px',
+                                                    background: '#FCFBF8',
+                                                    color: '#05668D',
+                                                    fontSize: '14px',
+                                                    fontWeight: '700'
+                                                }}
+                                                onClick={() => {
+                                                    onShowHidden();
+                                                }}
+                                            >
                                                 See More
                                             </Button>
                                         </Box>
-                                        :
+                                    ) : (
                                         <Box>
-                                            <Button variant="contained" sx={{ maxWidth: 'fit-content', gap: "10px", py: '5px', background: '#FCFBF8', color: '#05668D', fontSize: '14px', fontWeight: '700' }} onClick={() => { onHide() }}>
+                                            <Button
+                                                variant="contained"
+                                                sx={{
+                                                    maxWidth: 'fit-content',
+                                                    gap: '10px',
+                                                    py: '5px',
+                                                    background: '#FCFBF8',
+                                                    color: '#05668D',
+                                                    fontSize: '14px',
+                                                    fontWeight: '700'
+                                                }}
+                                                onClick={() => {
+                                                    onHide();
+                                                }}
+                                            >
                                                 See Less
                                             </Button>
                                         </Box>
-                                    }
+                                    )}
                                 </>
-                            }
+                            )}
                         </Box>
 
-                        <Box sx={{ mt: '36px', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                        <Box
+                            sx={{
+                                mt: '36px',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                flexWrap: 'wrap'
+                            }}
+                        >
                             {feed.images.map((image: any, index) => (
                                 <img
                                     key={index}
@@ -192,20 +239,36 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                         alignItems: 'center'
                                     }}
                                 >
-                                    {liked ?
+                                    {liked ? (
                                         <IconButton
-                                            onClick={() => { setLikes((prev) => prev - 1); setLiked(false) }}
+                                            onClick={() => {
+                                                setLikes((prev) => prev - 1);
+                                                setLiked(false);
+                                            }}
                                             sx={{ m: 0, p: 0 }}
                                         >
                                             <LikesIcon />
-                                        </IconButton> :
-                                        <IconButton
-                                            onClick={() => { setLikes((prev) => prev + 1); setLiked(true) }}
-                                            sx={{ maxHeight: '20px', maxWidth: '20px', m: 0, p: 0 }}
-                                        >
-                                            <FavoriteBorderIcon sx={{ color: 'rgb(239, 111, 108)' }} />
                                         </IconButton>
-                                    }
+                                    ) : (
+                                        <IconButton
+                                            onClick={() => {
+                                                setLikes((prev) => prev + 1);
+                                                setLiked(true);
+                                            }}
+                                            sx={{
+                                                maxHeight: '20px',
+                                                maxWidth: '20px',
+                                                m: 0,
+                                                p: 0
+                                            }}
+                                        >
+                                            <FavoriteBorderIcon
+                                                sx={{
+                                                    color: 'rgb(239, 111, 108)'
+                                                }}
+                                            />
+                                        </IconButton>
+                                    )}
                                     {likes}
                                 </Box>
                                 <Box
@@ -216,7 +279,9 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                     }}
                                 >
                                     <IconButton
-                                        onClick={() => { setCommentsPopup(true) }}
+                                        onClick={() => {
+                                            setCommentsPopup(true);
+                                        }}
                                         sx={{ m: 0, p: 0 }}
                                     >
                                         <CommentIcon />
@@ -231,7 +296,9 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                     }}
                                 >
                                     <IconButton
-                                        onClick={() => { setRepostPopup(true) }}
+                                        onClick={() => {
+                                            setRepostPopup(true);
+                                        }}
                                         sx={{ m: 0, p: 0 }}
                                     >
                                         <ShareIcon />
@@ -244,8 +311,19 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                     </Box>
                 </Box>
             </Box>
-            <PostCards repostPopup={true} showModal={repostPopup} data={feed} hideModal={() => { setRepostPopup(false) }} />
-            <CommentsPopup open={commentsPopup} data={feed} handleClose={() => setCommentsPopup(false)} />
+            <PostCards
+                repostPopup={true}
+                showModal={repostPopup}
+                data={feed}
+                hideModal={() => {
+                    setRepostPopup(false);
+                }}
+            />
+            <CommentsPopup
+                open={commentsPopup}
+                data={feed}
+                handleClose={() => setCommentsPopup(false)}
+            />
         </>
     );
 };

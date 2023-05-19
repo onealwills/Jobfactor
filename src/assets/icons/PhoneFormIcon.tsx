@@ -6,6 +6,7 @@ function PhoneFormIcon() {
             <svg
                 width="41"
                 height="20"
+                style={{ minWidth: '41px', minHeight: '20px' }}
                 viewBox="0 0 41 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

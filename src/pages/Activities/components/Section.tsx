@@ -9,7 +9,7 @@ interface Props extends BoxProps {
 const Section = ({ heading, children, onClick, ...props }: Props) => {
     return (
         <Box component="section">
-            {(heading || onClick) ? (
+            {heading || onClick ? (
                 <Grid
                     container
                     alignItems="center"
@@ -25,7 +25,7 @@ const Section = ({ heading, children, onClick, ...props }: Props) => {
                     </Grid>
                     {onClick ? (
                         <IconButton
-                            onClick={() => { }}
+                            onClick={() => {}}
                             sx={{
                                 background: '#DFEBF0',
                                 borderRadius: '8px',

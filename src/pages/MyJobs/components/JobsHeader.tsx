@@ -1,5 +1,15 @@
 import React, { ChangeEvent, useState, Dispatch, SetStateAction } from 'react';
-import { Box, Button, Checkbox, FormControlLabel, FormLabel, IconButton, Menu, Radio, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    FormLabel,
+    IconButton,
+    Menu,
+    Radio,
+    Typography
+} from '@mui/material';
 import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import { JobsFilterIcon } from '../../../assets/icons/JobsFilterIcon';
 import FormControl from '@mui/material/FormControl';
@@ -7,37 +17,75 @@ import ArrowDown from '../../../assets/icons/ArrowDown';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Checked from '../../../assets/icons/Checked';
 import UnChecked from '../../../assets/icons/UnChecked';
-import '../style.css'
-
+import '../style.css';
 
 const JobsHeader = (props: { title: string }) => {
     const { title } = props;
-    const [locationType, setLocationType] = useState<Array<string>>(['on-site']);
+    const [locationType, setLocationType] = useState<Array<string>>([
+        'on-site'
+    ]);
     const [sortBy, setSortBy] = useState<string>('most recent');
     const [jobType, setJobType] = useState<Array<string>>(['full-time']);
     const [datePosted, setDatePosted] = useState<string>('any time');
     const [showMenu, setShowMenu] = useState<null | HTMLElement>(null);
 
     const radioItems = [
-        { title: 'Sort by', options: ['Most recent', 'Most relevant'], state: sortBy, setState: setSortBy },
-        { title: 'Date Posted', options: ['Past 24 hours', 'Past week', 'Past month', 'Any time'], state: datePosted, setState: setDatePosted }
-    ]
+        {
+            title: 'Sort by',
+            options: ['Most recent', 'Most relevant'],
+            state: sortBy,
+            setState: setSortBy
+        },
+        {
+            title: 'Date Posted',
+            options: ['Past 24 hours', 'Past week', 'Past month', 'Any time'],
+            state: datePosted,
+            setState: setDatePosted
+        }
+    ];
     const checkboxItems = [
-        { title: 'Job type', options: ['Full-time', 'Temporary', 'Permanent', 'New grad', 'Part-time', 'Contract', 'Internship'], state: jobType, setState: setJobType },
-        { title: 'Location type', options: ['On-site', 'Remote', 'Hybrid'], state: locationType, setState: setLocationType },
-    ]
+        {
+            title: 'Job type',
+            options: [
+                'Full-time',
+                'Temporary',
+                'Permanent',
+                'New grad',
+                'Part-time',
+                'Contract',
+                'Internship'
+            ],
+            state: jobType,
+            setState: setJobType
+        },
+        {
+            title: 'Location type',
+            options: ['On-site', 'Remote', 'Hybrid'],
+            state: locationType,
+            setState: setLocationType
+        }
+    ];
     const handleClose = () => {
         setShowMenu(null);
     };
 
-    const handleAllFilters = (e: ChangeEvent<HTMLInputElement> | null, setState: Dispatch<SetStateAction<string>>, value: string) => {
+    const handleAllFilters = (
+        e: ChangeEvent<HTMLInputElement> | null,
+        setState: Dispatch<SetStateAction<string>>,
+        value: string
+    ) => {
         if (e?.target.checked) {
             setState(value);
         } else {
             setState('');
         }
-    }
-    const handleCheckBoxSelect = (e: ChangeEvent<HTMLInputElement> | null, state: string[], setState: Dispatch<SetStateAction<Array<string>>>, value: string) => {
+    };
+    const handleCheckBoxSelect = (
+        e: ChangeEvent<HTMLInputElement> | null,
+        state: string[],
+        setState: Dispatch<SetStateAction<Array<string>>>,
+        value: string
+    ) => {
         if (value === '') {
             setState([]);
             return;
@@ -45,10 +93,10 @@ const JobsHeader = (props: { title: string }) => {
         if (e?.target.checked) {
             setState([...state, value]);
         } else {
-            setState(state.filter(x => x !== value));
+            setState(state.filter((x) => x !== value));
         }
-    }
-   
+    };
+
     return (
         <Box
             sx={{
@@ -85,25 +133,54 @@ const JobsHeader = (props: { title: string }) => {
                 <SelectDropdown
                     label="Date Posted"
                     defaultValue="any time"
-                    options={['Past 24 hours', 'Past week', 'Past month', 'Any time']}
+                    options={[
+                        'Past 24 hours',
+                        'Past week',
+                        'Past month',
+                        'Any time'
+                    ]}
                     style={{ width: '141px', height: '50px' }}
-                    handleChange={(e: ChangeEvent<HTMLInputElement> | null, value: string) => handleAllFilters(e, setDatePosted, value)}
+                    handleChange={(
+                        e: ChangeEvent<HTMLInputElement> | null,
+                        value: string
+                    ) => handleAllFilters(e, setDatePosted, value)}
                 />
                 <SelectDropdown
                     label="Location Type"
-                    defaultValue='on-site'
+                    defaultValue="on-site"
                     options={['On-site', 'Remote', 'Hybrid']}
                     style={{ width: '149px', height: '50px' }}
-                    handleChange={(e: ChangeEvent<HTMLInputElement> | null, value: string) => handleCheckBoxSelect(e, locationType, setLocationType, value)}
+                    handleChange={(
+                        e: ChangeEvent<HTMLInputElement> | null,
+                        value: string
+                    ) =>
+                        handleCheckBoxSelect(
+                            e,
+                            locationType,
+                            setLocationType,
+                            value
+                        )
+                    }
                     multiple={true}
                 />
                 <SelectDropdown
                     label="Job Type"
                     defaultValue={'full-time'}
-                    options={['Full-time', 'Temporary', 'Permanent', 'New grad', 'Part-time', 'Contract', 'Internship']}
+                    options={[
+                        'Full-time',
+                        'Temporary',
+                        'Permanent',
+                        'New grad',
+                        'Part-time',
+                        'Contract',
+                        'Internship'
+                    ]}
                     style={{ width: '111px', height: '50px' }}
                     multiple={true}
-                    handleChange={(e: ChangeEvent<HTMLInputElement> | null, value: string) => handleCheckBoxSelect(e, jobType, setJobType, value)}
+                    handleChange={(
+                        e: ChangeEvent<HTMLInputElement> | null,
+                        value: string
+                    ) => handleCheckBoxSelect(e, jobType, setJobType, value)}
                 />
                 <IconButton
                     onClick={({ currentTarget }) => setShowMenu(currentTarget)}
@@ -116,7 +193,7 @@ const JobsHeader = (props: { title: string }) => {
                 open={Boolean(showMenu)}
                 anchorEl={showMenu}
                 onClose={handleClose}
-                className='allFilters_menu'
+                className="allFilters_menu"
             >
                 <Box
                     sx={{
@@ -140,9 +217,7 @@ const JobsHeader = (props: { title: string }) => {
                     >
                         All Filters
                     </Typography>
-                    <IconButton
-                        onClick={handleClose}
-                    >
+                    <IconButton onClick={handleClose}>
                         <CancelIcon />
                     </IconButton>
                 </Box>
@@ -152,16 +227,14 @@ const JobsHeader = (props: { title: string }) => {
                         overflow: 'auto'
                     }}
                 >
-                    {radioItems.map(item => (
+                    {radioItems.map((item) => (
                         <Box
                             sx={{
                                 padding: '24px 20px 16px',
                                 border: '1px solid #D9D9D9'
                             }}
                         >
-                            <FormControl
-                                sx={{ width: '100%' }}
-                            >
+                            <FormControl sx={{ width: '100%' }}>
                                 <FormLabel
                                     sx={{
                                         fontFamily: 'Open Sans',
@@ -181,25 +254,49 @@ const JobsHeader = (props: { title: string }) => {
                                         flexWrap: 'wrap'
                                     }}
                                 >
-                                    {item.options.map(x => (
+                                    {item.options.map((x) => (
                                         <Box
-                                            sx={{ width: '50%', minWidth: '50%' }}
+                                            sx={{
+                                                width: '50%',
+                                                minWidth: '50%'
+                                            }}
                                         >
                                             <FormControlLabel
                                                 control={
                                                     <Radio
                                                         sx={{
-                                                            color: item.state === x.toLowerCase() ? '#05668D !important' : '#808080 !important'
+                                                            color:
+                                                                item.state ===
+                                                                x.toLowerCase()
+                                                                    ? '#05668D !important'
+                                                                    : '#808080 !important'
                                                         }}
-                                                        onChange={(e) => handleAllFilters(e, item?.setState, x.toLowerCase())}
-                                                        checked={item.state === x.toLowerCase()}
+                                                        onChange={(e) =>
+                                                            handleAllFilters(
+                                                                e,
+                                                                item?.setState,
+                                                                x.toLowerCase()
+                                                            )
+                                                        }
+                                                        checked={
+                                                            item.state ===
+                                                            x.toLowerCase()
+                                                        }
                                                     />
                                                 }
                                                 label={x}
                                                 sx={{
                                                     letterSpacing: '0.0015em',
-                                                    fontWeight: item.state === x.toLowerCase() ? '600 !important' : '400',
-                                                    color: item.state === x.toLowerCase() ? '#494949' : '#808080'
+                                                    fontWeight:
+                                                        item.state ===
+                                                        x.toLowerCase()
+                                                            ? '600 !important'
+                                                            : '400',
+                                                    color:
+                                                        item.state ===
+                                                        x.toLowerCase()
+                                                            ? '#494949'
+                                                            : '#808080'
                                                 }}
                                             />
                                         </Box>
@@ -208,16 +305,14 @@ const JobsHeader = (props: { title: string }) => {
                             </FormControl>
                         </Box>
                     ))}
-                    {checkboxItems.map(item => (
+                    {checkboxItems.map((item) => (
                         <Box
                             sx={{
                                 padding: '24px 20px 16px',
                                 border: '1px solid #D9D9D9'
                             }}
                         >
-                            <FormControl
-                                sx={{ width: '100%' }}
-                            >
+                            <FormControl sx={{ width: '100%' }}>
                                 <FormLabel
                                     sx={{
                                         fontFamily: 'Open Sans',
@@ -237,32 +332,58 @@ const JobsHeader = (props: { title: string }) => {
                                         flexWrap: 'wrap'
                                     }}
                                 >
-                                    {item.options.map(x => (
+                                    {item.options.map((x) => (
                                         <Box
-                                            sx={{ width: '50%', minWidth: '50%' }}
+                                            sx={{
+                                                width: '50%',
+                                                minWidth: '50%'
+                                            }}
                                         >
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
-                                                        checkedIcon={<Checked />}
+                                                        checkedIcon={
+                                                            <Checked />
+                                                        }
                                                         icon={<UnChecked />}
                                                         sx={{
-                                                            color: item.state.includes(x.toLowerCase()) ? '#05668D !important' : '#808080 !important'
+                                                            color: item.state.includes(
+                                                                x.toLowerCase()
+                                                            )
+                                                                ? '#05668D !important'
+                                                                : '#808080 !important'
                                                         }}
-                                                        onChange={(e) => handleCheckBoxSelect(e, item.state, item?.setState, x.toLowerCase())}
-                                                        checked={item.state.includes(x.toLowerCase())}
+                                                        onChange={(e) =>
+                                                            handleCheckBoxSelect(
+                                                                e,
+                                                                item.state,
+                                                                item?.setState,
+                                                                x.toLowerCase()
+                                                            )
+                                                        }
+                                                        checked={item.state.includes(
+                                                            x.toLowerCase()
+                                                        )}
                                                     />
                                                 }
                                                 label={x}
                                                 sx={{
                                                     letterSpacing: '0.0015em',
-                                                    fontWeight: item.state.includes(x.toLowerCase()) ? '600 !important' : '400',
-                                                    color: item.state.includes(x.toLowerCase()) ? '#494949' : '#808080'
+                                                    fontWeight:
+                                                        item.state.includes(
+                                                            x.toLowerCase()
+                                                        )
+                                                            ? '600 !important'
+                                                            : '400',
+                                                    color: item.state.includes(
+                                                        x.toLowerCase()
+                                                    )
+                                                        ? '#494949'
+                                                        : '#808080'
                                                 }}
                                             />
                                         </Box>
-                                    ))
-                                    }
+                                    ))}
                                 </Box>
                             </FormControl>
                         </Box>
@@ -271,7 +392,7 @@ const JobsHeader = (props: { title: string }) => {
                 <Box
                     sx={{
                         pt: '16px',
-                        background: "#FFFAF1",
+                        background: '#FFFAF1',
                         borderTop: '0.5px solid #808080',
                         display: 'flex',
                         alignItems: 'center',
@@ -293,7 +414,12 @@ const JobsHeader = (props: { title: string }) => {
                             letterSpacing: '0.005em',
                             color: '#05668D'
                         }}
-                        onClick={() => { setSortBy('most recent'); setDatePosted('any time'); setLocationType(['on-site']); setJobType(['full-time']) }}
+                        onClick={() => {
+                            setSortBy('most recent');
+                            setDatePosted('any time');
+                            setLocationType(['on-site']);
+                            setJobType(['full-time']);
+                        }}
                     >
                         Reset
                     </Button>
@@ -311,7 +437,7 @@ const JobsHeader = (props: { title: string }) => {
                             flex: 1,
                             textTransform: 'capitalize',
                             '&:hover': {
-                                background: '#05668D',
+                                background: '#05668D'
                             }
                         }}
                         onClick={() => setShowMenu(null)}
@@ -325,13 +451,16 @@ const JobsHeader = (props: { title: string }) => {
 };
 
 interface PropTypes {
-    handleChange: (e: ChangeEvent<HTMLInputElement> | null, value: string) => void;
+    handleChange: (
+        e: ChangeEvent<HTMLInputElement> | null,
+        value: string
+    ) => void;
     variant?: 'filled' | 'outlined' | 'standard';
     style: React.CSSProperties;
     options: string[];
     label?: string;
     multiple?: boolean;
-    defaultValue?: string
+    defaultValue?: string;
 }
 const SelectDropdown = (props: PropTypes) => {
     const [value, setValue] = React.useState<string | null>(null);
@@ -343,9 +472,9 @@ const SelectDropdown = (props: PropTypes) => {
     };
     React.useEffect(() => {
         if (props?.defaultValue) {
-            setValue(props?.defaultValue)
+            setValue(props?.defaultValue);
         }
-    }, [props?.defaultValue])
+    }, [props?.defaultValue]);
 
     return (
         <>
@@ -390,40 +519,66 @@ const SelectDropdown = (props: PropTypes) => {
                         rowGap: '15px'
                     }}
                 >
-                    {props.options.map(x => (
+                    {props.options.map((x) => (
                         <FormControlLabel
                             control={
-                                props?.multiple ?
+                                props?.multiple ? (
                                     <Checkbox
                                         sx={{
-                                            color: values.includes(x.toLowerCase()) ? '#05668D !important' : '#808080 !important'
+                                            color: values.includes(
+                                                x.toLowerCase()
+                                            )
+                                                ? '#05668D !important'
+                                                : '#808080 !important'
                                         }}
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                setValues([...values, x.toLowerCase()]);
+                                                setValues([
+                                                    ...values,
+                                                    x.toLowerCase()
+                                                ]);
                                             } else {
-                                                setValues(values.filter(y => y !== x));
+                                                setValues(
+                                                    values.filter(
+                                                        (y) => y !== x
+                                                    )
+                                                );
                                             }
                                             props.handleChange(e, x);
                                         }}
-                                        checked={values.includes(x.toLowerCase())}
+                                        checked={values.includes(
+                                            x.toLowerCase()
+                                        )}
                                         checkedIcon={<Checked />}
                                         icon={<UnChecked />}
                                     />
-                                    :
+                                ) : (
                                     <Radio
                                         sx={{
-                                            color: value === x.toLowerCase() ? '#05668D !important' : '#808080 !important'
+                                            color:
+                                                value === x.toLowerCase()
+                                                    ? '#05668D !important'
+                                                    : '#808080 !important'
                                         }}
-                                        onChange={(e) => { setValue(x.toLowerCase()); props.handleChange(e, x); }}
+                                        onChange={(e) => {
+                                            setValue(x.toLowerCase());
+                                            props.handleChange(e, x);
+                                        }}
                                         checked={value === x.toLowerCase()}
                                     />
+                                )
                             }
                             label={x}
                             sx={{
                                 letterSpacing: '0.0015em',
-                                fontWeight: value === x.toLowerCase() ? '600 !important' : '400',
-                                color: value === x.toLowerCase() ? '#494949' : '#808080'
+                                fontWeight:
+                                    value === x.toLowerCase()
+                                        ? '600 !important'
+                                        : '400',
+                                color:
+                                    value === x.toLowerCase()
+                                        ? '#494949'
+                                        : '#808080'
                             }}
                         />
                     ))}
@@ -431,7 +586,7 @@ const SelectDropdown = (props: PropTypes) => {
                 <Box
                     sx={{
                         pt: '16px',
-                        background: "#FFFAF1",
+                        background: '#FFFAF1',
                         borderTop: '0.5px solid #808080',
                         display: 'flex',
                         alignItems: 'center',
@@ -453,7 +608,11 @@ const SelectDropdown = (props: PropTypes) => {
                             letterSpacing: '0.005em',
                             color: '#05668D'
                         }}
-                        onClick={() => { setValue(props.defaultValue ?? ''); setValues([]); props.handleChange(null, props.defaultValue ?? ''); }}
+                        onClick={() => {
+                            setValue(props.defaultValue ?? '');
+                            setValues([]);
+                            props.handleChange(null, props.defaultValue ?? '');
+                        }}
                     >
                         Reset
                     </Button>
@@ -471,7 +630,7 @@ const SelectDropdown = (props: PropTypes) => {
                             flex: 1,
                             textTransform: 'capitalize',
                             '&:hover': {
-                                background: '#05668D',
+                                background: '#05668D'
                             }
                         }}
                         onClick={() => setShowMenu(null)}
@@ -491,7 +650,7 @@ const SelectDropdown = (props: PropTypes) => {
                 </IconButton>
             </Menu>
         </>
-    )
-}
+    );
+};
 
 export default JobsHeader;

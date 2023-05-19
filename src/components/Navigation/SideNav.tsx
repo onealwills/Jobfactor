@@ -6,13 +6,13 @@ import BriefCaseIcon from '../../assets/icons/BriefCaseIcon';
 import MessagesIcon from '../../assets/icons/MessagesIcon';
 import BookIcon from '../../assets/icons/BookIcon';
 import Settings from '../../assets/icons/Settings';
-import LogoutIcon from '../../assets/icons/LogoutIcon';
 import SideNavItem from './SideNavItem';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Submenu from '../Submenu';
 import { useAuth } from '../../utils/context/AuthContext';
 import EyeIcon from '../../assets/icons/EyeIcon';
+import DashboardIcon from '../../assets/icons/DashboardIcon';
 
 // const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 //     open?: boolean;
@@ -32,8 +32,156 @@ import EyeIcon from '../../assets/icons/EyeIcon';
 //         marginLeft: 0
 //     })
 // }));
-
-const sideNavOptions: Menu[] = [
+const companyRoutes: Menu[] = [
+    {
+        icon: HomeIcon,
+        label: 'Home',
+        route: '/'
+    },
+    {
+        icon: UserIcon,
+        label: 'Profile',
+        route: '/about-company',
+        submenu: [
+            {
+                label: 'Profile',
+                route: ''
+            },
+            {
+                label: 'About us',
+                route: '/about-company'
+            },
+            {
+                label: 'Activities',
+                route: '/company-activities'
+            },
+            {
+                label: 'Jobfactor Score',
+                route: '/jobfactor-score',
+                disable: true
+            },
+            {
+                label: 'Employees',
+                route: '/employees',
+                disable: true
+            },
+            {
+                label: 'Company ratings',
+                route: '/company-ratings',
+                disable: true
+            }
+        ]
+    },
+    {
+        icon: UserIcon2,
+        label: 'Community',
+        route: '/connections',
+        submenu: [
+            {
+                label: 'Community',
+                route: ''
+            },
+            {
+                label: 'My community',
+                route: '/connections'
+            },
+            {
+                label: 'Pending',
+                route: '/pending-connections'
+            },
+            {
+                label: 'Suggestions',
+                route: '/suggestions',
+                disable: true
+            }
+        ]
+    },
+    {
+        icon: BriefCaseIcon,
+        label: 'Jobs',
+        route: '/job-posting',
+        submenu: [
+            {
+                label: 'Jobs',
+                route: ''
+            },
+            {
+                label: 'job postings',
+                route: '/job-posting'
+            },
+            {
+                label: 'Applications',
+                route: '/job-applications'
+            },
+            {
+                label: 'Saved applications',
+                route: '/save-applications'
+            }
+        ]
+    },
+    {
+        icon: MessagesIcon,
+        label: 'Messages',
+        route: '/messages',
+        disable: true
+    },
+    {
+        icon: DashboardIcon,
+        label: 'DASHBOARD',
+        route: '/dashboard',
+        disable: true,
+        submenu: [
+            {
+                label: 'DASHBOARD',
+                route: ''
+            },
+            {
+                label: 'Analytics',
+                route: '#'
+            },
+            {
+                label: 'Employees',
+                route: '#'
+            },
+            {
+                label: 'Applicant tracking',
+                route: '#'
+            }
+        ]
+    },
+    {
+        icon: Settings,
+        label: 'Settings',
+        route: '/settings',
+        submenu: [
+            {
+                label: 'Settings',
+                route: ''
+            },
+            {
+                label: 'General preferences',
+                route: '/settings'
+            },
+            {
+                label: 'Communications',
+                route: '#'
+            },
+            {
+                label: 'Privacy and visibility',
+                route: '#'
+            },
+            {
+                label: 'Subscriptions',
+                route: '#'
+            },
+            {
+                label: 'Security',
+                route: '#'
+            }
+        ]
+    }
+];
+const professionalRoutes: Menu[] = [
     {
         icon: HomeIcon,
         label: 'Home',
@@ -59,7 +207,6 @@ const sideNavOptions: Menu[] = [
             {
                 label: 'Jobfactor Score',
                 route: '/users/score',
-                menuProfile: 'professional'
             }
         ]
     },
@@ -82,8 +229,8 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Suggestions',
-                route: '/pending-connections',
-                enable: false
+                route: '#',
+                disable: true
             }
         ]
     },
@@ -94,70 +241,42 @@ const sideNavOptions: Menu[] = [
         submenu: [
             {
                 label: 'Jobs',
-                enable: true,
                 route: ''
             },
             {
                 label: 'All jobs',
-                menuProfile: 'professional',
-                enable: true,
                 route: '/my-jobs'
             },
             {
                 label: 'Saved jobs',
-                menuProfile: 'professional',
-                enable: true,
                 route: '/save-job'
             },
             {
                 label: 'Job preference',
-                menuProfile: 'professional',
-                enable: true,
                 route: '/job-preference'
             },
             {
                 label: 'Applied jobs',
-                menuProfile: 'professional',
-                visible: true,
                 route: '/job-applied'
             },
             {
                 label: 'Career Planning',
-                menuProfile: 'professional',
-                visible: true,
-                enable: false,
-                route: '#'
-            },
-            {
-                label: 'Job Posting',
-                menuProfile: 'company',
-                enable: true,
-                route: '/job-postins'
-            },
-            {
-                label: 'Applications',
-                menuProfile: 'company',
-                enable: true,
-                route: '/job-application'
-            },
-            {
-                label: 'Saved Application',
-                visible: true,
-                enable: true,
-                menuProfile: 'company',
-                route: '/job-saveapplication'
+                route: '#',
+                disable: true
             }
         ]
     },
     {
         icon: MessagesIcon,
         label: 'Messages',
-        route: '/messages'
+        route: '/messages',
+        disable: true
     },
     {
         icon: EyeIcon,
         label: 'Reviews',
         route: '/reviews',
+        disable: true,
         submenu: [
             {
                 label: 'Reviews',
@@ -165,26 +284,14 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Suggested Reviews',
-                menuProfile: 'professional',
-                enable: true,
                 route: '#'
             },
             {
-                label: 'Company Ratings',
-                menuProfile: 'professional',
-                enable: false,
+                label: 'Sent request',
                 route: '#'
             },
             {
-                label: 'Sent Reviews',
-                menuProfile: 'professional',
-                enable: true,
-                route: '#'
-            },
-            {
-                label: 'Received Reviews',
-                menuProfile: 'professional',
-                enable: true,
+                label: 'Received request',
                 route: '#'
             }
         ]
@@ -193,7 +300,27 @@ const sideNavOptions: Menu[] = [
         icon: BookIcon,
         label: 'Courses',
         route: '/courses',
-        disable: true
+        submenu: [
+            {
+                label: 'Courses',
+                route: ''
+            },
+            {
+                label: 'All courses',
+                route: '/#',
+                disable: true
+            },
+            {
+                label: 'My learning',
+                route: '#',
+                disable: true
+            },
+            {
+                label: 'Career planning',
+                route: '#',
+                disable: true
+            }
+        ]
     },
     {
         icon: Settings,
@@ -206,45 +333,45 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'General preferences',
-                menuProfile: 'both',
-                enable: true,
-                route: '#'
+                route: '/settings',
+                disable: true
             },
             {
                 label: 'Communications',
-                enable: false,
-                route: '#'
+                route: '#',
+                disable: true
             },
             {
                 label: 'Privacy and visibility',
-                enable: true,
-                route: '#'
+                route: '#',
+                disable: true
             },
             {
                 label: 'Subscriptions',
-                enable: true,
-                route: '#'
+                route: '#',
+                disable: true
             },
             {
                 label: 'Security',
-                enable: true,
-                route: '#'
+                route: '#',
+                disable: true
             }
         ]
     }
 ];
-
 function SideNav() {
     const location = useLocation();
     const [hideMenu, setHideMenu] = useState(false);
     const [menuIndex, setMenuIndex] = useState(0);
     const [subMenuIndex, setSubMenuIndex] = useState(0);
-
     const { account } = useAuth();
 
     const handleActiveMenu = () => {
         let subMenuActive = false;
-        sideNavOptions.forEach((x: Menu, i: number) => {
+        (account?.companyProfile.companyName
+            ? companyRoutes
+            : professionalRoutes
+        ).forEach((x: Menu, i: number) => {
             if (location.pathname === x.route) {
                 setMenuIndex(i);
                 if (x.submenu) {
@@ -284,10 +411,17 @@ function SideNav() {
                         overflow: hideMenu ? 'hidden' : 'unset'
                     }}
                 >
-                    {sideNavOptions.map((nav: Menu, index: number) => (
+                    {(account?.companyProfile.companyName
+                        ? companyRoutes
+                        : professionalRoutes
+                    ).map((nav: Menu, index: number) => (
                         <SideNavItem
                             hideMenu={hideMenu}
-                            currentItem={sideNavOptions[menuIndex]}
+                            currentItem={
+                                (account?.companyProfile.companyName
+                                    ? companyRoutes
+                                    : professionalRoutes)[menuIndex]
+                            }
                             subMenuIndex={subMenuIndex}
                             handleActiveMenu={handleActiveMenu}
                             nav={nav}
@@ -300,8 +434,11 @@ function SideNav() {
                     <Submenu
                         setHideMenu={setHideMenu}
                         hideMenu={hideMenu}
-                        menuProfile={account?.primaryProfile}
-                        options={sideNavOptions[menuIndex].submenu ?? []}
+                        options={
+                            (account?.companyProfile.companyName
+                                ? companyRoutes
+                                : professionalRoutes)[menuIndex].submenu ?? []
+                        }
                     />
                 )}
             </Box>
@@ -319,8 +456,7 @@ export interface Menu {
 export type item = {
     route: string;
     label: string;
-    menuProfile?: 'professional' | 'company' | 'both';
-    enable?: boolean;
-    visible?: boolean;
+    disable?: boolean;
+    hidden?: boolean;
 };
 export default SideNav;

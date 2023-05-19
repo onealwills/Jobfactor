@@ -18,13 +18,41 @@ import { useAuth } from '../utils/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const data = [
-    { title: "Subscription plans", disable: true, visible: true, separatorBottom: false },
-    { title: "Language", disable: false, visible: false, separatorBottom: false, submenu: [] },
-    { title: "Theme", disable: false, visible: false, separatorBottom: false },
-    { title: "Help and support", disable: false, visible: true, separatorBottom: true, submenu: [] },
-    { title: "Switch account", disable: true, visible: true, separatorBottom: false },
-    { title: "Create company account", disable: true, visible: true, separatorBottom: true, submenu: [] },
-]
+    {
+        title: 'Subscription plans',
+        disable: true,
+        visible: true,
+        separatorBottom: false
+    },
+    {
+        title: 'Language',
+        disable: false,
+        visible: false,
+        separatorBottom: false,
+        submenu: []
+    },
+    { title: 'Theme', disable: false, visible: false, separatorBottom: false },
+    {
+        title: 'Help and support',
+        disable: false,
+        visible: true,
+        separatorBottom: true,
+        submenu: []
+    },
+    {
+        title: 'Switch account',
+        disable: true,
+        visible: true,
+        separatorBottom: false
+    },
+    {
+        title: 'Create company account',
+        disable: true,
+        visible: true,
+        separatorBottom: true,
+        submenu: []
+    }
+];
 
 function JobfactorAppBar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -127,7 +155,13 @@ function JobfactorAppBar() {
                             />
                         </IconButton>
 
-                        <IconButton onClick={({ currentTarget }) => setAnchorEl(currentTarget)} color="inherit" aria-label="arrow down">
+                        <IconButton
+                            onClick={({ currentTarget }) =>
+                                setAnchorEl(currentTarget)
+                            }
+                            color="inherit"
+                            aria-label="arrow down"
+                        >
                             <ArrowDown />
                         </IconButton>
                     </Box>
@@ -137,7 +171,13 @@ function JobfactorAppBar() {
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-                sx={{ '& .MuiMenu-paper': { p: 0, width: '300px', top: '64px !important' } }}
+                sx={{
+                    '& .MuiMenu-paper': {
+                        p: 0,
+                        width: '300px',
+                        top: '64px !important'
+                    }
+                }}
             >
                 <Box
                     sx={{
@@ -150,7 +190,11 @@ function JobfactorAppBar() {
                             gap: '16px'
                         }}
                     >
-                        <Avatar sx={{ width: '24px', height: '24px' }} alt="Remy Sharp" src={profile} />
+                        <Avatar
+                            sx={{ width: '24px', height: '24px' }}
+                            alt="Remy Sharp"
+                            src={profile}
+                        />
                         <Box
                             sx={{
                                 width: '100%'
@@ -164,7 +208,6 @@ function JobfactorAppBar() {
                                     lineHeight: '20px',
                                     letterSpacing: '0.001em',
                                     color: '#23282B'
-
                                 }}
                             >
                                 Ronald Richie
@@ -176,16 +219,15 @@ function JobfactorAppBar() {
                                     lineHeight: '20px',
                                     letterSpacing: '0.001em',
                                     color: '#808080'
-
                                 }}
                             >
                                 ronaldrichie@otlook.com
                             </Typography>
                         </Box>
                     </MenuItem>
-                    {data.map(item => 
-                        item.visible ? <>
-                            
+                    {data.map((item) =>
+                        item.visible ? (
+                            <>
                                 <MenuItem
                                     onClick={handleClose}
                                     sx={{
@@ -197,14 +239,16 @@ function JobfactorAppBar() {
                                         pb: '12px',
                                         pt: '12px',
                                         pl: '57px',
-                                        borderBottom: item.separatorBottom ? '1px solid #EDEDED' : 0
+                                        borderBottom: item.separatorBottom
+                                            ? '1px solid #EDEDED'
+                                            : 0
                                     }}
                                     disabled={item.disable}
                                 >
                                     {item.title}
                                 </MenuItem>
-                             </>
-                      : null
+                            </>
+                        ) : null
                     )}
                 </Box>
                 <MenuItem
@@ -215,7 +259,10 @@ function JobfactorAppBar() {
                         m: 0,
                         mt: '4px'
                     }}
-                    onClick={() => { signOut(); navigate('/login'); }}
+                    onClick={() => {
+                        signOut();
+                        navigate('/login');
+                    }}
                 >
                     Sign out
                 </MenuItem>

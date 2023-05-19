@@ -1,4 +1,10 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import {
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent
+} from '@mui/material';
 import React from 'react';
 import ArrowDown from '../../assets/icons/ArrowDown';
 
