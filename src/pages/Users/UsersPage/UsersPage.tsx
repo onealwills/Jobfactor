@@ -169,70 +169,72 @@ function UsersPage() {
                                             gap={2}
                                             alignItems="center"
                                         >
-                                                <Grid item>
-                                                    <Typography
-                                                        component="h2"
-                                                        color="#23282B"
-                                                        fontFamily="open sans"
-                                                        lineHeight="1.125"
-                                                        fontSize={28}
-                                                        fontWeight={600}
-                                                    >
-                                                        Ronald Richard
-                                                    </Typography>
-                                                </Grid>
+                                        <Grid item>
+                                            <Grid item>
+                                                <Typography
+                                                    component="h2"
+                                                    color="#23282B"
+                                                    fontFamily="open sans"
+                                                    lineHeight="1.125"
+                                                    fontSize={28}
+                                                    fontWeight={600}
+                                                >
+                                                    Ronald Richard
+                                                </Typography>
+                                            </Grid>
 
-                                                <Grid item>
-                                                    <Grid
-                                                        container
-                                                        gap={2}
-                                                        alignItems="center"
+                                            <Grid item>
+                                                <Grid
+                                                    container
+                                                    gap={2}
+                                                    alignItems="center"
+                                                >
+                                                    <CircleIcon
+                                                        sx={{
+                                                            fontSize: '7.25px'
+                                                        }}
+                                                        htmlColor="#494949"
+                                                    />
+                                                    <Typography
+                                                        component="span"
+                                                        color="#808080"
+                                                        fontFamily="open sans"
+                                                        fontSize={16}
+                                                        fontWeight={400}
                                                     >
-                                                        <CircleIcon
-                                                            sx={{
-                                                                fontSize:
-                                                                    '7.25px'
-                                                            }}
-                                                            htmlColor="#494949"
-                                                        />
-                                                        <Typography
-                                                            component="span"
-                                                            color="#808080"
-                                                            fontFamily="open sans"
-                                                            fontSize={16}
-                                                            fontWeight={400}
-                                                        >
-                                                            Product Designer
-                                                        </Typography>
-                                                        <CheckCircleIcon
-                                                            htmlColor="#49B6FF"
+                                                        Product Designer
+                                                    </Typography>
+                                                    <CheckCircleIcon
+                                                        htmlColor="#49B6FF"
+                                                        style={{
+                                                            marginLeft: '-8px'
+                                                        }}
+                                                    />
+                                                    <Grid item ml={1}>
+                                                        <Button
+                                                            variant="contained"
                                                             style={{
-                                                                marginLeft:
-                                                                    '-8px'
+                                                                width: 'auto',
+                                                                minWidth:
+                                                                    'auto',
+                                                                color: '#808080',
+                                                                backgroundColor:
+                                                                    '#F2F2F2'
                                                             }}
-                                                        />
-                                                        <Grid item ml={1}>
-                                                            <Button 
-                                                                variant="contained"
-                                                                style={{
-                                                                    width: 'auto',
-                                                                    minWidth: 'auto',
-                                                                    color: '#808080',
-                                                                    backgroundColor: '#F2F2F2',
-                                                                }}
-                                                                sx={{
-                                                                    px: 1,
-                                                                    py: 1.25,
-                                                                }}
-                                                                onClick={handleOnEditProfileInfo}
-                                                            >
-                                                                <EditIcon fontSize="small" />
-                                                            </Button>
-                                                        </Grid>
+                                                            sx={{
+                                                                px: 1,
+                                                                py: 1.25
+                                                            }}
+                                                            onClick={
+                                                                handleOnEditProfileInfo
+                                                            }
+                                                        >
+                                                            <EditIcon fontSize="small" />
+                                                        </Button>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        
                                     </Grid>
                                     <Grid item>
                                         <Typography
@@ -279,19 +281,22 @@ function UsersPage() {
                                                 />
                                             </Grid>
                                             <Grid item ml={2}>
-                                                <Button 
+                                                <Button
                                                     variant="contained"
                                                     style={{
                                                         width: 'auto',
                                                         minWidth: 'auto',
                                                         color: '#808080',
-                                                        backgroundColor: '#F2F2F2',
+                                                        backgroundColor:
+                                                            '#F2F2F2'
                                                     }}
                                                     sx={{
                                                         px: 1,
-                                                        py: 1.25,
+                                                        py: 1.25
                                                     }}
-                                                    onClick={handleOnEditContactInfo}
+                                                    onClick={
+                                                        handleOnEditContactInfo
+                                                    }
                                                 >
                                                     <EditIcon fontSize="small" />
                                                 </Button>

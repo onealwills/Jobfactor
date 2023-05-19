@@ -2,7 +2,6 @@ import { Box } from '@mui/system';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useHover } from 'usehooks-ts';
-import { useAuth } from '../../utils/context/AuthContext';
 import { Menu } from './SideNav';
 
 export default function SideNavItem(props: {
@@ -26,7 +25,6 @@ export default function SideNavItem(props: {
     } = props;
     const navigate = useNavigate();
     const location = useLocation();
-    const { signOut } = useAuth();
 
     useEffect(() => {
         if (nav.route === location.pathname) {
@@ -34,7 +32,7 @@ export default function SideNavItem(props: {
         } else if (currentItem.submenu) {
             if (
                 location.pathname ===
-                    currentItem.submenu[subMenuIndex]?.route &&
+                currentItem.submenu[subMenuIndex]?.route &&
                 currentItem.route === nav.route
             ) {
                 setIsSelected(true);
@@ -48,13 +46,8 @@ export default function SideNavItem(props: {
 
     const handleClick = () => {
         handleActiveMenu();
-        if (nav.route === '/logout') {
-            signOut();
-            navigate('/login');
-        } else {
-            navigate(nav.route);
-            setIsSelected(true);
-        }
+        navigate(nav.route);
+        setIsSelected(true);
     };
 
     return (

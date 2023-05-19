@@ -6,14 +6,12 @@ import SideNavProfile from '../../../assets/images/profile-sq.png';
 import { useState } from 'react';
 import PostCards from './PostCards';
 
-
 function CreateFeedCard() {
-
     const [showmodal, setShowModal] = useState<boolean>(false);
     let data = {
-        'userimage': SideNavProfile,
-        'username': 'Jacob Jones'
-    }
+        userimage: SideNavProfile,
+        username: 'Jacob Jones'
+    };
 
     return (
         <>
@@ -23,10 +21,18 @@ function CreateFeedCard() {
                     p: '20px',
                     backgroundColor: 'white'
                 }}
-                onClick={() => { setShowModal(true) }}
+                onClick={() => {
+                    setShowModal(true);
+                }}
             >
                 <Box sx={{ display: 'flex', gap: '16px' }}>
-                    <img height={72} width={72} src={SideNavProfile} alt="icon" style={{borderRadius:100}} />
+                    <img
+                        height={72}
+                        width={72}
+                        src={SideNavProfile}
+                        alt="icon"
+                        style={{ borderRadius: 100 }}
+                    />
                     <InputBase
                         rows={4}
                         defaultValue="What’s happening?"
@@ -109,9 +115,15 @@ function CreateFeedCard() {
                     </Button>
                 </Box>
             </Box>
-            {showmodal &&
-                <PostCards ShowModal={showmodal} data={data} HideModal={() => { setShowModal(false) }} />
-            }
+            {showmodal && (
+                <PostCards
+                    showModal={showmodal}
+                    data={data}
+                    hideModal={() => {
+                        setShowModal(false);
+                    }}
+                />
+            )}
         </>
     );
 }

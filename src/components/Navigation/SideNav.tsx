@@ -11,6 +11,8 @@ import SideNavItem from './SideNavItem';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Submenu from '../Submenu';
+import { useAuth } from '../../utils/context/AuthContext';
+import EyeIcon from '../../assets/icons/EyeIcon';
 
 // const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 //     open?: boolean;
@@ -56,7 +58,8 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Jobfactor Score',
-                route: '/users/score'
+                route: '/users/score',
+                menuProfile: 'professional'
             }
         ]
     },
@@ -70,12 +73,17 @@ const sideNavOptions: Menu[] = [
                 route: ''
             },
             {
-                label: 'My connections',
+                label: 'My community',
                 route: '/connections'
             },
             {
-                label: 'Pending connections',
+                label: 'Pending',
                 route: '/pending-connections'
+            },
+            {
+                label: 'Suggestions',
+                route: '/pending-connections',
+                enable: false
             }
         ]
     },
@@ -86,27 +94,58 @@ const sideNavOptions: Menu[] = [
         submenu: [
             {
                 label: 'Jobs',
+                enable: true,
                 route: ''
             },
             {
                 label: 'All jobs',
+                menuProfile: 'professional',
+                enable: true,
                 route: '/my-jobs'
             },
             {
                 label: 'Saved jobs',
+                menuProfile: 'professional',
+                enable: true,
                 route: '/save-job'
             },
             {
                 label: 'Job preference',
+                menuProfile: 'professional',
+                enable: true,
                 route: '/job-preference'
             },
             {
                 label: 'Applied jobs',
+                menuProfile: 'professional',
+                visible: true,
                 route: '/job-applied'
             },
             {
                 label: 'Career Planning',
+                menuProfile: 'professional',
+                visible: true,
+                enable: false,
                 route: '#'
+            },
+            {
+                label: 'Job Posting',
+                menuProfile: 'company',
+                enable: true,
+                route: '/job-postins'
+            },
+            {
+                label: 'Applications',
+                menuProfile: 'company',
+                enable: true,
+                route: '/job-application'
+            },
+            {
+                label: 'Saved Application',
+                visible: true,
+                enable: true,
+                menuProfile: 'company',
+                route: '/job-saveapplication'
             }
         ]
     },
@@ -116,7 +155,7 @@ const sideNavOptions: Menu[] = [
         route: '/messages'
     },
     {
-        icon: MessagesIcon,
+        icon: EyeIcon,
         label: 'Reviews',
         route: '/reviews',
         submenu: [
@@ -126,36 +165,72 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Suggested Reviews',
-                route: '/reviews'
+                menuProfile: 'professional',
+                enable: true,
+                route: '#'
             },
             {
                 label: 'Company Ratings',
-                route: '/reviews/company-ratings'
+                menuProfile: 'professional',
+                enable: false,
+                route: '#'
             },
             {
-                label: 'Sent requests',
-                route: '/reviews/sent-requests'
+                label: 'Sent Reviews',
+                menuProfile: 'professional',
+                enable: true,
+                route: '#'
             },
             {
-                label: 'Recieved requests',
-                route: '/reviews/received-requests'
+                label: 'Received Reviews',
+                menuProfile: 'professional',
+                enable: true,
+                route: '#'
             }
         ]
     },
     {
         icon: BookIcon,
         label: 'Courses',
-        route: '/courses'
+        route: '/courses',
+        disable: true
     },
     {
         icon: Settings,
         label: 'Settings',
-        route: '/settings'
-    },
-    {
-        icon: LogoutIcon,
-        label: 'Log out',
-        route: '/logout'
+        route: '/settings',
+        submenu: [
+            {
+                label: 'Settings',
+                route: ''
+            },
+            {
+                label: 'General preferences',
+                menuProfile: 'both',
+                enable: true,
+                route: '#'
+            },
+            {
+                label: 'Communications',
+                enable: false,
+                route: '#'
+            },
+            {
+                label: 'Privacy and visibility',
+                enable: true,
+                route: '#'
+            },
+            {
+                label: 'Subscriptions',
+                enable: true,
+                route: '#'
+            },
+            {
+                label: 'Security',
+                enable: true,
+                route: '#'
+            }
+        ]
     }
 ];
 
@@ -164,6 +239,8 @@ function SideNav() {
     const [hideMenu, setHideMenu] = useState(false);
     const [menuIndex, setMenuIndex] = useState(0);
     const [subMenuIndex, setSubMenuIndex] = useState(0);
+
+    const { account } = useAuth();
 
     const handleActiveMenu = () => {
         let subMenuActive = false;
@@ -219,11 +296,14 @@ function SideNav() {
                         />
                     ))}
                 </Box>
-                <Submenu
-                    setHideMenu={setHideMenu}
-                    hideMenu={hideMenu}
-                    options={sideNavOptions[menuIndex].submenu ?? []}
-                />
+                {account != null && account !== undefined && (
+                    <Submenu
+                        setHideMenu={setHideMenu}
+                        hideMenu={hideMenu}
+                        menuProfile={account?.primaryProfile}
+                        options={sideNavOptions[menuIndex].submenu ?? []}
+                    />
+                )}
             </Box>
         </>
     );
@@ -231,11 +311,16 @@ function SideNav() {
 export interface Menu {
     label: string;
     route: string;
+    hidden?: boolean;
+    disable?: boolean;
     icon: (props: { isHover: boolean; isSelected: boolean }) => JSX.Element;
     submenu?: item[];
 }
 export type item = {
     route: string;
     label: string;
+    menuProfile?: 'professional' | 'company' | 'both';
+    enable?: boolean;
+    visible?: boolean;
 };
 export default SideNav;

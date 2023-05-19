@@ -93,7 +93,10 @@ export default function CommonDialog({
             open={!!open}
             sx={{
                 '& .MuiDialogContent-root': {
-                    paddingX: (contentPaddingX === undefined || contentPaddingX) ? 4 : 0,
+                    paddingX:
+                        contentPaddingX === undefined || contentPaddingX
+                            ? 4
+                            : 0,
                     paddingBottom: actions ? 3 : 4,
                     paddingTop: 0
                 },

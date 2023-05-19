@@ -1,0 +1,9 @@
+.MuiMenu-paper {
+    margin-top: 22px;
+    max-width: 519px;
+    width: 519px
+}
+
+.MuiFormGroup-row {
+    gap: 0 124px;
+}
