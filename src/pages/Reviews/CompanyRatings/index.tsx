@@ -5,7 +5,6 @@ const CompanyRatings = () => {
     return (
         <SectionHeader
             header={'Company Ratings'}
-            subHeader={'test test test'}
         />
     );
 };

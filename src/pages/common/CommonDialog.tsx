@@ -122,7 +122,7 @@ export default function CommonDialog({
                 }}
             />
             <DialogContent>{children}</DialogContent>
-            {actions && (
+            {actions ? (
                 <DialogActions
                     {...ActionsProps}
                     sx={{
@@ -132,7 +132,7 @@ export default function CommonDialog({
                 >
                     {actions}
                 </DialogActions>
-            )}
+            ) : null}
         </Dialog>
     );
 }

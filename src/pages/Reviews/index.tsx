@@ -6,17 +6,18 @@ import SuggestedReviews from './SuggestedReviews';
 import CompanyRatings from './CompanyRatings';
 import ReceivedRequests from './ReceivedRequests';
 import { useParams } from 'react-router-dom';
+import { ReviewsSlug } from './types/ReviewsSlug';
 
 const ReviewsView = () => {
     const { slug } = useParams();
 
     const getSelectedReviewsPage = () => {
         switch (slug) {
-            case 'sent-requests':
+            case ReviewsSlug.SentRequests:
                 return <SentRequests />;
-            case 'company-ratings':
+            case ReviewsSlug.CompanyRatings:
                 return <CompanyRatings />;
-            case 'received-requests':
+            case ReviewsSlug.ReceivedRequests:
                 return <ReceivedRequests />;
             default:
                 return <SuggestedReviews />;

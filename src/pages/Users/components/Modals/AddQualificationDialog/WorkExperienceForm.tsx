@@ -11,6 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CommonRadioDropdown from '../../../../common/CommonRadioDropdown';
 import { Employment } from '../../../types/Employment';
 import { Grid } from '@mui/material';
+import { EMPLOYMENT_TYPE_OPTIONS } from '../../../constants';
 
 const WorkExperienceForm = () => {
     const {
@@ -87,13 +88,7 @@ const WorkExperienceForm = () => {
             </Box>
 
             <CommonRadioDropdown
-                options={[
-                    {label: 'Full Time', value: Employment.FullTime},
-                    {label: 'Part Time', value: Employment.PartTime},
-                    {label: 'Contract', value: Employment.Contract},
-                    {label: 'Freelance', value: Employment.Freelance},
-                    {label: 'Internship', value: Employment.Internship},
-                ]}
+                options={EMPLOYMENT_TYPE_OPTIONS}
                 label={
                     <>
                         Employment type
@@ -245,13 +240,7 @@ const WorkExperienceForm = () => {
             <Grid container gap={4}>
                 <Grid item flexGrow={1}>
                     <CommonRadioDropdown
-                        options={[
-                            {label: 'Full Time', value: Employment.FullTime},
-                            {label: 'Part Time', value: Employment.PartTime},
-                            {label: 'Contract', value: Employment.Contract},
-                            {label: 'Freelance', value: Employment.Freelance},
-                            {label: 'Internship', value: Employment.Internship},
-                        ]}
+                        options={EMPLOYMENT_TYPE_OPTIONS}
                         label={
                             <>
                                 Location
@@ -272,13 +261,7 @@ const WorkExperienceForm = () => {
                 </Grid>
                 <Grid item flexGrow={1}>
                     <CommonRadioDropdown
-                        options={[
-                            {label: 'Full Time', value: Employment.FullTime},
-                            {label: 'Part Time', value: Employment.PartTime},
-                            {label: 'Contract', value: Employment.Contract},
-                            {label: 'Freelance', value: Employment.Freelance},
-                            {label: 'Internship', value: Employment.Internship},
-                        ]}
+                        options={EMPLOYMENT_TYPE_OPTIONS}
                         label={
                             <>
                                 Location type

@@ -4,14 +4,15 @@ import { Box, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import UsersPage from './UsersPage/UsersPage';
 import UserQualifications from './UserQualifications/UserQualifications';
+import { UsersSlug } from './types/UsersSlug';
 
 const UsersView = () => {
     const { slug } = useParams();
 
     switch (slug) {
-        case 'qualifications':
+        case UsersSlug.Qualifications:
             return <UserQualifications />;
-        case 'score':
+        case UsersSlug.Score:
             return <>Not yet implemented</>
         default:
             return <UsersPage />;

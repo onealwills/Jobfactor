@@ -6,7 +6,6 @@ const SuggestedReviews = () => {
     return (
         <SectionHeader
             header={'Suggested Reviews'}
-            subHeader={'test test test'}
         />
     );
 };

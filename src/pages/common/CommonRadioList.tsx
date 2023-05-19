@@ -63,7 +63,7 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
               {startAdornment}
             </Box>
             <Grid container direction="column" alignItems="flex-start">
-                {label && (
+                {label ? (
                     <Grid item>
                         <Typography
                             fontSize={14}
@@ -72,7 +72,7 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
                             { label }
                         </Typography>
                     </Grid>
-                )}
+                ) : null}
                 <Grid item>
                     <Typography
                         fontSize={16}
