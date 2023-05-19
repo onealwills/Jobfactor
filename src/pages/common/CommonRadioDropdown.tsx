@@ -4,27 +4,22 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Grid } from '@mui/material';
+import { Grid, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 interface Option {
-  value: string;
   label: string;
+  value: any;
 }
 
 interface CommonRadioDropdownProps {
   options: Option[];
-  label?: string;
+  label?: React.ReactNode;
   placeholder?: string;
   startAdornment?: React.ReactNode;
-  endAdornment?: React.ReactNode;
+  onSelect?: (value: any) => void;
 }
 
 const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
@@ -32,117 +27,102 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
   label,
   placeholder,
   startAdornment,
+  onSelect,
 }) => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleOptionChange = (event: SelectChangeEvent<string>) => {
-    const selectedValue = event.target.value;
+  const handleOptionChange = (event: SelectChangeEvent<any>) => {
+    const selectedValue = event.target.value as string;
     const selectedOption = options.find((option) => option.value === selectedValue);
     setSelectedOption(selectedOption || null);
-    setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
-  };
-
-  const handleToggleDropdown = () => {
-    setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
-  };
-
-  const handleCloseDropdown = () => {
-    setIsDropdownOpen(false);
+    onSelect && onSelect(selectedValue);
   };
 
   return (
     <FormControl style={{ width: '100%' }}>
-      <Accordion
-        expanded={isDropdownOpen}
-        onChange={handleToggleDropdown}
-        TransitionProps={{ unmountOnExit: true }}
+      <Select
+        value={selectedOption?.value || ''}
+        onChange={handleOptionChange}
+        variant="standard"
         style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: 0,
-            boxShadow: 'none'
+          fontSize: 16,
+          color: '#808080',
+          width: '100%',
+          backgroundColor: '#FCFBF8',
+          borderRadius: 0,
+          boxShadow: 'none',
+        }}
+        sx={{
+          mb: 1.5,
+          '&  .MuiSelect-select': {
+            px: 2,
+            py: 1,
+          }
+        }}
+        MenuProps={{
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left',
+          },
+        }}
+        IconComponent={KeyboardArrowDownIcon}
+        displayEmpty
+        renderValue={(value: any) => {
+          return <Box>
+            {label && (
+              <Typography fontSize={14} color="#747474">
+                {label}
+              </Typography>
+            )}
+
+          <Typography fontSize={16} color={selectedOption ? '#23282B' : '#808080'}>
+                {selectedOption?.label || placeholder}
+          </Typography>
+          </Box>
         }}
       >
-        <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-        >
-          <Box display="flex" alignItems="center" width="100%">
-            <Box
-              display="flex"
-              alignItems="center"
-              marginRight={1.5}
-              flexGrow={0}
-            >
-              {startAdornment}
-            </Box>
-            <Grid container direction="column" alignItems="flex-start">
-                {label && (
-                    <Grid item>
-                        <Typography
-                            fontSize={14}
-                            color="#23282B"
-                        >
-                            { label }
-                        </Typography>
-                    </Grid>
-                )}
-                <Grid item>
-                    <Typography
-                        fontSize={16}
-                        color={selectedOption ? '#23282B' : '#808080'}
-                    >
-                        { selectedOption?.label || placeholder }
-                    </Typography>
-                </Grid>
-            </Grid>
-          </Box>
-        </AccordionSummary>
-        <AccordionDetails
-            style={{
-                borderTop: '1px solid #D9D9D9',
-                padding: 0,
-            }}
-        >
-          <Box width="100%">
-            <RadioGroup
-              value={selectedOption}
-              onChange={handleOptionChange}
-              sx={{
-                padding: 0,
-              }}
-            >
-              {options.map((option) => (
-                <FormControlLabel
-                  key={option.value}
-                  value={option.value}
-                  control={
-                    <Radio
-                      checked={selectedOption?.value === option.value}
-                      style={{
-                        color: selectedOption?.value === option.value ? '#1976d2' : '#AAAAAA',
-                      }}
-                    />
-                  }
-                  label={
-                    <Typography
-                        fontSize={16}
-                        color="#808080"
-                    >
-                        { option.label }
-                    </Typography>
-                  }
-                  sx={{
-                    borderBottom: '1px solid #D9D9D9',
-                    mx: 0,
-                    px: 2,
-                    py: .375,
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            <FormControlLabel
+              value={option.value}
+              control={
+                <Radio
+                  checked={selectedOption?.value === option.value}
+                  style={{
+                    color:
+                      selectedOption?.value === option.value
+                        ? '#1976d2'
+                        : '#AAAAAA',
                   }}
+                  size="small"
                 />
-              ))}
-            </RadioGroup>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
+              }
+              label={
+                <Typography
+                  fontSize={16}
+                  color={
+                    selectedOption?.value === option.value
+                      ? '#23282B'
+                      : '#808080'
+                  }
+                  fontWeight={
+                    selectedOption?.value === option.value ? 600 : 400
+                  }
+                >
+                  {option.label}
+                </Typography>
+              }
+              sx={{
+                py: 0.5,
+              }}
+            />
+          </MenuItem>
+        ))}
+      </Select>
     </FormControl>
   );
 };
