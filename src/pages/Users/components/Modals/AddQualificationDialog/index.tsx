@@ -82,7 +82,7 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
             title="Add a qualification"
             actions={
                 type && (
-                    <Button variant="contained">
+                    <Button variant="contained" style={{ height: '48px' }}>
                         <Typography
                             fontWeight={500}
                         >
