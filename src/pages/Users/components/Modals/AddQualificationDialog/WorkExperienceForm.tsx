@@ -254,7 +254,7 @@ const WorkExperienceForm = () => {
                         ]}
                         label={
                             <>
-                                Employment type
+                                Location
                                     <Typography
                                         ml={.25}
                                         component="span"
@@ -281,7 +281,7 @@ const WorkExperienceForm = () => {
                         ]}
                         label={
                             <>
-                                Employment type
+                                Location type
                                     <Typography
                                         ml={.25}
                                         component="span"
@@ -313,7 +313,7 @@ const WorkExperienceForm = () => {
                         }}
                         htmlFor="phone"
                     >
-                        Field of study
+                        Description
                         <Typography
                             ml={.25}
                             component="span"
@@ -498,7 +498,7 @@ const WorkExperienceForm = () => {
                     )}
                 />
             </Box>
-            
+
             <Button
                 variant="contained"
                 startIcon={<AddIcon />}
