@@ -169,7 +169,6 @@ function UsersPage() {
                                             gap={2}
                                             alignItems="center"
                                         >
-                                        <Grid item>
                                             <Grid item>
                                                 <Typography
                                                     component="h2"

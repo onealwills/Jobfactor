@@ -11,6 +11,8 @@ const UsersView = () => {
     switch (slug) {
         case 'qualifications':
             return <UserQualifications />;
+        case 'score':
+            return <>Not yet implemented</>
         default:
             return <UsersPage />;
     }
