@@ -10,6 +10,9 @@ import VolunteerServiceForm from './VolunteerServiceForm';
 import LicenseAndCertificationsForm from './LicenseAndCertificationsForm';
 import TestsForm from './TestsForm';
 import AwardsForm from './AwardsForm';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 interface IAddQualificationDialogProps {
     open: boolean;
@@ -29,30 +32,47 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
 
     const getCurrentView = () => {
         if (!type) {
-            return (
-                <SelectQualificationType 
-                    handleContinue={(type) => setType(type)}
-                />
-            )
+            return (<SelectQualificationType 
+                handleContinue={(type) => setType(type)}
+            />)
         }
 
-        switch (type) {
-            case Qualification.Education:
-                return (<EducationForm />);
-            case Qualification.WorkExperience:
-                return (<WorkExperienceForm />);
-            case Qualification.VolunteerService:
-                return (<VolunteerServiceForm />);
-            case Qualification.LicenseAndCertifications:
-                return (<LicenseAndCertificationsForm />);
-            case Qualification.Tests:
-                return (<TestsForm />);
-            case Qualification.Awards:
-                return (<AwardsForm />);
-            default:
-                return null;
+        const scrollingView = () => {
+            switch (type) {
+                case Qualification.Education:
+                    return (<EducationForm />);
+                case Qualification.WorkExperience:
+                    return (<WorkExperienceForm />);
+                case Qualification.VolunteerService:
+                    return (<VolunteerServiceForm />);
+                case Qualification.LicenseAndCertifications:
+                    return (<LicenseAndCertificationsForm />);
+                case Qualification.Tests:
+                    return (<TestsForm />);
+                case Qualification.Awards:
+                    return (<AwardsForm />);
+                default:
+                    return null;
+            }
         }
 
+        return (
+            <Box maxHeight="356px" style={{
+                overflowY: 'scroll',
+            }}>
+                <Typography
+                    mt={2}
+                    mb={2}
+                    component="p"
+                    fontSize={14}
+                    fontWeight={600}
+                    color="#494949"
+                >
+                    * Indicates required
+                </Typography>
+                { scrollingView() }
+            </Box>
+        )
     }
 
     return (
@@ -60,7 +80,18 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
             open={open}
             onClose={handleOnClose}
             title="Add a qualification"
-        >
+            actions={
+                type && (
+                    <Button variant="contained">
+                        <Typography
+                            fontWeight={500}
+                        >
+                            Save
+                        </Typography>
+                    </Button>
+                )
+            }
+        > 
             { getCurrentView() }
         </CommonDialog>
     );

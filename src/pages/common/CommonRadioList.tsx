@@ -41,7 +41,7 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
     const selectedValue = event.target.value;
     const selectedOption = options.find((option) => option.value === selectedValue);
     setSelectedOption(selectedOption || null);
-    onSelect && onSelect(selectedOption);
+    onSelect && onSelect(selectedValue);
   };
 
   return (
