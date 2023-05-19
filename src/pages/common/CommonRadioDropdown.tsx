@@ -53,7 +53,7 @@ const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
           boxShadow: 'none',
         }}
         sx={{
-          mb: 1.5,
+          mb: 2.5,
           '&  .MuiSelect-select': {
             px: 2,
             py: 1,
