@@ -58,7 +58,8 @@ const sideNavOptions: Menu[] = [
             },
             {
                 label: 'Jobfactor Score',
-                route: '/jobfactor-score'
+                route: '/jobfactor-score',
+                menuProfile: 'professional'
             }
         ]
     },
@@ -72,12 +73,17 @@ const sideNavOptions: Menu[] = [
                 route: ''
             },
             {
-                label: 'My connections',
+                label: 'My community',
                 route: '/connections'
             },
             {
-                label: 'Pending connections',
+                label: 'Pending',
                 route: '/pending-connections'
+            },
+            {
+                label: 'Suggestions',
+                route: '/pending-connections',
+                enable: false
             }
         ]
     },
@@ -90,18 +96,6 @@ const sideNavOptions: Menu[] = [
                 label: 'Jobs',
                 enable: true,
                 route: ''
-            },
-            {
-                label: 'job postings',
-                route: '/job-posting'
-            },
-            {
-                label: 'Applications',
-                route: '/job-applications'
-            },
-            {
-                label: 'Saved applications',
-                route: '/save-applications'
             },
             {
                 label: 'All jobs',
@@ -237,11 +231,6 @@ const sideNavOptions: Menu[] = [
                 route: '#'
             }
         ]
-    },
-    {
-        icon: LogoutIcon,
-        label: 'Log out',
-        route: '/logout'
     }
 ];
 
