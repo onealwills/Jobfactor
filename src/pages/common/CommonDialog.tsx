@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Dialog from '@mui/material/Dialog';
+import Dialog, { DialogProps as MuiDialogProps } from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions, { DialogActionsProps } from '@mui/material/DialogActions';
@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Box, Divider } from '@mui/material';
 import CloseIcon from '../../assets/icons/CloseIcon';
 
-export interface DialogProps {
+export interface DialogProps extends Omit<MuiDialogProps, 'title'> {
     open: boolean;
     title?: React.ReactNode;
     actions?: React.ReactNode;
@@ -75,7 +75,9 @@ export default function CommonDialog({
     onClose,
     contentPaddingX,
     ActionsProps,
-    children
+    keepMounted,
+    children,
+    ...other
 }: DialogProps) {
     function handleClose() {
         if (onClose) onClose();
@@ -83,6 +85,7 @@ export default function CommonDialog({
 
     return (
         <Dialog
+            keepMounted={keepMounted}
             maxWidth="md"
             fullWidth
             onClose={handleClose}
@@ -97,8 +100,10 @@ export default function CommonDialog({
                 '& .MuiDialogActions-root': {
                     paddingX: 4,
                     paddingY: 2.5
-                }
+                },
+                ...other.sx
             }}
+            {...other}
         >
             <CustomDialogTitle
                 id="customized-dialog-title"

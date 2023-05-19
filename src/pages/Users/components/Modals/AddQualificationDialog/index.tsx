@@ -36,6 +36,7 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
     const { open, setOpen } = props;
 
     const handleOnClose = () => {
+        setFormValues({});
         setOpen(false);
     };
 
@@ -46,7 +47,24 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
                 type
             }))}/>)
         }
-        return null;
+
+        switch (formValues.type) {
+            case Qualification.Education:
+                return (<></>);
+            case Qualification.WorkExperience:
+                return (<></>);
+            case Qualification.VolunteerService:
+                return (<></>);
+            case Qualification.LicenseAndCertifications:
+                return (<></>);
+            case Qualification.Tests:
+                return (<></>);
+            case Qualification.Awards:
+                return (<></>);
+            default:
+                return null;
+        }
+
     }
 
     return (

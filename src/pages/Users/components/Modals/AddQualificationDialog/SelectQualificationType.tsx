@@ -18,7 +18,7 @@ const SelectQualificationType = ({
 
     return (
         <>
-            <Box mt="1">
+            <Box mt={2}>
                 <CommonRadioList
                         label="Qualifications"
                         description="Please select"
