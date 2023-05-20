@@ -7,7 +7,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import cover from '../../../../assets/images/cover.jpg';
 import profile from '../../../../assets/images/profile-sq.png';
 
-import CustomDialog from './CustomDialog';
+import CommonDialog from '../../../common/CommonDialog';
 
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -40,7 +40,7 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
     };
 
     return (
-        <CustomDialog
+        <CommonDialog
             open={open}
             onClose={handleOnClose}
             title="Edit profile info"
@@ -351,8 +351,7 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                     />
                 </Box>
             </Box>
-        </CustomDialog>
-    );
+        </CommonDialog>);
 };
 
 export default EditProfileInfoDialog;

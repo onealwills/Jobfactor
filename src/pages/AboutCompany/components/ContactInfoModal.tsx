@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import InputBase from '@mui/material/InputBase';
 import { useForm, Controller } from 'react-hook-form';
-import CustomDialog from '../../Users/components/Modals/CustomDialog';
+import CommonDialog from '../../common/CommonDialog';
 import List from '@mui/material/List';
 import ProfileInfoListItem from '../../Users/components/ProfileInfoListItem';
 import PhoneFormIcon from '../../../assets/icons/PhoneFormIcon';
@@ -43,7 +43,7 @@ const EditContactInfoModal = (props: EditContactInfoModalProps) => {
     };
 
     return (
-        <CustomDialog
+        <CommonDialog
             open={open}
             onClose={handleOnClose}
             title="Jobfactor INC."
@@ -469,7 +469,7 @@ const EditContactInfoModal = (props: EditContactInfoModalProps) => {
                     </List>
                 </>
             )}
-        </CustomDialog>
+        </CommonDialog>
     );
 };
 

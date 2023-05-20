@@ -5,7 +5,7 @@ import InputBase from '@mui/material/InputBase';
 import { useForm, Controller } from 'react-hook-form';
 import cover from '../../../assets/images/companyCover.png';
 import profile from '../../../assets/images/companyProfile.png';
-import CustomDialog from '../../Users/components/Modals/CustomDialog';
+import CommonDialog from '../../common/CommonDialog';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
@@ -35,7 +35,7 @@ const EditProfileModal = (props: EditProfileModalProps) => {
     };
 
     return (
-        <CustomDialog
+        <CommonDialog
             open={open}
             onClose={handleOnClose}
             title="Edit profile info"
@@ -345,7 +345,7 @@ const EditProfileModal = (props: EditProfileModalProps) => {
                     />
                 </Box>
             </Box>
-        </CustomDialog>
+        </CommonDialog>
     );
 };
 

@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Dialog from '@mui/material/Dialog';
+import Dialog, { DialogProps as MuiDialogProps } from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
+import DialogActions, { DialogActionsProps } from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Box, Divider } from '@mui/material';
-import CloseIcon from '../../../../assets/icons/CloseIcon';
+import CloseIcon from '../../assets/icons/CloseIcon';
 
-export interface DialogProps {
+export interface DialogProps extends Omit<MuiDialogProps, 'title'> {
     open: boolean;
     title?: React.ReactNode;
     actions?: React.ReactNode;
@@ -16,6 +16,7 @@ export interface DialogProps {
     children?: React.ReactNode;
     size?: 'default';
     contentPaddingX?: boolean;
+    ActionsProps?: DialogActionsProps;
 }
 
 export interface DialogTitleProps {
@@ -67,13 +68,16 @@ function CustomDialogTitle(props: DialogTitleProps) {
     );
 }
 
-export default function CustomDialog({
+export default function CommonDialog({
     actions,
     open,
     title,
     onClose,
     contentPaddingX,
-    children
+    ActionsProps,
+    keepMounted,
+    children,
+    ...other
 }: DialogProps) {
     function handleClose() {
         if (onClose) onClose();
@@ -81,6 +85,7 @@ export default function CustomDialog({
 
     return (
         <Dialog
+            keepMounted={keepMounted}
             maxWidth="md"
             fullWidth
             onClose={handleClose}
@@ -98,8 +103,10 @@ export default function CustomDialog({
                 '& .MuiDialogActions-root': {
                     paddingX: 4,
                     paddingY: 2.5
-                }
+                },
+                ...other.sx
             }}
+            {...other}
         >
             <CustomDialogTitle
                 id="customized-dialog-title"
@@ -115,11 +122,17 @@ export default function CustomDialog({
                 }}
             />
             <DialogContent>{children}</DialogContent>
-            {actions && (
-                <Box bgcolor="#FFFAF1">
-                    <DialogActions>{actions}</DialogActions>
-                </Box>
-            )}
+            {actions ? (
+                <DialogActions
+                    {...ActionsProps}
+                    sx={{
+                        bgcolor: "#FFFAF1",
+                        ...ActionsProps?.sx
+                    }}
+                >
+                    {actions}
+                </DialogActions>
+            ) : null}
         </Dialog>
     );
 }

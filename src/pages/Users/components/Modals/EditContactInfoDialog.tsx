@@ -5,7 +5,7 @@ import InputBase from '@mui/material/InputBase';
 import EmailFormIcon from '../../../../assets/icons/EmailFormIcon';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
-import CustomDialog from './CustomDialog';
+import CommonDialog from '../../../common/CommonDialog';
 
 import List from '@mui/material/List';
 
@@ -50,7 +50,7 @@ const EditContactInfoDialog = (props: IEditContactInfoDialogProps) => {
     };
 
     return (
-        <CustomDialog
+        <CommonDialog
             open={open}
             onClose={handleOnClose}
             title="Ronald Richard"
@@ -455,8 +455,7 @@ const EditContactInfoDialog = (props: IEditContactInfoDialogProps) => {
                     </List>
                 </>
             )}
-        </CustomDialog>
-    );
+        </CommonDialog>);
 };
 
 export default EditContactInfoDialog;

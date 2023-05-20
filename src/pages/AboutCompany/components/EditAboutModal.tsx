@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { ChangeEvent, useState } from 'react';
-import CustomDialog from '../../Users/components/Modals/CustomDialog';
+import CommonDialog from '../../common/CommonDialog';
 
 interface EditAboutModalProps {
     open: boolean;
@@ -31,7 +31,7 @@ const EditAboutModal = (props: EditAboutModalProps) => {
     };
 
     return (
-        <CustomDialog
+        <CommonDialog
             open={open}
             onClose={handleOnClose}
             actions={
@@ -96,7 +96,7 @@ const EditAboutModal = (props: EditAboutModalProps) => {
             <Box sx={{ mt: 1, display: 'flex', justifyContent: 'flex-end' }}>
                 {aboutMe?.length}/{maxCount}
             </Box>
-        </CustomDialog>
+        </CommonDialog>
     );
 };
 

@@ -5,12 +5,13 @@ import MainLayout from '../pages/MainLayout/MainLayout';
 import ConnectionsPage from '../pages/Connections/ConnectionsPage';
 import MyJobsPage from '../pages/MyJobs/MyJobsPage';
 import MessagesPage from '../pages/Messages/Messages';
+import ReviewsPage from '../pages/Reviews';
 import CoursesPage from '../pages/Courses/CoursesPage';
 import NotificationsPage from '../pages/Notifications/NotificationsPags';
 import HelpSupportPage from '../pages/HelpSupport/HelpSupportPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import HomePage from '../pages/Home/HomePage';
-import UsersPage from '../pages/Users/UsersPage';
+import UsersPage from '../pages/Users';
 import Activities from '../pages/Activities/ActivitiesPage';
 import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
@@ -36,6 +37,8 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
     ) : (
         <Navigate to="/login" replace state={{ path: location.pathname }} />
     );
+
+    //   return <>{children}</>;
 }
 
 const PrivateRoutes = () => {
@@ -51,7 +54,7 @@ const PrivateRoutes = () => {
                     }
                 />
                 <Route
-                    path="users"
+                    path="users/:slug?"
                     element={
                         <RequireAuth>
                             <MainLayout children={<UsersPage />} />
@@ -106,6 +109,15 @@ const PrivateRoutes = () => {
                         </RequireAuth>
                     }
                 />
+
+                <Route
+                    path="messages"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<MessagesPage />} />
+                        </RequireAuth>
+                    }
+                />
                 <Route
                     path="my-jobs/:id"
                     element={
@@ -114,11 +126,12 @@ const PrivateRoutes = () => {
                         </RequireAuth>
                     }
                 />
+
                 <Route
-                    path="messages"
+                    path="sent-requests"
                     element={
                         <RequireAuth>
-                            <MainLayout children={<MessagesPage />} />
+                            <MainLayout children={<ReviewsPage />} />
                         </RequireAuth>
                     }
                 />
@@ -149,6 +162,7 @@ const PrivateRoutes = () => {
                         </RequireAuth>
                     }
                 />
+
                 <Route
                     path="help-support"
                     element={
@@ -234,6 +248,14 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <JobFactorThemePage />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="reviews/:slug?"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<ReviewsPage />} />
                         </RequireAuth>
                     }
                 />
