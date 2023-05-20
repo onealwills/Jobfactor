@@ -1,5 +1,3 @@
-import ComponentsOverrides from './overrides';
-import { useMemo } from 'react';
 import typography from './typography';
 import { CssBaseline } from '@mui/material';
 import {
@@ -8,6 +6,16 @@ import {
     StyledEngineProvider,
     ThemeProvider as MUIThemeProvider
 } from '@mui/material/styles';
+
+import '@fontsource/open-sans/300.css';
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/500.css';
+import '@fontsource/open-sans/600.css';
+import '@fontsource/open-sans/700.css';
+import '@fontsource/material-icons';
+
+// Import ComponentsOverrides correctly
+import ComponentsOverrides from './overrides';
 
 declare module '@mui/material/Button' {
     interface ButtonPropsVariantOverrides {
@@ -19,21 +27,19 @@ type Props = {
     children: React.ReactNode;
 };
 
-export default function ThemeProvider({ children }: Props) {
-    const themeOptions: ThemeOptions = useMemo(
-        () => ({
-            palette: {
-                background: {
-                    default: '#fcfbf8'
-                }
-            },
-            typography
-        }),
-        []
-    );
+const themeOptions: ThemeOptions = {
+    palette: {
+        background: {
+            default: '#fcfbf8'
+        }
+    },
+    typography
+};
 
-    const jobFactorTheme = createTheme(themeOptions);
-    jobFactorTheme.components = ComponentsOverrides(jobFactorTheme);
+export const jobFactorTheme = createTheme(themeOptions);
+jobFactorTheme.components = ComponentsOverrides(jobFactorTheme);
+
+export default function ThemeProvider({ children }: Props) {
     return (
         <StyledEngineProvider injectFirst>
             <MUIThemeProvider theme={jobFactorTheme}>

@@ -29,6 +29,7 @@ export default function Button(theme: Theme) {
                         color: '#05668D',
                         fontFamily: 'open sans',
                         '&:hover': {
+                            backgroundColor: '#FFF9ED',
                             border: '1px solid #05668D'
                         }
                     }
@@ -41,12 +42,36 @@ export default function Button(theme: Theme) {
                         textTransform: 'none',
                         borderRadius: '8px',
                         paddingY: '8px',
-                        fontWeight: 700,
+                        fontWeight: 600,
                         fontSize: 16,
                         width: '100%',
                         '&:hover': {
-                            backgroundColor: '#05668D',
+                            backgroundColor: '#055C7F',
                             color: 'white'
+                        }
+                    }
+                },
+                {
+                    props: {
+                        variant: 'text'
+                    },
+                    style: {
+                        color: '#05668D',
+                        textTransform: 'none',
+                        //borderRadius: '8px',
+                        //paddingY: '8px',
+                        fontWeight: 600,
+                        fontSize: 16,
+                        width: '100%',
+                        textDecoration: 'underline',
+                        '&:hover': {
+                            backgroundColor: 'transparent',
+                            color: '#05668D',
+                            textDecoration: 'underline'
+                        },
+                        '&:active': {
+                            backgroundColor: 'transparent',
+                            color: '#05668D'
                         }
                     }
                 }
