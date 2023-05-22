@@ -28,8 +28,8 @@ const EducationSummary = ({
                     src={university.image}
                     alt={university.name}
                     sx={{
-                        width: '80px',
-                        height: '80px',
+                        width: '64px',
+                        height: '64px',
                         objectFit: 'cover'
                     }}
                     border="3px #fff solid"

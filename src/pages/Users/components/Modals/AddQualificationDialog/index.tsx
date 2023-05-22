@@ -13,6 +13,7 @@ import AwardsForm from './AwardsForm';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useSearchParams } from 'react-router-dom';
 
 interface IAddQualificationDialogProps {
     open: boolean;
@@ -20,6 +21,8 @@ interface IAddQualificationDialogProps {
 }
 
 const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
+
+    const [, setSearchParams] = useSearchParams();
 
     const [ type, setType ] = useState<Qualification | null>(null);
 
@@ -82,7 +85,14 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
             title="Add a qualification"
             actions={
                 type && (
-                    <Button variant="contained" style={{ height: '48px' }}>
+                    <Button
+                        variant="contained"
+                        style={{ height: '48px' }}
+                        onClick={() => {
+                            setSearchParams((prev) => ({...prev, showMockData: true}))
+                            handleOnClose();
+                        }}
+                    >
                         <Typography
                             fontWeight={500}
                         >
