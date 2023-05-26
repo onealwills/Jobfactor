@@ -103,10 +103,18 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                             </Box>
                             <MoreIcon />
                         </Box>
-
+                        {feed.activity ? (
+                            <Typography
+                                sx={{ mt: '12px' }}
+                                color="#23282B"
+                                fontFamily="open sans"
+                                fontWeight={600}
+                            >
+                                {feed.activity}
+                            </Typography>
+                        ) : null}
                         <Box sx={{ mt: '18px' }}>
                             <Typography sx={{ whiteSpace: 'pre-line' }}>
-                                {/* {feed.description.split('\n').map((line, index) => ( */}
                                 <Typography
                                     color={'#808080'}
                                     fontFamily="open sans"
@@ -182,8 +190,10 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                             sx={{
                                 mt: '36px',
                                 display: 'flex',
-                                justifyContent: 'space-between',
-                                flexWrap: 'wrap'
+                                flexWrap: 'wrap',
+                                gap: '12px',
+                                borderRadius: '12px',
+                                overflow: 'hidden'
                             }}
                         >
                             {feed.images.map((image: any, index) => (
@@ -192,15 +202,12 @@ export const FeedItem = (props: { feed: IFeedItem }) => {
                                     src={image}
                                     alt="feed"
                                     style={{
-                                        width: '48%',
+                                        width:
+                                            feed.images.length === 1
+                                                ? 'auto'
+                                                : '48%',
                                         height: '300px',
-                                        objectFit: 'contain',
-                                        borderRadius: '12px',
-                                        marginTop: '20px',
-                                        marginRight:
-                                            index !== feed.images.length - 1
-                                                ? '12px'
-                                                : undefined
+                                        objectFit: 'contain'
                                     }}
                                 />
                             ))}

@@ -351,7 +351,8 @@ const EditProfileInfoDialog = (props: IEditProfileInfoDialogProps) => {
                     />
                 </Box>
             </Box>
-        </CommonDialog>);
+        </CommonDialog>
+    );
 };
 
 export default EditProfileInfoDialog;

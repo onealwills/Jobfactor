@@ -15,136 +15,146 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Grid } from '@mui/material';
 
 interface Option {
-  value: string;
-  label: string;
+    value: string;
+    label: string;
 }
 
 interface CommonRadioDropdownProps {
-  options: Option[];
-  label?: string;
-  placeholder?: string;
-  startAdornment?: React.ReactNode;
-  endAdornment?: React.ReactNode;
+    options: Option[];
+    label?: string;
+    placeholder?: string;
+    startAdornment?: React.ReactNode;
+    endAdornment?: React.ReactNode;
 }
 
 const CommonRadioDropdown: React.FC<CommonRadioDropdownProps> = ({
-  options,
-  label,
-  placeholder,
-  startAdornment,
+    options,
+    label,
+    placeholder,
+    startAdornment
 }) => {
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleOptionChange = (event: SelectChangeEvent<string>) => {
-    const selectedValue = event.target.value;
-    const selectedOption = options.find((option) => option.value === selectedValue);
-    setSelectedOption(selectedOption || null);
-    setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
-  };
+    const handleOptionChange = (event: SelectChangeEvent<string>) => {
+        const selectedValue = event.target.value;
+        const selectedOption = options.find(
+            (option) => option.value === selectedValue
+        );
+        setSelectedOption(selectedOption || null);
+        setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
+    };
 
-  const handleToggleDropdown = () => {
-    setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
-  };
+    const handleToggleDropdown = () => {
+        setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
+    };
 
-  const handleCloseDropdown = () => {
-    setIsDropdownOpen(false);
-  };
+    const handleCloseDropdown = () => {
+        setIsDropdownOpen(false);
+    };
 
-  return (
-    <FormControl style={{ width: '100%' }}>
-      <Accordion
-        expanded={isDropdownOpen}
-        onChange={handleToggleDropdown}
-        TransitionProps={{ unmountOnExit: true }}
-        style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: 0,
-            boxShadow: 'none'
-        }}
-      >
-        <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-        >
-          <Box display="flex" alignItems="center" width="100%">
-            <Box
-              display="flex"
-              alignItems="center"
-              marginRight={1.5}
-              flexGrow={0}
+    return (
+        <FormControl style={{ width: '100%' }}>
+            <Accordion
+                expanded={isDropdownOpen}
+                onChange={handleToggleDropdown}
+                TransitionProps={{ unmountOnExit: true }}
+                style={{
+                    backgroundColor: '#FAFAFA',
+                    borderRadius: 0,
+                    boxShadow: 'none'
+                }}
             >
-              {startAdornment}
-            </Box>
-            <Grid container direction="column" alignItems="flex-start">
-                {label ? (
-                    <Grid item>
-                        <Typography
-                            fontSize={14}
-                            color="#23282B"
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Box display="flex" alignItems="center" width="100%">
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            marginRight={1.5}
+                            flexGrow={0}
                         >
-                            { label }
-                        </Typography>
-                    </Grid>
-                ) : null}
-                <Grid item>
-                    <Typography
-                        fontSize={16}
-                        color={selectedOption ? '#23282B' : '#808080'}
-                    >
-                        { selectedOption?.label || placeholder }
-                    </Typography>
-                </Grid>
-            </Grid>
-          </Box>
-        </AccordionSummary>
-        <AccordionDetails
-            style={{
-                borderTop: '1px solid #D9D9D9',
-                padding: 0,
-            }}
-        >
-          <Box width="100%">
-            <RadioGroup
-              value={selectedOption}
-              onChange={handleOptionChange}
-              sx={{
-                padding: 0,
-              }}
-            >
-              {options.map((option) => (
-                <FormControlLabel
-                  key={option.value}
-                  value={option.value}
-                  control={
-                    <Radio
-                      checked={selectedOption?.value === option.value}
-                      style={{
-                        color: selectedOption?.value === option.value ? '#1976d2' : '#AAAAAA',
-                      }}
-                    />
-                  }
-                  label={
-                    <Typography
-                        fontSize={16}
-                        color="#808080"
-                    >
-                        { option.label }
-                    </Typography>
-                  }
-                  sx={{
-                    borderBottom: '1px solid #D9D9D9',
-                    mx: 0,
-                    px: 2,
-                    py: .375,
-                  }}
-                />
-              ))}
-            </RadioGroup>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
-    </FormControl>
-  );
+                            {startAdornment}
+                        </Box>
+                        <Grid
+                            container
+                            direction="column"
+                            alignItems="flex-start"
+                        >
+                            {label ? (
+                                <Grid item>
+                                    <Typography fontSize={14} color="#23282B">
+                                        {label}
+                                    </Typography>
+                                </Grid>
+                            ) : null}
+                            <Grid item>
+                                <Typography
+                                    fontSize={16}
+                                    color={
+                                        selectedOption ? '#23282B' : '#808080'
+                                    }
+                                >
+                                    {selectedOption?.label || placeholder}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </AccordionSummary>
+                <AccordionDetails
+                    style={{
+                        borderTop: '1px solid #D9D9D9',
+                        padding: 0
+                    }}
+                >
+                    <Box width="100%">
+                        <RadioGroup
+                            value={selectedOption}
+                            onChange={handleOptionChange}
+                            sx={{
+                                padding: 0
+                            }}
+                        >
+                            {options.map((option) => (
+                                <FormControlLabel
+                                    key={option.value}
+                                    value={option.value}
+                                    control={
+                                        <Radio
+                                            checked={
+                                                selectedOption?.value ===
+                                                option.value
+                                            }
+                                            style={{
+                                                color:
+                                                    selectedOption?.value ===
+                                                    option.value
+                                                        ? '#1976d2'
+                                                        : '#AAAAAA'
+                                            }}
+                                        />
+                                    }
+                                    label={
+                                        <Typography
+                                            fontSize={16}
+                                            color="#808080"
+                                        >
+                                            {option.label}
+                                        </Typography>
+                                    }
+                                    sx={{
+                                        borderBottom: '1px solid #D9D9D9',
+                                        mx: 0,
+                                        px: 2,
+                                        py: 0.375
+                                    }}
+                                />
+                            ))}
+                        </RadioGroup>
+                    </Box>
+                </AccordionDetails>
+            </Accordion>
+        </FormControl>
+    );
 };
 
 export default CommonRadioDropdown;

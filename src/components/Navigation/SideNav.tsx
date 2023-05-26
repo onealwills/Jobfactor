@@ -206,7 +206,7 @@ const professionalRoutes: Menu[] = [
             },
             {
                 label: 'Jobfactor Score',
-                route: '/users/score',
+                route: '/users/score'
             }
         ]
     },

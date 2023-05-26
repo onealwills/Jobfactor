@@ -1,9 +1,7 @@
 import React from 'react';
 
 const AwardsForm = () => {
-    return (
-        <></>
-    );
+    return <></>;
 };
 
 export default AwardsForm;

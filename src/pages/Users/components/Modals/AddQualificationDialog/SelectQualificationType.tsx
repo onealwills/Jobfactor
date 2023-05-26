@@ -11,29 +11,43 @@ interface IAddQualificationDialogProps {
 }
 
 const SelectQualificationType = ({
-    handleContinue,
+    handleContinue
 }: IAddQualificationDialogProps) => {
-
     const [type, setType] = useState<Qualification | null>(null);
 
     return (
         <>
             <Box mt={2}>
                 <CommonRadioList
-                        label="Qualifications"
-                        description="Please select"
-                        startAdornment={<BriefcaseFormIcon />}
-                        options={[
-                            {label: 'Education', value: Qualification.Education},
-                            {label: 'Work experience', value: Qualification.WorkExperience},
-                            {label: 'Volunteer service', value: Qualification.VolunteerService},
-                            {label: 'License and certifications', value: Qualification.LicenseAndCertifications},
-                            {label: 'Tests', value: Qualification.Tests},
-                            {label: 'Awards', value: Qualification.Awards},
-                        ]}
-                        onSelect={(selectedType: Qualification) => setType(selectedType)}
+                    label="Qualifications"
+                    description="Please select"
+                    startAdornment={<BriefcaseFormIcon />}
+                    options={[
+                        { label: 'Education', value: Qualification.Education },
+                        {
+                            label: 'Work experience',
+                            value: Qualification.WorkExperience
+                        },
+                        {
+                            label: 'Volunteer service',
+                            value: Qualification.VolunteerService
+                        },
+                        {
+                            label: 'License and certifications',
+                            value: Qualification.LicenseAndCertifications
+                        },
+                        { label: 'Tests', value: Qualification.Tests },
+                        { label: 'Awards', value: Qualification.Awards }
+                    ]}
+                    onSelect={(selectedType: Qualification) =>
+                        setType(selectedType)
+                    }
                 />
-                <Button variant="contained" onClick={() => type && handleContinue(type)} disabled={!type}>
+                <Button
+                    variant="contained"
+                    onClick={() => type && handleContinue(type)}
+                    disabled={!type}
+                >
                     Continue
                 </Button>
             </Box>

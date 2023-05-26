@@ -41,11 +41,13 @@ function UserQualifications() {
                 }}
                 style={{
                     borderEndStartRadius: 0,
-                    borderEndEndRadius: 0,
+                    borderEndEndRadius: 0
                 }}
             >
                 <Typography component="p" color="#808080">
-                    We use these details to improve your jobfactor score and also show you jobs that match your unique skills and experience
+                    We use these details to improve your jobfactor score and
+                    also show you jobs that match your unique skills and
+                    experience
                 </Typography>
             </Paper>
 

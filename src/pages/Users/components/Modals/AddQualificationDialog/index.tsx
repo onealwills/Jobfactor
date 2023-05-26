@@ -35,34 +35,39 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
 
     const getCurrentView = () => {
         if (!type) {
-            return (<SelectQualificationType 
-                handleContinue={(type) => setType(type)}
-            />)
+            return (
+                <SelectQualificationType
+                    handleContinue={(type) => setType(type)}
+                />
+            );
         }
 
         const scrollingView = () => {
             switch (type) {
                 case Qualification.Education:
-                    return (<EducationForm />);
+                    return <EducationForm />;
                 case Qualification.WorkExperience:
-                    return (<WorkExperienceForm />);
+                    return <WorkExperienceForm />;
                 case Qualification.VolunteerService:
-                    return (<VolunteerServiceForm />);
+                    return <VolunteerServiceForm />;
                 case Qualification.LicenseAndCertifications:
-                    return (<LicenseAndCertificationsForm />);
+                    return <LicenseAndCertificationsForm />;
                 case Qualification.Tests:
-                    return (<TestsForm />);
+                    return <TestsForm />;
                 case Qualification.Awards:
-                    return (<AwardsForm />);
+                    return <AwardsForm />;
                 default:
                     return null;
             }
-        }
+        };
 
         return (
-            <Box maxHeight="356px" style={{
-                overflowY: 'scroll',
-            }}>
+            <Box
+                maxHeight="356px"
+                style={{
+                    overflowY: 'scroll'
+                }}
+            >
                 <Typography
                     mt={2}
                     mb={2}
@@ -73,10 +78,10 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
                 >
                     * Indicates required
                 </Typography>
-                { scrollingView() }
+                {scrollingView()}
             </Box>
-        )
-    }
+        );
+    };
 
     return (
         <CommonDialog
@@ -101,8 +106,8 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
                     </Button>
                 )
             }
-        > 
-            { getCurrentView() }
+        >
+            {getCurrentView()}
         </CommonDialog>
     );
 };

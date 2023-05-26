@@ -3,5 +3,5 @@ export enum Employment {
     PartTime = 'part-time',
     Contract = 'contract',
     Freelance = 'freelance',
-    Internship = 'internship',
+    Internship = 'internship'
 }

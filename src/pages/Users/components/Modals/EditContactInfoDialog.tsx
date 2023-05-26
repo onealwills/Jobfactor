@@ -455,7 +455,8 @@ const EditContactInfoDialog = (props: IEditContactInfoDialogProps) => {
                     </List>
                 </>
             )}
-        </CommonDialog>);
+        </CommonDialog>
+    );
 };
 
 export default EditContactInfoDialog;

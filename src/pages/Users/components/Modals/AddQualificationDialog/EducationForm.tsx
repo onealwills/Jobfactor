@@ -19,7 +19,7 @@ const EducationForm = () => {
 
     return (
         <>
-            <Box sx={{ position: 'relative' }} >
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -34,7 +34,7 @@ const EducationForm = () => {
                 >
                     School
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -84,7 +84,7 @@ const EducationForm = () => {
                 />
             </Box>
 
-            <Box sx={{ position: 'relative' }} > 
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -99,7 +99,7 @@ const EducationForm = () => {
                 >
                     Degree
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -149,7 +149,7 @@ const EducationForm = () => {
                 />
             </Box>
 
-            <Box sx={{ position: 'relative' }} >
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -164,7 +164,7 @@ const EducationForm = () => {
                 >
                     Field of study
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -214,7 +214,7 @@ const EducationForm = () => {
                 />
             </Box>
 
-            <Grid container gap={.5} alignItems="center">
+            <Grid container gap={0.5} alignItems="center">
                 <Box sx={{ position: 'relative' }} flexGrow={1}>
                     <InputLabel
                         sx={{
@@ -230,7 +230,7 @@ const EducationForm = () => {
                     >
                         Field of study
                         <Typography
-                            ml={.25}
+                            ml={0.25}
                             component="span"
                             color="#363636"
                             fontSize={14}
@@ -282,7 +282,12 @@ const EducationForm = () => {
                     />
                 </Box>
 
-                <Box width={24} height={0} mb={1.5} borderBottom="1px solid #D9D9D9" />
+                <Box
+                    width={24}
+                    height={0}
+                    mb={1.5}
+                    borderBottom="1px solid #D9D9D9"
+                />
 
                 <Box sx={{ position: 'relative' }} flexGrow={1}>
                     <InputLabel
@@ -299,7 +304,7 @@ const EducationForm = () => {
                     >
                         Field of study
                         <Typography
-                            ml={.25}
+                            ml={0.25}
                             component="span"
                             color="#363636"
                             fontSize={14}
@@ -352,7 +357,7 @@ const EducationForm = () => {
                 </Box>
             </Grid>
 
-            <Box sx={{ position: 'relative' }} >
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -367,7 +372,7 @@ const EducationForm = () => {
                 >
                     Field of study
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -407,7 +412,7 @@ const EducationForm = () => {
                                 fontFamily: 'open sans',
                                 color: '#23282B',
                                 borderBottom: '1px solid #D9D9D9',
-                                mb: '20px',
+                                mb: '20px'
                             }}
                         />
                     )}
@@ -421,21 +426,17 @@ const EducationForm = () => {
                     mb: 2.5,
                     width: 'auto',
                     backgroundColor: '#F2F2F2',
-                    color: '#05668D',
+                    color: '#05668D'
                 }}
             >
-                <Typography
-                    fontSize={14}
-                    fontWeight={600}
-                >
+                <Typography fontSize={14} fontWeight={600}>
                     Add Media
                 </Typography>
             </Button>
 
-            <Typography
-                fontSize={14}
-            >
-                Add or link to external documents, photos, sites, videos, and presentations.
+            <Typography fontSize={14}>
+                Add or link to external documents, photos, sites, videos, and
+                presentations.
             </Typography>
         </>
     );

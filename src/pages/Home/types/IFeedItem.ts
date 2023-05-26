@@ -8,5 +8,6 @@ export interface IFeedItem {
     comments: number;
     shares: number;
     images: string[];
+    activity?: string;
     isAccountVerified: boolean;
 }

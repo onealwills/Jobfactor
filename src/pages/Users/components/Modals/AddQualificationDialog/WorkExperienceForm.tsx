@@ -22,7 +22,7 @@ const WorkExperienceForm = () => {
 
     return (
         <>
-            <Box sx={{ position: 'relative' }} >
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -37,7 +37,7 @@ const WorkExperienceForm = () => {
                 >
                     Job title
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -92,22 +92,21 @@ const WorkExperienceForm = () => {
                 label={
                     <>
                         Employment type
-                            <Typography
-                                ml={.25}
-                                component="span"
-                                color="#363636"
-                                fontSize={14}
-                                fontWeight={600}
-                            >
-                                *
-                            </Typography>
+                        <Typography
+                            ml={0.25}
+                            component="span"
+                            color="#363636"
+                            fontSize={14}
+                            fontWeight={600}
+                        >
+                            *
+                        </Typography>
                     </>
                 }
                 placeholder="Please select"
-
             />
 
-            <Box sx={{ position: 'relative' }} >
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -122,7 +121,7 @@ const WorkExperienceForm = () => {
                 >
                     Company name
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -172,7 +171,7 @@ const WorkExperienceForm = () => {
                 />
             </Box>
 
-            <Box sx={{ position: 'relative' }} >
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -187,7 +186,7 @@ const WorkExperienceForm = () => {
                 >
                     Company email
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -236,7 +235,7 @@ const WorkExperienceForm = () => {
                     )}
                 />
             </Box>
-            
+
             <Grid container gap={4}>
                 <Grid item flexGrow={1}>
                     <CommonRadioDropdown
@@ -244,19 +243,18 @@ const WorkExperienceForm = () => {
                         label={
                             <>
                                 Location
-                                    <Typography
-                                        ml={.25}
-                                        component="span"
-                                        color="#363636"
-                                        fontSize={14}
-                                        fontWeight={600}
-                                    >
-                                        *
-                                    </Typography>
+                                <Typography
+                                    ml={0.25}
+                                    component="span"
+                                    color="#363636"
+                                    fontSize={14}
+                                    fontWeight={600}
+                                >
+                                    *
+                                </Typography>
                             </>
                         }
                         placeholder="Please select"
-
                     />
                 </Grid>
                 <Grid item flexGrow={1}>
@@ -265,24 +263,23 @@ const WorkExperienceForm = () => {
                         label={
                             <>
                                 Location type
-                                    <Typography
-                                        ml={.25}
-                                        component="span"
-                                        color="#363636"
-                                        fontSize={14}
-                                        fontWeight={600}
-                                    >
-                                        *
-                                    </Typography>
+                                <Typography
+                                    ml={0.25}
+                                    component="span"
+                                    color="#363636"
+                                    fontSize={14}
+                                    fontWeight={600}
+                                >
+                                    *
+                                </Typography>
                             </>
                         }
                         placeholder="Please select"
-
                     />
                 </Grid>
             </Grid>
 
-            <Grid container gap={.5} alignItems="center">
+            <Grid container gap={0.5} alignItems="center">
                 <Box sx={{ position: 'relative' }} flexGrow={1}>
                     <InputLabel
                         sx={{
@@ -298,7 +295,7 @@ const WorkExperienceForm = () => {
                     >
                         Description
                         <Typography
-                            ml={.25}
+                            ml={0.25}
                             component="span"
                             color="#363636"
                             fontSize={14}
@@ -350,7 +347,12 @@ const WorkExperienceForm = () => {
                     />
                 </Box>
 
-                <Box width={24} height={0} mb={1.5} borderBottom="1px solid #D9D9D9" />
+                <Box
+                    width={24}
+                    height={0}
+                    mb={1.5}
+                    borderBottom="1px solid #D9D9D9"
+                />
 
                 <Box sx={{ position: 'relative' }} flexGrow={1}>
                     <InputLabel
@@ -367,7 +369,7 @@ const WorkExperienceForm = () => {
                     >
                         Field of study
                         <Typography
-                            ml={.25}
+                            ml={0.25}
                             component="span"
                             color="#363636"
                             fontSize={14}
@@ -420,7 +422,7 @@ const WorkExperienceForm = () => {
                 </Box>
             </Grid>
 
-            <Box sx={{ position: 'relative' }} >
+            <Box sx={{ position: 'relative' }}>
                 <InputLabel
                     sx={{
                         color: '#808080',
@@ -435,7 +437,7 @@ const WorkExperienceForm = () => {
                 >
                     Field of study
                     <Typography
-                        ml={.25}
+                        ml={0.25}
                         component="span"
                         color="#363636"
                         fontSize={14}
@@ -475,7 +477,7 @@ const WorkExperienceForm = () => {
                                 fontFamily: 'open sans',
                                 color: '#23282B',
                                 borderBottom: '1px solid #D9D9D9',
-                                mb: '20px',
+                                mb: '20px'
                             }}
                         />
                     )}
@@ -489,21 +491,17 @@ const WorkExperienceForm = () => {
                     mb: 2.5,
                     width: 'auto',
                     backgroundColor: '#F2F2F2',
-                    color: '#05668D',
+                    color: '#05668D'
                 }}
             >
-                <Typography
-                    fontSize={14}
-                    fontWeight={600}
-                >
+                <Typography fontSize={14} fontWeight={600}>
                     Add Media
                 </Typography>
             </Button>
 
-            <Typography
-                fontSize={14}
-            >
-                Add or link to external documents, photos, sites, videos, and presentations.
+            <Typography fontSize={14}>
+                Add or link to external documents, photos, sites, videos, and
+                presentations.
             </Typography>
         </>
     );

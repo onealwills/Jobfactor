@@ -126,7 +126,7 @@ export default function CommonDialog({
                 <DialogActions
                     {...ActionsProps}
                     sx={{
-                        bgcolor: "#FFFAF1",
+                        bgcolor: '#FFFAF1',
                         ...ActionsProps?.sx
                     }}
                 >

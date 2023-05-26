@@ -13,7 +13,7 @@ const UsersView = () => {
         case UsersSlug.Qualifications:
             return <UserQualifications />;
         case UsersSlug.Score:
-            return <>Not yet implemented</>
+            return <>Not yet implemented</>;
         default:
             return <UsersPage />;
     }
@@ -29,10 +29,10 @@ const WrappedView = () => {
             default:
                 return '';
         }
-    }
+    };
 
     return (
-        <Box sx={{ ml: '35px', width: '50%'}}>
+        <Box sx={{ ml: '35px', width: '50%' }}>
             <PageHeader
                 pageTitle={getSelectedPageTitle()}
                 actions={null}
@@ -41,11 +41,11 @@ const WrappedView = () => {
             <UsersView />
         </Box>
     );
-}
+};
 
 const Reviews = () => {
     const { slug } = useParams();
-    
+
     if (slug) {
         return WrappedView();
     } else {

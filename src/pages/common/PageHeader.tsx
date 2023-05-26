@@ -26,7 +26,11 @@ const HeaderActions = ({ children }: HeaderActionProps) => {
     return <>{children}</>;
 };
 
-const PageHeader = ({ actions, pageTitle, onBackNavigate }: PageHeaderProps) => {
+const PageHeader = ({
+    actions,
+    pageTitle,
+    onBackNavigate
+}: PageHeaderProps) => {
     const navigate = useNavigate();
 
     return (
@@ -77,10 +81,14 @@ const PageHeader = ({ actions, pageTitle, onBackNavigate }: PageHeaderProps) => 
                     }}
                 >
                     <HeaderActions>
-                        {actions !== undefined ? actions : (
+                        {actions !== undefined ? (
+                            actions
+                        ) : (
                             <>
                                 <Button variant="outlined">Replace All</Button>
-                                <Button variant="contained">Request Review</Button>
+                                <Button variant="contained">
+                                    Request Review
+                                </Button>
                             </>
                         )}
                     </HeaderActions>

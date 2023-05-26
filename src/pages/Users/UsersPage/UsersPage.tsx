@@ -483,12 +483,12 @@ function UsersPage() {
                                             </Grid>
                                         </Grid>
                                     </ListItemButton>
-                                    
+
                                     <Box py={4.5}>
                                         <Divider />
                                     </Box>
 
-                                    <ListItemButton 
+                                    <ListItemButton
                                         component={Link}
                                         to="/users/qualifications"
                                         style={{ textDecoration: 'none' }}

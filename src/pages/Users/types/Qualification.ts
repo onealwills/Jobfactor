@@ -4,5 +4,5 @@ export enum Qualification {
     VolunteerService = 'volunteer-service',
     LicenseAndCertifications = 'license-and-certifications',
     Tests = 'tests',
-    Awards = 'awards',
+    Awards = 'awards'
 }

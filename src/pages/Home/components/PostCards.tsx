@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -7,7 +7,11 @@ import {
     Modal,
     ImageList,
     ImageListItem,
-    ImageListItemBar
+    ImageListItemBar,
+    Typography,
+    Radio,
+    FormControlLabel,
+    Chip
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import UploadImage from '../../../assets/icons/UploadImage';
@@ -19,6 +23,9 @@ import Global from '../../../assets/icons/Global';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { FeedItem } from './FeedItem';
+import HatIcon from '../../../assets/icons/HatIcon';
+import Camera from '../../../assets/icons/CameraIconMui';
+import AchievementMedal from '../../../assets/icons/AchievementMedal';
 
 const modalstyle = {
     position: 'absolute' as 'absolute',
@@ -27,7 +34,6 @@ const modalstyle = {
     transform: 'translate(-50%, -50%)',
     width: 900,
     border: 0,
-    bgcolor: 'background.paper',
     boxShadow: 24,
     p: 3,
     outline: 'none',
@@ -53,18 +59,39 @@ interface PostCardProps {
     data: any;
     hideModal: (e?: any) => void;
     repostPopup?: boolean;
+    achievementModal?: boolean;
 }
 
 const PostCards = ({
     showModal,
     data,
     hideModal,
+    achievementModal = false,
     repostPopup = false
 }: PostCardProps) => {
     const [editorText, setEditorText] = useState<string>('');
+    const [activity, setActivity] = useState<string>('');
     const [assetArea, setAssetArea] = useState<string[]>([]);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [step, setStep] = React.useState<number>(0);
     const [type, setType] = useState<string>('Connections');
+    const [disable, setDisable] = useState<boolean>(false);
+    const [btnTitle, setBtnTitle] = useState<string>('Post');
+    const [skills, setSkills] = useState<Array<string>>([
+        'Bubble',
+        'Notion',
+        'Scrum',
+        'Python',
+        'Sketch',
+        'Webflow'
+    ]);
+    const [selectedSkills, setSelectedSkills] = useState<Array<string>>([
+        'Figma',
+        'HTML',
+        'CSS',
+        'Adobe XD',
+        'Wireframing'
+    ]);
 
     const TypeData = [{ name: 'Connections' }, { name: 'Anyone on Jobfactor' }];
 
@@ -85,8 +112,8 @@ const PostCards = ({
 
     const onPostData = async () => {
         let temp = {
-            profileImage: data?.userimage,
-            fullName: data?.username,
+            profileImage: data?.userimage ?? data?.profileImage,
+            fullName: data?.username ?? data?.fullName,
             jobTitle: 'Digital Marketer',
             description: editorText,
             views: 1852,
@@ -94,6 +121,8 @@ const PostCards = ({
             comments: 236,
             shares: 55,
             images: assetArea,
+            activity,
+            skills: selectedSkills,
             isAccountVerified: true
         };
         localStorage.setItem('feedsdata', JSON.stringify(temp));
@@ -196,6 +225,32 @@ const PostCards = ({
         );
     };
 
+    useEffect(() => {
+        if (step === 1) {
+            setBtnTitle('Continue');
+            if (!activity) {
+                setDisable(true);
+            } else {
+                setDisable(false);
+            }
+        } else if (step === 2) {
+            setBtnTitle('Post and get reviews');
+            if (!editorText) {
+                setDisable(true);
+            } else {
+                setDisable(false);
+            }
+        } else {
+            setBtnTitle('Post');
+        }
+    }, [step, activity, editorText]);
+
+    useEffect(() => {
+        if (achievementModal) {
+            setStep(1);
+        }
+    }, [achievementModal]);
+
     return (
         <Modal
             open={showModal}
@@ -203,311 +258,1019 @@ const PostCards = ({
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={modalstyle}>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        border: 0,
-                        borderBottomWidth: 1,
-                        borderBottomColor: '#CCC',
-                        borderStyle: 'solid',
-                        marginBottom: 2,
-                        paddingBottom: 1
-                    }}
-                >
-                    <Box>
-                        <h4 style={{ marginTop: 0, marginBottom: 0 }}>
-                            Create a Post
-                        </h4>
-                    </Box>
-                    <Box>
-                        <div style={{ cursor: 'pointer' }} onClick={hideModal}>
-                            <ClearIcon />
-                        </div>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        maxHeight: '55vh',
-                        overflow: 'auto',
-                        background: repostPopup ? '#FCFBF8' : 'transparent'
-                    }}
-                >
+            <Box
+                sx={[
+                    modalstyle,
+                    {
+                        background: step > 2 ? '#FCFBF8' : '#F7F7F7',
+                        p: step > 2 ? 0 : 3,
+                        borderRadius: step > 2 ? '8px' : 0,
+                        width: step > 2 ? 600 : 900
+                    }
+                ]}
+            >
+                {step === 3 ? (
                     <Box
                         sx={{
                             display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-start'
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            padding: '32px 136px',
+                            gap: '32px'
                         }}
                     >
+                        <AchievementMedal />
                         <Box
                             sx={{
                                 display: 'flex',
-                                gap: '16px',
-                                alignItems: 'center'
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: '8px',
+                                maxWidth: '405px'
                             }}
                         >
-                            <img
-                                height={65}
-                                width={65}
-                                src={data?.userimage ?? data?.profileImage}
-                                alt="icon"
-                                style={{ borderRadius: 100 }}
-                            />
-                            <Box
-                                sx={{ cursor: 'pointer' }}
-                                onClick={() => {
-                                    setOpen(true);
+                            <Typography
+                                sx={{
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: 600,
+                                    fontSize: '20px',
+                                    lineHeight: '28px',
+                                    color: '#23282B'
                                 }}
                             >
-                                <h4 style={{ margin: 0 }}>
-                                    {data?.username ?? data?.fullName}
-                                </h4>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '10px',
-                                        borderWidth: 1,
-                                        borderColor: '#CCC',
-                                        borderStyle: 'solid',
-                                        padding: '4px 12px',
-                                        borderRadius: 5,
-                                        marginTop: '5px'
-                                    }}
-                                >
-                                    {type === 'Connections' ? (
-                                        <UserGroup />
-                                    ) : (
-                                        <Global />
-                                    )}
-                                    <h5
-                                        style={{ margin: 0, fontWeight: '400' }}
-                                    >
-                                        {type}
-                                    </h5>
-                                    <ArrowDropDownIcon />
-                                </Box>
+                                Achievement Posted
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    fontFamily: 'Open Sans',
+                                    color: '#808080',
+                                    letterSpacing: '0.005em'
+                                }}
+                            >
+                                You can now request up to 5 reviews from your
+                                connections who witnessed this achievement.
+                            </Typography>
+                        </Box>
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                p: '14px 36px',
+                                background: '#FCFBF8',
+                                border: '1px solid #05668D',
+                                borderRadius: '8px',
+                                width: 'auto',
+                                minWidth: '227px',
+                                '&:hover': {
+                                    background: '#05668D',
+                                    color: 'white'
+                                }
+                            }}
+                            onClick={() => setStep(4)}
+                        >
+                            Continue
+                        </Button>
+                    </Box>
+                ) : step === 4 ? (
+                    <>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                padding: '32px 64px'
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: 600,
+                                    fontSize: '20px',
+                                    lineHeight: '28px',
+                                    color: '#23282B'
+                                }}
+                            >
+                                Relevant skills acquired from this achievement
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    fontFamily: 'Open Sans',
+                                    fontSize: '14px',
+                                    lineHeight: '20px',
+                                    color: '#808080',
+                                    letterSpacing: '0.001em'
+                                }}
+                            >
+                                Be sure to list relevant skills that others
+                                witnessed you demonstrated
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    gap: '10px',
+                                    mt: '10px',
+                                    width: '100%',
+                                    flexWrap: 'wrap'
+                                }}
+                            >
+                                {selectedSkills.map((x) => (
+                                    <Chip
+                                        key={`item_${x}`}
+                                        label={x}
+                                        onDelete={() => {
+                                            setSkills([...skills, x]);
+                                            setSelectedSkills(
+                                                selectedSkills.filter(
+                                                    (y) => y !== x
+                                                )
+                                            );
+                                        }}
+                                        sx={{
+                                            background: '#808080',
+                                            borderRadius: '4px',
+                                            p: '4px 8px',
+                                            fontFamily: 'Open Sans',
+                                            fontSize: '12px',
+                                            fontWeight: 600,
+                                            lineHeight: '16px',
+                                            color: '#FFFFFF',
+                                            letterSpacing: '0.005em',
+                                            '& svg': {
+                                                color: '#FFFFFF !important'
+                                            }
+                                        }}
+                                    />
+                                ))}
+                            </Box>
+                            <Typography
+                                sx={{
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: 600,
+                                    color: '#23282B',
+                                    letterSpacing: '0.005em',
+                                    mt: '32px'
+                                }}
+                            >
+                                Select or search to add skills
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    gap: '10px',
+                                    mt: '10px',
+                                    width: '100%',
+                                    flexWrap: 'wrap'
+                                }}
+                            >
+                                {skills.map((x) => (
+                                    <Chip
+                                        key={`item_${x}`}
+                                        label={x}
+                                        onClick={() => {
+                                            setSelectedSkills([
+                                                ...selectedSkills,
+                                                x
+                                            ]);
+                                            setSkills(
+                                                skills.filter((y) => y !== x)
+                                            );
+                                        }}
+                                        sx={{
+                                            background: '#FFFFFF',
+                                            border: '1px solid #808080',
+                                            borderRadius: '4px',
+                                            p: '4px 8px',
+                                            fontFamily: 'Open Sans',
+                                            fontSize: '12px',
+                                            fontWeight: 600,
+                                            lineHeight: '16px',
+                                            color: '#808080',
+                                            letterSpacing: '0.005em'
+                                        }}
+                                    />
+                                ))}
                             </Box>
                         </Box>
                         <Box
                             sx={{
-                                alignItems: 'center',
                                 display: 'flex',
-                                color: '#05668D',
-                                height: 'fit-content',
-                                borderRadius: '5px',
-                                background: '#fcfbf8',
-                                padding: '10px 20px',
-                                fontSize: '14px',
                                 gap: '8px',
-                                fontWeight: '600'
+                                m: '32px',
+                                p: '20px 32px',
+                                background: '#FFFFFF'
                             }}
                         >
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
-                                sx={{ padding: 0 }}
-                                disabled={true}
-                            >
-                                <Schedule />
-                            </IconButton>
-                            Schedule
-                        </Box>
-                    </Box>
-                    <Box sx={{ marginTop: '24px' }}>
-                        <InputBase
-                            rows={5}
-                            placeholder="What’s happening?"
-                            sx={{
-                                backgroundColor: '#FCFBF8',
-                                width: '100%',
-                                overflowY: 'auto',
-                                padding: 0,
-                                paddingTop: '24px',
-                                paddingLeft: '32px',
-                                fontFamily: 'open sans',
-                                color: '#23282B'
-                            }}
-                            onChange={(e) => {
-                                setEditorText(e.target.value);
-                            }}
-                            multiline
-                        />
-                    </Box>
-
-                    {assetArea?.length > 0 && (
-                        <Box sx={{ padding: '20px', background: '#fcfbf8' }}>
-                            <ImageList
+                            <Button
+                                variant="outlined"
                                 sx={{
-                                    width: '100%',
-                                    height: 250,
-                                    transform: 'translateZ(0)'
+                                    p: '14px 16px',
+                                    background: '#FAFAFA',
+                                    border: '1px solid #05668D',
+                                    borderRadius: '8px',
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: 600,
+                                    fontSize: '12px',
+                                    lineHeight: '16px',
+                                    letterSpacing: '0.005em',
+                                    color: '#05668D',
+                                    width: 'auto',
+                                    minWidth: '160px'
                                 }}
-                                rowHeight={200}
-                                gap={12}
+                                onClick={onPostData}
                             >
-                                {assetArea.map((item: any, index: number) => {
-                                    const cols = item?.featured ? 2 : 1;
-                                    const rows = item?.featured ? 2 : 1;
-                                    return (
-                                        <ImageListItem
-                                            sx={{
-                                                objectFit: 'fill',
-                                                overflow: 'hidden'
-                                            }}
-                                            key={index + 2}
-                                            cols={cols}
-                                            rows={rows}
-                                        >
-                                            <img
-                                                src={item}
-                                                alt={'images'}
-                                                loading="lazy"
-                                                style={{ objectFit: 'fill' }}
-                                            />
-                                            <ImageListItemBar
-                                                sx={{
-                                                    background: '#ffffff0d'
-                                                }}
-                                                position="top"
-                                                actionIcon={
-                                                    <div
-                                                        style={{
-                                                            cursor: 'pointer',
-                                                            padding: 10
-                                                        }}
-                                                        onClick={() => {
-                                                            onDeletImage(item);
-                                                        }}
-                                                    >
-                                                        <CancelIcon />
-                                                    </div>
-                                                }
-                                                actionPosition="left"
-                                            />
-                                        </ImageListItem>
-                                    );
-                                })}
-                            </ImageList>
+                                Skip for now
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                sx={{
+                                    p: '14px 16px',
+                                    background: '#05668D',
+                                    borderRadius: '8px',
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: 600,
+                                    fontSize: '14px',
+                                    lineHeight: '20px',
+                                    letterSpacing: '0.001em',
+                                    color: '#FFFFFF',
+                                    width: 'auto',
+                                    minWidth: '304px',
+                                    '&:hover': {
+                                        background: '#05668D'
+                                    }
+                                }}
+                            >
+                                Request review
+                            </Button>
                         </Box>
-                    )}
-
-                    {repostPopup ? (
+                    </>
+                ) : (
+                    <>
                         <Box
                             sx={{
-                                background: '#F2F2F2',
-                                border: '1px solid #C5C5C5',
-                                borderRadius: '12px',
-                                ml: '32px',
-                                mr: '32px'
-                            }}
-                        >
-                            <FeedItem feed={data} />
-                        </Box>
-                    ) : null}
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingLeft: '15px',
-                        marginTop: '30px'
-                    }}
-                >
-                    <Box sx={{ display: 'flex', gap: '20px' }}>
-                        <Box
-                            sx={{
-                                alignItems: 'center',
                                 display: 'flex',
-                                gap: '5px'
-                            }}
-                            onClick={() => {
-                                inputref.current?.click();
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                border: 0,
+                                borderBottomWidth: 1,
+                                borderBottomColor: '#CCC',
+                                borderStyle: 'solid',
+                                marginBottom: 2,
+                                paddingBottom: 1
                             }}
                         >
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
+                            <Box>
+                                <h4 style={{ marginTop: 0, marginBottom: 0 }}>
+                                    Create a Post
+                                </h4>
+                            </Box>
+                            <Box>
+                                <div
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={hideModal}
+                                >
+                                    <ClearIcon />
+                                </div>
+                            </Box>
+                        </Box>
+                        <Box
+                            sx={{
+                                maxHeight: '55vh',
+                                overflow: 'auto',
+                                background: repostPopup
+                                    ? '#FCFBF8'
+                                    : 'transparent'
+                            }}
+                        >
+                            <Box
                                 sx={{
-                                    backgroundColor: '#FCFBF8',
-                                    borderRadius: '5px'
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'flex-start'
                                 }}
                             >
-                                <UploadImage />
-                                <input
-                                    type="file"
-                                    ref={inputref}
-                                    multiple
-                                    accept="image/jpg, image/jpeg, image/png"
-                                    name="image"
-                                    id="imageFile"
-                                    onChange={(e) => {
-                                        onChangeImage(e);
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: '16px',
+                                        alignItems: 'center'
                                     }}
-                                    style={{ display: 'none' }}
-                                />
-                            </IconButton>
+                                >
+                                    <img
+                                        height={65}
+                                        width={65}
+                                        src={
+                                            data?.userimage ??
+                                            data?.profileImage
+                                        }
+                                        alt="icon"
+                                        style={{ borderRadius: 100 }}
+                                    />
+                                    <Box
+                                        sx={{ cursor: 'pointer' }}
+                                        onClick={() => {
+                                            setOpen(true);
+                                        }}
+                                    >
+                                        <h4 style={{ margin: 0 }}>
+                                            {data?.username ?? data?.fullName}
+                                        </h4>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '10px',
+                                                borderWidth: 1,
+                                                borderColor: '#CCC',
+                                                borderStyle: 'solid',
+                                                padding: '4px 12px',
+                                                borderRadius: 5,
+                                                marginTop: '5px'
+                                            }}
+                                        >
+                                            {type === 'Connections' ? (
+                                                <UserGroup />
+                                            ) : (
+                                                <Global />
+                                            )}
+                                            <h5
+                                                style={{
+                                                    margin: 0,
+                                                    fontWeight: '400'
+                                                }}
+                                            >
+                                                {type}
+                                            </h5>
+                                            <ArrowDropDownIcon />
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                <Box
+                                    sx={{
+                                        alignItems: 'center',
+                                        display: 'flex',
+                                        color: '#05668D',
+                                        height: 'fit-content',
+                                        borderRadius: '5px',
+                                        background: '#fcfbf8',
+                                        padding: '10px 20px',
+                                        fontSize: '14px',
+                                        gap: '8px',
+                                        fontWeight: '600'
+                                    }}
+                                >
+                                    <IconButton
+                                        edge="start"
+                                        color="inherit"
+                                        aria-label="photo"
+                                        sx={{ padding: 0 }}
+                                        disabled={true}
+                                    >
+                                        <Schedule />
+                                    </IconButton>
+                                    Schedule
+                                </Box>
+                            </Box>
+                            {step === 1 ? (
+                                <Box sx={{ marginTop: '40px' }}>
+                                    <Typography
+                                        sx={{
+                                            fontFamily: 'Open Sans',
+                                            color: '#23282B',
+                                            fontWeight: '600',
+                                            fontSize: '20px',
+                                            lineHeight: '28px'
+                                        }}
+                                    >
+                                        What is the achievement?
+                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            mt: '20px',
+                                            p: '6px 16px',
+                                            background:
+                                                activity ===
+                                                'Completed a course'
+                                                    ? '#EDEDED'
+                                                    : '#FAFAFA',
+                                            borderBottom: `1px solid ${
+                                                activity ===
+                                                'Completed a course'
+                                                    ? '#EDEDED'
+                                                    : '#D8D8D8'
+                                            }`
+                                        }}
+                                    >
+                                        <FormControlLabel
+                                            sx={{
+                                                '& .MuiFormControlLabel-label':
+                                                    {
+                                                        fontFamily: 'Open Sans',
+                                                        fontWeight:
+                                                            activity ===
+                                                            'Completed a course'
+                                                                ? 600
+                                                                : 400,
+                                                        letterSpacing:
+                                                            '0.005em',
+                                                        color:
+                                                            activity ===
+                                                            'Completed a course'
+                                                                ? '#23282B'
+                                                                : '#808080'
+                                                    }
+                                            }}
+                                            value={activity}
+                                            control={
+                                                <Radio
+                                                    sx={{
+                                                        color:
+                                                            activity ===
+                                                            'Completed a course'
+                                                                ? '#05668D !important'
+                                                                : '#AAAAAA !important'
+                                                    }}
+                                                    checked={
+                                                        activity ===
+                                                        'Completed a course'
+                                                            ? true
+                                                            : false
+                                                    }
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setActivity(
+                                                                'Completed a course'
+                                                            );
+                                                        }
+                                                    }}
+                                                />
+                                            }
+                                            label="Completed a course"
+                                        />
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            p: '6px 16px',
+                                            background:
+                                                activity ===
+                                                'Learnt a new skill'
+                                                    ? '#EDEDED'
+                                                    : '#FAFAFA',
+                                            borderBottom: `1px solid ${
+                                                activity ===
+                                                'Learnt a new skill'
+                                                    ? '#EDEDED'
+                                                    : '#D8D8D8'
+                                            }`
+                                        }}
+                                    >
+                                        <FormControlLabel
+                                            sx={{
+                                                '& .MuiFormControlLabel-label':
+                                                    {
+                                                        fontFamily: 'Open Sans',
+                                                        fontWeight:
+                                                            activity ===
+                                                            'Learnt a new skill'
+                                                                ? 600
+                                                                : 400,
+                                                        letterSpacing:
+                                                            '0.005em',
+                                                        color:
+                                                            activity ===
+                                                            'Learnt a new skill'
+                                                                ? '#23282B'
+                                                                : '#808080'
+                                                    }
+                                            }}
+                                            value={activity}
+                                            control={
+                                                <Radio
+                                                    sx={{
+                                                        color:
+                                                            activity ===
+                                                            'Learnt a new skill'
+                                                                ? '#05668D !important'
+                                                                : '#AAAAAA !important'
+                                                    }}
+                                                    checked={
+                                                        activity ===
+                                                        'Learnt a new skill'
+                                                            ? true
+                                                            : false
+                                                    }
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setActivity(
+                                                                'Learnt a new skill'
+                                                            );
+                                                        }
+                                                    }}
+                                                />
+                                            }
+                                            label="Learnt a new skill"
+                                        />
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            p: '6px 16px',
+                                            background:
+                                                activity ===
+                                                'Worked on a new project'
+                                                    ? '#EDEDED'
+                                                    : '#FAFAFA',
+                                            borderBottom: `1px solid ${
+                                                activity ===
+                                                'Worked on a new project'
+                                                    ? '#EDEDED'
+                                                    : '#D8D8D8'
+                                            }`
+                                        }}
+                                    >
+                                        <FormControlLabel
+                                            sx={{
+                                                '& .MuiFormControlLabel-label':
+                                                    {
+                                                        fontFamily: 'Open Sans',
+                                                        fontWeight:
+                                                            activity ===
+                                                            'Worked on a new project'
+                                                                ? 600
+                                                                : 400,
+                                                        letterSpacing:
+                                                            '0.005em',
+                                                        color:
+                                                            activity ===
+                                                            'Worked on a new project'
+                                                                ? '#23282B'
+                                                                : '#808080'
+                                                    }
+                                            }}
+                                            value={activity}
+                                            control={
+                                                <Radio
+                                                    sx={{
+                                                        color:
+                                                            activity ===
+                                                            'Worked on a new project'
+                                                                ? '#05668D !important'
+                                                                : '#AAAAAA !important'
+                                                    }}
+                                                    checked={
+                                                        activity ===
+                                                        'Worked on a new project'
+                                                            ? true
+                                                            : false
+                                                    }
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setActivity(
+                                                                'Worked on a new project'
+                                                            );
+                                                        }
+                                                    }}
+                                                />
+                                            }
+                                            label="Worked on a new project"
+                                        />
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            p: '6px 16px',
+                                            background:
+                                                activity === 'Received an award'
+                                                    ? '#EDEDED'
+                                                    : '#FAFAFA',
+                                            borderBottom: `1px solid ${
+                                                activity === 'Received an award'
+                                                    ? '#EDEDED'
+                                                    : '#D8D8D8'
+                                            }`
+                                        }}
+                                    >
+                                        <FormControlLabel
+                                            sx={{
+                                                '& .MuiFormControlLabel-label':
+                                                    {
+                                                        fontFamily: 'Open Sans',
+                                                        fontWeight:
+                                                            activity ===
+                                                            'Received an award'
+                                                                ? 600
+                                                                : 400,
+                                                        letterSpacing:
+                                                            '0.005em',
+                                                        color:
+                                                            activity ===
+                                                            'Received an award'
+                                                                ? '#23282B'
+                                                                : '#808080'
+                                                    }
+                                            }}
+                                            value={activity}
+                                            control={
+                                                <Radio
+                                                    sx={{
+                                                        color:
+                                                            activity ===
+                                                            'Received an award'
+                                                                ? '#05668D !important'
+                                                                : '#AAAAAA !important'
+                                                    }}
+                                                    checked={
+                                                        activity ===
+                                                        'Received an award'
+                                                            ? true
+                                                            : false
+                                                    }
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setActivity(
+                                                                'Received an award'
+                                                            );
+                                                        }
+                                                    }}
+                                                />
+                                            }
+                                            label="Received an award"
+                                        />
+                                    </Box>
+                                </Box>
+                            ) : step === 2 ? (
+                                <Box
+                                    sx={{
+                                        border: '1px solid #D9D9DA',
+                                        borderRadius: '8px',
+                                        p: '16px',
+                                        mt: '16px'
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            gap: '24px'
+                                        }}
+                                    >
+                                        <Typography
+                                            sx={{
+                                                fontFamily: 'Open Sans',
+                                                color: '#23282B',
+                                                fontWeight: '600',
+                                                letterSpacing: '0.005em'
+                                            }}
+                                        >
+                                            Tell us about your course
+                                        </Typography>
+                                        <Button
+                                            variant="outlined"
+                                            sx={{
+                                                fontFamily: 'Open Sans',
+                                                color: '#05668D',
+                                                fontSize: '14px',
+                                                fontWeight: '600',
+                                                letterSpacing: '0.001em',
+                                                lineHeight: '20px',
+                                                p: '14px 16px',
+                                                background: '#F2F2F2',
+                                                border: '1px solid #05668D',
+                                                borderRadius: '8px',
+                                                maxWidth: '212px',
+                                                '&:hover': {
+                                                    background: '#05668D',
+                                                    color: 'white'
+                                                }
+                                            }}
+                                            onClick={() => setStep(1)}
+                                        >
+                                            Change your achievement
+                                        </Button>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            mt: '24px',
+                                            backgroundColor: '#FFFAF1',
+                                            padding: '12px 32px 24px'
+                                        }}
+                                    >
+                                        <InputBase
+                                            rows={5}
+                                            placeholder="I just completed a course in..."
+                                            sx={{
+                                                backgroundColor: '#FFFAF1',
+                                                width: '100%',
+                                                overflowY: 'auto',
+                                                fontFamily: 'open sans',
+                                                color: '#23282B'
+                                            }}
+                                            onChange={(e) => {
+                                                setEditorText(e.target.value);
+                                            }}
+                                            multiline
+                                        />
+                                        <Box
+                                            sx={{
+                                                background: '#FFFFFF',
+                                                border: '1px dashed #05668D',
+                                                borderRadius: '16px',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                p: '29px',
+                                                mt: '10px'
+                                            }}
+                                        >
+                                            <Button
+                                                variant="contained"
+                                                startIcon={<Camera />}
+                                                sx={{
+                                                    fontFamily: 'Open Sans',
+                                                    color: '#05668D',
+                                                    fontSize: '14px',
+                                                    fontWeight: '600',
+                                                    letterSpacing: '0.0035em',
+                                                    lineHeight: '20px',
+                                                    p: '10px 16px',
+                                                    background: '#F2F2F2',
+                                                    borderRadius: '8px',
+                                                    width: 'auto',
+                                                    m: 'auto'
+                                                }}
+                                                onClick={() => {
+                                                    inputref.current?.click();
+                                                }}
+                                            >
+                                                Add Photo
+                                            </Button>
+                                            <input
+                                                type="file"
+                                                ref={inputref}
+                                                multiple
+                                                accept="image/jpg, image/jpeg, image/png"
+                                                name="image"
+                                                id="imageFile"
+                                                onChange={(e) => {
+                                                    onChangeImage(e);
+                                                }}
+                                                style={{ display: 'none' }}
+                                            />
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            ) : (
+                                <Box sx={{ marginTop: '24px' }}>
+                                    <InputBase
+                                        rows={5}
+                                        placeholder="What’s happening?"
+                                        sx={{
+                                            backgroundColor: '#FCFBF8',
+                                            width: '100%',
+                                            overflowY: 'auto',
+                                            padding: 0,
+                                            paddingTop: '24px',
+                                            paddingLeft: '32px',
+                                            fontFamily: 'open sans',
+                                            color: '#23282B'
+                                        }}
+                                        onChange={(e) => {
+                                            setEditorText(e.target.value);
+                                        }}
+                                        multiline
+                                    />
+                                </Box>
+                            )}
+
+                            {assetArea?.length > 0 && (
+                                <Box
+                                    sx={{
+                                        padding: '20px',
+                                        background: '#fcfbf8'
+                                    }}
+                                >
+                                    <ImageList
+                                        sx={{
+                                            width: '100%',
+                                            height: 250,
+                                            transform: 'translateZ(0)'
+                                        }}
+                                        rowHeight={200}
+                                        gap={12}
+                                    >
+                                        {assetArea.map(
+                                            (item: any, index: number) => {
+                                                const cols = item?.featured
+                                                    ? 2
+                                                    : 1;
+                                                const rows = item?.featured
+                                                    ? 2
+                                                    : 1;
+                                                return (
+                                                    <ImageListItem
+                                                        sx={{
+                                                            objectFit: 'fill',
+                                                            overflow: 'hidden'
+                                                        }}
+                                                        key={index + 2}
+                                                        cols={cols}
+                                                        rows={rows}
+                                                    >
+                                                        <img
+                                                            src={item}
+                                                            alt={'images'}
+                                                            loading="lazy"
+                                                            style={{
+                                                                objectFit:
+                                                                    'fill'
+                                                            }}
+                                                        />
+                                                        <ImageListItemBar
+                                                            sx={{
+                                                                background:
+                                                                    '#ffffff0d'
+                                                            }}
+                                                            position="top"
+                                                            actionIcon={
+                                                                <div
+                                                                    style={{
+                                                                        cursor: 'pointer',
+                                                                        padding: 10
+                                                                    }}
+                                                                    onClick={() => {
+                                                                        onDeletImage(
+                                                                            item
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <CancelIcon />
+                                                                </div>
+                                                            }
+                                                            actionPosition="left"
+                                                        />
+                                                    </ImageListItem>
+                                                );
+                                            }
+                                        )}
+                                    </ImageList>
+                                </Box>
+                            )}
+
+                            {repostPopup ? (
+                                <Box
+                                    sx={{
+                                        background: '#F2F2F2',
+                                        border: '1px solid #C5C5C5',
+                                        borderRadius: '12px',
+                                        ml: '32px',
+                                        mr: '32px'
+                                    }}
+                                >
+                                    <FeedItem feed={data} />
+                                </Box>
+                            ) : null}
                         </Box>
                         <Box
                             sx={{
-                                alignItems: 'center',
                                 display: 'flex',
-                                gap: '5px'
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                paddingLeft: '15px',
+                                marginTop: '30px'
                             }}
                         >
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
-                                sx={{
-                                    backgroundColor: '#FCFBF8',
-                                    borderRadius: '5px'
+                            {step > 0 ? (
+                                <Button
+                                    startIcon={<HatIcon color="#747474" />}
+                                    variant="contained"
+                                    sx={{
+                                        width: 'auto',
+                                        fontFamily: 'Open Sans',
+                                        fontWeight: 600,
+                                        fontSize: '14px',
+                                        lineHeight: '20px',
+                                        letterSpacing: '0.001em',
+                                        color: '#808080'
+                                    }}
+                                    disabled={true}
+                                >
+                                    Achievements
+                                </Button>
+                            ) : (
+                                <Box sx={{ display: 'flex', gap: '20px' }}>
+                                    <Box
+                                        sx={{
+                                            alignItems: 'center',
+                                            display: 'flex',
+                                            gap: '5px'
+                                        }}
+                                    >
+                                        <IconButton
+                                            edge="start"
+                                            color="inherit"
+                                            aria-label="photo"
+                                            sx={{
+                                                backgroundColor: '#FCFBF8',
+                                                borderRadius: '5px'
+                                            }}
+                                            onClick={() => {
+                                                inputref.current?.click();
+                                            }}
+                                        >
+                                            <UploadImage />
+                                            <input
+                                                type="file"
+                                                ref={inputref}
+                                                multiple
+                                                accept="image/jpg, image/jpeg, image/png"
+                                                name="image"
+                                                id="imageFile"
+                                                onChange={(e) => {
+                                                    onChangeImage(e);
+                                                }}
+                                                style={{ display: 'none' }}
+                                            />
+                                        </IconButton>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            alignItems: 'center',
+                                            display: 'flex',
+                                            gap: '5px'
+                                        }}
+                                    >
+                                        <IconButton
+                                            edge="start"
+                                            color="inherit"
+                                            aria-label="photo"
+                                            sx={{
+                                                backgroundColor: '#FCFBF8',
+                                                borderRadius: '5px',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            <UploadVideo />
+                                        </IconButton>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            alignItems: 'center',
+                                            display: 'flex',
+                                            gap: '5px'
+                                        }}
+                                    >
+                                        <IconButton
+                                            edge="start"
+                                            color="inherit"
+                                            aria-label="photo"
+                                            sx={{
+                                                backgroundColor: '#FCFBF8',
+                                                borderRadius: '5px',
+                                                cursor: 'pointer'
+                                            }}
+                                            onClick={() => setStep(1)}
+                                        >
+                                            <HatIcon />
+                                        </IconButton>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            alignItems: 'center',
+                                            display: 'flex',
+                                            gap: '5px'
+                                        }}
+                                    >
+                                        <IconButton
+                                            edge="start"
+                                            color="inherit"
+                                            aria-label="photo"
+                                            sx={{
+                                                backgroundColor: '#FCFBF8',
+                                                borderRadius: '5px',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            <UploadMore />
+                                        </IconButton>
+                                    </Box>
+                                </Box>
+                            )}
+                            <Button
+                                variant="contained"
+                                sx={{ width: 'auto', py: 1 }}
+                                onClick={() => {
+                                    if (step === 0) {
+                                        onPostData();
+                                    } else {
+                                        setStep((prev) => prev + 1);
+                                    }
                                 }}
-                                disabled={true}
+                                disabled={disable}
                             >
-                                <UploadVideo />
-                            </IconButton>
+                                {btnTitle}
+                            </Button>
                         </Box>
-                        <Box
-                            sx={{
-                                alignItems: 'center',
-                                display: 'flex',
-                                gap: '5px'
-                            }}
-                        >
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
-                                sx={{
-                                    backgroundColor: '#FCFBF8',
-                                    borderRadius: '5px'
-                                }}
-                                disabled={true}
-                            >
-                                <UploadMore />
-                            </IconButton>
+                        <Box>
+                            <ChildModal />
                         </Box>
-                    </Box>
-                    <Button
-                        variant="contained"
-                        sx={{ maxWidth: 100, py: 1 }}
-                        onClick={() => {
-                            onPostData();
-                        }}
-                    >
-                        Post
-                    </Button>
-                </Box>
-                <Box>
-                    <ChildModal />
-                </Box>
+                    </>
+                )}
             </Box>
         </Modal>
     );
