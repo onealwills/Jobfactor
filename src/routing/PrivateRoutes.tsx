@@ -128,7 +128,7 @@ const PrivateRoutes = () => {
                 />
 
                 <Route
-                    path="sent-requests"
+                    path="reviews/:slug"
                     element={
                         <RequireAuth>
                             <MainLayout children={<ReviewsPage />} />

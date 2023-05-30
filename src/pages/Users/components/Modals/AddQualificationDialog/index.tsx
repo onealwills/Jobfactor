@@ -21,10 +21,9 @@ interface IAddQualificationDialogProps {
 }
 
 const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
-
     const [, setSearchParams] = useSearchParams();
 
-    const [ type, setType ] = useState<Qualification | null>(null);
+    const [type, setType] = useState<Qualification | null>(null);
 
     const { open, setOpen } = props;
 
@@ -94,15 +93,14 @@ const AddQualificationDialog = (props: IAddQualificationDialogProps) => {
                         variant="contained"
                         style={{ height: '48px' }}
                         onClick={() => {
-                            setSearchParams((prev) => ({...prev, showMockData: true}))
+                            setSearchParams((prev) => ({
+                                ...prev,
+                                showMockData: true
+                            }));
                             handleOnClose();
                         }}
                     >
-                        <Typography
-                            fontWeight={500}
-                        >
-                            Save
-                        </Typography>
+                        <Typography fontWeight={500}>Save</Typography>
                     </Button>
                 )
             }

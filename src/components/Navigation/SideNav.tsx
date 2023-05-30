@@ -284,15 +284,15 @@ const professionalRoutes: Menu[] = [
             },
             {
                 label: 'Suggested Reviews',
-                route: '#'
+                route: '/reviews'
             },
             {
                 label: 'Sent request',
-                route: '#'
+                route: '/reviews/sent-requests'
             },
             {
                 label: 'Received request',
-                route: '#'
+                route: '/reviews/received-requests'
             }
         ]
     },

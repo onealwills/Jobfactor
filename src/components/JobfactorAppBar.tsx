@@ -53,8 +53,11 @@ const data = [
         submenu: []
     }
 ];
-
-function JobfactorAppBar() {
+interface PropTypes {
+    handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: string;
+}
+function JobfactorAppBar({ handleChange, value }: PropTypes) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const navigate = useNavigate();
     const { signOut } = useAuth();
@@ -107,6 +110,8 @@ function JobfactorAppBar() {
                                 <SearchIcon />
                             </Box>
                             <InputBase
+                                onChange={handleChange}
+                                value={value}
                                 startAdornment={
                                     <InputAdornment
                                         position="start"

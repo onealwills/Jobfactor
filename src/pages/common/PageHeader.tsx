@@ -1,14 +1,5 @@
-import {
-    Grid,
-    IconButton,
-    Typography,
-    Menu,
-    MenuItem,
-    Box,
-    Button
-} from '@mui/material';
+import { Grid, IconButton, Typography, Button } from '@mui/material';
 import React from 'react';
-import SelectDropdown from '../../components/Selectdropdown';
 import WestIcon from '@mui/icons-material/West';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +11,8 @@ interface PageHeaderProps {
     pageTitle: string;
     actions?: React.ReactNode;
     onBackNavigate?: string;
+    hideAction?: boolean;
+    handleBack?: () => void;
 }
 
 const HeaderActions = ({ children }: HeaderActionProps) => {
@@ -28,8 +21,10 @@ const HeaderActions = ({ children }: HeaderActionProps) => {
 
 const PageHeader = ({
     actions,
+    handleBack,
     pageTitle,
-    onBackNavigate
+    onBackNavigate,
+    hideAction = false
 }: PageHeaderProps) => {
     const navigate = useNavigate();
 
@@ -54,7 +49,13 @@ const PageHeader = ({
                         gap: '25px'
                     }}
                 >
-                    <IconButton onClick={() => navigate(onBackNavigate || '/')}>
+                    <IconButton
+                        onClick={() => {
+                            handleBack
+                                ? handleBack()
+                                : navigate(onBackNavigate || '/');
+                        }}
+                    >
                         <WestIcon />
                     </IconButton>
                     <Typography
@@ -69,30 +70,33 @@ const PageHeader = ({
                         {pageTitle}
                     </Typography>
                 </Grid>
-
-                <Grid
-                    item
-                    xs={5}
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        alignItems: 'center',
-                        gap: '12px'
-                    }}
-                >
-                    <HeaderActions>
-                        {actions !== undefined ? (
-                            actions
-                        ) : (
-                            <>
-                                <Button variant="outlined">Replace All</Button>
-                                <Button variant="contained">
-                                    Request Review
-                                </Button>
-                            </>
-                        )}
-                    </HeaderActions>
-                </Grid>
+                {!hideAction ? (
+                    <Grid
+                        item
+                        xs={5}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                            gap: '12px'
+                        }}
+                    >
+                        <HeaderActions>
+                            {actions !== undefined ? (
+                                actions
+                            ) : (
+                                <>
+                                    <Button variant="outlined">
+                                        Replace All
+                                    </Button>
+                                    <Button variant="contained">
+                                        Request Review
+                                    </Button>
+                                </>
+                            )}
+                        </HeaderActions>
+                    </Grid>
+                ) : null}
             </Grid>
         </>
     );

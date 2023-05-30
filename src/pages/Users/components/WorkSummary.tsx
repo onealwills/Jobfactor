@@ -72,9 +72,12 @@ const WorkSummary = ({
                     >
                         {employer.name}
                     </Typography>
-                    { !!rankings?.length ? (
+                    {!!rankings?.length ? (
                         <>
-                            <CircleIcon sx={{ fontSize: '7.25px' }} htmlColor="#494949" />
+                            <CircleIcon
+                                sx={{ fontSize: '7.25px' }}
+                                htmlColor="#494949"
+                            />
                             <Grid container alignItems="center" gap={0.5}>
                                 <Typography
                                     component="span"
@@ -85,7 +88,10 @@ const WorkSummary = ({
                                 >
                                     {yearStarted}
                                 </Typography>
-                                <DashIcon sx={{ fontSize: '16px' }} htmlColor="#494949" />
+                                <DashIcon
+                                    sx={{ fontSize: '16px' }}
+                                    htmlColor="#494949"
+                                />
                                 <Typography
                                     component="span"
                                     color="#808080"
@@ -99,8 +105,13 @@ const WorkSummary = ({
                         </>
                     ) : null}
                 </Grid>
-                { !!rankings?.length ? (
-                    <Grid container alignItems="center" gap={0.75} wrap="nowrap">
+                {!!rankings?.length ? (
+                    <Grid
+                        container
+                        alignItems="center"
+                        gap={0.75}
+                        wrap="nowrap"
+                    >
                         {rankings.slice(0, 2).map((ranking) => (
                             <TraitChip type={ranking} />
                         ))}
@@ -125,7 +136,10 @@ const WorkSummary = ({
                         >
                             {yearStarted}
                         </Typography>
-                        <CircleIcon sx={{ fontSize: '7.25px' }} htmlColor="#494949" />
+                        <CircleIcon
+                            sx={{ fontSize: '7.25px' }}
+                            htmlColor="#494949"
+                        />
                         <Typography
                             component="span"
                             color="#808080"
@@ -139,29 +153,23 @@ const WorkSummary = ({
                 )}
             </Grid>
         </Grid>
-        { !!skills?.length ? (
+        {!!skills?.length ? (
             <Box mb={1}>
-                <Typography
-                    component="span"
-                    fontSize={14}
-                    fontWeight={700}
-                >
+                <Typography component="span" fontSize={14} fontWeight={700}>
                     Skills: &nbsp;
                 </Typography>
-                {skills.map(
-                    (skill, index) => {
-                        return (
-                            <Typography
-                                component="span"
-                                fontSize={14}
-                                key={index}
-                            >
-                                {skill}
-                                {index !== skills.length - 1 ? (<>&nbsp;&middot;&nbsp;</>) : ''}
-                            </Typography>
-                        )
-                    }
-                )}
+                {skills.map((skill, index) => {
+                    return (
+                        <Typography component="span" fontSize={14} key={index}>
+                            {skill}
+                            {index !== skills.length - 1 ? (
+                                <>&nbsp;&middot;&nbsp;</>
+                            ) : (
+                                ''
+                            )}
+                        </Typography>
+                    );
+                })}
             </Box>
         ) : null}
     </Box>
