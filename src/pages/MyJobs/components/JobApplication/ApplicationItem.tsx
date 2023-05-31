@@ -52,7 +52,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                             fontWeight: '600'
                         }}
                     >
-                        {ApplicantInfo?.professionalProfile?.firstName}  {ApplicantInfo?.professionalProfile?.lastName}
+                        {ApplicantInfo?.professionalProfile?.firstName ? `${ApplicantInfo?.professionalProfile?.firstName}  ${ApplicantInfo?.professionalProfile?.lastName}` : ApplicantInfo?.Applicantname}
                     </Typography>
                     <Box
                         sx={{
@@ -114,7 +114,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                                 borderRadius: '5px'
                             }}
                         >
-                            {ApplicantInfo?.score}
+                            {ApplicantInfo?.score ?? ApplicantInfo?.ApplicationViews}
                         </Typography>
                     </Box>
                     <Box
@@ -192,7 +192,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                     >
                         View application
                     </Button>
-                    {ApplicantInfo?.status==='SAVED' ? (
+                    {ApplicantInfo?.status === 'SAVED' ? (
                         <JobBookmarkIcon />
                     ) : (
                         <Box
