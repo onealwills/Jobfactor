@@ -1,5 +1,5 @@
 export interface PostJobItem {
-    Jobtittle: string;
+    jobTitle: string;
     jobId: string;
     postdate: string;
     JobRole: string;

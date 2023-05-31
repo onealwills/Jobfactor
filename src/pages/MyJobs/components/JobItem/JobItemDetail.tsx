@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import { ArrowLeftIcon } from '../../../../assets/icons/ArrowLeftIcon';
 import JobDetailItemTrashIcon from '../../../../assets/icons/JobDetailItemTrashIcon';
@@ -6,20 +6,24 @@ import JobDetailItemFlagIcon from '../../../../assets/icons/JobDetailItemFlagIco
 import JobDetailItemShareIcon from '../../../../assets/icons/JobDetailItemShareIcon';
 import JobDetailItemBookmarkIcon from '../../../../assets/icons/JobDetailItemBookmarkIcon';
 import xteraSolutionLogo from '../../../../assets/images/xteraSolutionLogo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ChipList from '../Chips/ChipList';
 import { IJobItemDetail } from '../../types/IJobItemDetail';
 import { useLocation } from 'react-router-dom';
 import ApplyJob from './ApplyJob';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useGetJobById } from '../../../../utils/hooks/api/jobs/useGetJobById';
+import Loader from '../../../../components/Loader';
 
 const JobItemDetail = (props: { jobId?: string }) => {
     const location = useLocation();
     const jobdata = location?.state;
-
+    const { id } = useParams();
     const [applyjob, setApplyjob] = useState<boolean>(false);
     const [alreadyapply, setAlreadyApply] = useState<boolean>(false);
     const [selectedaction, setSelectedAction] = useState<any>([]);
+
+    const { data: job, isLoading } = useGetJobById(id ? id : '');
 
     const onHideJob = (e: any) => {
         setApplyjob(false);
@@ -159,10 +163,10 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             color="#23282B"
                             sx={{ mt: 0.5 }}
                         >
-                            {jobItem.heading}
+                            {job?.title}
                         </Typography>
                     </Box>
-                    {!alreadyapply && !jobdata?.alreadyapply ? (
+                    {job?.status === "OPEN" ?
                         <Box
                             sx={{
                                 display: 'flex',
@@ -179,7 +183,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 Apply
                             </Button>
                         </Box>
-                    ) : (
+                        :
                         <Box
                             sx={{
                                 display: 'flex',
@@ -199,7 +203,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 Applied
                             </Button>
                         </Box>
-                    )}
+                    }
                 </Box>
                 <Box
                     sx={{
@@ -214,7 +218,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             <img
                                 height={80}
                                 width={80}
-                                src={jobItem.aboutCompany.logo}
+                                src={job?.company?.logo}
                                 alt={'company logo'}
                             />
                         </Box>
@@ -231,7 +235,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                     variant="titleLargeSemiBold"
                                     color="#23282B"
                                 >
-                                    {jobItem.aboutCompany.name}
+                                    {job?.company?.name}
                                 </Typography>
                                 <Box
                                     sx={{
@@ -325,7 +329,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                         Job Description
                     </Typography>
                     <Typography variant="bodyLargeRegular" color="#808080">
-                        {jobItem.companyDescription}
+                        {job?.description}
                     </Typography>
                 </Box>
                 <Box
@@ -344,7 +348,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             Job Title:
                         </Typography>
                         <Typography variant="bodyLargeRegular" color="#808080">
-                            {jobItem.jobTitle}
+                            {job?.title}
                         </Typography>
                     </Box>
                 </Box>
@@ -522,7 +526,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 <img
                                     height={80}
                                     width={80}
-                                    src={jobItem.aboutCompany.logo}
+                                    src={job?.company?.logo}
                                     alt={'company logo'}
                                 />
                             </Box>
@@ -543,7 +547,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                         variant="titleLargeSemiBold"
                                         color="#23282B"
                                     >
-                                        {jobItem.aboutCompany.name}
+                                        {job?.company?.name}
                                     </Typography>
                                 </Box>
                                 <Typography
@@ -660,17 +664,23 @@ const JobItemDetail = (props: { jobId?: string }) => {
                 ml: 2
             }}
         >
-            <JobDetailHeader jobItem={jobItem} />
-            <JobItemSectionHR height={'1px'} />
-            <JobDescription jobItem={jobItem} />
-            <JobItemSectionHR height={'1px'} />
-            <JobItemAboutCompany jobItem={jobItem} />
-            <ApplyJob
-                showModal={applyjob}
-                hideModal={(e) => {
-                    onHideJob(e);
-                }}
-            />
+            {isLoading ?
+                <Loader/>
+                :
+                <>
+                    <JobDetailHeader jobItem={jobItem} />
+                    <JobItemSectionHR height={'1px'} />
+                    <JobDescription jobItem={jobItem} />
+                    <JobItemSectionHR height={'1px'} />
+                    <JobItemAboutCompany jobItem={jobItem} />
+                    <ApplyJob
+                        showModal={applyjob}
+                        hideModal={(e) => {
+                            onHideJob(e);
+                        }}
+                    />
+                </>
+            }
         </Box>
     );
 };

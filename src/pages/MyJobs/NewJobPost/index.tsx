@@ -12,7 +12,7 @@ import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import { ChangeEvent, useReducer, useState } from 'react';
+import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -22,6 +22,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import DialogBox from '../components/DialogBox';
 import { getCompetencyColor } from '../GlobalFunction';
+import { useCreateJobPost } from '../../../utils/hooks/api/jobs/useCreateJob';
+import { useAuth } from '../../../utils/context/AuthContext';
 
 const NewJobPost = () => {
     const navigate = useNavigate();
@@ -46,12 +48,34 @@ const NewJobPost = () => {
     const [edit, setEdit] = useState<boolean>(false);
     const [step, setStep] = useState<number>(1);
     const [showPopup, setShowPopup] = useState<boolean>(false);
+    const { account } = useAuth();
 
     const SkillsData = [
         { title: 'HTML', id: 1 },
         { title: 'CSS', id: 2 },
         { title: 'Figma', id: 3 }
     ];
+    const createJobPost = useCreateJobPost();
+
+ 
+    const handleSubmit = () => {
+        // let data = {
+        //     title: jobTitle,
+        //     description: `${overview} ${qualifications} ${responsibilities} ${additional1} ${additional2}`,
+        //     isActive: true,
+        //     companyId: '22'
+        // }
+        // createJobPost.mutate(data, {
+        //     onSuccess: async (data) => {
+        //         navigate('/create-account/confirmEmail');
+        //     },
+        //     onError: (error) => {
+        //         console.error(error);
+        //         alert(error);
+        //     }
+        // });
+        setShowPopup(true);
+    }
 
     const handleSkillsChange = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -959,10 +983,10 @@ const NewJobPost = () => {
                                     step === 1
                                         ? !jobTitle
                                         : selectedSkills?.length === 0 ||
-                                          qualifications === '' ||
-                                          overview === '' ||
-                                          responsibilities === '' ||
-                                          deadLine === ''
+                                        qualifications === '' ||
+                                        overview === '' ||
+                                        responsibilities === '' ||
+                                        deadLine === ''
                                 )
                                     ? true
                                     : false
@@ -976,7 +1000,7 @@ const NewJobPost = () => {
                                     setStep(3);
                                 }
                                 if (step === 3) {
-                                    setShowPopup(true);
+                                    handleSubmit()
                                 }
                             }}
                         >

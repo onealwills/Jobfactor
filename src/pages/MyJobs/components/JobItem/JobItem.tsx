@@ -9,7 +9,22 @@ import JobBookmarkIcon from '../../../../assets/icons/JobBookmarkIcon';
 import VerifiedIcon from '../../../../assets/icons/VerifiedIcon';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import ApplyJob from './ApplyJob';
+import moment from 'moment';
 
+const keywords = [
+    { name: 'Office Environment', type: 'L', showbackground: true },
+    { name: 'Job Security', type: 'A', showbackground: true },
+    { name: 'Job Security', type: 'E', showbackground: true },
+    { name: 'Job Security', type: 'E', showbackground: true }
+]
+const requirements = {
+    minJobFactorScore: 550,
+    keywords: [
+        { name: 'Visual Design', type: 'B', showbackground: false },
+        { name: 'Motion Design', type: 'A', showbackground: false },
+        { name: 'Prototyping', type: 'X', showbackground: false }
+    ]
+}
 const JobItem = (props: { jobInfo: IJobItem }) => {
     const { jobInfo } = props;
 
@@ -22,6 +37,21 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
             setAlreadyApply(true);
         }
     };
+
+    const handleApplyNow = () => {
+        // let data = {
+        //     jobPostingId: jobInfo?.id,
+        //     professionalProfileId: ''
+        // }
+        // useApplyJob().mutate(data, {
+        //     onSuccess: async (data) => {
+        //     },
+        //     onError: (error) => {
+        //         console.error(error);
+        //         alert(error);
+        //     }
+        // });
+    }
 
     const CompanyInfo = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
@@ -46,7 +76,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             <img
                                 height={80}
                                 width={80}
-                                src={jobInfo.companyLogo}
+                                src={jobInfo?.company?.logo ?? jobInfo?.companyLogo}
                                 alt={'company logo'}
                             />
                         </Box>
@@ -59,7 +89,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                     color: '#23282B'
                                 }}
                             >
-                                {jobInfo.jobTitle}
+                                {jobInfo.title ?? jobInfo.jobTitle}
                             </Typography>
                             <Box>
                                 <Box
@@ -78,7 +108,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                             textTransform: 'uppercase'
                                         }}
                                     >
-                                        {jobInfo.companyName}
+                                        {jobInfo?.company?.name ?? jobInfo.companyName}
                                     </Typography>
                                     <VerifiedIcon />
                                 </Box>
@@ -92,7 +122,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                         color: '#808080'
                                     }}
                                 >
-                                    {jobInfo.location}
+                                    {jobInfo.location ?? 'Lagos'}
                                 </Typography>
                             </Box>
                         </Box>
@@ -111,7 +141,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                 justifyContent: 'center'
                             }}
                         >
-                            {jobInfo.jobFitMetric}
+                            {jobInfo.jobFitMetric ?? 3}
                         </Box>
                         {jobInfo?.savedjob ? (
                             <Box
@@ -133,7 +163,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     </Box>
                 </Box>
 
-                <ChipList chipsData={jobInfo.keywords} displayAll={false} />
+                <ChipList chipsData={keywords} displayAll={false} />
             </Box>
         );
     };
@@ -156,7 +186,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                 </Typography>
                 <Box sx={{ mt: 2 }}>
                     <ChipList
-                        chipsData={jobInfo.requirements.keywords}
+                        chipsData={requirements.keywords}
                         displayAll={false}
                     />
                 </Box>
@@ -183,7 +213,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                         variant={'titleSmallSemiBold'}
                         color={'#808080'}
                     >
-                        {jobInfo.requirements.minJobFactorScore}
+                        {requirements.minJobFactorScore}
                     </Typography>
                 </Box>
                 <Box sx={{ mt: 2 }}>
@@ -223,7 +253,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             }}
                         >
                             <JobTypeIcon />
-                            {jobInfo.jobType}
+                            {jobInfo.jobType ?? 'Full-time'}
                         </Box>
                         <Box
                             sx={{
@@ -237,44 +267,39 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             }}
                         >
                             <JobSalaryIcon />
-                            {jobInfo.salary}
+                            {jobInfo.salary ?? 'N250,000 a month'}
                         </Box>
                     </Box>
-                    {jobInfo.requirements.responsibilities.map(
-                        (responsibility, index) => (
-                            <Box
-                                key={index}
-                                sx={{ display: 'flex', gap: 2, mt: 1.5 }}
+                    <Box
+                        sx={{ display: 'flex', gap: 2, mt: 1.5 }}
+                    >
+                        <Box sx={{ mt: -0.3 }}>
+                            <svg
+                                width="8"
+                                height="8"
+                                viewBox="0 0 8 8"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
-                                <Box sx={{ mt: -0.3 }}>
-                                    <svg
-                                        width="8"
-                                        height="8"
-                                        viewBox="0 0 8 8"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <circle
-                                            cx="4"
-                                            cy="4"
-                                            r="3.5"
-                                            stroke="#494949"
-                                        />
-                                    </svg>
-                                </Box>
-                                <Typography
-                                    sx={{
-                                        fontFamily: 'Open Sans',
-                                        fontWeight: 400,
-                                        fontSize: '16px',
-                                        color: '#808080'
-                                    }}
-                                >
-                                    {responsibility}
-                                </Typography>
-                            </Box>
-                        )
-                    )}
+                                <circle
+                                    cx="4"
+                                    cy="4"
+                                    r="3.5"
+                                    stroke="#494949"
+                                />
+                            </svg>
+                        </Box>
+                        <Typography
+                            sx={{
+                                fontFamily: 'Open Sans',
+                                fontWeight: 400,
+                                fontSize: '16px',
+                                color: '#808080'
+                            }}
+                        >
+                            {jobInfo.description}
+                        </Typography>
+                    </Box>
                     <Typography
                         sx={{
                             mt: 2,
@@ -285,7 +310,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             color: '#23282B'
                         }}
                     >
-                        Posted {jobInfo.posted}
+                        Posted {moment(jobInfo.createdAt).fromNow()}
                     </Typography>
                     <JobPostingCTA jobInfo={jobInfo} />
                 </Box>
@@ -295,7 +320,6 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
 
     const JobPostingCTA = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
-        const jobId = 1234;
         const navigate = useNavigate();
         return (
             <Box
@@ -306,7 +330,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     marginTop: '20px'
                 }}
             >
-                {!jobInfo?.alreadyapply && !alreadyapply ? (
+                {jobInfo.status === "OPEN" ?
                     <Button
                         variant="contained"
                         sx={{
@@ -319,7 +343,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     >
                         Apply
                     </Button>
-                ) : (
+                    :
                     <Button
                         variant="contained"
                         sx={{
@@ -330,11 +354,11 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     >
                         Applied
                     </Button>
-                )}
+                }
                 <Button
                     variant="outlined"
                     onClick={() =>
-                        navigate(`/my-jobs/${jobId}`, { state: jobInfo })
+                        navigate(`/my-jobs/${jobInfo.id}`)
                     }
                     sx={{
                         padding: '10px 15px',

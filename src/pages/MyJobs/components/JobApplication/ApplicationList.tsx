@@ -34,7 +34,7 @@ const ApplicationList = (props: {
                                 margin: '10px 0'
                             }}
                         >
-                            <ApplicationItem ApplcantInfo={item} />
+                            <ApplicationItem ApplicantInfo={item} />
                         </Grid>
                     ))}
                 </Grid>

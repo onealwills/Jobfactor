@@ -19,7 +19,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 
 const JobPreference = () => {
     interface FormFieldsProps {
-        jobtittle?: string;
+        jobTitle?: string;
         jobtype?: string;
         salary?: string;
         duration?: string;
@@ -70,7 +70,7 @@ const JobPreference = () => {
         setShowDuration(false);
     };
 
-    const Jobtittle = () => {
+    const JobTitle = () => {
         return (
             <>
                 <Box
@@ -95,7 +95,7 @@ const JobPreference = () => {
                         Job tittle
                     </InputLabel>
                     <Controller
-                        name="jobtittle"
+                        name="jobTitle"
                         control={control}
                         render={({ field: { onChange, value } }) => (
                             <InputBase
@@ -108,7 +108,7 @@ const JobPreference = () => {
                                     },
                                     inputMode: 'text'
                                 }}
-                                id="jobtittle"
+                                id="jobTitle"
                                 defaultValue={tittle}
                                 placeholder="Value"
                                 startAdornment={
@@ -678,7 +678,7 @@ const JobPreference = () => {
                     marginTop: '20px'
                 }}
             >
-                <Jobtittle />
+                <JobTitle />
                 <JobType />
                 <Salary />
                 <Duration />

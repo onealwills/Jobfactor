@@ -34,7 +34,7 @@ const JobsList = (props: {
                         justifyContent: 'center'
                     }}
                 >
-                    {data.map((item) => (
+                    {data?.map((item) => (
                         <Grid
                             item
                             xs={12}

@@ -5,7 +5,7 @@ import { PostJobItem } from '../types/PostJobItem';
 
 const JobPostings = () => {
     const item: PostJobItem = {
-        Jobtittle: 'Product Designer',
+        jobTitle: 'Product Designer',
         jobId: 'JF1234567',
         postdate: 'Feb 28, 2004',
         JobRole:

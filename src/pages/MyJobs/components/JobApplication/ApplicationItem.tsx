@@ -4,9 +4,16 @@ import { JobApplicationItem } from '../../types/JobApplicationItem';
 import ChipList from '../Chips/ChipList';
 import JobBookmarkIcon from '../../../../assets/icons/JobBookmarkIcon';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import moment from 'moment';
+import Profile from '../../../../assets/images/profile-sq.png';
 
-const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
-    const { ApplcantInfo } = props;
+const keywords = [
+    { name: 'Beginner', type: 'B', showbackground: false },
+    { name: 'Mobile Int', type: 'E', showbackground: false },
+    { name: 'Customer Experience Design', type: 'A', showbackground: false }
+]
+const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
+    const { ApplicantInfo } = props;
 
     return (
         <Box
@@ -26,7 +33,7 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
             >
                 <Box sx={{ width: 70, textAlign: 'center' }}>
                     <img
-                        src={ApplcantInfo?.Profile}
+                        src={Profile}
                         alt="userimage"
                         style={{
                             width: 70,
@@ -45,7 +52,7 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
                             fontWeight: '600'
                         }}
                     >
-                        {ApplcantInfo?.Applicantname}
+                        {ApplicantInfo?.professionalProfile?.firstName}  {ApplicantInfo?.professionalProfile?.lastName}
                     </Typography>
                     <Box
                         sx={{
@@ -62,7 +69,7 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
                                 marginTop: '4px'
                             }}
                         >
-                            {ApplcantInfo?.Jobtype}
+                            Sales Manager
                         </Typography>
                         <Typography
                             sx={{
@@ -83,7 +90,7 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
                                 marginTop: '4px'
                             }}
                         >
-                            {ApplcantInfo?.Companyname}
+                            Xtera Solutions
                         </Typography>
                         <Typography
                             sx={{
@@ -107,14 +114,14 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
                                 borderRadius: '5px'
                             }}
                         >
-                            {ApplcantInfo?.ApplicationViews}
+                            {ApplicantInfo?.score}
                         </Typography>
                     </Box>
                     <Box
                         sx={{ marginTop: '5px', display: 'flex', gap: '15px' }}
                     >
                         <ChipList
-                            chipsData={ApplcantInfo?.keywords}
+                            chipsData={keywords}
                             displayAll={true}
                         />
                         <Typography
@@ -156,7 +163,7 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
                             fontWeight: '600'
                         }}
                     >
-                        {ApplcantInfo?.Postdate}
+                        {moment(ApplicantInfo?.appliedAt).format('MM/DD/YYYY')}
                     </Typography>
                     <Typography
                         sx={{
@@ -172,11 +179,11 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
                             backgroundColor: '#E75541'
                         }}
                     >
-                        {ApplcantInfo?.jobfit}
+                        3
                     </Typography>
                     <Button
                         variant="outlined"
-                        onClick={() => {}}
+                        onClick={() => { }}
                         sx={{
                             padding: '15px 20px',
                             width: 'fit-content',
@@ -185,7 +192,7 @@ const ApplicationItem = (props: { ApplcantInfo: JobApplicationItem }) => {
                     >
                         View application
                     </Button>
-                    {!ApplcantInfo?.saved ? (
+                    {ApplicantInfo?.status==='SAVED' ? (
                         <JobBookmarkIcon />
                     ) : (
                         <Box
