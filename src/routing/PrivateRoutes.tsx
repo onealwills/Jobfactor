@@ -16,7 +16,7 @@ import Activities from '../pages/Activities/ActivitiesPage';
 import PendingConnection from '../pages/Connections/PendingConnection';
 import JobFactorThemePage from '../pages/Theme/JobFactorThemePage';
 import JobItemDetail from '../pages/MyJobs/components/JobItem/JobItemDetail';
-import JobFactorScore from '../pages/JobFactorScore';
+import JobFactorScore from '../pages/Users/JobFactorScore';
 import JobPostings from '../pages/MyJobs/JobPostings';
 import JobPostDetail from '../pages/MyJobs/components/JobPost/JobPostDetail';
 import JobApplications from '../pages/MyJobs/JobApplications';

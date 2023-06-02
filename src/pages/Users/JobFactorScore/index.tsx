@@ -6,11 +6,11 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon';
-import SelectDropdown from '../../components/Selectdropdown';
+import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
+import SelectDropdown from '../../../components/Selectdropdown';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
-import ScoreCard from '../../components/ScoreCard.tsx';
+import ScoreCard from '../../../components/ScoreCard.tsx';
 
 const JobFactorScore = () => {
     const navigate = useNavigate();

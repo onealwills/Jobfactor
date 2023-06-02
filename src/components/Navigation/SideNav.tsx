@@ -202,11 +202,11 @@ const professionalRoutes: Menu[] = [
             },
             {
                 label: 'Activities',
-                route: '/users/activities'
+                route: '/activities'
             },
             {
                 label: 'Jobfactor Score',
-                route: '/users/score'
+                route: '/jobfactor-score'
             }
         ]
     },
