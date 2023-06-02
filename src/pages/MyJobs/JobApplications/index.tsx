@@ -7,9 +7,7 @@ import { useGetAllApplicants } from '../../../utils/hooks/api/jobs/useGetAllAppl
 import Loader from '../../../components/Loader';
 
 const JobApplications = () => {
-    
     const { data: applicants, isLoading } = useGetAllApplicants();
-
 
     return (
         <Box
@@ -19,11 +17,11 @@ const JobApplications = () => {
             }}
         >
             <Header />
-            {isLoading ?
+            {isLoading ? (
                 <Loader />
-                :
+            ) : (
                 <ApplicationList data={applicants} showMetrics={true} />
-            }
+            )}
         </Box>
     );
 };

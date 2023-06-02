@@ -2,7 +2,7 @@ export interface JobApplicationItem {
     professionalProfile?: {
         firstName: string;
         lastName: string;
-    },
+    };
     appliedAt?: number;
     score?: number;
     status?: string;

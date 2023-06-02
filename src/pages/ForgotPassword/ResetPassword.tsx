@@ -3,15 +3,16 @@ import {
     Button,
     InputBase,
     InputLabel,
-    InputAdornment
+    InputAdornment,
+    CircularProgress
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import EmailFormIcon from '../../assets/icons/EmailFormIcon';
 import OnBoardingSidePanel from '../OnBoarding/OnBoardingSidePanel';
 import ForgotPasswordSteps from './ForgotPasswordSteps/ForgotPasswordSteps';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     updateAction,
     updateStep,
@@ -20,6 +21,9 @@ import {
 import { useStateMachine } from 'little-state-machine';
 import SecretCodeIcon from '../../assets/icons/SecretCodeIcon';
 import { Numbers } from '@mui/icons-material';
+import useValidateCode from '../../utils/hooks/api/authentication/useValidateCode';
+import SnackAlert from '../../components/Snackbar';
+import axios, { AxiosError } from 'axios';
 
 interface IResetPasswordForm {
     code: Number;
@@ -27,6 +31,13 @@ interface IResetPasswordForm {
 
 function ResetPassword() {
     let navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>(
+        'info'
+    );
+    const { email } = useParams();
     const { actions, state } = useStateMachine({
         updateAction,
         updateStep,
@@ -42,16 +53,53 @@ function ResetPassword() {
         setError
     } = useForm<IResetPasswordForm>();
     const { isDirty, isValid, errors } = formState;
-
+    const verifyCode = useValidateCode();
     const onSubmit: SubmitHandler<IResetPasswordForm> = async (data) => {
+        setLoading(true);
         actions.updateAction(data);
         if (data.code !== undefined) {
-            navigate('/forgot-password/new');
+            verifyCode.mutate(
+                {
+                    emailAddress: email ?? '',
+                    verificationCode: String(data.code)
+                },
+                {
+                    onSuccess: (res) => {
+                        console.log('object', res);
+                        if (res.isSuccess) {
+                            navigate(
+                                `/forgot-password/new/${email}/${data.code}`
+                            );
+                            return;
+                        }
+                        setType('error');
+                        setMessage('Error occured please try again!');
+                        setShowAlert(true);
+                        setLoading(false);
+                    },
+                    onError: (error: AxiosError) => {
+                        setLoading(false);
+                        if (axios.isAxiosError(error)) {
+                            setType('error');
+                            setMessage(
+                                error?.response?.data?.message ??
+                                    'Error occured please try again!'
+                            );
+                            setShowAlert(true);
+                            return;
+                        }
+                        setType('error');
+                        setMessage('Error occured please try again!');
+                        setShowAlert(true);
+                        return;
+                    }
+                }
+            );
         }
     };
 
     const navigateBack: React.MouseEventHandler<HTMLButtonElement> = () => {
-        // navigate('/');
+        navigate(-1);
     };
 
     React.useEffect(() => {
@@ -224,29 +272,34 @@ function ResetPassword() {
                                     justifyContent: 'center'
                                 }}
                             >
-                                <Button
-                                    sx={{
-                                        backgroundColor: '#05668D',
-                                        color: '#FFFFFF',
-                                        borderRadius: '8px',
-                                        width: '100%',
-                                        padding: '16px, 36px, 16px, 36px',
-                                        height: '52px',
-                                        mb: '16px'
-                                    }}
-                                    variant="contained"
-                                    disabled={!isValid}
-                                    type="submit"
-                                >
-                                    <Typography
-                                        fontSize={'16px'}
-                                        fontWeight={700}
-                                        fontStyle={'bold'}
-                                        textTransform="capitalize"
+                                {loading ? (
+                                    <CircularProgress
+                                        sx={{ color: '#05668D' }}
+                                    />
+                                ) : (
+                                    <Button
+                                        sx={{
+                                            backgroundColor: '#05668D',
+                                            color: '#FFFFFF',
+                                            borderRadius: '8px',
+                                            width: '100%',
+                                            padding: '16px, 36px, 16px, 36px',
+                                            height: '52px'
+                                        }}
+                                        variant="contained"
+                                        disabled={!isValid}
+                                        type="submit"
                                     >
-                                        Reset Password
-                                    </Typography>
-                                </Button>
+                                        <Typography
+                                            fontSize={'16px'}
+                                            fontWeight={700}
+                                            fontStyle={'bold'}
+                                            textTransform="capitalize"
+                                        >
+                                            Reset Password
+                                        </Typography>
+                                    </Button>
+                                )}
                                 <Button
                                     variant="outlined"
                                     sx={{
@@ -255,7 +308,8 @@ function ResetPassword() {
                                         width: '100%',
                                         padding: '16px, 36px, 16px, 36px',
                                         height: '52px',
-                                        textTransform: 'capitalize'
+                                        textTransform: 'capitalize',
+                                        mt: '16px'
                                     }}
                                     onClick={navigateBack}
                                 >
@@ -268,6 +322,12 @@ function ResetPassword() {
                     </Box>
                 </Box>
             </form>
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={type}
+            />
         </>
     );
 }

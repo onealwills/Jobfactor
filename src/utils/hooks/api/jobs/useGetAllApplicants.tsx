@@ -1,4 +1,3 @@
-
 import { useQuery } from 'react-query';
 import { QueryKeys } from '../QueryKey';
 import axiosInstance from '../axiosConfig';

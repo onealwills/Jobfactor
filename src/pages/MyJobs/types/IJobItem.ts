@@ -13,7 +13,7 @@ export interface IJobItem {
     company?: {
         logo: string;
         name: string;
-    }
+    };
 
     requirements: {
         minJobFactorScore: number;

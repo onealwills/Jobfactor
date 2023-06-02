@@ -166,7 +166,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             {job?.title}
                         </Typography>
                     </Box>
-                    {job?.status === "OPEN" ?
+                    {job?.status === 'OPEN' ? (
                         <Box
                             sx={{
                                 display: 'flex',
@@ -183,7 +183,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 Apply
                             </Button>
                         </Box>
-                        :
+                    ) : (
                         <Box
                             sx={{
                                 display: 'flex',
@@ -203,7 +203,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 Applied
                             </Button>
                         </Box>
-                    }
+                    )}
                 </Box>
                 <Box
                     sx={{
@@ -664,9 +664,9 @@ const JobItemDetail = (props: { jobId?: string }) => {
                 ml: 2
             }}
         >
-            {isLoading ?
-                <Loader/>
-                :
+            {isLoading ? (
+                <Loader />
+            ) : (
                 <>
                     <JobDetailHeader jobItem={jobItem} />
                     <JobItemSectionHR height={'1px'} />
@@ -680,7 +680,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                         }}
                     />
                 </>
-            }
+            )}
         </Box>
     );
 };

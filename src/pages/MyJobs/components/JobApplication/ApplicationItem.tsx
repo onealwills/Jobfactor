@@ -11,7 +11,7 @@ const keywords = [
     { name: 'Beginner', type: 'B', showbackground: false },
     { name: 'Mobile Int', type: 'E', showbackground: false },
     { name: 'Customer Experience Design', type: 'A', showbackground: false }
-]
+];
 const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
     const { ApplicantInfo } = props;
 
@@ -52,7 +52,9 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                             fontWeight: '600'
                         }}
                     >
-                        {ApplicantInfo?.professionalProfile?.firstName ? `${ApplicantInfo?.professionalProfile?.firstName}  ${ApplicantInfo?.professionalProfile?.lastName}` : ApplicantInfo?.Applicantname}
+                        {ApplicantInfo?.professionalProfile?.firstName
+                            ? `${ApplicantInfo?.professionalProfile?.firstName}  ${ApplicantInfo?.professionalProfile?.lastName}`
+                            : ApplicantInfo?.Applicantname}
                     </Typography>
                     <Box
                         sx={{
@@ -114,16 +116,14 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                                 borderRadius: '5px'
                             }}
                         >
-                            {ApplicantInfo?.score ?? ApplicantInfo?.ApplicationViews}
+                            {ApplicantInfo?.score ??
+                                ApplicantInfo?.ApplicationViews}
                         </Typography>
                     </Box>
                     <Box
                         sx={{ marginTop: '5px', display: 'flex', gap: '15px' }}
                     >
-                        <ChipList
-                            chipsData={keywords}
-                            displayAll={true}
-                        />
+                        <ChipList chipsData={keywords} displayAll={true} />
                         <Typography
                             sx={{
                                 fontSize: '30px',
@@ -183,7 +183,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                     </Typography>
                     <Button
                         variant="outlined"
-                        onClick={() => { }}
+                        onClick={() => {}}
                         sx={{
                             padding: '15px 20px',
                             width: 'fit-content',

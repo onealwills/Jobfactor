@@ -1,7 +1,7 @@
-import CircularProgress from '@mui/material/CircularProgress'
-import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
-const Loader = ({ open = true, handleClose = () => { } }) => {
+const Loader = ({ open = true, handleClose = () => {} }) => {
     return (
         <Backdrop
             sx={{ color: '#fff', zIndex: 9999 }}
@@ -10,7 +10,7 @@ const Loader = ({ open = true, handleClose = () => { } }) => {
         >
             <CircularProgress color="inherit" />
         </Backdrop>
-    )
-}
+    );
+};
 
-export default Loader
+export default Loader;

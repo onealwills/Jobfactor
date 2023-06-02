@@ -8,5 +8,7 @@ export function useGetApplicantById(jobId: string) {
         const data = await response.data;
         return data;
     };
-    return useQuery(QueryKeys.RetrieveApplicantById, () => getApplicantById(jobId));
+    return useQuery(QueryKeys.RetrieveApplicantById, () =>
+        getApplicantById(jobId)
+    );
 }

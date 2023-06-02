@@ -57,7 +57,6 @@ const NewJobPost = () => {
     ];
     const createJobPost = useCreateJobPost();
 
- 
     const handleSubmit = () => {
         // let data = {
         //     title: jobTitle,
@@ -75,7 +74,7 @@ const NewJobPost = () => {
         //     }
         // });
         setShowPopup(true);
-    }
+    };
 
     const handleSkillsChange = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -983,10 +982,10 @@ const NewJobPost = () => {
                                     step === 1
                                         ? !jobTitle
                                         : selectedSkills?.length === 0 ||
-                                        qualifications === '' ||
-                                        overview === '' ||
-                                        responsibilities === '' ||
-                                        deadLine === ''
+                                          qualifications === '' ||
+                                          overview === '' ||
+                                          responsibilities === '' ||
+                                          deadLine === ''
                                 )
                                     ? true
                                     : false
@@ -1000,7 +999,7 @@ const NewJobPost = () => {
                                     setStep(3);
                                 }
                                 if (step === 3) {
-                                    handleSubmit()
+                                    handleSubmit();
                                 }
                             }}
                         >

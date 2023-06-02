@@ -1,16 +1,17 @@
 import {
     Box,
     Button,
+    CircularProgress,
     InputAdornment,
     InputBase,
     InputLabel,
     Typography
 } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import OnBoardingSidePanel from '../OnBoarding/OnBoardingSidePanel';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import PasswordFormIcon from '../../assets/icons/PasswordFormIcon';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../utils/context/AuthContext';
 import { useStateMachine } from 'little-state-machine';
 import {
@@ -19,6 +20,9 @@ import {
     updateStep
 } from '../Accounts/Professional/CreationSteps/updateAction';
 import ErrorFormIcon from '../../assets/icons/ErrorFormIcon';
+import useResetPassword from '../../utils/hooks/api/authentication/useResetPassword';
+import SnackAlert from '../../components/Snackbar';
+import axios, { AxiosError } from 'axios';
 
 interface INewPasswordForm {
     password: string;
@@ -27,6 +31,13 @@ interface INewPasswordForm {
 
 function NewPassword() {
     let navigate = useNavigate();
+    const { email, code } = useParams();
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>(
+        'info'
+    );
     const { actions } = useStateMachine({
         updateAction,
         updateStep,
@@ -43,10 +54,48 @@ function NewPassword() {
         getValues
     } = useForm<INewPasswordForm>();
     const { isDirty, isValid, errors } = formState;
+    const resetPassword = useResetPassword();
 
     const onSubmit: SubmitHandler<INewPasswordForm> = async (data) => {
         actions.updateAction(data);
-        navigate('/login');
+        setLoading(true);
+        if (data.confirmPassword) {
+            resetPassword.mutate(
+                {
+                    emailAddress: email ?? '',
+                    code: code ?? '',
+                    newPassword: data.confirmPassword
+                },
+                {
+                    onSuccess: (res) => {
+                        if (res.success) {
+                            navigate('/login');
+                            return;
+                        }
+                        setType('error');
+                        setMessage('Error occured please try again!');
+                        setShowAlert(true);
+                        setLoading(false);
+                    },
+                    onError: (error: AxiosError) => {
+                        setLoading(false);
+                        if (axios.isAxiosError(error)) {
+                            setType('error');
+                            setMessage(
+                                error?.response?.data?.message ??
+                                    'Error occured please try again!'
+                            );
+                            setShowAlert(true);
+                            return;
+                        }
+                        setType('error');
+                        setMessage('Error occured please try again!');
+                        setShowAlert(true);
+                        return;
+                    }
+                }
+            );
+        }
     };
 
     return (
@@ -315,40 +364,53 @@ function NewPassword() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
+                                    mt: '48px'
                                 }}
                             >
-                                <Button
-                                    sx={{
-                                        backgroundColor: '#05668D',
-                                        color: '#FFFFFF',
-                                        borderRadius: '8px',
-                                        width: '100%',
-                                        padding: '16px, 36px, 16px, 36px',
-                                        height: '52px',
-                                        mt: '48px'
-                                    }}
-                                    variant="contained"
-                                    disabled={
-                                        Object.keys(errors).length > 0 ||
-                                        Object.keys(getValues()).length === 0
-                                    }
-                                    onClick={handleSubmit(onSubmit)}
-                                >
-                                    <Typography
-                                        fontSize={'16px'}
-                                        fontWeight={700}
-                                        fontStyle={'bold'}
-                                        textTransform="capitalize"
+                                {loading ? (
+                                    <CircularProgress
+                                        sx={{ color: '#05668D' }}
+                                    />
+                                ) : (
+                                    <Button
+                                        sx={{
+                                            backgroundColor: '#05668D',
+                                            color: '#FFFFFF',
+                                            borderRadius: '8px',
+                                            width: '100%',
+                                            padding: '16px, 36px, 16px, 36px',
+                                            height: '52px'
+                                        }}
+                                        variant="contained"
+                                        disabled={
+                                            Object.keys(errors).length > 0 ||
+                                            Object.keys(getValues()).length ===
+                                                0
+                                        }
+                                        onClick={handleSubmit(onSubmit)}
                                     >
-                                        Continue to Login
-                                    </Typography>
-                                </Button>
+                                        <Typography
+                                            fontSize={'16px'}
+                                            fontWeight={700}
+                                            fontStyle={'bold'}
+                                            textTransform="capitalize"
+                                        >
+                                            Continue to Login
+                                        </Typography>
+                                    </Button>
+                                )}
                             </Box>
                         </Box>
                     </Box>
                 </Box>
             </form>
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={type}
+            />
         </>
     );
 }

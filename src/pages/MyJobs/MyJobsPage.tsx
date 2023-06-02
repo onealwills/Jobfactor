@@ -6,7 +6,6 @@ import { useGetJobs } from '../../utils/hooks/api/jobs/useGetJobs';
 import Loader from '../../components/Loader';
 
 function MyJobsPage() {
-
     const { data: jobs, isLoading } = useGetJobs();
 
     return (
@@ -16,9 +15,9 @@ function MyJobsPage() {
             }}
         >
             <JobsHeader title="Jobs" />
-            {isLoading ?
-                <Loader/>
-                :
+            {isLoading ? (
+                <Loader />
+            ) : (
                 <>
                     <JobsList
                         title={'Recommended for you'}
@@ -30,7 +29,9 @@ function MyJobsPage() {
                     <AspiringJobs />
                     <JobsList
                         title={'Remote opportunities'}
-                        description={'Because you expressed interest in remote work'}
+                        description={
+                            'Because you expressed interest in remote work'
+                        }
                         data={jobs}
                         showMetrics={false}
                         showheader={true}
@@ -45,7 +46,7 @@ function MyJobsPage() {
                         showheader={true}
                     />
                 </>
-            }
+            )}
         </Box>
     );
 }

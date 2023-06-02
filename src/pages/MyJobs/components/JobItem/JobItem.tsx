@@ -16,7 +16,7 @@ const keywords = [
     { name: 'Job Security', type: 'A', showbackground: true },
     { name: 'Job Security', type: 'E', showbackground: true },
     { name: 'Job Security', type: 'E', showbackground: true }
-]
+];
 const requirements = {
     minJobFactorScore: 550,
     keywords: [
@@ -24,7 +24,7 @@ const requirements = {
         { name: 'Motion Design', type: 'A', showbackground: false },
         { name: 'Prototyping', type: 'X', showbackground: false }
     ]
-}
+};
 const JobItem = (props: { jobInfo: IJobItem }) => {
     const { jobInfo } = props;
 
@@ -51,7 +51,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         //         alert(error);
         //     }
         // });
-    }
+    };
 
     const CompanyInfo = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
@@ -76,7 +76,10 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             <img
                                 height={80}
                                 width={80}
-                                src={jobInfo?.company?.logo ?? jobInfo?.companyLogo}
+                                src={
+                                    jobInfo?.company?.logo ??
+                                    jobInfo?.companyLogo
+                                }
                                 alt={'company logo'}
                             />
                         </Box>
@@ -108,7 +111,8 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                             textTransform: 'uppercase'
                                         }}
                                     >
-                                        {jobInfo?.company?.name ?? jobInfo.companyName}
+                                        {jobInfo?.company?.name ??
+                                            jobInfo.companyName}
                                     </Typography>
                                     <VerifiedIcon />
                                 </Box>
@@ -270,9 +274,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             {jobInfo.salary ?? 'N250,000 a month'}
                         </Box>
                     </Box>
-                    <Box
-                        sx={{ display: 'flex', gap: 2, mt: 1.5 }}
-                    >
+                    <Box sx={{ display: 'flex', gap: 2, mt: 1.5 }}>
                         <Box sx={{ mt: -0.3 }}>
                             <svg
                                 width="8"
@@ -330,7 +332,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     marginTop: '20px'
                 }}
             >
-                {jobInfo.status === "OPEN" ?
+                {jobInfo.status === 'OPEN' ? (
                     <Button
                         variant="contained"
                         sx={{
@@ -343,7 +345,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     >
                         Apply
                     </Button>
-                    :
+                ) : (
                     <Button
                         variant="contained"
                         sx={{
@@ -354,12 +356,10 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     >
                         Applied
                     </Button>
-                }
+                )}
                 <Button
                     variant="outlined"
-                    onClick={() =>
-                        navigate(`/my-jobs/${jobInfo.id}`)
-                    }
+                    onClick={() => navigate(`/my-jobs/${jobInfo.id}`)}
                     sx={{
                         padding: '10px 15px',
                         width: 'fit-content',

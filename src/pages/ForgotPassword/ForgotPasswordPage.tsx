@@ -26,8 +26,8 @@ function ForgotPasswordPage() {
             <StateMachineProvider>
                 <Routes>
                     <Route path="/" element={<ForgotPassword />} />
-                    <Route path="/reset" element={<ResetPassword />} />
-                    <Route path="/new" element={<NewPassword />} />
+                    <Route path="/reset/:email" element={<ResetPassword />} />
+                    <Route path="/new/:email/:code" element={<NewPassword />} />
                 </Routes>
             </StateMachineProvider>
         </>
