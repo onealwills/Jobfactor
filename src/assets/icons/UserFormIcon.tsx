@@ -7,6 +7,7 @@ function UserFormIcon() {
                 width="42"
                 height="20"
                 viewBox="0 0 42 20"
+                style={{ minWidth: '42px', minHeight: '20px' }}
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >

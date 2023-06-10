@@ -14,28 +14,28 @@ import {
     Rating,
     Avatar
 } from '@mui/material';
-import cover from '../../assets/images/companyCover.png';
-import profile from '../../assets/images/companyProfile.png';
-import cambridge from '../../assets/images/cambridge.jpg';
-import InfoChip from '../Users/components/InfoChip';
-import Section from '../Users/components/Section';
-import SectionHeading from '../Users/components/SectionHeading';
-import Image from '../../components/Image';
-import MedalIcon from '../../assets/icons/MedalIcon';
-import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
-import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
-import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
-import ContactInfoModal from './components/ContactInfoModal';
-import ScoreCard from '../../components/ScoreCard.tsx';
+import cover from '../../../assets/images/companyCover.png';
+import profile from '../../../assets/images/companyProfile.png';
+import cambridge from '../../../assets/images/cambridge.jpg';
+import InfoChip from '../../Users/components/InfoChip';
+import Section from '../../Users/components/Section';
+import SectionHeading from '../../Users/components/SectionHeading';
+import Image from '../../../components/Image';
+import MedalIcon from '../../../assets/icons/MedalIcon';
+import AnalyticsProfile from '../../../assets/icons/AnalyticsProfile';
+import AnalyticsSearch from '../../../assets/icons/AnalyticsSearch';
+import AnalyticsGraph from '../../../assets/icons/AnalyticsGraph';
+import ContactInfoModal from '../components/ContactInfoModal';
+import ScoreCard from '../../../components/ScoreCard.tsx';
 import { useState } from 'react';
-import EditAboutModal from './components/EditAboutModal';
-import EditIcon from '../../assets/icons/EditIcon';
-import EditProfileModal from './components/EditProfileModal';
-import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon';
+import EditAboutModal from '../components/EditAboutModal';
+import EditIcon from '../../../assets/icons/EditIcon';
+import EditProfileModal from '../components/EditProfileModal';
+import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import { useNavigate } from 'react-router-dom';
-import DotIcon from '../../assets/icons/DotIcon';
-import VerifiedIcon from '../../assets/icons/VerifiedIcon';
-import ArrowRight from '../../assets/icons/ArrowRight';
+import DotIcon from '../../../assets/icons/DotIcon';
+import VerifiedIcon from '../../../assets/icons/VerifiedIcon';
+import ArrowRight from '../../../assets/icons/ArrowRight';
 
 const data = [
     { review: 'Salary, Compensation,Benefits', rating: 4 },

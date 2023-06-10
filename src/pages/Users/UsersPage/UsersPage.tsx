@@ -40,9 +40,13 @@ import EditIcon from '../../../assets/icons/EditIcon';
 import EditProfileInfoDialog from '../components/Modals/EditProfileInfoDialog';
 
 import { Link } from 'react-router-dom';
-import ListItem from '@mui/material/ListItem';
+
+import { useAuth } from '../../../utils/context/AuthContext';
+import ProfileWizard from '../ProfileWizard/ProfileWizard';
 
 function UsersPage() {
+    const { account } = useAuth();
+
     const [openContactInfoModal, setOpenContactInfoModal] = useState(false);
     const [openAboutMeModal, setOpenAboutMeModal] = useState(false);
     const [openProfileInfoModal, setOpenProfileInfoModal] = useState(false);
@@ -58,6 +62,10 @@ function UsersPage() {
     const handleOnEditProfileInfo = () => {
         setOpenProfileInfoModal(true);
     };
+
+    if (true) {
+        return <ProfileWizard />;
+    }
 
     return (
         <Container

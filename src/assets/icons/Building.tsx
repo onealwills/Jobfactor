@@ -6,6 +6,7 @@ const Building = () => {
             height="20"
             viewBox="0 0 41 20"
             fill="none"
+            style={{ minWidth: '41px', minHeight: '20px' }}
         >
             <path
                 d="M1.66797 18.334H18.3346"
