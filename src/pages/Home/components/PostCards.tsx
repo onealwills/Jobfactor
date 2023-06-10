@@ -26,13 +26,13 @@ import { FeedItem } from './FeedItem';
 import HatIcon from '../../../assets/icons/HatIcon';
 import Camera from '../../../assets/icons/CameraIconMui';
 import AchievementMedal from '../../../assets/icons/AchievementMedal';
+import AchievementSkillsPopup from '../../../components/AchievementSkillsPopup/AchievementSkillsPopup';
 
 const modalstyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 900,
     border: 0,
     boxShadow: 24,
     p: 3,
@@ -77,21 +77,7 @@ const PostCards = ({
     const [type, setType] = useState<string>('Connections');
     const [disable, setDisable] = useState<boolean>(false);
     const [btnTitle, setBtnTitle] = useState<string>('Post');
-    const [skills, setSkills] = useState<Array<string>>([
-        'Bubble',
-        'Notion',
-        'Scrum',
-        'Python',
-        'Sketch',
-        'Webflow'
-    ]);
-    const [selectedSkills, setSelectedSkills] = useState<Array<string>>([
-        'Figma',
-        'HTML',
-        'CSS',
-        'Adobe XD',
-        'Wireframing'
-    ]);
+    const [selectedSkills, setSelectedSkills] = useState<Array<string>>(['Figma', 'HTML']);
 
     const TypeData = [{ name: 'Connections' }, { name: 'Anyone on Jobfactor' }];
 
@@ -254,7 +240,7 @@ const PostCards = ({
     return (
         <Modal
             open={showModal}
-            onClose={hideModal}
+            onClose={() => { reset(); hideModal(); }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
@@ -265,7 +251,7 @@ const PostCards = ({
                         background: step > 2 ? '#FCFBF8' : '#F7F7F7',
                         p: step > 2 ? 0 : 3,
                         borderRadius: step > 2 ? '8px' : 0,
-                        width: step > 2 ? 600 : 900
+                        minWidth: 900
                     }
                 ]}
             >
@@ -332,175 +318,11 @@ const PostCards = ({
                     </Box>
                 ) : step === 4 ? (
                     <>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                padding: '32px 64px'
-                            }}
-                        >
-                            <Typography
-                                sx={{
-                                    fontFamily: 'Open Sans',
-                                    fontWeight: 600,
-                                    fontSize: '20px',
-                                    lineHeight: '28px',
-                                    color: '#23282B'
-                                }}
-                            >
-                                Relevant skills acquired from this achievement
-                            </Typography>
-                            <Typography
-                                sx={{
-                                    fontFamily: 'Open Sans',
-                                    fontSize: '14px',
-                                    lineHeight: '20px',
-                                    color: '#808080',
-                                    letterSpacing: '0.001em'
-                                }}
-                            >
-                                Be sure to list relevant skills that others
-                                witnessed you demonstrated
-                            </Typography>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    gap: '10px',
-                                    mt: '10px',
-                                    width: '100%',
-                                    flexWrap: 'wrap'
-                                }}
-                            >
-                                {selectedSkills.map((x) => (
-                                    <Chip
-                                        key={`item_${x}`}
-                                        label={x}
-                                        onDelete={() => {
-                                            setSkills([...skills, x]);
-                                            setSelectedSkills(
-                                                selectedSkills.filter(
-                                                    (y) => y !== x
-                                                )
-                                            );
-                                        }}
-                                        sx={{
-                                            background: '#808080',
-                                            borderRadius: '4px',
-                                            p: '4px 8px',
-                                            fontFamily: 'Open Sans',
-                                            fontSize: '12px',
-                                            fontWeight: 600,
-                                            lineHeight: '16px',
-                                            color: '#FFFFFF',
-                                            letterSpacing: '0.005em',
-                                            '& svg': {
-                                                color: '#FFFFFF !important'
-                                            }
-                                        }}
-                                    />
-                                ))}
-                            </Box>
-                            <Typography
-                                sx={{
-                                    fontFamily: 'Open Sans',
-                                    fontWeight: 600,
-                                    color: '#23282B',
-                                    letterSpacing: '0.005em',
-                                    mt: '32px'
-                                }}
-                            >
-                                Select or search to add skills
-                            </Typography>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    gap: '10px',
-                                    mt: '10px',
-                                    width: '100%',
-                                    flexWrap: 'wrap'
-                                }}
-                            >
-                                {skills.map((x) => (
-                                    <Chip
-                                        key={`item_${x}`}
-                                        label={x}
-                                        onClick={() => {
-                                            setSelectedSkills([
-                                                ...selectedSkills,
-                                                x
-                                            ]);
-                                            setSkills(
-                                                skills.filter((y) => y !== x)
-                                            );
-                                        }}
-                                        sx={{
-                                            background: '#FFFFFF',
-                                            border: '1px solid #808080',
-                                            borderRadius: '4px',
-                                            p: '4px 8px',
-                                            fontFamily: 'Open Sans',
-                                            fontSize: '12px',
-                                            fontWeight: 600,
-                                            lineHeight: '16px',
-                                            color: '#808080',
-                                            letterSpacing: '0.005em'
-                                        }}
-                                    />
-                                ))}
-                            </Box>
-                        </Box>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                gap: '8px',
-                                m: '32px',
-                                p: '20px 32px',
-                                background: '#FFFFFF'
-                            }}
-                        >
-                            <Button
-                                variant="outlined"
-                                sx={{
-                                    p: '14px 16px',
-                                    background: '#FAFAFA',
-                                    border: '1px solid #05668D',
-                                    borderRadius: '8px',
-                                    fontFamily: 'Open Sans',
-                                    fontWeight: 600,
-                                    fontSize: '12px',
-                                    lineHeight: '16px',
-                                    letterSpacing: '0.005em',
-                                    color: '#05668D',
-                                    width: 'auto',
-                                    minWidth: '160px'
-                                }}
-                                onClick={onPostData}
-                            >
-                                Skip for now
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                sx={{
-                                    p: '14px 16px',
-                                    background: '#05668D',
-                                    borderRadius: '8px',
-                                    fontFamily: 'Open Sans',
-                                    fontWeight: 600,
-                                    fontSize: '14px',
-                                    lineHeight: '20px',
-                                    letterSpacing: '0.001em',
-                                    color: '#FFFFFF',
-                                    width: 'auto',
-                                    minWidth: '304px',
-                                    '&:hover': {
-                                        background: '#05668D'
-                                    }
-                                }}
-                            >
-                                Request review
-                            </Button>
-                        </Box>
+                        <AchievementSkillsPopup
+                            handleClose={() => { reset(); hideModal(); }}
+                            selectedSkills={selectedSkills}
+                            setSelectedSkills={setSelectedSkills}
+                        />
                     </>
                 ) : (
                     <>
@@ -525,7 +347,7 @@ const PostCards = ({
                             <Box>
                                 <div
                                     style={{ cursor: 'pointer' }}
-                                    onClick={hideModal}
+                                    onClick={() => { reset(); hideModal(); }}
                                 >
                                     <ClearIcon />
                                 </div>
@@ -533,11 +355,7 @@ const PostCards = ({
                         </Box>
                         <Box
                             sx={{
-                                maxHeight: '55vh',
-                                overflow: 'auto',
-                                background: repostPopup
-                                    ? '#FCFBF8'
-                                    : 'transparent'
+                                background: repostPopup ? '#FCFBF8' : 'transparent'
                             }}
                         >
                             <Box
@@ -1014,104 +832,140 @@ const PostCards = ({
                                             />
                                         </Box>
                                     </Box>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '20px',
+                                            flexWrap: 'wrap',
+                                            p: '20px',
+                                            background: 'white',
+                                        }}
+                                    >
+                                        {assetArea.map(item => (
+                                            <Box
+                                                sx={{
+                                                    position: "relative"
+                                                }}
+                                            >
+                                                <Box
+                                                    sx={{
+                                                        cursor: 'pointer',
+                                                        position: "absolute",
+                                                        right: '7px',
+                                                        top: '7px'
+
+                                                    }}
+                                                    onClick={() => {
+                                                        onDeletImage(
+                                                            item
+                                                        );
+                                                    }}
+                                                >
+                                                    <CancelIcon />
+                                                </Box>
+                                                <img src={item} style={{ width: '200px', height: '200px' }} alt='' />
+                                            </Box>
+                                        ))}
+                                    </Box>
                                 </Box>
                             ) : (
-                                <Box sx={{ marginTop: '24px' }}>
-                                    <InputBase
-                                        rows={5}
-                                        placeholder="What’s happening?"
-                                        sx={{
-                                            backgroundColor: '#FCFBF8',
-                                            width: '100%',
-                                            overflowY: 'auto',
-                                            padding: 0,
-                                            paddingTop: '24px',
-                                            paddingLeft: '32px',
-                                            fontFamily: 'open sans',
-                                            color: '#23282B'
-                                        }}
-                                        onChange={(e) => {
-                                            setEditorText(e.target.value);
-                                        }}
-                                        multiline
-                                    />
-                                </Box>
-                            )}
-
-                            {assetArea?.length > 0 && (
-                                <Box
-                                    sx={{
-                                        padding: '20px',
-                                        background: '#fcfbf8'
-                                    }}
-                                >
-                                    <ImageList
-                                        sx={{
-                                            width: '100%',
-                                            height: 250,
-                                            transform: 'translateZ(0)'
-                                        }}
-                                        rowHeight={200}
-                                        gap={12}
-                                    >
-                                        {assetArea.map(
-                                            (item: any, index: number) => {
-                                                const cols = item?.featured
-                                                    ? 2
-                                                    : 1;
-                                                const rows = item?.featured
-                                                    ? 2
-                                                    : 1;
-                                                return (
-                                                    <ImageListItem
-                                                        sx={{
-                                                            objectFit: 'fill',
-                                                            overflow: 'hidden'
-                                                        }}
-                                                        key={index + 2}
-                                                        cols={cols}
-                                                        rows={rows}
-                                                    >
-                                                        <img
-                                                            src={item}
-                                                            alt={'images'}
-                                                            loading="lazy"
-                                                            style={{
-                                                                objectFit:
-                                                                    'fill'
-                                                            }}
-                                                        />
-                                                        <ImageListItemBar
-                                                            sx={{
-                                                                background:
-                                                                    '#ffffff0d'
-                                                            }}
-                                                            position="top"
-                                                            actionIcon={
-                                                                <div
+                                <>
+                                    <Box sx={{ marginTop: '24px' }}>
+                                        <InputBase
+                                            rows={5}
+                                            placeholder="What’s happening?"
+                                            sx={{
+                                                backgroundColor: '#FCFBF8',
+                                                width: '100%',
+                                                overflowY: 'auto',
+                                                padding: 0,
+                                                paddingTop: '24px',
+                                                paddingLeft: '32px',
+                                                fontFamily: 'open sans',
+                                                color: '#23282B'
+                                            }}
+                                            onChange={(e) => {
+                                                setEditorText(e.target.value);
+                                            }}
+                                            multiline
+                                        />
+                                    </Box>
+                                    {assetArea?.length > 0 && (
+                                        <Box
+                                            sx={{
+                                                padding: '20px',
+                                                background: '#fcfbf8'
+                                            }}
+                                        >
+                                            <ImageList
+                                                sx={{
+                                                    width: '100%',
+                                                    maxHeight: 250,
+                                                    transform: 'translateZ(0)'
+                                                }}
+                                                rowHeight={200}
+                                                gap={12}
+                                            >
+                                                {assetArea.map(
+                                                    (item: any, index: number) => {
+                                                        const cols = item?.featured
+                                                            ? 2
+                                                            : 1;
+                                                        const rows = item?.featured
+                                                            ? 2
+                                                            : 1;
+                                                        return (
+                                                            <ImageListItem
+                                                                sx={{
+                                                                    objectFit: 'fill',
+                                                                    overflow: 'hidden'
+                                                                }}
+                                                                key={index + 2}
+                                                                cols={cols}
+                                                                rows={rows}
+                                                            >
+                                                                <img
+                                                                    src={item}
+                                                                    alt={'images'}
+                                                                    loading="lazy"
                                                                     style={{
-                                                                        cursor: 'pointer',
-                                                                        padding: 10
+                                                                        objectFit: 'fill',
+                                                                        maxWidth: '200px'
                                                                     }}
-                                                                    onClick={() => {
-                                                                        onDeletImage(
-                                                                            item
-                                                                        );
+                                                                />
+                                                                <ImageListItemBar
+                                                                    sx={{
+                                                                        background:
+                                                                            '#ffffff0d'
                                                                     }}
-                                                                >
-                                                                    <CancelIcon />
-                                                                </div>
-                                                            }
-                                                            actionPosition="left"
-                                                        />
-                                                    </ImageListItem>
-                                                );
-                                            }
-                                        )}
-                                    </ImageList>
-                                </Box>
+                                                                    position="top"
+                                                                    actionIcon={
+                                                                        <div
+                                                                            style={{
+                                                                                cursor: 'pointer',
+                                                                                padding: 10
+                                                                            }}
+                                                                            onClick={() => {
+                                                                                onDeletImage(
+                                                                                    item
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            <CancelIcon />
+                                                                        </div>
+                                                                    }
+                                                                    actionPosition="left"
+                                                                />
+                                                            </ImageListItem>
+                                                        );
+                                                    }
+                                                )}
+                                            </ImageList>
+                                        </Box>
+                                    )}
+                                </>
                             )}
-
                             {repostPopup ? (
                                 <Box
                                     sx={{

@@ -29,7 +29,6 @@ function HomePage() {
                         <ScoreCard value={340} divider={800} />
                     </Grid>
                 </Grid>
-
                 <Grid container spacing={2} wrap="nowrap" sx={{ mt: 1 }}>
                     <Grid item xs={9}>
                         <CreateFeedCard />
