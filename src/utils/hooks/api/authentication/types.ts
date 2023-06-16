@@ -37,3 +37,14 @@ export interface IResetResponse {
     emailAddress: string;
     message: string;
 }
+export interface IVerifyAccountRequest {
+    verificationCode: string;
+    emailAddress: string;
+    verificationType: string;
+}
+
+// export interface IVerifyAccountResponse {
+//     verificationCode: string;
+//     emailAddress: string;
+//     verificationType: string;
+// }

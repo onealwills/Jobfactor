@@ -65,9 +65,11 @@ function CompanyCreate() {
 
             if (request !== undefined) {
                 createAccountMutation.mutate(request, {
-                    onSuccess: async (data) => {
+                    onSuccess: async (res) => {
                         actions.clearAction();
-                        navigate('/create-account/confirmEmail');
+                        navigate(
+                            `/create-account/confirmEmail/${data.data.emailAddress}`
+                        );
                     },
                     onError: (error) => {
                         console.error(error);

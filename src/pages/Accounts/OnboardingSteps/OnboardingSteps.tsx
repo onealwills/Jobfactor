@@ -3,12 +3,17 @@ import React from 'react';
 import RectangleLine from '../../../assets/icons/RectangleLine';
 import { useStateMachine } from 'little-state-machine';
 
-function OnboardingSteps() {
+function OnboardingSteps({
+    isVerified = null
+}: {
+    isVerified?: boolean | null;
+}) {
     const COLORS = {
         accent: '#FFC24C', // yellow
         success: '#07AF22', // green
         primary: '#D9D9D9', // grey
-        activeStep: '#FAFAFA' // text color, active step
+        activeStep: '#FAFAFA', // text color, active step
+        error: '#FF0000' // red
     };
     const {
         state: {
@@ -121,8 +126,10 @@ function OnboardingSteps() {
                     <Box
                         sx={{
                             backgroundColor:
-                                step > 3
+                                step > 3 || isVerified === true
                                     ? COLORS.success
+                                    : step === 3 && isVerified === false
+                                    ? COLORS.error
                                     : step === 3
                                     ? COLORS.accent
                                     : COLORS.primary,

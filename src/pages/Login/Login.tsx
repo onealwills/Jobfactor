@@ -9,15 +9,13 @@ import Box from '@mui/material/Box';
 import EllipsisIcon from '../../assets/icons/EllipsisIcon';
 import EmailFormIcon from '../../assets/icons/EmailFormIcon';
 import GoogleIcon from '../../assets/icons/GoogleIcon';
-import InfoIcon from '../../assets/icons/InfoIcon';
 import JobFactorIcon from '../../assets/icons/JobFactorIcon';
 import PasswordFormIcon from '../../assets/icons/PasswordFormIcon';
 import profileReview from './../../assets/images/profileReview.png';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/context/AuthContext';
 import { useEffect } from 'react';
-import ErrorFormIcon from '../../assets/icons/ErrorFormIcon';
 import OnboardingLineIcon from '../../assets/icons/OnboardingLineIcon';
 
 interface ILoginForm {
@@ -34,7 +32,9 @@ const cardReiew =
 
 function Login() {
     let navigate = useNavigate();
-    const { signIn, isAuthenticated, accessToken } = useAuth();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const { signIn, isAuthenticated, accessToken, account } = useAuth();
     const {
         control,
         handleSubmit,
@@ -44,8 +44,17 @@ function Login() {
         formState
     } = useForm<ILoginForm>();
     const { isDirty, isValid, errors } = formState;
-
     useEffect(() => {
+        if (
+            queryParams.get('newAccount') &&
+            queryParams.get('newAccount') === 'true'
+        ) {
+            navigate(
+                account?.primaryProfile === 'PROFESSIONAL'
+                    ? '/users'
+                    : '/about-company'
+            );
+        }
         if (isAuthenticated && !!accessToken) {
             navigate('/');
         }

@@ -65,7 +65,7 @@ function CreateAccount() {
                                     element={<UserCreate />}
                                 />
                                 <Route
-                                    path="/confirmEmail"
+                                    path="/confirmEmail/:email"
                                     element={<EmailConfirmation />}
                                 />
                                 <Route
