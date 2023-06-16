@@ -178,7 +178,7 @@ function ConnectionsPage() {
 
     return (
         <Box sx={{ ml: '35px' }}>
-            <Header setUsers={setUsers} data={data} tittle={'ConnectionPage'} />
+            <Header setUsers={setUsers} data={data} title={'ConnectionPage'} />
             <Grid container mt={'20px'}>
                 <TableWrapper
                     handleChangePage={handleChangePage}

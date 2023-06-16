@@ -3,9 +3,10 @@ import { Box, Button, Typography } from '@mui/material';
 import { PostJobItem } from '../../types/PostJobItem';
 import LightBriefcase from '../../../../assets/icons/LightBriefcase';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
-const JobPostItem = (props: { jobInfo: PostJobItem; tittle: string }) => {
-    const { jobInfo, tittle } = props;
+const JobPostItem = (props: { jobInfo: PostJobItem }) => {
+    const { jobInfo } = props;
     const navigate = useNavigate();
     return (
         <Box
@@ -24,20 +25,21 @@ const JobPostItem = (props: { jobInfo: PostJobItem; tittle: string }) => {
                         color: '#23282B'
                     }}
                 >
-                    {tittle}
+                    {jobInfo.title}
                 </Typography>
             </Box>
             <Typography
                 sx={{ color: '#808080', fontSize: '14px', marginTop: '8px' }}
             >
-                Job ID : {jobInfo?.jobId}
+                Job ID : {jobInfo?.id}
             </Typography>
             <Typography
                 sx={{ color: '#808080', fontSize: '14px', marginTop: '8px' }}
             >
-                {jobInfo?.postdate}
+                {moment(jobInfo?.createdAt).format('MM/DD/YYYY')}
             </Typography>
-            <Box sx={{ marginTop: '20px' }}>
+            <div dangerouslySetInnerHTML={{ __html: jobInfo?.description }} />
+            {/* <Box sx={{ marginTop: '20px' }}>
                 <Typography
                     sx={{
                         color: '#23282B',
@@ -72,7 +74,7 @@ const JobPostItem = (props: { jobInfo: PostJobItem; tittle: string }) => {
                         return <li>{item}</li>;
                     })}
                 </ul>
-            </Box>
+            </Box> */}
             <Box
                 sx={{
                     display: 'flex',
@@ -88,11 +90,7 @@ const JobPostItem = (props: { jobInfo: PostJobItem; tittle: string }) => {
                         padding: '15px 20px',
                         minWidth: '240px'
                     }}
-                    onClick={() => {
-                        navigate(`/job-postdetail/${jobInfo?.jobId}`, {
-                            state: { jobInfo: jobInfo, tittle: tittle }
-                        });
-                    }}
+                    onClick={() => navigate(`/job-postdetail/${jobInfo?.id}`)}
                 >
                     View Job Posting
                 </Button>
@@ -103,9 +101,7 @@ const JobPostItem = (props: { jobInfo: PostJobItem; tittle: string }) => {
                         width: 'fit-content',
                         minWidth: '240px'
                     }}
-                    onClick={() => {
-                        navigate(`/job-applications`);
-                    }}
+                    onClick={() => {}}
                 >
                     Check Applications
                 </Button>

@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ title = 'All Applicants' }) => {
     const [sort, setSort] = React.useState<string>('');
     const navigate = useNavigate();
     const handleChange = (event: SelectChangeEvent) => {
@@ -35,7 +35,7 @@ const Header = () => {
                     <ArrowLeftIcon />
                 </IconButton>
                 <Typography variant="headlineMediumSemiBold" color="#23282B">
-                    Product Designer
+                    {title}
                 </Typography>
             </Box>
             <Box

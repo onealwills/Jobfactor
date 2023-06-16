@@ -1,52 +1,71 @@
-import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { getCompetencyColor } from '../../GlobalFunction';
+import { useGetJobById } from '../../../../utils/hooks/api/jobs/useGetJobById';
+import Loader from '../../../../components/Loader';
 
 const JobPostDetail = () => {
-    const location = useLocation();
-    const state = location.state;
-    const jobInfo = state?.jobInfo;
-    const title = state?.title;
+    const { id } = useParams();
     const navigate = useNavigate();
+    const { data: jobDetails, isFetching } = useGetJobById(id ?? '');
+
     return (
-        <Box
-            sx={{
-                width: '100%',
-                backgroundColor: '#fff',
-                mb: 4,
-                marginLeft: '20px',
-                mt: -6,
-                padding: '40px'
-            }}
-        >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <>
+            {isFetching ? (
+                <Loader />
+            ) : (
                 <Box
-                    onClick={() => {
-                        navigate(-1);
+                    sx={{
+                        width: '100%',
+                        backgroundColor: '#fff',
+                        mb: 4,
+                        marginLeft: '20px',
+                        mt: -6,
+                        padding: '40px'
                     }}
                 >
-                    <ArrowBackOutlinedIcon />
-                </Box>
-                <Box>
-                    <Typography
+                    <Box
                         sx={{
-                            fontSize: '20px',
-                            fontWeight: '700',
-                            color: '#23282B'
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px'
                         }}
                     >
-                        {title}
+                        <Box
+                            sx={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                navigate(-1);
+                            }}
+                        >
+                            <ArrowBackOutlinedIcon />
+                        </Box>
+                        <Box>
+                            <Typography
+                                sx={{
+                                    fontSize: '20px',
+                                    fontWeight: '700',
+                                    color: '#23282B'
+                                }}
+                            >
+                                {jobDetails?.title}
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Typography
+                        sx={{
+                            color: '#808080',
+                            fontSize: '14px',
+                            marginTop: '8px'
+                        }}
+                    >
+                        Job ID : {jobDetails?.id}
                     </Typography>
-                </Box>
-            </Box>
-            <Typography
-                sx={{ color: '#808080', fontSize: '14px', marginTop: '8px' }}
-            >
-                Job ID : {jobInfo?.jobId}
-            </Typography>
-            <Box sx={{ marginTop: '30px' }}>
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: jobDetails?.description
+                        }}
+                    />
+                    {/* <Box sx={{ marginTop: '30px' }}>
                 <Typography
                     sx={{
                         color: '#23282B',
@@ -63,7 +82,7 @@ const JobPostDetail = () => {
                         marginTop: '10px'
                     }}
                 >
-                    {jobInfo?.JobRole}
+                    {jobDetails?.JobRole}
                 </Typography>
             </Box>
             <Box sx={{ marginTop: '24px' }}>
@@ -77,11 +96,11 @@ const JobPostDetail = () => {
                     Summary of the role
                 </Typography>
                 <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobInfo?.JobSummary?.map((item: string[]) => {
+                    {jobDetails?.JobSummary?.map((item: string[]) => {
                         return <li>{item}</li>;
                     })}
                 </ul>
-            </Box>
+            </Box> 
             <Box sx={{ marginTop: '24px' }}>
                 <Typography
                     sx={{
@@ -93,7 +112,7 @@ const JobPostDetail = () => {
                     Responsibilities
                 </Typography>
                 <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobInfo?.jobDetails?.Responsibilities?.map(
+                    {jobDetails?.jobDetails?.Responsibilities?.map(
                         (item: string[]) => {
                             return <li>{item}</li>;
                         }
@@ -117,7 +136,7 @@ const JobPostDetail = () => {
                         marginTop: '15px'
                     }}
                 >
-                    {jobInfo?.jobDetails?.location}
+                    {jobDetails?.jobDetails?.location}
                 </Typography>
             </Box>
             <Box sx={{ marginTop: '24px' }}>
@@ -131,7 +150,7 @@ const JobPostDetail = () => {
                     Required Skills and competency level:
                 </Typography>
                 <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobInfo?.jobDetails?.skills?.map((item: any) => {
+                    {jobDetails?.jobDetails?.skills?.map((item: any) => {
                         return (
                             <li>
                                 {item?.key} {' - '}{' '}
@@ -149,26 +168,34 @@ const JobPostDetail = () => {
                     })}
                 </ul>
             </Box>
-            <Box
-                sx={{
-                    marginTop: '30px'
-                }}
-            >
-                <Button
-                    variant="outlined"
-                    onClick={() => {
-                        navigate(`/job-applications`);
-                    }}
-                    sx={{
-                        padding: '15px 20px',
-                        width: 'fit-content',
-                        minWidth: '240px'
-                    }}
-                >
-                    Check Applications
-                </Button>
-            </Box>
-        </Box>
+            */}
+                    <Box
+                        sx={{
+                            marginTop: '30px'
+                        }}
+                    >
+                        <Button
+                            variant="outlined"
+                            onClick={() => {
+                                navigate(`applicants`, {
+                                    state: {
+                                        applicants: jobDetails?.applicants,
+                                        title: jobDetails?.title
+                                    }
+                                });
+                            }}
+                            sx={{
+                                padding: '15px 20px',
+                                width: 'fit-content',
+                                minWidth: '240px'
+                            }}
+                        >
+                            Check Applications
+                        </Button>
+                    </Box>
+                </Box>
+            )}
+        </>
     );
 };
 

@@ -6,7 +6,8 @@ import {
     IconButton,
     Select,
     MenuItem,
-    Paper
+    Paper,
+    CircularProgress
 } from '@mui/material';
 import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -24,9 +25,12 @@ import DialogBox from '../components/DialogBox';
 import { getCompetencyColor } from '../GlobalFunction';
 import { useCreateJobPost } from '../../../utils/hooks/api/jobs/useCreateJob';
 import { useAuth } from '../../../utils/context/AuthContext';
+import { useQueryClient } from 'react-query';
+import SnackAlert from '../../../components/Snackbar';
 
 const NewJobPost = () => {
     const navigate = useNavigate();
+    const [show, setShow] = useState<boolean>(false);
     const [selectedSkills, setSelectedSkills] = useState<
         { title: string; id: number; competency?: string }[]
     >([]);
@@ -48,8 +52,9 @@ const NewJobPost = () => {
     const [edit, setEdit] = useState<boolean>(false);
     const [step, setStep] = useState<number>(1);
     const [showPopup, setShowPopup] = useState<boolean>(false);
-    const { account } = useAuth();
-
+    const [loading, setLoading] = useState<boolean>(false);
+    const { user } = useAuth();
+    const queryClient = useQueryClient();
     const SkillsData = [
         { title: 'HTML', id: 1 },
         { title: 'CSS', id: 2 },
@@ -58,22 +63,30 @@ const NewJobPost = () => {
     const createJobPost = useCreateJobPost();
 
     const handleSubmit = () => {
-        // let data = {
-        //     title: jobTitle,
-        //     description: `${overview} ${qualifications} ${responsibilities} ${additional1} ${additional2}`,
-        //     isActive: true,
-        //     companyId: '22'
-        // }
-        // createJobPost.mutate(data, {
-        //     onSuccess: async (data) => {
-        //         navigate('/create-account/confirmEmail');
-        //     },
-        //     onError: (error) => {
-        //         console.error(error);
-        //         alert(error);
-        //     }
-        // });
-        setShowPopup(true);
+        if (user?.id) {
+            setLoading(true);
+            let data = {
+                title: jobTitle,
+                description: `${overview} ${qualifications} ${responsibilities} ${additional1} ${additional2}`,
+                isActive: true,
+                companyId: user.primaryCompanyProfile.companyId
+            };
+            console.log('data', data);
+            createJobPost.mutate(data, {
+                onSuccess: (res) => {
+                    console.log('object', res);
+                    queryClient.invalidateQueries({
+                        queryKey: ['retrieve-jobs']
+                    });
+                    setShowPopup(true);
+                    setLoading(false);
+                },
+                onError: (error) => {
+                    setShow(true);
+                    setLoading(false);
+                }
+            });
+        }
     };
 
     const handleSkillsChange = (
@@ -531,7 +544,7 @@ const NewJobPost = () => {
     const Additional2 = (
         <Box sx={{ marginTop: '30px' }}>
             <Typography fontSize={'16px'} color="#494949">
-                Anything else you would like to add 1
+                Anything else you would like to add 2
             </Typography>
             <Box sx={{ marginTop: '10px' }}>
                 {step === 2 ? (
@@ -970,43 +983,47 @@ const NewJobPost = () => {
                     )}
 
                     <Box sx={{ textAlign: 'center', marginTop: '30px' }}>
-                        <Button
-                            variant="contained"
-                            sx={{
-                                width: 'fit-content',
-                                padding: '15px 20px',
-                                minWidth: '300px'
-                            }}
-                            disabled={
-                                (
-                                    step === 1
-                                        ? !jobTitle
-                                        : selectedSkills?.length === 0 ||
-                                          qualifications === '' ||
-                                          overview === '' ||
-                                          responsibilities === '' ||
-                                          deadLine === ''
-                                )
-                                    ? true
-                                    : false
-                            }
-                            onClick={() => {
-                                if (step === 1) {
-                                    setStep(2);
+                        {loading ? (
+                            <CircularProgress sx={{ color: '#05668D' }} />
+                        ) : (
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    width: 'fit-content',
+                                    padding: '15px 20px',
+                                    minWidth: '300px'
+                                }}
+                                disabled={
+                                    (
+                                        step === 1
+                                            ? !jobTitle
+                                            : selectedSkills?.length === 0 ||
+                                              qualifications === '' ||
+                                              overview === '' ||
+                                              responsibilities === '' ||
+                                              deadLine === ''
+                                    )
+                                        ? true
+                                        : false
                                 }
-                                if (step === 2) {
-                                    setEdit(true);
-                                    setStep(3);
-                                }
-                                if (step === 3) {
-                                    handleSubmit();
-                                }
-                            }}
-                        >
-                            {step === 3
-                                ? 'Post Job Opening'
-                                : 'Save and Continue'}
-                        </Button>
+                                onClick={() => {
+                                    if (step === 1) {
+                                        setStep(2);
+                                    }
+                                    if (step === 2) {
+                                        setEdit(true);
+                                        setStep(3);
+                                    }
+                                    if (step === 3) {
+                                        handleSubmit();
+                                    }
+                                }}
+                            >
+                                {step === 3
+                                    ? 'Post Job Opening'
+                                    : 'Save and Continue'}
+                            </Button>
+                        )}
                     </Box>
                 </Box>
             </Box>
@@ -1033,6 +1050,12 @@ const NewJobPost = () => {
                     setSelectedSkills([]);
                     setShowPopup(false);
                 }}
+            />
+            <SnackAlert
+                open={show}
+                message={'Job post failed please try again!'}
+                type={'error'}
+                handleClose={() => setShow(false)}
             />
         </>
     );

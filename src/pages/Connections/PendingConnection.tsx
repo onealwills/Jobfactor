@@ -315,7 +315,7 @@ function PendingConnection() {
                 <Header
                     setUsers={setUsers}
                     data={data}
-                    tittle={'PendingConnections'}
+                    title={'PendingConnections'}
                 />
                 <Grid container mt={'20px'}>
                     <Tabs changeTab={changeTab} tab={tab} />

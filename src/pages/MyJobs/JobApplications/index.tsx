@@ -1,8 +1,6 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Header from '../components/JobApplication/Header';
-import { JobApplicationItem } from '../types/JobApplicationItem';
 import ApplicationList from '../components/JobApplication/ApplicationList';
-import Profile from '../../../assets/images/profile-sq.png';
 import { useGetAllApplicants } from '../../../utils/hooks/api/jobs/useGetAllApplicants';
 import Loader from '../../../components/Loader';
 

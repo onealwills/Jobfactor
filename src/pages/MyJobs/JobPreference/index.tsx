@@ -29,7 +29,7 @@ const JobPreference = () => {
     const [selectedduration, setSelectedDuration] = useState<string>('');
     const [showtypes, setShowTypes] = useState<boolean>(false);
     const [showduration, setShowDuration] = useState<boolean>(false);
-    const [tittle, setTittle] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
     const [salary, setSalary] = useState<string>('');
 
     const JobTypes = [
@@ -92,7 +92,7 @@ const JobPreference = () => {
                         }}
                         htmlFor="text"
                     >
-                        Job tittle
+                        Job title
                     </InputLabel>
                     <Controller
                         name="jobTitle"
@@ -109,7 +109,7 @@ const JobPreference = () => {
                                     inputMode: 'text'
                                 }}
                                 id="jobTitle"
-                                defaultValue={tittle}
+                                defaultValue={title}
                                 placeholder="Value"
                                 startAdornment={
                                     <>
@@ -127,7 +127,7 @@ const JobPreference = () => {
                                 endAdornment={
                                     <Box
                                         onClick={() => {
-                                            setTittle('');
+                                            setTitle('');
                                         }}
                                     >
                                         <CloseIcon

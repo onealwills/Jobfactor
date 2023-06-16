@@ -14,16 +14,20 @@ import ApplyJob from './ApplyJob';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useGetJobById } from '../../../../utils/hooks/api/jobs/useGetJobById';
 import Loader from '../../../../components/Loader';
+import { useAuth } from '../../../../utils/context/AuthContext';
 
+interface IApplicantType {
+    professionalProfileId: string;
+}
 const JobItemDetail = (props: { jobId?: string }) => {
     const location = useLocation();
+    const { user } = useAuth();
     const jobdata = location?.state;
     const { id } = useParams();
     const [applyjob, setApplyjob] = useState<boolean>(false);
     const [alreadyapply, setAlreadyApply] = useState<boolean>(false);
     const [selectedaction, setSelectedAction] = useState<any>([]);
-
-    const { data: job, isLoading } = useGetJobById(id ? id : '');
+    const { data: job, isFetching } = useGetJobById(id ? id : '');
 
     const onHideJob = (e: any) => {
         setApplyjob(false);
@@ -112,20 +116,20 @@ const JobItemDetail = (props: { jobId?: string }) => {
         {
             id: 1,
             label: 'Hide',
-            icon: JobDetailItemTrashIcon,
-            coloricon: BookmarkIcon
+            icon: JobDetailItemTrashIcon
+            // coloricon: BookmarkIcon
         },
         {
             id: 2,
             label: 'Flag',
-            icon: JobDetailItemFlagIcon,
-            coloricon: BookmarkIcon
+            icon: JobDetailItemFlagIcon
+            // coloricon: BookmarkIcon
         },
         {
             id: 3,
             label: 'Share',
-            icon: JobDetailItemShareIcon,
-            coloricon: BookmarkIcon
+            icon: JobDetailItemShareIcon
+            // coloricon: BookmarkIcon
         },
         {
             id: 4,
@@ -166,24 +170,12 @@ const JobItemDetail = (props: { jobId?: string }) => {
                             {job?.title}
                         </Typography>
                     </Box>
-                    {job?.status === 'OPEN' ? (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                gap: 2.5
-                            }}
-                        >
-                            <Button
-                                variant="contained"
-                                sx={{ py: 1.5, px: 7 }}
-                                onClick={() => {
-                                    setApplyjob(true);
-                                }}
-                            >
-                                Apply
-                            </Button>
-                        </Box>
-                    ) : (
+                    {job?.applicants &&
+                    job?.applicants.filter(
+                        (applicant: IApplicantType) =>
+                            applicant.professionalProfileId ===
+                            user.professionalProfile.id
+                    ).length > 0 ? (
                         <Box
                             sx={{
                                 display: 'flex',
@@ -201,6 +193,23 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 }}
                             >
                                 Applied
+                            </Button>
+                        </Box>
+                    ) : (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: 2.5
+                            }}
+                        >
+                            <Button
+                                variant="contained"
+                                sx={{ py: 1.5, px: 7 }}
+                                onClick={() => {
+                                    setApplyjob(true);
+                                }}
+                            >
+                                Apply
                             </Button>
                         </Box>
                     )}
@@ -295,9 +304,15 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                             {selectedaction?.includes(
                                                 item?.id
                                             ) ? (
-                                                <item.coloricon
-                                                    style={{ color: '#FFC24C' }}
-                                                />
+                                                item.coloricon ? (
+                                                    <item.coloricon
+                                                        style={{
+                                                            color: '#FFC24C'
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <item.icon />
+                                                )
                                             ) : (
                                                 <item.icon />
                                             )}
@@ -321,127 +336,128 @@ const JobItemDetail = (props: { jobId?: string }) => {
     const JobDescription = (props: { jobItem: IJobItemDetail }) => {
         const { jobItem } = props;
         return (
-            <Box sx={{ p: 4 }}>
-                <Box
-                    sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}
-                >
-                    <Typography variant="titleLargeBold" color="#23282B">
-                        Job Description
-                    </Typography>
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        {job?.description}
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
-                    }}
-                >
-                    <Typography variant="bodyLargeSemiBold" color="#808080">
-                        We are Recruiting to Fill The Position Below
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Job Title:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {job?.title}
-                        </Typography>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
-                    }}
-                >
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Location:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {jobItem.location}
-                        </Typography>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
-                    }}
-                >
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Employment Type:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {jobItem.employmentType}
-                        </Typography>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
-                    }}
-                >
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Department:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {jobItem.department}
-                        </Typography>
-                    </Box>
-                </Box>
-                <JobDescriptionSection
-                    title="Job Description"
-                    bulletPoints={jobItem.jobDescriptions}
-                />
-                <JobDescriptionSection
-                    title="You will..."
-                    bulletPoints={jobItem.responsibilities}
-                />
-                <JobDescriptionSection
-                    title="What makes you a great candidate"
-                    bulletPoints={jobItem.candidatureQualities}
-                />
-                <JobDescriptionSection
-                    title={`What will it be like to work at ${jobItem.aboutCompany.name} ?`}
-                    bulletPoints={jobItem.workingAt}
-                />
-                <JobDescriptionSection
-                    title="Some additional perks..."
-                    bulletPoints={jobItem.additionalPerks}
-                />
-                <Box
-                    sx={{
-                        mt: 1,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 3
-                    }}
-                >
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        Application Closing Date:{' '}
-                    </Typography>
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        {jobItem.applicationClosingDate}
-                    </Typography>
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        Don't Keep! Kindly Share.
-                    </Typography>
-                </Box>
-            </Box>
+            <div dangerouslySetInnerHTML={{ __html: job.description }} />
+            // <Box sx={{ p: 4 }}>
+            //     <Box
+            //         sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}
+            //     >
+            //         <Typography variant="titleLargeBold" color="#23282B">
+            //             Job Description
+            //         </Typography>
+            //         <Typography variant="bodyLargeRegular" color="#808080">
+            //             {job?.description}
+            //         </Typography>
+            //     </Box>
+            //     <Box
+            //         sx={{
+            //             display: 'flex',
+            //             mt: 3.5,
+            //             flexDirection: 'column',
+            //             gap: 3.5
+            //         }}
+            //     >
+            //         <Typography variant="bodyLargeSemiBold" color="#808080">
+            //             We are Recruiting to Fill The Position Below
+            //         </Typography>
+            //         <Box sx={{ display: 'flex', gap: 1 }}>
+            //             <Typography variant="bodyLargeSemiBold" color="#808080">
+            //                 Job Title:
+            //             </Typography>
+            //             <Typography variant="bodyLargeRegular" color="#808080">
+            //                 {job?.title}
+            //             </Typography>
+            //         </Box>
+            //     </Box>
+            //     <Box
+            //         sx={{
+            //             display: 'flex',
+            //             mt: 3.5,
+            //             flexDirection: 'column',
+            //             gap: 3.5
+            //         }}
+            //     >
+            //         <Box sx={{ display: 'flex', gap: 1 }}>
+            //             <Typography variant="bodyLargeSemiBold" color="#808080">
+            //                 Location:
+            //             </Typography>
+            //             <Typography variant="bodyLargeRegular" color="#808080">
+            //                 {jobItem.location}
+            //             </Typography>
+            //         </Box>
+            //     </Box>
+            //     <Box
+            //         sx={{
+            //             display: 'flex',
+            //             mt: 3.5,
+            //             flexDirection: 'column',
+            //             gap: 3.5
+            //         }}
+            //     >
+            //         <Box sx={{ display: 'flex', gap: 1 }}>
+            //             <Typography variant="bodyLargeSemiBold" color="#808080">
+            //                 Employment Type:
+            //             </Typography>
+            //             <Typography variant="bodyLargeRegular" color="#808080">
+            //                 {jobItem.employmentType}
+            //             </Typography>
+            //         </Box>
+            //     </Box>
+            //     <Box
+            //         sx={{
+            //             display: 'flex',
+            //             mt: 3.5,
+            //             flexDirection: 'column',
+            //             gap: 3.5
+            //         }}
+            //     >
+            //         <Box sx={{ display: 'flex', gap: 1 }}>
+            //             <Typography variant="bodyLargeSemiBold" color="#808080">
+            //                 Department:
+            //             </Typography>
+            //             <Typography variant="bodyLargeRegular" color="#808080">
+            //                 {jobItem.department}
+            //             </Typography>
+            //         </Box>
+            //     </Box>
+            //     <JobDescriptionSection
+            //         title="Job Description"
+            //         bulletPoints={jobItem.jobDescriptions}
+            //     />
+            //     <JobDescriptionSection
+            //         title="You will..."
+            //         bulletPoints={jobItem.responsibilities}
+            //     />
+            //     <JobDescriptionSection
+            //         title="What makes you a great candidate"
+            //         bulletPoints={jobItem.candidatureQualities}
+            //     />
+            //     <JobDescriptionSection
+            //         title={`What will it be like to work at ${jobItem.aboutCompany.name} ?`}
+            //         bulletPoints={jobItem.workingAt}
+            //     />
+            //     <JobDescriptionSection
+            //         title="Some additional perks..."
+            //         bulletPoints={jobItem.additionalPerks}
+            //     />
+            //     <Box
+            //         sx={{
+            //             mt: 1,
+            //             display: 'flex',
+            //             flexDirection: 'column',
+            //             gap: 3
+            //         }}
+            //     >
+            //         <Typography variant="bodyLargeRegular" color="#808080">
+            //             Application Closing Date:{' '}
+            //         </Typography>
+            //         <Typography variant="bodyLargeRegular" color="#808080">
+            //             {jobItem.applicationClosingDate}
+            //         </Typography>
+            //         <Typography variant="bodyLargeRegular" color="#808080">
+            //             Don't Keep! Kindly Share.
+            //         </Typography>
+            //     </Box>
+            // </Box>
         );
     };
 
@@ -664,7 +680,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                 ml: 2
             }}
         >
-            {isLoading ? (
+            {isFetching ? (
                 <Loader />
             ) : (
                 <>
@@ -674,10 +690,13 @@ const JobItemDetail = (props: { jobId?: string }) => {
                     <JobItemSectionHR height={'1px'} />
                     <JobItemAboutCompany jobItem={jobItem} />
                     <ApplyJob
+                        jobId={id ?? ''}
                         showModal={applyjob}
                         hideModal={(e) => {
                             onHideJob(e);
                         }}
+                        queryKey="retrieve-job"
+                        companyName={job.company.name}
                     />
                 </>
             )}

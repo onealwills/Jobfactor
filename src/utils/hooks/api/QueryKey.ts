@@ -4,5 +4,7 @@ export const QueryKeys = {
     RetrieveJobs: 'retrieve-jobs',
     RetrieveJobById: 'retrieve-job',
     RetrieveAllApplicants: 'retrieve-applicants',
-    RetrieveApplicantById: 'retrieve-applicant'
+    RetrieveApplicantById: 'retrieve-applicant',
+    RetrieveUserInfo: 'retrieve-user-account',
+    RetrieveAppliedJobs: 'retrieve-applied-jobs'
 };

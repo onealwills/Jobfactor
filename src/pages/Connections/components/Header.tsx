@@ -78,7 +78,7 @@ const Header = (props: PropTypes) => {
                         gap: '12px'
                     }}
                 >
-                    {props.tittle === 'ConnectionPage' && (
+                    {props.title === 'ConnectionPage' && (
                         <SelectDropdown
                             label="Sort"
                             halfWidth={true}
@@ -116,7 +116,7 @@ const Header = (props: PropTypes) => {
 interface PropTypes {
     data: data[];
     setUsers: (data: Object[]) => void;
-    tittle: string;
+    title: string;
 }
 type data = {
     name: string;

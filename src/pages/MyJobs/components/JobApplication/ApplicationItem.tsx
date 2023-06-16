@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import { JobApplicationItem } from '../../types/JobApplicationItem';
 import ChipList from '../Chips/ChipList';
 import JobBookmarkIcon from '../../../../assets/icons/JobBookmarkIcon';
@@ -193,9 +193,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                         View application
                     </Button>
                     {ApplicantInfo?.status === 'SAVED' ? (
-                        <JobBookmarkIcon />
-                    ) : (
-                        <Box
+                        <IconButton
                             sx={{
                                 backgroundColor: '#FCFBF8',
                                 width: '40px',
@@ -207,7 +205,16 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                             }}
                         >
                             <TurnedInIcon style={{ color: '#F6C70E' }} />
-                        </Box>
+                        </IconButton>
+                    ) : (
+                        <IconButton
+                            sx={{
+                                borderRadius: '8px',
+                                p: 0
+                            }}
+                        >
+                            <JobBookmarkIcon />
+                        </IconButton>
                     )}
                 </Box>
             </Box>

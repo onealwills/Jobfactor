@@ -26,6 +26,7 @@ import JobPreference from '../pages/MyJobs/JobPreference';
 import SavedJobs from '../pages/MyJobs/SavedJobs';
 import AppliedJobs from '../pages/MyJobs/AppliedJobs';
 import CompanyActivities from '../pages/CompanyActivities/CompanyActivities';
+import JobApplicants from '../pages/MyJobs/JobApplicants';
 import CompanyDetails from '../pages/AboutCompany';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
@@ -200,6 +201,14 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <MainLayout children={<JobPostDetail />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="job-postdetail/:id/applicants"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<JobApplicants />} />
                         </RequireAuth>
                     }
                 />

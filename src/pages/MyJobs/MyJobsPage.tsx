@@ -4,9 +4,39 @@ import JobsList from './components/JobsList/JobsList';
 import AspiringJobs from './components/AspiringJobs';
 import { useGetJobs } from '../../utils/hooks/api/jobs/useGetJobs';
 import Loader from '../../components/Loader';
+import { useGetAppliedJobs } from '../../utils/hooks/api/jobs/useGetAppliedJobs';
+import { useAuth } from '../../utils/context/AuthContext';
+import { useEffect, useState } from 'react';
+import { IJobItem } from './types/IJobItem';
 
 function MyJobsPage() {
-    const { data: jobs, isLoading } = useGetJobs();
+    const { user } = useAuth();
+    const { data, isFetching } = useGetJobs();
+    const [jobs, setJobs] = useState<IJobItem[]>([]);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const { data: appliedJobs, isFetching: appliedJobsFetching } =
+        useGetAppliedJobs(user.professionalProfile.id);
+
+    useEffect(() => {
+        setIsLoaded(false);
+        if (!isFetching && !appliedJobsFetching) {
+            let jobIds: string[] = [];
+            let jobs: IJobItem[] = [];
+            appliedJobs.map((x: IJobItem) =>
+                jobIds.push(x?.jobPosting?.id ?? '')
+            );
+            data.filter((x: IJobItem) => {
+                if (jobIds.includes(x.id ?? '')) {
+                    jobs.push({ ...x, isApplied: true });
+                } else {
+                    jobs.push({ ...x, isApplied: false });
+                }
+                return null;
+            });
+            setJobs(jobs);
+            setIsLoaded(true);
+        }
+    }, [isFetching, appliedJobsFetching, appliedJobs, data]);
 
     return (
         <Box
@@ -15,9 +45,7 @@ function MyJobsPage() {
             }}
         >
             <JobsHeader title="Jobs" />
-            {isLoading ? (
-                <Loader />
-            ) : (
+            {isLoaded ? (
                 <>
                     <JobsList
                         title={'Recommended for you'}
@@ -46,6 +74,8 @@ function MyJobsPage() {
                         showheader={true}
                     />
                 </>
+            ) : (
+                <Loader />
             )}
         </Box>
     );

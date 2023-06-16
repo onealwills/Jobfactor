@@ -27,7 +27,6 @@ const requirements = {
 };
 const JobItem = (props: { jobInfo: IJobItem }) => {
     const { jobInfo } = props;
-
     const [applyjob, setApplyjob] = useState<boolean>(false);
     const [alreadyapply, setAlreadyApply] = useState<boolean>(false);
 
@@ -36,21 +35,6 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
         if (e === 'submit') {
             setAlreadyApply(true);
         }
-    };
-
-    const handleApplyNow = () => {
-        // let data = {
-        //     jobPostingId: jobInfo?.id,
-        //     professionalProfileId: ''
-        // }
-        // useApplyJob().mutate(data, {
-        //     onSuccess: async (data) => {
-        //     },
-        //     onError: (error) => {
-        //         console.error(error);
-        //         alert(error);
-        //     }
-        // });
     };
 
     const CompanyInfo = (props: { jobInfo: IJobItem }) => {
@@ -291,7 +275,12 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                 />
                             </svg>
                         </Box>
-                        <Typography
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: jobInfo?.description ?? ''
+                            }}
+                        />
+                        {/* <Typography
                             sx={{
                                 fontFamily: 'Open Sans',
                                 fontWeight: 400,
@@ -300,7 +289,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             }}
                         >
                             {jobInfo.description}
-                        </Typography>
+                        </Typography> */}
                     </Box>
                     <Typography
                         sx={{
@@ -332,20 +321,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     marginTop: '20px'
                 }}
             >
-                {jobInfo.status === 'OPEN' ? (
-                    <Button
-                        variant="contained"
-                        sx={{
-                            padding: '10px 15px',
-                            width: 'fit-content'
-                        }}
-                        onClick={() => {
-                            setApplyjob(true);
-                        }}
-                    >
-                        Apply
-                    </Button>
-                ) : (
+                {jobInfo?.isApplied ? (
                     <Button
                         variant="contained"
                         sx={{
@@ -355,6 +331,17 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                         disabled={true}
                     >
                         Applied
+                    </Button>
+                ) : (
+                    <Button
+                        variant="contained"
+                        sx={{
+                            padding: '10px 15px',
+                            width: 'fit-content'
+                        }}
+                        onClick={() => setApplyjob(true)}
+                    >
+                        Apply
                     </Button>
                 )}
                 <Button
@@ -386,9 +373,12 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
             <JobPostingRequirements jobInfo={jobInfo} />
             <ApplyJob
                 showModal={applyjob}
+                queryKey="retrieve-jobs"
+                jobId={jobInfo.id ?? ''}
                 hideModal={(e) => {
                     onHideJob(e);
                 }}
+                companyName={jobInfo?.company?.name}
             />
         </Box>
     );

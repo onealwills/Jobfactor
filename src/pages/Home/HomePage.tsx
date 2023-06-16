@@ -13,8 +13,18 @@ import HatIcon from '../../assets/icons/HatIcon';
 import Footer from '../../components/Footer';
 import ScrollToTop from '../../components/ScrollToTop.tsx';
 import ScoreCard from '../../components/ScoreCard.tsx';
+import { useAuth } from '../../utils/context/AuthContext';
+import { useGetUserInfo } from '../../utils/hooks/api/users/useGetUserInfo';
+import { useEffect } from 'react';
 
 function HomePage() {
+    const { account, setUser } = useAuth();
+    const { data, isFetched } = useGetUserInfo(account ? account.sub : '');
+    useEffect(() => {
+        if (data?.id) {
+            setUser(data);
+        }
+    }, [isFetched]);
     return (
         <>
             <Box sx={{ mt: -9, ml: 2 }}>

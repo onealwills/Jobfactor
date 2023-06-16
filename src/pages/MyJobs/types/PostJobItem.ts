@@ -1,7 +1,7 @@
 export interface PostJobItem {
-    jobTitle: string;
-    jobId: string;
-    postdate: string;
+    title: string;
+    id: string;
+    createdAt: string;
     JobRole: string;
     JobSummary: string[];
     jobDetails: {
@@ -9,5 +9,6 @@ export interface PostJobItem {
         location: string;
         skills: { key: string; status: string }[];
     };
+    description: string;
     active: boolean;
 }

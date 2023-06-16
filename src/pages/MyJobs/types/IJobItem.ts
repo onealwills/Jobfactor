@@ -14,6 +14,8 @@ export interface IJobItem {
         logo: string;
         name: string;
     };
+    isApplied?: boolean;
+    jobPosting?: IJobItem;
 
     requirements: {
         minJobFactorScore: number;

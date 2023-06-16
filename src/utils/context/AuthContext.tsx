@@ -24,8 +24,10 @@ interface AuthContextType {
     setAccessToken: React.Dispatch<React.SetStateAction<string>>;
     setRefreshToken: React.Dispatch<React.SetStateAction<string>>;
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    setUser: React.Dispatch<React.SetStateAction<any>>;
     isAuthenticated: boolean | null;
     account: Account | null;
+    user: any;
     signIn: (email: string, password: string) => Promise<void>;
     signOut: () => void;
 }
@@ -39,11 +41,13 @@ export const AuthContext = createContext<AuthContextType>({
     refreshToken: '',
     isAuthenticated: null,
     account: null,
-    signIn: async () => {},
-    signOut: () => {},
-    setAccessToken: () => {},
-    setRefreshToken: () => {},
-    setIsAuthenticated: () => {}
+    user: null,
+    setUser: () => { },
+    signIn: async () => { },
+    signOut: () => { },
+    setAccessToken: () => { },
+    setRefreshToken: () => { },
+    setIsAuthenticated: () => { }
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -62,6 +66,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const [account, setAccount] = useLocalStorage<Account | null>(
         localStorageConstants.Account,
+        null
+    );
+
+    const [user, setUser] = useLocalStorage<any>(
+        localStorageConstants.User,
         null
     );
 
@@ -126,6 +135,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 { emailAddress, password },
                 {
                     onSuccess: async (data) => {
+                        axiosInstance.interceptors.request.use((config) => {
+                            config.headers.Authorization = `Bearer ${data.accessToken}`;
+                            return config;
+                        });
                         setAccessToken(data.accessToken);
                         setRefreshToken(data.refreshToken);
                         setIsAuthenticated(true);
@@ -160,6 +173,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const clearAuthInfo = () => {
         setAccessToken('');
         setRefreshToken('');
+        setUser(null);
         setIsAuthenticated(false);
         setAccount(null);
     };
@@ -175,8 +189,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 refreshToken,
                 isAuthenticated,
                 account,
+                user,
                 signIn,
                 signOut,
+                setUser,
                 setAccessToken,
                 setRefreshToken,
                 setIsAuthenticated
@@ -193,7 +209,9 @@ export function useAuth() {
         refreshToken,
         isAuthenticated,
         account,
+        user,
         signIn,
+        setUser,
         signOut,
         setAccessToken,
         setIsAuthenticated
@@ -225,6 +243,10 @@ export function useAuth() {
                             }
                         );
                         const data = response.data;
+                        axiosInstance.interceptors.request.use((config) => {
+                            config.headers.Authorization = `Bearer ${data.accessToken}`;
+                            return config;
+                        });
                         setAccessToken(data.accessToken);
                         setAccessToken(data.refreshToken);
                         setIsAuthenticated(true);
@@ -235,6 +257,11 @@ export function useAuth() {
                         setIsRefreshingToken(false);
                     }
                 }
+            } else {
+                axiosInstance.interceptors.request.use((config) => {
+                    config.headers.Authorization = `Bearer ${accessToken}`;
+                    return config;
+                });
             }
         };
 
@@ -246,7 +273,9 @@ export function useAuth() {
         refreshToken,
         isAuthenticated,
         account,
+        user,
         signIn,
-        signOut
+        signOut,
+        setUser
     };
 }

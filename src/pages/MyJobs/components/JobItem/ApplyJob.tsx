@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Typography, IconButton, InputBase } from '@mui/material';
+import {
+    Box,
+    Button,
+    Typography,
+    IconButton,
+    InputBase,
+    CircularProgress
+} from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { styled } from '@mui/material/styles';
 import LinearProgress, {
@@ -18,6 +25,10 @@ import AddIcon from '@mui/icons-material/Add';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
+import SnackAlert from '../../../../components/Snackbar';
+import { useQueryClient } from 'react-query';
+import { useApplyJob } from '../../../../utils/hooks/api/jobs/useApplyJob';
+import { useAuth } from '../../../../utils/context/AuthContext';
 
 const modalstyle = {
     position: 'absolute' as 'absolute',
@@ -37,11 +48,29 @@ const modalstyle = {
 interface ApplyJobProps {
     showModal: boolean;
     hideModal: (e?: any) => void;
+    jobId: string;
+    queryKey: string;
+    companyName: string | undefined;
 }
 
-const ApplyJob = ({ showModal, hideModal }: ApplyJobProps) => {
+const ApplyJob = ({
+    showModal,
+    jobId,
+    hideModal,
+    queryKey = '',
+    companyName = ''
+}: ApplyJobProps) => {
     const [progress, setProgress] = useState<number>(25);
     const [showall, setShowAll] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [show, setShow] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
+    const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>(
+        'info'
+    );
+    const applyNow = useApplyJob();
+    const queryClient = useQueryClient();
+    const { user } = useAuth();
 
     useEffect(() => {
         setProgress(25);
@@ -53,6 +82,34 @@ const ApplyJob = ({ showModal, hideModal }: ApplyJobProps) => {
             setShowAll(false);
         } else {
             setProgress(progress - 25);
+        }
+    };
+
+    const handleApplyNow = () => {
+        if (user?.id && jobId) {
+            setLoading(true);
+            let data = {
+                jobPostingId: jobId ?? '',
+                professionalProfileId: user?.professionalProfile?.id ?? ''
+            };
+            applyNow.mutate(data, {
+                onSuccess: (res) => {
+                    setType('success');
+                    setMessage('Applied Successfully');
+                    setShow(true);
+                    if (queryKey) {
+                        queryClient.invalidateQueries({ queryKey: [queryKey] });
+                    }
+                    setLoading(false);
+                    hideModal();
+                },
+                onError: (error) => {
+                    setType('success');
+                    setMessage('Error occured please try again later!');
+                    setShow(true);
+                    setLoading(false);
+                }
+            });
         }
     };
 
@@ -1123,16 +1180,18 @@ const ApplyJob = ({ showModal, hideModal }: ApplyJobProps) => {
                                 Back
                             </Button>
                         </Box>
-                        <Box sx={{ width: '64%' }}>
-                            <Button
-                                variant="contained"
-                                sx={{ py: 1, display: 'flex', gap: '10px' }}
-                                onClick={() => {
-                                    hideModal('submit');
-                                }}
-                            >
-                                Submit
-                            </Button>
+                        <Box sx={{ width: '64%', textAlign: 'center' }}>
+                            {loading ? (
+                                <CircularProgress sx={{ color: '#05668D' }} />
+                            ) : (
+                                <Button
+                                    variant="contained"
+                                    sx={{ py: 1, display: 'flex', gap: '10px' }}
+                                    onClick={handleApplyNow}
+                                >
+                                    Submit
+                                </Button>
+                            )}
                         </Box>
                     </Box>
                 )}
@@ -1141,72 +1200,80 @@ const ApplyJob = ({ showModal, hideModal }: ApplyJobProps) => {
     };
 
     return (
-        <Modal
-            open={showModal}
-            onClose={hideModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={modalstyle}>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        border: 0,
-                        borderBottomWidth: 1,
-                        borderBottomColor: '#CCC',
-                        borderStyle: 'solid',
-                        marginBottom: '15px',
-                        paddingBottom: 1
-                    }}
-                >
+        <>
+            <Modal
+                open={showModal}
+                onClose={hideModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={modalstyle}>
                     <Box
                         sx={{
                             display: 'flex',
-                            alignItems: 'flex-start',
-                            gap: '15px'
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            border: 0,
+                            borderBottomWidth: 1,
+                            borderBottomColor: '#CCC',
+                            borderStyle: 'solid',
+                            marginBottom: '15px',
+                            paddingBottom: 1
                         }}
                     >
-                        {progress > 25 && (
-                            <Box
-                                sx={{ cursor: 'pointer' }}
-                                onClick={() => {
-                                    handleShow();
-                                }}
-                            >
-                                <KeyboardBackspaceIcon
-                                    style={{
-                                        color: '#808080',
-                                        fontWeight: '400'
-                                    }}
-                                />
-                            </Box>
-                        )}
-                        <Box>
-                            <h4 style={{ marginTop: 0, marginBottom: 0 }}>
-                                Apply to Xteria Solutions
-                            </h4>
-                        </Box>
-                    </Box>
-                    <Box>
-                        <div
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                                hideModal();
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '15px'
                             }}
                         >
-                            <Cancel />
-                        </div>
+                            {progress > 25 && (
+                                <Box
+                                    sx={{ cursor: 'pointer' }}
+                                    onClick={() => {
+                                        handleShow();
+                                    }}
+                                >
+                                    <KeyboardBackspaceIcon
+                                        style={{
+                                            color: '#808080',
+                                            fontWeight: '400'
+                                        }}
+                                    />
+                                </Box>
+                            )}
+                            <Box>
+                                <h4 style={{ marginTop: 0, marginBottom: 0 }}>
+                                    Apply to {companyName}
+                                </h4>
+                            </Box>
+                        </Box>
+                        <Box>
+                            <div
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => {
+                                    hideModal();
+                                }}
+                            >
+                                <Cancel />
+                            </div>
+                        </Box>
                     </Box>
+                    <ProgressBar />
+                    {(progress === 25 || showall) && <ContactInfo />}
+                    {(progress === 50 || showall) && <EducationInfo />}
+                    {(progress === 75 || showall) && <WorkExperience />}
+                    {(progress === 100 || showall) && <CoverLetter />}
                 </Box>
-                <ProgressBar />
-                {(progress === 25 || showall) && <ContactInfo />}
-                {(progress === 50 || showall) && <EducationInfo />}
-                {(progress === 75 || showall) && <WorkExperience />}
-                {(progress === 100 || showall) && <CoverLetter />}
-            </Box>
-        </Modal>
+            </Modal>
+            <SnackAlert
+                open={show}
+                type={type}
+                message={message}
+                handleClose={() => setShow(false)}
+            />
+        </>
     );
 };
 
