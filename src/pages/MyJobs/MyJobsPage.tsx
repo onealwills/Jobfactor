@@ -3,7 +3,6 @@ import JobsHeader from './components/JobsHeader';
 import JobsList from './components/JobsList/JobsList';
 import AspiringJobs from './components/AspiringJobs';
 import { useGetJobs } from '../../utils/hooks/api/jobs/useGetJobs';
-import Loader from '../../components/Loader';
 import { useGetAppliedJobs } from '../../utils/hooks/api/jobs/useGetAppliedJobs';
 import { useAuth } from '../../utils/context/AuthContext';
 import { useEffect, useState } from 'react';
@@ -74,9 +73,7 @@ function MyJobsPage() {
                         showheader={true}
                     />
                 </>
-            ) : (
-                <Loader />
-            )}
+            ) : null}
         </Box>
     );
 }

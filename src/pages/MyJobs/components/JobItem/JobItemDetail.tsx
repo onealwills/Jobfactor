@@ -13,7 +13,6 @@ import { useLocation } from 'react-router-dom';
 import ApplyJob from './ApplyJob';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useGetJobById } from '../../../../utils/hooks/api/jobs/useGetJobById';
-import Loader from '../../../../components/Loader';
 import { useAuth } from '../../../../utils/context/AuthContext';
 
 interface IApplicantType {
@@ -681,7 +680,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
             }}
         >
             {isFetching ? (
-                <Loader />
+                null
             ) : (
                 <>
                     <JobDetailHeader jobItem={jobItem} />

@@ -2,7 +2,6 @@ import { Box, Button, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { useGetJobById } from '../../../../utils/hooks/api/jobs/useGetJobById';
-import Loader from '../../../../components/Loader';
 
 const JobPostDetail = () => {
     const { id } = useParams();
@@ -12,7 +11,7 @@ const JobPostDetail = () => {
     return (
         <>
             {isFetching ? (
-                <Loader />
+                null
             ) : (
                 <Box
                     sx={{

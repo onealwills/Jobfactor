@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import JobsHeader from '../components/JobsHeader';
 import JobsList from '../components/JobsList/JobsList';
-import Loader from '../../../components/Loader';
 import { IJobItem } from '../types/IJobItem';
 import { useGetAppliedJobs } from '../../../utils/hooks/api/jobs/useGetAppliedJobs';
 import { useAuth } from '../../../utils/context/AuthContext';
@@ -20,7 +19,7 @@ function AppliedJobs() {
         >
             <JobsHeader title="Applied Jobs" />
             {isFetching ? (
-                <Loader />
+                null
             ) : (
                 <>
                     <JobsList

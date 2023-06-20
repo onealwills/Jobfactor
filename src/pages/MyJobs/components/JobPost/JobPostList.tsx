@@ -2,7 +2,6 @@ import { Box, Grid } from '@mui/material';
 import JobPostItem from '../JobPost/JobPostItem';
 import { PostJobItem } from '../../types/PostJobItem';
 import { useGetJobs } from '../../../../utils/hooks/api/jobs/useGetJobs';
-import Loader from '../../../../components/Loader';
 
 const JobPostList = () => {
     const { data: jobs, isFetched } = useGetJobs();
@@ -36,7 +35,7 @@ const JobPostList = () => {
                         ))}
                     </Grid>
                 ) : (
-                    <Loader />
+                    null
                 )}
             </Box>
         </Box>

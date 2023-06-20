@@ -9,9 +9,16 @@ const axiosInstance = axios.create({
 //     .getItem(localStorageConstants.AccessToken)
 //     ?.replace(/"/g, '');
 // const bearerToken = `Bearer ${accessToken}`;
-// axiosInstance.interceptors.request.use((config) => {
-//     config.headers.Authorization = bearerToken;
-//     return config;
-// });
+axiosInstance.interceptors.request.use((config) => {
+    document.body.classList.add('loading');
+    return config;
+});
 
+axiosInstance.interceptors.response.use((response) => {
+    document.body.classList.remove('loading');
+    return response;
+}, (error) => {
+    document.body.classList.remove('loading');
+    return Promise.reject(error);
+});
 export default axiosInstance;
