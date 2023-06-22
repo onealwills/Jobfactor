@@ -5,6 +5,8 @@ import { localStorageConstants } from './constants';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import axiosInstance from '../hooks/api/axiosConfig';
 import { PrimaryProfileType } from '../hooks/api/account/types';
+import { SignInResponse } from '../hooks/api/authentication/types';
+import axios from 'axios';
 
 interface Account {
     sub: string;
@@ -28,7 +30,7 @@ interface AuthContextType {
     isAuthenticated: boolean | null;
     account: Account | null;
     user: any;
-    signIn: (email: string, password: string) => Promise<void>;
+    signIn: (email: string, password: string) => Promise<SignInResponse | unknown>;
     signOut: () => void;
 }
 
@@ -42,12 +44,12 @@ export const AuthContext = createContext<AuthContextType>({
     isAuthenticated: null,
     account: null,
     user: null,
-    setUser: () => { },
-    signIn: async () => { },
-    signOut: () => { },
-    setAccessToken: () => { },
-    setRefreshToken: () => { },
-    setIsAuthenticated: () => { }
+    setUser: () => {},
+    signIn: async () => {},
+    signOut: () => {},
+    setAccessToken: () => {},
+    setRefreshToken: () => {},
+    setIsAuthenticated: () => {}
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -131,7 +133,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const signInMutation = useAccountAuthenticate();
     const signIn = async (emailAddress: string, password: string) => {
         try {
-            signInMutation.mutate(
+            return await signInMutation.mutateAsync(
                 { emailAddress, password },
                 {
                     onSuccess: async (data) => {
@@ -161,12 +163,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             }
                         };
                         setAccount(account);
-                    }
+                    },
+                    onError: async (err) => { }
                 }
             );
         } catch (error) {
             console.error(error);
             clearAuthInfo();
+            if (axios.isAxiosError(error)) {
+                return error?.response?.data;
+            }
         }
     };
 

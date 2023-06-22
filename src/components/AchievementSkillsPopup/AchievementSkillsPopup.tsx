@@ -16,7 +16,11 @@ interface IProptypes {
     setSelectedSkills: (skill: string[]) => void;
 }
 
-const AchievementSkillsPopup = ({ setSelectedSkills = () => { }, handleClose = () => { }, selectedSkills = [] }: IProptypes) => {
+const AchievementSkillsPopup = ({
+    setSelectedSkills = () => {},
+    handleClose = () => {},
+    selectedSkills = []
+}: IProptypes) => {
     const [skills, setSkills] = useState<string[]>([]);
     const [search, setSearch] = useState<string>('');
 
@@ -65,7 +69,9 @@ const AchievementSkillsPopup = ({ setSelectedSkills = () => { }, handleClose = (
                         borderBottom: '2px solid #D9D9D9'
                     }}
                 >
-                    <Typography variant='titleLargeSemiBold'>Relevant skills acquired from this achievement</Typography>
+                    <Typography variant="titleLargeSemiBold">
+                        Relevant skills acquired from this achievement
+                    </Typography>
                     <IconButton onClick={handleClose}>
                         <ModalClose />
                     </IconButton>

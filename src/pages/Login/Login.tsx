@@ -15,8 +15,9 @@ import profileReview from './../../assets/images/profileReview.png';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/context/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import OnboardingLineIcon from '../../assets/icons/OnboardingLineIcon';
+import SnackAlert from '../../components/Snackbar';
 
 interface ILoginForm {
     emailAddress: string;
@@ -33,6 +34,8 @@ const cardReiew =
 function Login() {
     let navigate = useNavigate();
     const location = useLocation();
+    const [message, setMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
     const queryParams = new URLSearchParams(location.search);
     const { signIn, isAuthenticated, accessToken, account } = useAuth();
     const {
@@ -61,7 +64,11 @@ function Login() {
     }, [isAuthenticated, accessToken]);
 
     const onSubmit: SubmitHandler<ILoginForm> = async (data) => {
-        await signIn(data.emailAddress, data.password);
+        const response: any = await signIn(data.emailAddress, data.password)
+        if (response?.message) {
+            setMessage(response?.message);
+            setShowAlert(true);
+        }
     };
 
     return (
@@ -554,6 +561,12 @@ function Login() {
                     </Box>
                 </Box>
             </Box>
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={'error'}
+            />
         </>
     );
 }

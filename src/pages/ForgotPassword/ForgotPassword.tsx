@@ -74,10 +74,7 @@ function ForgotPassword() {
                         setLoading(false);
                         if (axios.isAxiosError(error)) {
                             setType('error');
-                            setMessage(
-                                error?.response?.data?.message ??
-                                    'Error occured please try again!'
-                            );
+                            setMessage('Incorrect credentials');
                             setShowAlert(true);
                             return;
                         }

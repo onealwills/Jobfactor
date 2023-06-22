@@ -2,6 +2,7 @@ import {
     Box,
     Button,
     Checkbox,
+    CircularProgress,
     InputBase,
     InputLabel,
     Typography
@@ -17,12 +18,14 @@ import PasswordFormIcon from '../../../../assets/icons/PasswordFormIcon';
 import ErrorFormIcon from '../../../../assets/icons/ErrorFormIcon';
 import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 import OnboardingLineIcon from '../../../../assets/icons/OnboardingLineIcon';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     CreateAccountType,
     CreateProAccountRequest
 } from '../../../../utils/hooks/api/account/types';
 import { useCreateProAccount } from '../../../../utils/hooks/api/account/useCreateProAccount';
+import axios, { AxiosError } from 'axios';
+import SnackAlert from '../../../../components/Snackbar';
 
 interface IUserInfo {
     firstName: string;
@@ -34,6 +37,9 @@ interface IUserInfo {
 
 function UserCreate() {
     let navigate = useNavigate();
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const {
         control,
         handleSubmit,
@@ -53,6 +59,7 @@ function UserCreate() {
 
     const handleCreateAccount = async (data: GlobalState) => {
         if (data.data.accountType === CreateAccountType.Professional) {
+            setLoading(true);
             const request: CreateProAccountRequest = {
                 emailAddress: data.data.emailAddress,
                 firstName: data.data.firstName,
@@ -64,13 +71,22 @@ function UserCreate() {
                 createAccountMutation.mutate(request, {
                     onSuccess: async (res) => {
                         actions.clearAction();
+                        setLoading(false);
                         navigate(
                             `/create-account/confirmEmail/${data.data.emailAddress}`
                         );
                     },
-                    onError: (error) => {
-                        console.error(error);
-                        alert(error);
+                    onError: (error: AxiosError) => {
+                        setLoading(false);
+                        if (axios.isAxiosError(error)) {
+                            console.error(error?.response?.status);
+                            if (error?.response?.status === 409) {
+                                setMessage('Email already exists!');
+                            } else {
+                                setMessage('Incorrect credentials!');
+                            }
+                            setShowAlert(true);
+                        }
                     }
                 });
             }
@@ -628,22 +644,25 @@ function UserCreate() {
                         justifyContent: 'center'
                     }}
                 >
-                    <Button
-                        sx={{
-                            height: '52px'
-                        }}
-                        variant="contained"
-                        disabled={!isDirty || !isValid}
-                        onClick={handleSubmit(onSubmit)}
-                    >
-                        <Typography
-                            variant="bodyLargeBold"
-                            textTransform="capitalize"
+                    {loading ? (
+                        <CircularProgress sx={{ color: '#05668D' }} />
+                    ) : (
+                        <Button
+                            sx={{
+                                height: '52px'
+                            }}
+                            variant="contained"
+                            disabled={!isDirty || !isValid}
+                            onClick={handleSubmit(onSubmit)}
                         >
-                            Create Account
-                        </Typography>
-                    </Button>
-
+                            <Typography
+                                variant="bodyLargeBold"
+                                textTransform="capitalize"
+                            >
+                                Create Account
+                            </Typography>
+                        </Button>
+                    )}
                     <Box
                         sx={{
                             display: 'flex',
@@ -718,6 +737,12 @@ function UserCreate() {
                     </Box>
                 </Box>
             </Box>
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={'error'}
+            />
         </>
     );
 }

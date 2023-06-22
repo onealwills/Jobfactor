@@ -77,7 +77,10 @@ const PostCards = ({
     const [type, setType] = useState<string>('Connections');
     const [disable, setDisable] = useState<boolean>(false);
     const [btnTitle, setBtnTitle] = useState<string>('Post');
-    const [selectedSkills, setSelectedSkills] = useState<Array<string>>(['Figma', 'HTML']);
+    const [selectedSkills, setSelectedSkills] = useState<Array<string>>([
+        'Figma',
+        'HTML'
+    ]);
 
     const TypeData = [{ name: 'Connections' }, { name: 'Anyone on Jobfactor' }];
 
@@ -240,7 +243,10 @@ const PostCards = ({
     return (
         <Modal
             open={showModal}
-            onClose={() => { reset(); hideModal(); }}
+            onClose={() => {
+                reset();
+                hideModal();
+            }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
@@ -319,7 +325,10 @@ const PostCards = ({
                 ) : step === 4 ? (
                     <>
                         <AchievementSkillsPopup
-                            handleClose={() => { reset(); hideModal(); }}
+                            handleClose={() => {
+                                reset();
+                                hideModal();
+                            }}
                             selectedSkills={selectedSkills}
                             setSelectedSkills={setSelectedSkills}
                         />
@@ -347,7 +356,10 @@ const PostCards = ({
                             <Box>
                                 <div
                                     style={{ cursor: 'pointer' }}
-                                    onClick={() => { reset(); hideModal(); }}
+                                    onClick={() => {
+                                        reset();
+                                        hideModal();
+                                    }}
                                 >
                                     <ClearIcon />
                                 </div>
@@ -355,7 +367,9 @@ const PostCards = ({
                         </Box>
                         <Box
                             sx={{
-                                background: repostPopup ? '#FCFBF8' : 'transparent'
+                                background: repostPopup
+                                    ? '#FCFBF8'
+                                    : 'transparent'
                             }}
                         >
                             <Box
@@ -839,32 +853,36 @@ const PostCards = ({
                                             gap: '20px',
                                             flexWrap: 'wrap',
                                             p: '20px',
-                                            background: 'white',
+                                            background: 'white'
                                         }}
                                     >
-                                        {assetArea.map(item => (
+                                        {assetArea.map((item) => (
                                             <Box
                                                 sx={{
-                                                    position: "relative"
+                                                    position: 'relative'
                                                 }}
                                             >
                                                 <Box
                                                     sx={{
                                                         cursor: 'pointer',
-                                                        position: "absolute",
+                                                        position: 'absolute',
                                                         right: '7px',
                                                         top: '7px'
-
                                                     }}
                                                     onClick={() => {
-                                                        onDeletImage(
-                                                            item
-                                                        );
+                                                        onDeletImage(item);
                                                     }}
                                                 >
                                                     <CancelIcon />
                                                 </Box>
-                                                <img src={item} style={{ width: '200px', height: '200px' }} alt='' />
+                                                <img
+                                                    src={item}
+                                                    style={{
+                                                        width: '200px',
+                                                        height: '200px'
+                                                    }}
+                                                    alt=""
+                                                />
                                             </Box>
                                         ))}
                                     </Box>
@@ -908,18 +926,25 @@ const PostCards = ({
                                                 gap={12}
                                             >
                                                 {assetArea.map(
-                                                    (item: any, index: number) => {
-                                                        const cols = item?.featured
-                                                            ? 2
-                                                            : 1;
-                                                        const rows = item?.featured
-                                                            ? 2
-                                                            : 1;
+                                                    (
+                                                        item: any,
+                                                        index: number
+                                                    ) => {
+                                                        const cols =
+                                                            item?.featured
+                                                                ? 2
+                                                                : 1;
+                                                        const rows =
+                                                            item?.featured
+                                                                ? 2
+                                                                : 1;
                                                         return (
                                                             <ImageListItem
                                                                 sx={{
-                                                                    objectFit: 'fill',
-                                                                    overflow: 'hidden'
+                                                                    objectFit:
+                                                                        'fill',
+                                                                    overflow:
+                                                                        'hidden'
                                                                 }}
                                                                 key={index + 2}
                                                                 cols={cols}
@@ -927,11 +952,15 @@ const PostCards = ({
                                                             >
                                                                 <img
                                                                     src={item}
-                                                                    alt={'images'}
+                                                                    alt={
+                                                                        'images'
+                                                                    }
                                                                     loading="lazy"
                                                                     style={{
-                                                                        objectFit: 'fill',
-                                                                        maxWidth: '200px'
+                                                                        objectFit:
+                                                                            'fill',
+                                                                        maxWidth:
+                                                                            '200px'
                                                                     }}
                                                                 />
                                                                 <ImageListItemBar

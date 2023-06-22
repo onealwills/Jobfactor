@@ -7,7 +7,11 @@ const VerifyAccount = () => {
     const queryParams = new URLSearchParams(location.search);
 
     useEffect(() => {
-        navigate(`/create-account/confirmEmail/${queryParams.get('email')}?hash=${queryParams.get('hash')}`);
+        navigate(
+            `/create-account/confirmEmail/${queryParams.get(
+                'email'
+            )}?hash=${queryParams.get('hash')}`
+        );
     }, []);
 
     return <div></div>;

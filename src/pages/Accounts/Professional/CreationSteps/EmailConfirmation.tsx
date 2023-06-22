@@ -28,7 +28,7 @@ function EmailConfirmation() {
             {
                 verificationCode: queryParams.get('hash') ?? '',
                 emailAddress: 'string',
-                verificationType: 'HASH',
+                verificationType: 'HASH'
             },
             {
                 onSuccess: (res: any) => {
@@ -42,21 +42,17 @@ function EmailConfirmation() {
                     }
                     setTitle('Account Verification Failed');
                     setType('error');
-                    setMessage(
-                        'Your account verification was unsuccessfully.'
-                    );
+                    setMessage('Your account verification was unsuccessfully.');
                 },
                 onError: () => {
                     setTitle('Account Verification Failed');
                     setType('error');
-                    setMessage(
-                        'Your account verification was unsuccessfully.'
-                    );
+                    setMessage('Your account verification was unsuccessfully.');
                     return;
                 }
             }
         );
-    }
+    };
     const createVerification = () => {
         if (email) {
             setLoading(true);
@@ -84,11 +80,15 @@ function EmailConfirmation() {
                 }
             );
         }
-    }
+    };
 
     React.useEffect(() => {
         actions.updateStep(3);
-        if (email?.includes('.com') && email?.includes('@') && !queryParams.get('hash')) {
+        if (
+            email?.includes('.com') &&
+            email?.includes('@') &&
+            !queryParams.get('hash')
+        ) {
             createVerification();
         } else {
             verifyCode();
@@ -145,22 +145,23 @@ function EmailConfirmation() {
                             Sign In
                         </Button>
                     ) : null}
-                    {type === 'error' ?
-                        loading ?
-                            <CircularProgress
-                                sx={{ color: '#05668D' }}
-                            />
-                            : (
-                                <Button
-                                    variant="contained"
-                                    sx={{
-                                        width: 'auto'
-                                    }}
-                                    onClick={() => { createVerification(); }}
-                                >
-                                    Resend email
-                                </Button>
-                            ) : null}
+                    {type === 'error' ? (
+                        loading ? (
+                            <CircularProgress sx={{ color: '#05668D' }} />
+                        ) : (
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    width: 'auto'
+                                }}
+                                onClick={() => {
+                                    createVerification();
+                                }}
+                            >
+                                Resend email
+                            </Button>
+                        )
+                    ) : null}
                     <EmailConfirmationIcon />
                 </Box>
             </Box>

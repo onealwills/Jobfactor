@@ -6,7 +6,7 @@ import {
     InputLabel,
     Typography
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import OnboardingSteps from '../OnboardingSteps/OnboardingSteps';
 import { Link, useNavigate } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -28,6 +28,8 @@ import GoogleIcon from '../../../assets/icons/GoogleIcon';
 import OnboardingLineIcon from '../../../assets/icons/OnboardingLineIcon';
 import PasswordFormIcon from '../../../assets/icons/PasswordFormIcon';
 import UserFormIcon from '../../../assets/icons/UserFormIcon';
+import axios, { AxiosError } from 'axios';
+import SnackAlert from '../../../components/Snackbar';
 
 interface ICompanyInfo {
     emailAddress: string;
@@ -37,6 +39,9 @@ interface ICompanyInfo {
 }
 function CompanyCreate() {
     let navigate = useNavigate();
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const {
         control,
         handleSubmit,
@@ -57,6 +62,7 @@ function CompanyCreate() {
 
     const handleCreateAccount = async (data: GlobalState) => {
         if (data.data.accountType === CreateAccountType.Company) {
+            setLoading(true);
             const request: CreateCompanyAccountRequest = {
                 emailAddress: data.data.emailAddress,
                 password: data.data.password,
@@ -66,14 +72,23 @@ function CompanyCreate() {
             if (request !== undefined) {
                 createAccountMutation.mutate(request, {
                     onSuccess: async (res) => {
+                        setLoading(false);
                         actions.clearAction();
                         navigate(
                             `/create-account/confirmEmail/${data.data.emailAddress}`
                         );
                     },
-                    onError: (error) => {
-                        console.error(error);
-                        alert(error);
+                    onError: (error: AxiosError) => {
+                        setLoading(false);
+                        if (axios.isAxiosError(error)) {
+                            console.error(error?.response?.status);
+                            if (error?.response?.status === 409) {
+                                setMessage('Email already exists!');
+                            } else {
+                                setMessage('Incorrect credentials!');
+                            }
+                            setShowAlert(true);
+                        }
                     }
                 });
             }
@@ -626,6 +641,12 @@ function CompanyCreate() {
                     </Box>
                 </Box>
             </Box>
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={'error'}
+            />
         </>
     );
 }

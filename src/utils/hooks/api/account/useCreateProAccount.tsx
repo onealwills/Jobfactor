@@ -6,6 +6,7 @@ import {
     ProfessionalProfile
 } from './types';
 import { UseMutationResult, useMutation } from 'react-query';
+import { AxiosError } from 'axios';
 
 async function createProfessionalAccount(
     postRequest: CreateProAccountRequest
@@ -31,7 +32,7 @@ async function createCompanyAccount(
 
 export function useCreateProAccount(): UseMutationResult<
     ProfessionalProfile,
-    unknown,
+    AxiosError,
     CreateProAccountRequest
 > {
     return useMutation(createProfessionalAccount);
@@ -39,7 +40,7 @@ export function useCreateProAccount(): UseMutationResult<
 
 export function useCreateCompanyAccount(): UseMutationResult<
     CompanyProfile,
-    unknown,
+    AxiosError,
     CreateCompanyAccountRequest
 > {
     return useMutation(createCompanyAccount);
