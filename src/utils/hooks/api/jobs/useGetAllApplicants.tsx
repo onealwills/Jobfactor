@@ -10,3 +10,5 @@ export function useGetAllApplicants() {
     };
     return useQuery(QueryKeys.RetrieveAllApplicants, () => getAllApplicants());
 }
+
+

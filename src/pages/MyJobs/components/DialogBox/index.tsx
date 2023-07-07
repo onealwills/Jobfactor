@@ -8,10 +8,11 @@ import PopupCheckmark from '../../../../assets/icons/PopupCheckmark';
 
 interface PropTypes {
     open: boolean;
+    updatePopup?: boolean;
     handleClose: () => void;
     handleOnPostAnother: () => void;
 }
-const DialogBox = ({ open, handleClose, handleOnPostAnother }: PropTypes) => {
+const DialogBox = ({ open, handleClose, handleOnPostAnother, updatePopup = false }: PropTypes) => {
     const navigate = useNavigate();
     return (
         <Dialog open={open} onClose={handleClose}>
@@ -44,7 +45,7 @@ const DialogBox = ({ open, handleClose, handleOnPostAnother }: PropTypes) => {
                             color: '#000000'
                         }}
                     >
-                        Job Posting Successful
+                        {updatePopup ? 'Job Updated Successfully' : 'Job Posting Successful'}
                     </DialogContentText>
                 </Box>
                 <Button

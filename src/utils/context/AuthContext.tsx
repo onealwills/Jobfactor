@@ -8,6 +8,77 @@ import { PrimaryProfileType } from '../hooks/api/account/types';
 import { SignInResponse } from '../hooks/api/authentication/types';
 import axios from 'axios';
 
+interface CurrentEmployment {
+    createdAt: number;
+    lastUpdatedAt: number;
+    id: string;
+    jobTitle: string;
+    jobDescription: string;
+    startYear: string;
+    endYear: string;
+    isCurrentPosition: boolean;
+    companyName: string;
+    companyEmail: string;
+    employmentType: string;
+    employmentLevel: string;
+    location: string;
+    locationType: string[];
+  }
+  
+  interface Employment {
+    id: string;
+    companyName: string;
+    jobTitle: string;
+    startYear: string;
+    endYear: string;
+    isCurrentPosition: boolean;
+    companyEmail: string;
+    employmentType: string;
+    employmentLevel: string;
+    location: string;
+    locationType: string[];
+  }
+  
+  interface Qualification {
+    id: string;
+    school: string;
+    degree: string;
+    fieldOfStudy: string;
+    startYear: string;
+    endYear: string;
+    educationLevel: string;
+  }
+  
+  interface ProfessionalProfile {
+    id: string;
+    emailAddress: string;
+    firstName: string;
+    lastName: string;
+    photoUrl: string;
+    currentEmployment?: CurrentEmployment;
+    employments: Employment[];
+    qualifications: Qualification[];
+  }
+  
+  interface User {
+    id: string;
+    isEnabled: boolean;
+    createdAt: number;
+    lastUpdatedAt: number;
+    primaryProfile: string;
+    accountId: string;
+    primaryCompanyProfile?: CompanyProfile;
+    companyProfiles: CompanyProfile[];
+    professionalProfile?: ProfessionalProfile;
+  }
+
+  interface CompanyProfile {
+    id: string;
+    emailAddress: string;
+    companyName: string;
+    companyId: string;
+  }
+  
 interface Account {
     sub: string;
     primaryProfile: PrimaryProfileType;
@@ -29,7 +100,7 @@ interface AuthContextType {
     setUser: React.Dispatch<React.SetStateAction<any>>;
     isAuthenticated: boolean | null;
     account: Account | null;
-    user: any;
+    user: User | null;
     signIn: (email: string, password: string) => Promise<SignInResponse | unknown>;
     signOut: () => void;
 }

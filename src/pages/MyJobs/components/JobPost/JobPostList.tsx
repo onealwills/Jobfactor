@@ -2,9 +2,13 @@ import { Box, Grid } from '@mui/material';
 import JobPostItem from '../JobPost/JobPostItem';
 import { PostJobItem } from '../../types/PostJobItem';
 import { useGetJobs } from '../../../../utils/hooks/api/jobs/useGetJobs';
+import { useAuth } from '../../../../utils/context/AuthContext';
+import { useGetJobsByCompanyId } from '../../../../utils/hooks/api/jobs/useGetJobsByCompanyId';
 
 const JobPostList = () => {
-    const { data: jobs, isFetched } = useGetJobs();
+    const { user } = useAuth();
+    const companyId = user?.primaryCompanyProfile?.companyId ?? '';
+    const { data: jobs, isFetched } = useGetJobsByCompanyId(companyId);
     return (
         <Box sx={{ backgroundColor: '#FFFFFF', mt: '28px' }}>
             <Box sx={{ mx: 4 }}>
@@ -19,7 +23,7 @@ const JobPostList = () => {
                             justifyContent: 'center'
                         }}
                     >
-                        {jobs.map((item: PostJobItem) => (
+                        {jobs?.map((item: PostJobItem) => (
                             <Grid
                                 item
                                 xs={12}

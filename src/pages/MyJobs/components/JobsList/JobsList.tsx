@@ -11,8 +11,9 @@ const JobsList = (props: {
     description: string;
     showMetrics?: boolean;
     showheader?: boolean;
+    updateData?: (jobId: string) => void;
 }) => {
-    const { data, title, description, showMetrics, showheader } = props;
+    const { data, title, description, showMetrics, showheader, updateData = () => { } } = props;
     const theme = useTheme();
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -48,7 +49,7 @@ const JobsList = (props: {
                                 gap: '32px'
                             }}
                         >
-                            <JobItem jobInfo={item} />
+                            <JobItem jobInfo={item} updateData={updateData}/>
                         </Grid>
                     ))}
                 </Grid>

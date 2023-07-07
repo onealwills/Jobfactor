@@ -14,17 +14,25 @@ export interface IJobItem {
         logo: string;
         name: string;
     };
+    workplaceType?: string;
+    savedJobId: string;
+    isSaved: boolean;
+    savedAt: number;
     isApplied?: boolean;
     jobPosting?: IJobItem;
+    salaryCurrency?: string;
+    salaryRangeFrom?: number;
+    salaryRangeTo?: number;
+    score?: number
 
-    requirements: {
+    requirements?: {
         minJobFactorScore: number;
         keywords: { name: string; type: string; showbackground?: boolean }[];
         responsibilities: string[];
     };
-    posted: string;
-    jobTitle: string;
-    companyLogo: string;
-    keywords: { name: string; type: string; showbackground?: boolean }[];
-    companyName: string;
+    posted?: string;
+    jobTitle?: string;
+    companyLogo?: string;
+    keywords?: { name: string; type: string; showbackground?: boolean }[];
+    companyName?: string;
 }

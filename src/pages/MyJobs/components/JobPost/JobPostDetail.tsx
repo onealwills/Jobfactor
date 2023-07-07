@@ -2,11 +2,12 @@ import { Box, Button, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { useGetJobById } from '../../../../utils/hooks/api/jobs/useGetJobById';
+import { getCompetencyColor, getJobType, getWorkPlace, skillLevel } from '../../../../utils/Helper/helper';
 
 const JobPostDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: jobDetails, isFetching } = useGetJobById(id ?? '');
+    const { data: jobDetails, isFetching } = useGetJobById(id ?? '','');
 
     return (
         <>
@@ -27,30 +28,57 @@ const JobPostDetail = () => {
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
+                            justifyContent: 'space-between',
                             gap: '12px'
                         }}
                     >
                         <Box
-                            sx={{ cursor: 'pointer' }}
-                            onClick={() => {
-                                navigate(-1);
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px'
                             }}
                         >
-                            <ArrowBackOutlinedIcon />
-                        </Box>
-                        <Box>
-                            <Typography
-                                sx={{
-                                    fontSize: '20px',
-                                    fontWeight: '700',
-                                    color: '#23282B'
+                            <Box
+                                sx={{ cursor: 'pointer' }}
+                                onClick={() => {
+                                    navigate(-1);
                                 }}
                             >
-                                {jobDetails?.title}
-                            </Typography>
+                                <ArrowBackOutlinedIcon />
+                            </Box>
+                            <Box>
+                                <Typography
+                                    sx={{
+                                        fontSize: '20px',
+                                        fontWeight: '700',
+                                        color: '#23282B'
+                                    }}
+                                >
+                                    {jobDetails?.title}
+                                </Typography>
+                            </Box>
                         </Box>
+                        <Button
+                            variant='contained'
+                            sx={{
+                                color: '#05668D',
+                                borderRadius: '4px',
+                                background: '#fcfbf8',
+                                padding: '14px 48px',
+                                fontSize: '14px',
+                                border: '1px solid #05668D',
+                                fontFamily: 'Open Sans',
+                                width: 'auto',
+                                fontWeight: '700',
+                                textTransform: 'capitalize'
+                            }}
+                            onClick={() => navigate('/new-jobpost', { state: { id: jobDetails?.id } })}
+                        >
+                            Edit Job posting  
+                        </Button>
                     </Box>
-                    <Typography
+                    {/* <Typography
                         sx={{
                             color: '#808080',
                             fontSize: '14px',
@@ -58,116 +86,137 @@ const JobPostDetail = () => {
                         }}
                     >
                         Job ID : {jobDetails?.id}
+                        Job Description
                     </Typography>
                     <div
                         dangerouslySetInnerHTML={{
                             __html: jobDetails?.description
                         }}
+                    /> */}
+                    <Box sx={{ marginTop: '30px' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '16px',
+                                fontWeight: '600'
+                            }}
+                        >
+                            Job Overview
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '16px',
+                                marginTop: '10px'
+                            }}
+                        >
+                            <div
+                        dangerouslySetInnerHTML={{
+                            __html: jobDetails?.overview
+                        }}
                     />
-                    {/* <Box sx={{ marginTop: '30px' }}>
-                <Typography
-                    sx={{
-                        color: '#23282B',
-                        fontSize: '16px',
-                        fontWeight: '600'
-                    }}
-                >
-                    About the role
-                </Typography>
-                <Typography
-                    sx={{
-                        color: '#808080',
-                        fontSize: '16px',
-                        marginTop: '10px'
-                    }}
-                >
-                    {jobDetails?.JobRole}
-                </Typography>
-            </Box>
-            <Box sx={{ marginTop: '24px' }}>
-                <Typography
-                    sx={{
-                        color: '#23282B',
-                        fontSize: '16px',
-                        fontWeight: '600'
-                    }}
-                >
-                    Summary of the role
-                </Typography>
-                <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobDetails?.JobSummary?.map((item: string[]) => {
-                        return <li>{item}</li>;
-                    })}
-                </ul>
-            </Box> 
-            <Box sx={{ marginTop: '24px' }}>
-                <Typography
-                    sx={{
-                        color: '#23282B',
-                        fontSize: '16px',
-                        fontWeight: '600'
-                    }}
-                >
-                    Responsibilities
-                </Typography>
-                <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobDetails?.jobDetails?.Responsibilities?.map(
-                        (item: string[]) => {
-                            return <li>{item}</li>;
-                        }
-                    )}
-                </ul>
-            </Box>
-            <Box sx={{ marginTop: '24px' }}>
-                <Typography
-                    sx={{
-                        color: '#23282B',
-                        fontSize: '16px',
-                        fontWeight: '600'
-                    }}
-                >
-                    Location:
-                </Typography>
-                <Typography
-                    sx={{
-                        color: '#808080',
-                        fontSize: '16px',
-                        marginTop: '15px'
-                    }}
-                >
-                    {jobDetails?.jobDetails?.location}
-                </Typography>
-            </Box>
-            <Box sx={{ marginTop: '24px' }}>
-                <Typography
-                    sx={{
-                        color: '#23282B',
-                        fontSize: '16px',
-                        fontWeight: '600'
-                    }}
-                >
-                    Required Skills and competency level:
-                </Typography>
-                <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobDetails?.jobDetails?.skills?.map((item: any) => {
-                        return (
-                            <li>
-                                {item?.key} {' - '}{' '}
-                                <span
-                                    style={{
-                                        color: getCompetencyColor(
-                                            item?.status ?? ''
-                                        )
-                                    }}
-                                >
-                                    {item?.status}
-                                </span>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </Box>
-            */}
+                        </Typography>
+                    </Box>
+                    <Box sx={{ marginTop: '24px' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '16px',
+                                fontWeight: '600'
+                            }}
+                        >
+                            We're Recruiting to fill the position below
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '16px',
+                                marginTop: '10px'
+                            }}
+                        >
+                            <p>Job Title: {jobDetails?.title}</p>
+                            <p>Location: {jobDetails?.location} ({getWorkPlace(jobDetails?.workplaceType)})</p>
+                            <p>Employment Type: {getJobType(jobDetails?.jobType)} </p>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ marginTop: '24px' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '16px',
+                                fontWeight: '600'
+                            }}
+                        >
+                            Responsibilities
+                        </Typography>
+                        <ul style={{ color: '#808080', fontSize: '16px' }}>
+                            <li>{jobDetails?.responsibilities}</li>
+                        </ul>
+                    </Box>
+                    <Box sx={{ marginTop: '24px' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '16px',
+                                fontWeight: '600'
+                            }}
+                        >
+                            Qualifications
+                        </Typography>
+                        <ul style={{ color: '#808080', fontSize: '16px' }}>
+                            <li>{jobDetails?.qualifications}</li>
+                        </ul>
+                    </Box>                    
+                    <Box sx={{ marginTop: '24px' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '16px',
+                                fontWeight: '600'
+                            }}
+                        >
+                            More:
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: '#808080',
+                                fontSize: '16px',
+                                marginTop: '15px'
+                            }}
+                        >
+                            {jobDetails?.additionalNote}
+                        </Typography>
+                    </Box>
+                    <Box sx={{ marginTop: '24px' }}>
+                        <Typography
+                            sx={{
+                                color: '#23282B',
+                                fontSize: '16px',
+                                fontWeight: '600'
+                            }}
+                        >
+                            Required Skills and competency level:
+                        </Typography>
+                        <ul style={{ color: '#808080', fontSize: '16px' }}>
+                            {jobDetails?.skills?.map((item: any) => {
+                                return (
+                                    <li>
+                                        {item?.name} {' - '}{' '}
+                                        <span
+                                            style={{
+                                                color: getCompetencyColor(
+                                                    item?.competencyLevel ?? 0
+                                                )
+                                            }}
+                                        >
+                                            {skillLevel.filter(x => x.level === item?.competencyLevel)[0].name}
+                                        </span>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </Box>
+
                     <Box
                         sx={{
                             marginTop: '30px'
@@ -175,14 +224,7 @@ const JobPostDetail = () => {
                     >
                         <Button
                             variant="outlined"
-                            onClick={() => {
-                                navigate(`applicants`, {
-                                    state: {
-                                        applicants: jobDetails?.applicants,
-                                        title: jobDetails?.title
-                                    }
-                                });
-                            }}
+                            onClick={() => navigate(`applicants`)}
                             sx={{
                                 padding: '15px 20px',
                                 width: 'fit-content',

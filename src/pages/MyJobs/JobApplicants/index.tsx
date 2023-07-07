@@ -2,10 +2,19 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Header from '../components/JobApplication/Header';
 import ApplicationList from '../components/JobApplication/ApplicationList';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useGetJobById } from '../../../utils/hooks/api/jobs/useGetJobById';
+import { useAuth } from '../../../utils/context/AuthContext';
 
 const JobApplicants = () => {
-    const location = useLocation().state;
+    const { id } = useParams();
+    const { user } = useAuth();
+    const { data: job, isFetching } = useGetJobById(id ? id : '', user?.primaryCompanyProfile?.id ?? '');
+
+
+
+ 
+
     return (
         <Box
             sx={{
@@ -13,24 +22,27 @@ const JobApplicants = () => {
                 marginLeft: '20px'
             }}
         >
-            <Header title={location?.title ?? 'All Applicants'} />
-            {location?.applicants ? (
-                <ApplicationList
-                    data={location?.applicants}
-                    showMetrics={true}
-                />
-            ) : (
-                <Typography
-                    variant="titleMediumSemiBold"
-                    component={'p'}
-                    sx={{
-                        mt: '20px',
-                        textAlign: 'center'
-                    }}
-                >
-                    No applicants found!
-                </Typography>
-            )}
+            <Header title={job?.title ?? 'All Applicants'} />
+            {!isFetching ?
+                (job?.applicants?.length > 0 ? (
+                    <ApplicationList
+                        data={job?.applicants}
+                        showMetrics={true}
+                    />
+                ) : (
+                    <Typography
+                        variant="titleMediumSemiBold"
+                        component={'p'}
+                        sx={{
+                            mt: '20px',
+                            textAlign: 'center'
+                        }}
+                    >
+                        No applicants found!
+                    </Typography>
+                ))
+                : null
+            }
         </Box>
     );
 };

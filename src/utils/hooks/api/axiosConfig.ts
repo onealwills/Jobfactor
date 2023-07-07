@@ -3,6 +3,7 @@ import { localStorageConstants } from '../../context/constants';
 
 const axiosInstance = axios.create({
     baseURL: 'https://jobfactor-api-dev.azurewebsites.net'
+    // baseURL: 'http://localhost:8000'
 });
 
 // //get from local storage

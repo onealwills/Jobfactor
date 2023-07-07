@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import ChipList from '../Chips/ChipList';
 import { useNavigate } from 'react-router-dom';
 import { IJobItem } from '../../types/IJobItem';
@@ -10,6 +10,11 @@ import VerifiedIcon from '../../../../assets/icons/VerifiedIcon';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import ApplyJob from './ApplyJob';
 import moment from 'moment';
+import { getJobType, getSalaryRange } from '../../../../utils/Helper/helper';
+import { useSaveJob } from '../../../../utils/hooks/api/saved-jobs/useSaveJob';
+import { useAuth } from '../../../../utils/context/AuthContext';
+import SnackAlert from '../../../../components/Snackbar';
+import { useDeleteSavedJob } from '../../../../utils/hooks/api/saved-jobs/useDeleteSavedJob';
 
 const keywords = [
     { name: 'Office Environment', type: 'L', showbackground: true },
@@ -25,17 +30,74 @@ const requirements = {
         { name: 'Prototyping', type: 'X', showbackground: false }
     ]
 };
-const JobItem = (props: { jobInfo: IJobItem }) => {
-    const { jobInfo } = props;
+const JobItem = (props: { jobInfo: IJobItem, updateData?: (jobId: string) => void }) => {
+    const { jobInfo, updateData = () => { } } = props;
+    const { user } = useAuth();
+    const saveJob = useSaveJob();
+    const deleteJob = useDeleteSavedJob();
+    const [message, setMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
     const [applyjob, setApplyjob] = useState<boolean>(false);
-    const [alreadyapply, setAlreadyApply] = useState<boolean>(false);
+    const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>('info');
 
     const onHideJob = (e: any) => {
         setApplyjob(false);
-        if (e === 'submit') {
-            setAlreadyApply(true);
-        }
     };
+
+    const toggleSaveJob = () => {
+        if (!jobInfo.isSaved) {
+            let data = {
+                jobPostingId: jobInfo.id ?? '',
+                professionalProfileId: user?.professionalProfile?.id ?? ''
+            }
+            saveJob.mutate(data, {
+                onSuccess: (res) => {
+                    if (res?.id) {
+                        console.log('saveJob', res)
+                        jobInfo.isSaved = true;
+                        jobInfo.savedJobId = res?.id;
+                        setType('success');
+                        setMessage("Job saved successfully.");
+                        setShowAlert(true);
+                    } else {
+                        setType('error');
+                        setMessage("Error occured please try again!");
+                        setShowAlert(true);
+                    }
+                },
+                onError: (err) => {
+                    console.log('err', err)
+                    setType('error');
+                    setMessage("Error occured please try again!");
+                    setShowAlert(true);
+                }
+            })
+        } else {
+            deleteJob.mutate(jobInfo.savedJobId, {
+                onSuccess: (res) => {
+                    if (res) {
+                        console.log('saveJob', res)
+                        updateData(jobInfo?.id ?? '')
+                        jobInfo.isSaved = false;
+                        jobInfo.savedJobId = '';
+                        setType('success');
+                        setMessage("Job removed successfully.");
+                        setShowAlert(true);
+                    } else {
+                        setType('error');
+                        setMessage("Error occured please try again!");
+                        setShowAlert(true);
+                    }
+                },
+                onError: (err) => {
+                    console.log('err', err)
+                    setType('error');
+                    setMessage("Error occured please try again!");
+                    setShowAlert(true);
+                }
+            })
+        }
+    }
 
     const CompanyInfo = (props: { jobInfo: IJobItem }) => {
         const { jobInfo } = props;
@@ -57,15 +119,17 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                 >
                     <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box>
-                            <img
-                                height={80}
-                                width={80}
-                                src={
-                                    jobInfo?.company?.logo ??
-                                    jobInfo?.companyLogo
-                                }
-                                alt={'company logo'}
-                            />
+                            {jobInfo?.company?.logo ?
+                                <img
+                                    height={80}
+                                    width={80}
+                                    src={
+                                        jobInfo?.company?.logo
+                                    }
+                                    alt={'company logo'}
+                                />
+                                : null
+                            }
                         </Box>
                         <Box>
                             <Typography
@@ -76,7 +140,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                     color: '#23282B'
                                 }}
                             >
-                                {jobInfo.title ?? jobInfo.jobTitle}
+                                {jobInfo.title}
                             </Typography>
                             <Box>
                                 <Box
@@ -95,8 +159,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                             textTransform: 'uppercase'
                                         }}
                                     >
-                                        {jobInfo?.company?.name ??
-                                            jobInfo.companyName}
+                                        {jobInfo?.company?.name}
                                     </Typography>
                                     <VerifiedIcon />
                                 </Box>
@@ -110,7 +173,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                         color: '#808080'
                                     }}
                                 >
-                                    {jobInfo.location ?? 'Lagos'}
+                                    {jobInfo.location}
                                 </Typography>
                             </Box>
                         </Box>
@@ -129,9 +192,9 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                 justifyContent: 'center'
                             }}
                         >
-                            {jobInfo.jobFitMetric ?? 3}
+                            {3}
                         </Box>
-                        {jobInfo?.savedjob ? (
+                        {jobInfo.isSaved ? (
                             <Box
                                 sx={{
                                     backgroundColor: '#FCFBF8',
@@ -140,13 +203,24 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                     borderRadius: '8px',
                                     display: 'flex',
                                     justifyContent: 'center',
-                                    alignItems: 'center'
+                                    alignItems: 'center',
+                                    cursor: 'pointer'
                                 }}
+                                onClick={toggleSaveJob}
                             >
                                 <TurnedInIcon style={{ color: '#FFC24C' }} />
                             </Box>
                         ) : (
-                            <JobBookmarkIcon />
+                            <IconButton
+                                sx={{
+                                    p: 0,
+                                    m: 0,
+                                    height: 'fit-content'
+                                }}
+                                onClick={toggleSaveJob}
+                            >
+                                <JobBookmarkIcon />
+                            </IconButton>
                         )}
                     </Box>
                 </Box>
@@ -201,7 +275,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                         variant={'titleSmallSemiBold'}
                         color={'#808080'}
                     >
-                        {requirements.minJobFactorScore}
+                        {jobInfo.score}
                     </Typography>
                 </Box>
                 <Box sx={{ mt: 2 }}>
@@ -241,7 +315,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             }}
                         >
                             <JobTypeIcon />
-                            {jobInfo.jobType ?? 'Full-time'}
+                            {getJobType(jobInfo?.jobType ?? '')}
                         </Box>
                         <Box
                             sx={{
@@ -255,7 +329,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             }}
                         >
                             <JobSalaryIcon />
-                            {jobInfo.salary ?? 'N250,000 a month'}
+                            {getSalaryRange(jobInfo.salaryCurrency, jobInfo.salaryRangeFrom, jobInfo.salaryRangeTo)}
                         </Box>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 2, mt: 1.5 }}>
@@ -275,12 +349,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                                 />
                             </svg>
                         </Box>
-                        <div
-                            dangerouslySetInnerHTML={{
-                                __html: jobInfo?.description ?? ''
-                            }}
-                        />
-                        {/* <Typography
+                        <Typography
                             sx={{
                                 fontFamily: 'Open Sans',
                                 fontWeight: 400,
@@ -289,7 +358,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             }}
                         >
                             {jobInfo.description}
-                        </Typography> */}
+                        </Typography>
                     </Box>
                     <Typography
                         sx={{
@@ -301,7 +370,7 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                             color: '#23282B'
                         }}
                     >
-                        Posted {moment(jobInfo.createdAt).fromNow()}
+                        {jobInfo.createdAt ? `Posted ${moment(jobInfo.createdAt).fromNow()}` : null}
                     </Typography>
                     <JobPostingCTA jobInfo={jobInfo} />
                 </Box>
@@ -379,6 +448,12 @@ const JobItem = (props: { jobInfo: IJobItem }) => {
                     onHideJob(e);
                 }}
                 companyName={jobInfo?.company?.name}
+            />
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={type}
             />
         </Box>
     );

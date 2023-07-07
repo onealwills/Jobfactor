@@ -1,41 +1,29 @@
 import { Box } from '@mui/material';
-import JobsHeader from '../components/JobsHeader';
-import JobsList from '../components/JobsList/JobsList';
-import AspiringJobs from '../components/AspiringJobs';
+import { useEffect, useState } from 'react';
 import { IJobItem } from '../types/IJobItem';
-import shellLogo from '../../../assets/images/shellLogo.png';
+import JobsHeader from '../components/JobsHeader';
+import AspiringJobs from '../components/AspiringJobs';
+import JobsList from '../components/JobsList/JobsList';
+import { useAuth } from '../../../utils/context/AuthContext';
+import { useGetSavedJobsByProfessionalId } from '../../../utils/hooks/api/saved-jobs/useGetSavedJobsByProfessionalId';
 
 function SavedJobs() {
-    const item: IJobItem = {
-        companyName: 'Shell Energy',
-        location: 'Lagos',
-        jobTitle: 'Product Designer',
-        companyLogo: shellLogo,
-        keywords: [
-            { name: 'Office Environment', type: 'L', showbackground: true },
-            { name: 'Job Security', type: 'A', showbackground: true },
-            { name: 'Job Security', type: 'E', showbackground: true },
-            { name: 'Job Security', type: 'E', showbackground: true }
-        ],
-        jobType: 'Full-time',
-        salary: 'N250,000 a month',
-        jobFitMetric: 3,
-        requirements: {
-            minJobFactorScore: 550,
-            keywords: [
-                { name: 'Visual Design', type: 'B', showbackground: false },
-                { name: 'Motion Design', type: 'A', showbackground: false },
-                { name: 'Prototyping', type: 'X', showbackground: false }
-            ],
-            responsibilities: [
-                'Experience as a UI/UX designer or similar role for digital products and services ',
-                'Coordinate with the UI design team on issues like navigation, page routing... '
-            ]
-        },
-        posted: '3 days ago',
-        savedjob: true
-    };
-    const data: IJobItem[] = Array.from(Array(2).keys()).map(() => item);
+
+    const { user } = useAuth();
+    const [filteredJobs, setFilteredJobs] = useState<IJobItem[]>([]);
+    const professionalProfileId = user?.professionalProfile?.id ?? '';
+    const { data: jobs, isFetching } = useGetSavedJobsByProfessionalId(professionalProfileId);
+
+    const updateData = (jobId: string) => {
+        setFilteredJobs(jobs?.filter((x: IJobItem) => x?.id !== jobId && x?.isSaved === true));
+    }
+    useEffect(() => {
+        if (jobs) {
+            setFilteredJobs(jobs);
+        } else {
+            setFilteredJobs([])
+        }
+    }, [jobs]);
 
     return (
         <Box
@@ -43,28 +31,39 @@ function SavedJobs() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader title="Saved Jobs" />
-            <JobsList
-                title={'Recommended for you'}
-                description={'Based on your profile'}
-                data={data}
-                showMetrics={true}
+            <JobsHeader
+                title="Saved Jobs"
+                jobs={jobs}
+                setJobs={setFilteredJobs}
             />
-            <AspiringJobs />
-            <JobsList
-                title={'Remote opportunities'}
-                description={'Because you expressed interest in remote work'}
-                data={data}
-                showMetrics={false}
-            />
-            <JobsList
-                title={'More jobs for you'}
-                description={
-                    'Based on your search history, profile and suggestions'
-                }
-                data={data}
-                showMetrics={false}
-            />
+            {isFetching ?
+                null
+                :
+                <>
+                    <JobsList
+                        title={'Recommended for you'}
+                        description={'Based on your profile'}
+                        data={filteredJobs}
+                        showMetrics={true}
+                        updateData={updateData}
+                    />
+                    {/* <AspiringJobs />
+                    <JobsList
+                        title={'Remote opportunities'}
+                        description={'Because you expressed interest in remote work'}
+                        data={filteredJobs}
+                        showMetrics={false}
+                    />
+                    <JobsList
+                        title={'More jobs for you'}
+                        description={
+                            'Based on your search history, profile and suggestions'
+                        }
+                        data={filteredJobs}
+                        showMetrics={false}
+                    /> */}
+                </>
+            }
         </Box>
     );
 }

@@ -4,14 +4,15 @@ export interface IJobItemDetail {
     jfScore: number;
     jobTitle: string;
     location: string;
-    employmentType: string;
+    jobType?: string
+    workplaceType?: string;
     department: string;
     jobDescriptions: string[];
     responsibilities: string[];
     candidatureQualities: string[];
     workingAt: string[];
     additionalPerks: string[];
-    applicationClosingDate: string;
+    expiredAt: string;
     aboutCompany: {
         logo: string;
         name: string;

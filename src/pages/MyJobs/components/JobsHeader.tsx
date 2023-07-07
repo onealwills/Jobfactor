@@ -18,15 +18,17 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import Checked from '../../../assets/icons/Checked';
 import UnChecked from '../../../assets/icons/UnChecked';
 import '../style.css';
+import { IJobItem } from '../types/IJobItem';
+import { getJobType, getWorkPlace, jobTypes, workPlaces } from '../../../utils/Helper/helper';
+import moment from 'moment';
 
-const JobsHeader = (props: { title: string }) => {
-    const { title } = props;
-    const [locationType, setLocationType] = useState<Array<string>>([
-        'on-site'
-    ]);
-    const [sortBy, setSortBy] = useState<string>('most recent');
-    const [jobType, setJobType] = useState<Array<string>>(['full-time']);
-    const [datePosted, setDatePosted] = useState<string>('any time');
+const JobsHeader = (props: { title: string; setJobs?: Dispatch<SetStateAction<IJobItem[]>>; jobs?: IJobItem[] }) => {
+    const { title, jobs = [], setJobs = () => { } } = props;
+
+    const [locationType, setLocationType] = useState<Array<string>>([]);
+    const [sortBy, setSortBy] = useState<string>('');
+    const [jobType, setJobType] = useState<Array<string>>([]);
+    const [datePosted, setDatePosted] = useState<string>('');
     const [showMenu, setShowMenu] = useState<null | HTMLElement>(null);
 
     const radioItems = [
@@ -46,21 +48,13 @@ const JobsHeader = (props: { title: string }) => {
     const checkboxItems = [
         {
             title: 'Job type',
-            options: [
-                'Full-time',
-                'Temporary',
-                'Permanent',
-                'New grad',
-                'Part-time',
-                'Contract',
-                'Internship'
-            ],
+            options: jobTypes.map(x => getJobType(x)),
             state: jobType,
             setState: setJobType
         },
         {
             title: 'Location type',
-            options: ['On-site', 'Remote', 'Hybrid'],
+            options: workPlaces.map(x => getWorkPlace(x)),
             state: locationType,
             setState: setLocationType
         }
@@ -97,6 +91,48 @@ const JobsHeader = (props: { title: string }) => {
         }
     };
 
+    const getDate = () => {
+        if (datePosted === 'Past month') return moment().startOf('day').subtract(1, 'month').format('MM/DD/YYYY');
+        if (datePosted === 'Past week') return moment().startOf('day').subtract(1, 'week').format('MM/DD/YYYY');
+        if (datePosted === 'Past 24 hours') return moment().subtract(1, 'day').format('MM/DD/YYYY');
+        return null
+    }
+    const filterJobs = () => {
+        let tempJobs = JSON.parse(JSON.stringify(jobs));
+        tempJobs = getJobs(tempJobs);
+        setJobs(tempJobs);
+        setShowMenu(null);
+    }
+
+    const getJobs = (tempJobs: IJobItem[]) => {
+        let date: any = getDate();
+
+        if (date && locationType.length > 0 && jobType.length > 0) return tempJobs?.filter((x: IJobItem) => moment(x?.createdAt).isAfter(date) && (x?.workplaceType ? locationType.includes(getWorkPlace(x?.workplaceType ?? '')) : null) && (x?.jobType ? jobType.includes(getJobType(x?.jobType ?? '')) : null));
+
+        if (date && locationType.length > 0) return tempJobs?.filter((x: IJobItem) => moment(x?.createdAt).isAfter(date) && (x?.workplaceType ? locationType.includes(getWorkPlace(x?.workplaceType ?? '')) : null));
+
+        if (date && jobType.length > 0) return tempJobs?.filter((x: IJobItem) => moment(x?.createdAt).isAfter(date) && (x?.jobType ? jobType.includes(getJobType(x?.jobType ?? '')) : null));
+
+        if (locationType.length > 0 && jobType.length > 0) return tempJobs?.filter((x: IJobItem) => (x?.workplaceType ? locationType.includes(getWorkPlace(x?.workplaceType ?? '')) : null) && (x?.jobType ? jobType.includes(getJobType(x?.jobType ?? '')) : null));
+
+        if (date) return tempJobs?.filter((x: IJobItem) => moment(x?.createdAt).isAfter(date));
+
+        if (jobType.length > 0) return tempJobs?.filter((x: IJobItem) => (x?.jobType ? jobType.includes(getJobType(x?.jobType ?? '')) : null));
+
+        if (locationType.length > 0) return tempJobs?.filter((x: IJobItem) => (x?.workplaceType ? locationType.includes(getWorkPlace(x?.workplaceType ?? '')) : null));
+        
+        if (!date && locationType.length === 0 && jobType.length === 0) return jobs;
+
+        if (sortBy === 'Most recent') return tempJobs.sort((a: IJobItem, b: IJobItem) => moment(a?.createdAt).isBefore(b?.createdAt) ? 1 : -1);
+    }
+    const resetFilters = () => {
+        setJobs(jobs);
+        setShowMenu(null);
+        setJobType([]);
+        setLocationType([]);
+        setSortBy('');
+        setDatePosted('')
+    }
     return (
         <Box
             sx={{
@@ -132,14 +168,14 @@ const JobsHeader = (props: { title: string }) => {
             >
                 <SelectDropdown
                     label="Date Posted"
-                    defaultValue="any time"
                     options={[
                         'Past 24 hours',
                         'Past week',
                         'Past month',
                         'Any time'
                     ]}
-                    style={{ width: '141px', height: '50px' }}
+                    filterJobs={filterJobs}
+                    style={{ minWidth: '141px', height: '50px' }}
                     handleChange={(
                         e: ChangeEvent<HTMLInputElement> | null,
                         value: string
@@ -147,9 +183,9 @@ const JobsHeader = (props: { title: string }) => {
                 />
                 <SelectDropdown
                     label="Location Type"
-                    defaultValue="on-site"
-                    options={['On-site', 'Remote', 'Hybrid']}
-                    style={{ width: '149px', height: '50px' }}
+                    filterJobs={filterJobs}
+                    options={workPlaces.map(x => getWorkPlace(x))}
+                    style={{ minWidth: '149px', height: '50px' }}
                     handleChange={(
                         e: ChangeEvent<HTMLInputElement> | null,
                         value: string
@@ -165,17 +201,9 @@ const JobsHeader = (props: { title: string }) => {
                 />
                 <SelectDropdown
                     label="Job Type"
-                    defaultValue={'full-time'}
-                    options={[
-                        'Full-time',
-                        'Temporary',
-                        'Permanent',
-                        'New grad',
-                        'Part-time',
-                        'Contract',
-                        'Internship'
-                    ]}
-                    style={{ width: '111px', height: '50px' }}
+                    options={jobTypes.map(x => getJobType(x))}
+                    filterJobs={filterJobs}
+                    style={{ minWidth: '111px', height: '50px' }}
                     multiple={true}
                     handleChange={(
                         e: ChangeEvent<HTMLInputElement> | null,
@@ -265,38 +293,23 @@ const JobsHeader = (props: { title: string }) => {
                                                 control={
                                                     <Radio
                                                         sx={{
-                                                            color:
-                                                                item.state ===
-                                                                x.toLowerCase()
-                                                                    ? '#05668D !important'
-                                                                    : '#808080 !important'
+                                                            color: item.state === x ? '#05668D !important' : '#808080 !important'
                                                         }}
                                                         onChange={(e) =>
                                                             handleAllFilters(
                                                                 e,
                                                                 item?.setState,
-                                                                x.toLowerCase()
+                                                                x
                                                             )
                                                         }
-                                                        checked={
-                                                            item.state ===
-                                                            x.toLowerCase()
-                                                        }
+                                                        checked={item.state === x}
                                                     />
                                                 }
                                                 label={x}
                                                 sx={{
                                                     letterSpacing: '0.0015em',
-                                                    fontWeight:
-                                                        item.state ===
-                                                        x.toLowerCase()
-                                                            ? '600 !important'
-                                                            : '400',
-                                                    color:
-                                                        item.state ===
-                                                        x.toLowerCase()
-                                                            ? '#494949'
-                                                            : '#808080'
+                                                    fontWeight: item.state === x ? '600 !important' : '400',
+                                                    color: item.state === x ? '#494949' : '#808080'
                                                 }}
                                             />
                                         </Box>
@@ -347,39 +360,24 @@ const JobsHeader = (props: { title: string }) => {
                                                         }
                                                         icon={<UnChecked />}
                                                         sx={{
-                                                            color: item.state.includes(
-                                                                x.toLowerCase()
-                                                            )
-                                                                ? '#05668D !important'
-                                                                : '#808080 !important'
+                                                            color: item.state.includes(x) ? '#05668D !important' : '#808080 !important'
                                                         }}
                                                         onChange={(e) =>
                                                             handleCheckBoxSelect(
                                                                 e,
                                                                 item.state,
                                                                 item?.setState,
-                                                                x.toLowerCase()
+                                                                x
                                                             )
                                                         }
-                                                        checked={item.state.includes(
-                                                            x.toLowerCase()
-                                                        )}
+                                                        checked={item.state.includes(x)}
                                                     />
                                                 }
                                                 label={x}
                                                 sx={{
                                                     letterSpacing: '0.0015em',
-                                                    fontWeight:
-                                                        item.state.includes(
-                                                            x.toLowerCase()
-                                                        )
-                                                            ? '600 !important'
-                                                            : '400',
-                                                    color: item.state.includes(
-                                                        x.toLowerCase()
-                                                    )
-                                                        ? '#494949'
-                                                        : '#808080'
+                                                    fontWeight: item.state.includes(x) ? '600 !important' : '400',
+                                                    color: item.state.includes(x) ? '#494949' : '#808080'
                                                 }}
                                             />
                                         </Box>
@@ -408,18 +406,14 @@ const JobsHeader = (props: { title: string }) => {
                             padding: '14px 16px',
                             fontFamily: 'Open Sans',
                             fontWeight: '600',
+                            width: 'fit-content',
                             fontSize: '12px',
                             lineHeight: '16px',
                             textTransform: 'capitalize',
                             letterSpacing: '0.005em',
                             color: '#05668D'
                         }}
-                        onClick={() => {
-                            setSortBy('most recent');
-                            setDatePosted('any time');
-                            setLocationType(['on-site']);
-                            setJobType(['full-time']);
-                        }}
+                        onClick={resetFilters}
                     >
                         Reset
                     </Button>
@@ -437,10 +431,11 @@ const JobsHeader = (props: { title: string }) => {
                             flex: 1,
                             textTransform: 'capitalize',
                             '&:hover': {
+                                color: '#FFFF',
                                 background: '#05668D'
                             }
                         }}
-                        onClick={() => setShowMenu(null)}
+                        onClick={filterJobs}
                     >
                         Show results
                     </Button>
@@ -460,7 +455,7 @@ interface PropTypes {
     options: string[];
     label?: string;
     multiple?: boolean;
-    defaultValue?: string;
+    filterJobs: () => void
 }
 const SelectDropdown = (props: PropTypes) => {
     const [value, setValue] = React.useState<string | null>(null);
@@ -470,11 +465,6 @@ const SelectDropdown = (props: PropTypes) => {
     const handleClose = () => {
         setShowMenu(null);
     };
-    React.useEffect(() => {
-        if (props?.defaultValue) {
-            setValue(props?.defaultValue);
-        }
-    }, [props?.defaultValue]);
 
     return (
         <>
@@ -487,12 +477,28 @@ const SelectDropdown = (props: PropTypes) => {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         cursor: 'pointer',
-                        padding: '8px 12px'
+                        position: 'relative',
+                        padding: '8px 12px',
+                        paddingTop: (value || values.length > 0) ? '16px' : '8px',
                     },
                     props.style
                 ]}
                 onClick={({ currentTarget }) => setShowMenu(currentTarget)}
             >
+                {(value || values.length > 0) ?
+                    <Typography
+                        sx={{
+                            fontFamily: 'Open Sans',
+                            letterSpacing: '0.005em',
+                            whiteSpace: 'nowrap',
+                            position: 'absolute',
+                            top: '2px',
+                            fontSize: '12px',
+                            color: '#05668D'
+                        }}
+                    >{props?.label}</Typography>
+                    : null
+                }
                 <Typography
                     sx={{
                         fontFamily: 'Open Sans',
@@ -502,7 +508,7 @@ const SelectDropdown = (props: PropTypes) => {
                         whiteSpace: 'nowrap'
                     }}
                 >
-                    {props?.label}
+                    {value ?? ''} {(values.length > 2 ? `${values[0]}, ${values[1]}, ...` : values.join(', ')) ?? null} {!value && values.length === 0 ? props?.label : ""}
                 </Typography>
                 <ArrowDown />
             </Box>
@@ -525,60 +531,38 @@ const SelectDropdown = (props: PropTypes) => {
                                 props?.multiple ? (
                                     <Checkbox
                                         sx={{
-                                            color: values.includes(
-                                                x.toLowerCase()
-                                            )
-                                                ? '#05668D !important'
-                                                : '#808080 !important'
+                                            color: values.includes(x) ? '#05668D !important' : '#808080 !important'
                                         }}
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                setValues([
-                                                    ...values,
-                                                    x.toLowerCase()
-                                                ]);
+                                                setValues([...values, x]);
                                             } else {
-                                                setValues(
-                                                    values.filter(
-                                                        (y) => y !== x
-                                                    )
-                                                );
+                                                setValues(values.filter((y) => y !== x));
                                             }
                                             props.handleChange(e, x);
                                         }}
-                                        checked={values.includes(
-                                            x.toLowerCase()
-                                        )}
+                                        checked={values.includes(x)}
                                         checkedIcon={<Checked />}
                                         icon={<UnChecked />}
                                     />
                                 ) : (
                                     <Radio
                                         sx={{
-                                            color:
-                                                value === x.toLowerCase()
-                                                    ? '#05668D !important'
-                                                    : '#808080 !important'
+                                            color: value === x ? '#05668D !important' : '#808080 !important'
                                         }}
                                         onChange={(e) => {
-                                            setValue(x.toLowerCase());
+                                            setValue(x);
                                             props.handleChange(e, x);
                                         }}
-                                        checked={value === x.toLowerCase()}
+                                        checked={value === x}
                                     />
                                 )
                             }
                             label={x}
                             sx={{
                                 letterSpacing: '0.0015em',
-                                fontWeight:
-                                    value === x.toLowerCase()
-                                        ? '600 !important'
-                                        : '400',
-                                color:
-                                    value === x.toLowerCase()
-                                        ? '#494949'
-                                        : '#808080'
+                                fontWeight: (value === x || values.includes(x)) ? '600' : '400',
+                                color: (value === x || values.includes(x)) ? '#494949' : '#808080'
                             }}
                         />
                     ))}
@@ -602,6 +586,7 @@ const SelectDropdown = (props: PropTypes) => {
                             padding: '14px 16px',
                             fontFamily: 'Open Sans',
                             fontWeight: '600',
+                            width: 'fit-content',
                             fontSize: '12px',
                             lineHeight: '16px',
                             textTransform: 'capitalize',
@@ -609,9 +594,9 @@ const SelectDropdown = (props: PropTypes) => {
                             color: '#05668D'
                         }}
                         onClick={() => {
-                            setValue(props.defaultValue ?? '');
+                            setValue('');
                             setValues([]);
-                            props.handleChange(null, props.defaultValue ?? '');
+                            props.handleChange(null, '');
                         }}
                     >
                         Reset
@@ -630,10 +615,11 @@ const SelectDropdown = (props: PropTypes) => {
                             flex: 1,
                             textTransform: 'capitalize',
                             '&:hover': {
+                                color: '#FFFF',
                                 background: '#05668D'
                             }
                         }}
-                        onClick={() => setShowMenu(null)}
+                        onClick={props?.filterJobs}
                     >
                         Show results
                     </Button>

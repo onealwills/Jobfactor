@@ -34,12 +34,11 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                 Job ID : {jobInfo?.id}
             </Typography>
             <Typography
-                sx={{ color: '#808080', fontSize: '14px', marginTop: '8px' }}
+                sx={{ color: '#808080', fontSize: '14px', marginTop: '8px', textTransform: 'capitalize' }}
             >
-                {moment(jobInfo?.createdAt).format('MM/DD/YYYY')}
+                {moment(jobInfo?.createdAt).format('MMM DD,YYYY')}
             </Typography>
-            <div dangerouslySetInnerHTML={{ __html: jobInfo?.description }} />
-            {/* <Box sx={{ marginTop: '20px' }}>
+            <Box sx={{ marginTop: '20px' }}>
                 <Typography
                     sx={{
                         color: '#23282B',
@@ -56,7 +55,7 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                         marginTop: '10px'
                     }}
                 >
-                    {jobInfo?.JobRole}
+                    {jobInfo?.overview}
                 </Typography>
             </Box>
             <Box sx={{ marginTop: '20px' }}>
@@ -70,11 +69,9 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                     Summary of the role
                 </Typography>
                 <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobInfo?.JobSummary?.map((item) => {
-                        return <li>{item}</li>;
-                    })}
+                    {jobInfo?.qualifications}
                 </ul>
-            </Box> */}
+            </Box>
             <Box
                 sx={{
                     display: 'flex',
@@ -101,7 +98,7 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                         width: 'fit-content',
                         minWidth: '240px'
                     }}
-                    onClick={() => {}}
+                    onClick={() => navigate(`/job-postdetail/${jobInfo?.id}/applicants`)}
                 >
                     Check Applications
                 </Button>

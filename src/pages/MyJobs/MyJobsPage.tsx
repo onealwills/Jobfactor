@@ -1,41 +1,23 @@
 import { Box } from '@mui/material';
-import JobsHeader from './components/JobsHeader';
-import JobsList from './components/JobsList/JobsList';
-import AspiringJobs from './components/AspiringJobs';
-import { useGetJobs } from '../../utils/hooks/api/jobs/useGetJobs';
-import { useGetAppliedJobs } from '../../utils/hooks/api/jobs/useGetAppliedJobs';
-import { useAuth } from '../../utils/context/AuthContext';
-import { useEffect, useState } from 'react';
 import { IJobItem } from './types/IJobItem';
+import { useEffect, useState } from 'react';
+import JobsHeader from './components/JobsHeader';
+import AspiringJobs from './components/AspiringJobs';
+import JobsList from './components/JobsList/JobsList';
+import { useGetJobs } from '../../utils/hooks/api/jobs/useGetJobs';
+import { useAuth } from '../../utils/context/AuthContext';
 
 function MyJobsPage() {
     const { user } = useAuth();
-    const { data, isFetching } = useGetJobs();
-    const [jobs, setJobs] = useState<IJobItem[]>([]);
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const { data: appliedJobs, isFetching: appliedJobsFetching } =
-        useGetAppliedJobs(user.professionalProfile.id);
-
+    const { data: jobs, isFetching } = useGetJobs(user?.professionalProfile?.id ?? '');
+    const [filteredJobs, setFilteredJobs] = useState<IJobItem[]>([]);
     useEffect(() => {
-        setIsLoaded(false);
-        if (!isFetching && !appliedJobsFetching) {
-            let jobIds: string[] = [];
-            let jobs: IJobItem[] = [];
-            appliedJobs.map((x: IJobItem) =>
-                jobIds.push(x?.jobPosting?.id ?? '')
-            );
-            data.filter((x: IJobItem) => {
-                if (jobIds.includes(x.id ?? '')) {
-                    jobs.push({ ...x, isApplied: true });
-                } else {
-                    jobs.push({ ...x, isApplied: false });
-                }
-                return null;
-            });
-            setJobs(jobs);
-            setIsLoaded(true);
+        if (jobs) {
+            setFilteredJobs(jobs);
+        } else {
+            setFilteredJobs([])
         }
-    }, [isFetching, appliedJobsFetching, appliedJobs, data]);
+    }, [jobs])
 
     return (
         <Box
@@ -43,23 +25,29 @@ function MyJobsPage() {
                 marginLeft: '15px'
             }}
         >
-            <JobsHeader title="Jobs" />
-            {isLoaded ? (
+            <JobsHeader
+                title="Jobs"
+                jobs={jobs}
+                setJobs={setFilteredJobs}
+            />
+            {isFetching ?
+                null
+                :
                 <>
                     <JobsList
                         title={'Recommended for you'}
                         description={'Based on your profile'}
-                        data={jobs}
+                        data={filteredJobs}
                         showMetrics={true}
                         showheader={true}
                     />
-                    <AspiringJobs />
+                    {/* <AspiringJobs />
                     <JobsList
                         title={'Remote opportunities'}
                         description={
                             'Because you expressed interest in remote work'
                         }
-                        data={jobs}
+                        data={filteredJobs}
                         showMetrics={false}
                         showheader={true}
                     />
@@ -68,12 +56,12 @@ function MyJobsPage() {
                         description={
                             'Based on your search history, profile and suggestions'
                         }
-                        data={jobs}
+                        data={filteredJobs}
                         showMetrics={false}
                         showheader={true}
-                    />
+                    /> */}
                 </>
-            ) : null}
+            }
         </Box>
     );
 }

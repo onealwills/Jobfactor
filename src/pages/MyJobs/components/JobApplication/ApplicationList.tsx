@@ -7,8 +7,9 @@ import ApplicationItem from './ApplicationItem';
 const ApplicationList = (props: {
     data: JobApplicationItem[];
     showMetrics?: boolean;
+    updateData?: (applicantId: string) => void;
 }) => {
-    const { data, showMetrics } = props;
+    const { data, showMetrics, updateData = () => { } } = props;
 
     return (
         <Box sx={{ backgroundColor: '#FFFFFF', mt: '28px' }}>
@@ -23,7 +24,7 @@ const ApplicationList = (props: {
                         justifyContent: 'center'
                     }}
                 >
-                    {data.map((item) => (
+                    {data?.map((item) => (
                         <Grid
                             item
                             xs={12}
@@ -34,7 +35,7 @@ const ApplicationList = (props: {
                                 margin: '10px 0'
                             }}
                         >
-                            <ApplicationItem ApplicantInfo={item} />
+                            <ApplicationItem ApplicantInfo={item} updateData={updateData} />
                         </Grid>
                     ))}
                 </Grid>

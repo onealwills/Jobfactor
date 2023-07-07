@@ -1,34 +1,28 @@
 import { Box } from '@mui/material';
 import Header from '../components/JobApplication/Header';
-import { JobApplicationItem } from '../types/JobApplicationItem';
+import { useAuth } from '../../../utils/context/AuthContext';
 import ApplicationList from '../components/JobApplication/ApplicationList';
-import Profile from '../../../assets/images/profile-sq.png';
+import { useGetSavedApplicantByCompanyId } from '../../../utils/hooks/api/saved-applicants/useGetSavedApplicantByCompanyId';
+import { useEffect, useState } from 'react';
+import { JobApplicationItem } from '../types/JobApplicationItem';
 
 const SavedApplications = () => {
-    const item: JobApplicationItem = {
-        Profile: Profile,
-        Applicantname: 'Marvin McKinney',
-        Companyname: 'Xtera Solutions',
-        Jobtype: 'Sales Manager',
-        jobfit: 3,
-        Postdate: '3 days',
-        ApplicationViews: 550,
-        keywords: [
-            { name: 'Beginner', type: 'B', showbackground: false },
-            { name: 'Mobile Int', type: 'E', showbackground: false },
-            {
-                name: 'Customer Experience Design',
-                type: 'A',
-                showbackground: false
-            }
-        ],
-        active: true,
-        saved: true
-    };
+    const { user } = useAuth();
+    const [applicants, setApplicants] = useState<JobApplicationItem[]>([]);
+    const companyProfileId = user?.primaryCompanyProfile?.id ?? '';
+    const { data, isFetching } = useGetSavedApplicantByCompanyId(companyProfileId);
 
-    const data: JobApplicationItem[] = Array.from(Array(3).keys()).map(
-        () => item
-    );
+    const updateData = (applicantId: string) => {
+        setApplicants(data?.filter((x: JobApplicationItem) => x?.id !== applicantId && x?.isSaved === true));
+    }
+
+    useEffect(() => {
+        if (data) {
+            setApplicants(data);
+        } else {
+            setApplicants([])
+        }
+    }, [data]);
 
     return (
         <Box
@@ -38,7 +32,7 @@ const SavedApplications = () => {
             }}
         >
             <Header />
-            <ApplicationList data={data} showMetrics={true} />
+            {isFetching ? null : <ApplicationList data={applicants?.length ? applicants : []} updateData={updateData} showMetrics={true} />}
         </Box>
     );
 };

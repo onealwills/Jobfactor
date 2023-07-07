@@ -1,10 +1,13 @@
 import Box from '@mui/material/Box';
 import Header from '../components/JobApplication/Header';
+import { useAuth } from '../../../utils/context/AuthContext';
 import ApplicationList from '../components/JobApplication/ApplicationList';
-import { useGetAllApplicants } from '../../../utils/hooks/api/jobs/useGetAllApplicants';
+import { useGetAllApplicantsByCompanyId } from '../../../utils/hooks/api/jobs/useGetAllApplicantsByCompanyId';
 
 const JobApplications = () => {
-    const { data: applicants, isLoading } = useGetAllApplicants();
+    const { user } = useAuth();
+    const companyId = user?.primaryCompanyProfile?.companyId ?? '';
+    const { data: applicants, isFetching } = useGetAllApplicantsByCompanyId(companyId);
 
     return (
         <Box
@@ -14,11 +17,11 @@ const JobApplications = () => {
             }}
         >
             <Header />
-            {isLoading ? (
+            {isFetching ?
                 null
-            ) : (
-                <ApplicationList data={applicants} showMetrics={true} />
-            )}
+                :
+                <ApplicationList data={applicants?.length > 0 ? applicants : []} showMetrics={true} />
+            }
         </Box>
     );
 };

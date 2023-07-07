@@ -1,19 +1,85 @@
-import React from 'react';
-import { Box, Button, IconButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Avatar, Box, Button, IconButton, Typography } from '@mui/material';
 import { JobApplicationItem } from '../../types/JobApplicationItem';
 import ChipList from '../Chips/ChipList';
 import JobBookmarkIcon from '../../../../assets/icons/JobBookmarkIcon';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import moment from 'moment';
-import Profile from '../../../../assets/images/profile-sq.png';
+import { useNavigate } from 'react-router-dom';
+import { useSaveApplicant } from '../../../../utils/hooks/api/saved-applicants/useSaveApplicant';
+import { useAuth } from '../../../../utils/context/AuthContext';
+import SnackAlert from '../../../../components/Snackbar';
+import { useDeleteSavedApplicant } from '../../../../utils/hooks/api/saved-applicants/useDeleteSavedApplicant';
 
 const keywords = [
     { name: 'Beginner', type: 'B', showbackground: false },
     { name: 'Mobile Int', type: 'E', showbackground: false },
     { name: 'Customer Experience Design', type: 'A', showbackground: false }
 ];
-const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
-    const { ApplicantInfo } = props;
+const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem, updateData?: (applicantId: string) => void }) => {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    const { ApplicantInfo, updateData = () => { } } = props;
+    const saveApplicant = useSaveApplicant();
+    const removeApplicant = useDeleteSavedApplicant();
+    const [message, setMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>('info');
+
+    const toggleSaveApplicant = () => {
+        if (ApplicantInfo?.isSaved) {
+            removeApplicant.mutate(ApplicantInfo?.savedApplicantId, {
+                onSuccess: (res) => {
+                    if (res) {
+                        console.log('saveApplicant', res)
+                        updateData(ApplicantInfo?.id);
+                        ApplicantInfo.isSaved = false;
+                        ApplicantInfo.savedApplicantId = '';
+                        setType('success');
+                        setMessage("Applicant removed successfully.");
+                        setShowAlert(true);
+                    } else {
+                        setType('error');
+                        setMessage("Error occured please try again!");
+                        setShowAlert(true);
+                    }
+                },
+                onError: (err) => {
+                    console.log("Err", err)
+                    setType('error');
+                    setMessage("Error occured please try again!");
+                    setShowAlert(true);
+                }
+            })
+        } else {
+            let data = {
+                companyProfileId: user?.primaryCompanyProfile?.id ?? '',
+                applicantId: ApplicantInfo?.id ?? ''
+            }
+            saveApplicant.mutate(data, {
+                onSuccess: (res) => {
+                    if (res?.id) {
+                        console.log('saveApplicant', res)
+                        ApplicantInfo.isSaved = true;
+                        ApplicantInfo.savedApplicantId = res?.id;
+                        setType('success');
+                        setMessage("Applicant saved successfully.");
+                        setShowAlert(true);
+                    } else {
+                        setType('error');
+                        setMessage("Error occured please try again!");
+                        setShowAlert(true);
+                    }
+                },
+                onError: (err) => {
+                    console.log("Err", err)
+                    setType('error');
+                    setMessage("Error occured please try again!");
+                    setShowAlert(true);
+                }
+            })
+        }
+    }
 
     return (
         <Box
@@ -31,26 +97,25 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                     paddingBottom: '20px'
                 }}
             >
-                <Box sx={{ width: 70, textAlign: 'center' }}>
-                    <img
-                        src={Profile}
-                        alt="userimage"
-                        style={{
-                            width: 70,
-                            height: 70,
-                            objectFit: 'cover',
-                            borderRadius: 100,
-                            overflow: 'hidden'
-                        }}
-                    />
+                <Box
+                    onClick={() => navigate(`/applicant-details/${ApplicantInfo?.id}`)}
+                    sx={{
+                        width: 70,
+                        textAlign: 'center',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <Avatar sx={{ width: 70, height: 70 }} src={ApplicantInfo?.professionalProfile?.photoUrl} />
                 </Box>
                 <Box sx={{ width: '66%' }}>
                     <Typography
                         sx={{
                             fontSize: '16px',
                             color: '#494949',
-                            fontWeight: '600'
+                            fontWeight: '600',
+                            cursor: 'pointer'
                         }}
+                        onClick={() => navigate(`/applicant-details/${ApplicantInfo?.id}`)}
                     >
                         {ApplicantInfo?.professionalProfile?.firstName
                             ? `${ApplicantInfo?.professionalProfile?.firstName}  ${ApplicantInfo?.professionalProfile?.lastName}`
@@ -71,7 +136,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                                 marginTop: '4px'
                             }}
                         >
-                            Sales Manager
+                            {ApplicantInfo?.professionalProfile?.employment?.jobTitle ?? 'None'}
                         </Typography>
                         <Typography
                             sx={{
@@ -92,7 +157,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                                 marginTop: '4px'
                             }}
                         >
-                            Xtera Solutions
+                            {ApplicantInfo?.professionalProfile?.employment?.companyName ?? 'None'}
                         </Typography>
                         <Typography
                             sx={{
@@ -116,8 +181,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                                 borderRadius: '5px'
                             }}
                         >
-                            {ApplicantInfo?.score ??
-                                ApplicantInfo?.ApplicationViews}
+                            {ApplicantInfo?.score}
                         </Typography>
                     </Box>
                     <Box
@@ -183,7 +247,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                     </Typography>
                     <Button
                         variant="outlined"
-                        onClick={() => {}}
+                        onClick={() => navigate(`/applicant-details/${ApplicantInfo?.id}`)}
                         sx={{
                             padding: '15px 20px',
                             width: 'fit-content',
@@ -192,7 +256,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                     >
                         View application
                     </Button>
-                    {ApplicantInfo?.status === 'SAVED' ? (
+                    {ApplicantInfo?.isSaved ? (
                         <IconButton
                             sx={{
                                 backgroundColor: '#FCFBF8',
@@ -201,8 +265,10 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                borderRadius: '8px'
+                                borderRadius: '8px',
+                                cursor: 'pointer'
                             }}
+                            onClick={toggleSaveApplicant}
                         >
                             <TurnedInIcon style={{ color: '#F6C70E' }} />
                         </IconButton>
@@ -212,12 +278,19 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem }) => {
                                 borderRadius: '8px',
                                 p: 0
                             }}
+                            onClick={toggleSaveApplicant}
                         >
                             <JobBookmarkIcon />
                         </IconButton>
                     )}
                 </Box>
             </Box>
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={type}
+            />
         </Box>
     );
 };

@@ -2,8 +2,11 @@ export interface PostJobItem {
     title: string;
     id: string;
     createdAt: string;
-    JobRole: string;
+    overview: string;
     JobSummary: string[];
+    qualifications?: string;
+    yearsOfExperience?:string;
+    applicants:[],
     jobDetails: {
         Responsibilities: string[];
         location: string;

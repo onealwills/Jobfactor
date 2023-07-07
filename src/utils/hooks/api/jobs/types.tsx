@@ -2,7 +2,12 @@ export interface CreateJobPostRequest {
     title: string;
     description: string;
     companyId: string;
-    isActive: boolean;
+}
+
+export interface UpdateJobPatchRequest {
+    id: string;
+    title: string;
+    description: string;
 }
 
 export interface ApplyJobPostRequest {

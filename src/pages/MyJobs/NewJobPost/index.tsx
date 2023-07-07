@@ -13,26 +13,28 @@ import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import EditIcon from '@mui/icons-material/Edit';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DialogBox from '../components/DialogBox';
-import { getCompetencyColor } from '../GlobalFunction';
+import { convertDateStringToMilli, convertMilliToDateString, getCompetencyColor, skillLevel } from '../../../utils/Helper/helper';
 import { useCreateJobPost } from '../../../utils/hooks/api/jobs/useCreateJob';
 import { useAuth } from '../../../utils/context/AuthContext';
 import { useQueryClient } from 'react-query';
 import SnackAlert from '../../../components/Snackbar';
+import { useUpdateJobPost } from '../../../utils/hooks/api/jobs/useUpdateJob';
+import { useGetJobById } from '../../../utils/hooks/api/jobs/useGetJobById';
 
 const NewJobPost = () => {
     const navigate = useNavigate();
     const [show, setShow] = useState<boolean>(false);
     const [selectedSkills, setSelectedSkills] = useState<
-        { title: string; id: number; competency?: string }[]
+        { name: string; id: number; competencyLevel?: number }[]
     >([]);
     const [overview, setOverview] = useState<string>('');
     const [qualifications, setQualifications] = useState<string>('');
@@ -41,9 +43,9 @@ const NewJobPost = () => {
     const [additional1, setAdditional1] = useState<string>('');
     const [additional2, setAdditional2] = useState<string>('');
     const [jobTitle, setJobTitle] = useState<string>('');
-    const [workPlaceType, setWorkPlaceType] = useState<string>('Please select');
+    const [workPlaceType, setWorkPlaceType] = useState<string>('ONSITE');
     const [currency, setCurrency] = useState<string>('NGN');
-    const [jobType, setJobType] = useState<string>('Full time');
+    const [jobType, setJobType] = useState<string>('FULL_TIME');
     const [location, setLocation] = useState<string>('');
     const [yearsOfExp, setYearsOfExp] = useState<string>('');
     const [minimumScore, setMinimumScore] = useState<string>('');
@@ -56,36 +58,80 @@ const NewJobPost = () => {
     const { user } = useAuth();
     const queryClient = useQueryClient();
     const SkillsData = [
-        { title: 'HTML', id: 1 },
-        { title: 'CSS', id: 2 },
-        { title: 'Figma', id: 3 }
+        { name: 'HTML', id: 1 },
+        { name: 'CSS', id: 2 },
+        { name: 'Figma', id: 3 }
     ];
     const createJobPost = useCreateJobPost();
+    const updateJobPost = useUpdateJobPost();
+    const state = useLocation()?.state;
+    const jobId = state ? state?.id : '';
+    const { data: job } = useGetJobById(jobId, '');
 
     const handleSubmit = () => {
-        if (user?.id) {
+        if (user?.id && user?.primaryCompanyProfile?.companyId) {
             setLoading(true);
-            let data = {
+            let temp = {
                 title: jobTitle,
-                description: `${overview} ${qualifications} ${responsibilities} ${additional1} ${additional2}`,
-                isActive: true,
-                companyId: user.primaryCompanyProfile.companyId
+                workplaceType: workPlaceType,
+                jobType: jobType,
+                location: location,
+                yearsOfExperience: yearsOfExp,
+                minimumScore: minimumScore,
+                salaryRangeFrom: Number(minSalary),
+                additionalNote: `${additional1} ${additional2}`,
+                salaryRangeTo: Number(maxSalary),
+                salaryCurrency: currency,
+                overview: overview,
+                qualifications: qualifications,
+                responsibilities: responsibilities,
+                expiredAt: convertDateStringToMilli(deadLine),
+                skills: selectedSkills,
+                description: 'description',
+                companyId: user?.primaryCompanyProfile?.companyId,
             };
-            console.log('data', data);
-            createJobPost.mutate(data, {
-                onSuccess: (res) => {
-                    console.log('object', res);
-                    queryClient.invalidateQueries({
-                        queryKey: ['retrieve-jobs']
-                    });
-                    setShowPopup(true);
-                    setLoading(false);
-                },
-                onError: (error) => {
-                    setShow(true);
-                    setLoading(false);
-                }
-            });
+
+            if (state.id) {
+                let data = {
+                    ...temp,
+                    createdAt: job?.createdAt,
+                    id: state.id,
+                    isActive: job?.isActive
+                };
+                updateJobPost.mutate(data, {
+                    onSuccess: (res) => {
+                        console.log('updateJobPost', res);
+                        queryClient.invalidateQueries({
+                            queryKey: ['retrieve-jobs']
+                        });
+                        setShowPopup(true);
+                        setLoading(false);
+                    },
+                    onError: (error) => {
+                        setShow(true);
+                        setLoading(false);
+                    }
+                })
+            } else {
+                let data = {
+                    ...temp,
+                    isActive: true,
+                };
+                createJobPost.mutate(data, {
+                    onSuccess: (res) => {
+                        console.log('createJobPost', res);
+                        queryClient.invalidateQueries({
+                            queryKey: ['retrieve-jobs']
+                        });
+                        setShowPopup(true);
+                        setLoading(false);
+                    },
+                    onError: (error) => {
+                        setShow(true);
+                        setLoading(false);
+                    }
+                });
+            }
         }
     };
 
@@ -95,7 +141,7 @@ const NewJobPost = () => {
     ) => {
         selectedSkills?.forEach((item) => {
             if (item?.id === id) {
-                item['competency'] = (event.target as HTMLInputElement).value;
+                item['competencyLevel'] = Number((event.target as HTMLInputElement).value);
             }
         });
     };
@@ -103,6 +149,27 @@ const NewJobPost = () => {
     const onChangeDeadLine = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDeadLine(e.target.value);
     };
+
+    useEffect(() => {
+        if (state?.id && job) {
+            setJobTitle(job?.title)
+            setJobType(job?.jobType);
+            setLocation(job?.location);
+            setYearsOfExp(job.yearsOfExperience);
+            setMinimumScore(job?.minimumScore);
+            setCurrency(job?.salaryCurrency);
+            setMinSalary(job?.salaryRangeFrom);
+            setMaxSalary(job?.salaryRangeTo);
+            setWorkPlaceType(job?.workplaceType);
+            setOverview(job?.overview);
+            setQualifications(job?.qualifications);
+            setResponsibilities(job?.responsibilities);
+            setDeadLine(convertMilliToDateString(job?.expiredAt)); //todo: convert date number to string
+            setAdditional1(job?.additionalNote ? job?.additionalNote?.split('\n')[0] : '');
+            setAdditional2(job?.additionalNote ? job?.additionalNote?.split('\n')[1] : '');
+            setSelectedSkills(job?.skills ?? []);
+        }
+    }, [job, state])
 
     const Header = () => {
         return (
@@ -123,7 +190,7 @@ const NewJobPost = () => {
                             gap: '28px'
                         }}
                     >
-                        <IconButton onClick={() => navigate(-1)}>
+                        <IconButton onClick={() => step === 1 ? navigate(-1) : setStep((prev) => prev - 1)}>
                             <ArrowLeftIcon />
                         </IconButton>
                         <Typography
@@ -134,7 +201,7 @@ const NewJobPost = () => {
                         </Typography>
                     </Box>
                 </Box>
-            </Box>
+            </Box >
         );
     };
 
@@ -154,10 +221,10 @@ const NewJobPost = () => {
                             multiple
                             id="tags-outlined"
                             options={SkillsData}
-                            getOptionLabel={(option) => option?.title}
+                            getOptionLabel={(option) => option?.name}
                             filterSelectedOptions
                             isOptionEqualToValue={(option, value) =>
-                                option.title === value.title
+                                option.name === value.name
                             }
                             value={selectedSkills}
                             onChange={(event, value) =>
@@ -207,12 +274,12 @@ const NewJobPost = () => {
                                                     id="demo-controlled-radio-buttons-group"
                                                     sx={{ minWidth: '50px' }}
                                                 >
-                                                    {item?.title}
+                                                    {item?.name}
                                                 </FormLabel>
                                                 <RadioGroup
                                                     aria-labelledby="demo-controlled-radio-buttons-group"
                                                     name="controlled-radio-buttons-group"
-                                                    value={item?.competency}
+                                                    value={item?.competencyLevel}
                                                     onChange={(e) => {
                                                         handleSkillsChange(
                                                             e,
@@ -227,7 +294,7 @@ const NewJobPost = () => {
                                                         sx={{
                                                             color: '#F55536'
                                                         }}
-                                                        value="Beginner"
+                                                        value="1"
                                                         control={
                                                             <Radio
                                                                 sx={{
@@ -241,7 +308,7 @@ const NewJobPost = () => {
                                                         sx={{
                                                             color: '#49B6FF'
                                                         }}
-                                                        value="Experience"
+                                                        value="2"
                                                         control={
                                                             <Radio
                                                                 sx={{
@@ -255,7 +322,7 @@ const NewJobPost = () => {
                                                         sx={{
                                                             color: '#0D00A4'
                                                         }}
-                                                        value="Advanced"
+                                                        value="3"
                                                         control={
                                                             <Radio
                                                                 sx={{
@@ -269,7 +336,7 @@ const NewJobPost = () => {
                                                         sx={{
                                                             color: '#00BD9D'
                                                         }}
-                                                        value="Expert"
+                                                        value="4"
                                                         control={
                                                             <Radio
                                                                 sx={{
@@ -283,7 +350,7 @@ const NewJobPost = () => {
                                                         sx={{
                                                             color: '#15796E'
                                                         }}
-                                                        value="Thought Leader"
+                                                        value="5"
                                                         control={
                                                             <Radio
                                                                 sx={{
@@ -309,15 +376,15 @@ const NewJobPost = () => {
                             {selectedSkills?.map((item) => {
                                 return (
                                     <li>
-                                        {item?.title} {' - '}{' '}
+                                        {item?.name} {' - '}{' '}
                                         <span
                                             style={{
                                                 color: getCompetencyColor(
-                                                    item?.competency ?? ''
+                                                    item?.competencyLevel ?? 0
                                                 )
                                             }}
                                         >
-                                            {item?.competency}
+                                            {skillLevel.filter(x => x.level === item?.competencyLevel)[0].name}
                                         </span>
                                     </li>
                                 );
@@ -372,7 +439,7 @@ const NewJobPost = () => {
         </Box>
     );
 
-    const Summary = (
+    const Qualifications = (
         <Box sx={{ marginTop: '30px' }}>
             <Typography fontSize={'16px'} color="#494949">
                 Qualifications
@@ -408,7 +475,7 @@ const NewJobPost = () => {
                             color: '#808080'
                         }}
                     >
-                        {qualifications.split('\n').map((item) => {
+                        {qualifications?.split('\n')?.map((item) => {
                             if (item !== '') {
                                 return <li key={`item_${item}`}>{item}</li>;
                             }
@@ -456,7 +523,7 @@ const NewJobPost = () => {
                             color: '#808080'
                         }}
                     >
-                        {responsibilities.split('\n').map((item) => {
+                        {responsibilities?.split('\n')?.map((item) => {
                             if (item !== '') {
                                 return <li key={`items_${item}`}>{item}</li>;
                             }
@@ -577,7 +644,7 @@ const NewJobPost = () => {
                             color: '#808080'
                         }}
                     >
-                        {additional2.split('\n').map((item) => {
+                        {additional2?.split('\n').map((item) => {
                             if (item !== '') {
                                 return <li key={`items_${item}`}>{item}</li>;
                             }
@@ -616,6 +683,7 @@ const NewJobPost = () => {
                             fontSize={'24px'}
                             variant="headlineMediumSemiBold"
                             color="#494949"
+                            sx={{ width: '90%' }}
                         >
                             You are one step closer to finding Top Talent
                         </Typography>
@@ -630,6 +698,7 @@ const NewJobPost = () => {
                                     border: '1px solid #494949',
                                     fontFamily: 'Open Sans',
                                     gap: '10px',
+                                    width: '10%',
                                     fontWeight: '700',
                                     textTransform: 'capitalize'
                                 }}
@@ -689,11 +758,9 @@ const NewJobPost = () => {
                                             color: '#23282B'
                                         }}
                                     >
-                                        <MenuItem value={'Please select'}>
-                                            Please select
-                                        </MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        <MenuItem value={'ONSITE'}> On-site </MenuItem>
+                                        <MenuItem value={'HYBRID'}>Hybrid</MenuItem>
+                                        <MenuItem value={'REMOTE'}>Remote</MenuItem>
                                     </Select>
                                 </Box>
                             </Box>
@@ -713,15 +780,13 @@ const NewJobPost = () => {
                                             color: '#23282B'
                                         }}
                                     >
-                                        <MenuItem value={'Full time'}>
-                                            Full time
-                                        </MenuItem>
-                                        <MenuItem value={'Part time'}>
-                                            Part time
-                                        </MenuItem>
-                                        <MenuItem value={'Contract'}>
-                                            Contract
-                                        </MenuItem>
+                                        <MenuItem value={'FULL_TIME'}> Full time </MenuItem>
+                                        <MenuItem value={'PART_TIME'}> Part time </MenuItem>
+                                        <MenuItem value={'CONTRACT'}> Contract </MenuItem>
+                                        <MenuItem value={'TEMPORARY'}> Temporary </MenuItem>
+                                        <MenuItem value={'PERMANENT'}> Contract </MenuItem>
+                                        <MenuItem value={'NEW_GRAD'}> New grad </MenuItem>
+                                        <MenuItem value={'INTERNSHIP'}> Internship </MenuItem>
                                     </Select>
                                 </Box>
                             </Box>
@@ -812,12 +877,15 @@ const NewJobPost = () => {
                                             fontWeight: '700'
                                         }}
                                     >
-                                        <MenuItem value={'NGN'}>NGN</MenuItem>
-                                        <MenuItem value={'Dollar'}>
-                                            Dollar
+                                        <MenuItem value={'NGN'}>Naira</MenuItem>
+                                        <MenuItem value={'USD'}>
+                                            US Dollar
                                         </MenuItem>
                                         <MenuItem value={'Rupees'}>
-                                            Rupees
+                                            Canadian Dollar
+                                        </MenuItem>
+                                        <MenuItem value={'GBP'}>
+                                            British Pounds
                                         </MenuItem>
                                     </Select>
                                     <Paper
@@ -897,7 +965,7 @@ const NewJobPost = () => {
                         <>
                             {RequiredSkills}
                             {AboutRole}
-                            {Summary}
+                            {Qualifications}
                             {Responsibilities}
                             {DeadLine}
                             {Additional1}
@@ -944,7 +1012,7 @@ const NewJobPost = () => {
                             ) : null}
                             <Box sx={{ marginTop: '30px' }}>
                                 <Typography fontSize={'16px'} color="#494949">
-                                    Summary of the role
+                                    Qualifications of the role
                                 </Typography>
                                 <Box sx={{ marginTop: '10px' }}>
                                     <Box
@@ -998,10 +1066,10 @@ const NewJobPost = () => {
                                         step === 1
                                             ? !jobTitle
                                             : selectedSkills?.length === 0 ||
-                                              qualifications === '' ||
-                                              overview === '' ||
-                                              responsibilities === '' ||
-                                              deadLine === ''
+                                            qualifications === '' ||
+                                            overview === '' ||
+                                            responsibilities === '' ||
+                                            deadLine === ''
                                     )
                                         ? true
                                         : false
@@ -1029,19 +1097,20 @@ const NewJobPost = () => {
             </Box>
             <DialogBox
                 open={showPopup}
+                updatePopup={state?.id ? true : false}
                 handleClose={() => setShowPopup(false)}
                 handleOnPostAnother={() => {
                     setEdit(false);
                     setStep(1);
                     setJobTitle('');
-                    setJobType('Full time');
+                    setJobType('FULL_TIME');
                     setLocation('');
                     setYearsOfExp('');
                     setMinimumScore('');
                     setCurrency('NGN');
                     setMinSalary('');
                     setMaxSalary('');
-                    setWorkPlaceType('Please select');
+                    setWorkPlaceType('ONSITE');
                     setOverview('');
                     setQualifications('');
                     setResponsibilities('');
