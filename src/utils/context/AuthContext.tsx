@@ -28,6 +28,7 @@ interface CurrentEmployment {
   interface Employment {
     id: string;
     companyName: string;
+    jobDescription: string;
     jobTitle: string;
     startYear: string;
     endYear: string;
@@ -52,11 +53,12 @@ interface CurrentEmployment {
   interface ProfessionalProfile {
     id: string;
     emailAddress: string;
+    address: string;
     firstName: string;
     lastName: string;
     photoUrl: string;
     currentEmployment?: CurrentEmployment;
-    employments: Employment[];
+    employemnts: Employment[];
     qualifications: Qualification[];
   }
   

@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Box,
     Button,
     Typography,
-    IconButton,
-    InputBase,
     CircularProgress
 } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { styled } from '@mui/material/styles';
-import LinearProgress, {
-    linearProgressClasses
-} from '@mui/material/LinearProgress';
-import profile from '../../../../assets/images/profile.png';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import Edit from '../../../../assets/icons/Edit';
 import Cancel from '../../../../assets/icons/Cancel';
 import LogoIcon from '../../../../assets/icons/LogoIcon';
@@ -22,7 +17,6 @@ import Birthday from '../../../../assets/icons/Birthday';
 import Location from '../../../../assets/icons/Location';
 import Delete from '../../../../assets/icons/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 import SnackAlert from '../../../../components/Snackbar';
@@ -39,7 +33,6 @@ const modalstyle = {
     border: 0,
     bgcolor: 'background.paper',
     boxShadow: 24,
-    p: 4,
     outline: 'none',
     maxHeight: 800,
     overflowY: 'auto'
@@ -61,7 +54,6 @@ const ApplyJob = ({
     companyName = ''
 }: ApplyJobProps) => {
     const [progress, setProgress] = useState<number>(25);
-    const [showall, setShowAll] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
@@ -74,16 +66,8 @@ const ApplyJob = ({
 
     useEffect(() => {
         setProgress(25);
-        setShowAll(false);
     }, [showModal]);
 
-    const handleShow = () => {
-        if (showall) {
-            setShowAll(false);
-        } else {
-            setProgress(progress - 25);
-        }
-    };
 
     const handleApplyNow = () => {
         if (user?.id && jobId) {
@@ -155,7 +139,7 @@ const ApplyJob = ({
                         <img
                             height={80}
                             width={80}
-                            src={profile}
+                            src={user?.professionalProfile?.photoUrl}
                             alt="icon"
                             style={{ borderRadius: 100 }}
                         />
@@ -169,7 +153,7 @@ const ApplyJob = ({
                                 fontWeight: '700'
                             }}
                         >
-                            {'Ronald Richards'}
+                            {user?.professionalProfile?.firstName} {user?.professionalProfile?.lastName}
                         </p>
                         <p
                             style={{
@@ -179,7 +163,7 @@ const ApplyJob = ({
                                 fontWeight: '400'
                             }}
                         >
-                            {'Product Designer'}
+                            {user?.professionalProfile?.currentEmployment?.jobTitle}
                         </p>
                         <p
                             style={{
@@ -190,7 +174,7 @@ const ApplyJob = ({
                                 color: '#808080'
                             }}
                         >
-                            {'Austin , USA'}
+                            {user?.professionalProfile?.currentEmployment?.location}
                         </p>
                     </Box>
                 </Box>
@@ -214,55 +198,21 @@ const ApplyJob = ({
                             {'Contact Info'}
                         </p>
                     </Box>
-                    {!showall ? (
-                        <Box
-                            sx={{
-                                alignItems: 'center',
-                                display: 'flex',
-                                gap: '4px',
-                                fontSize: '14px',
-                                color: '#05668D',
-                                fontWeight: '700',
-                                backgroundColor: '#FCFBF8',
-                                borderRadius: '8px',
-                                padding: '0px 12px'
-                            }}
-                        >
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
-                                disabled={true}
-                            >
-                                <Edit />
-                            </IconButton>
-                            Edit
-                        </Box>
-                    ) : (
-                        <Box
-                            sx={{
-                                alignItems: 'center',
-                                display: 'flex',
-                                gap: '12px',
-                                fontSize: '14px',
-                                color: '#05668D',
-                                fontWeight: '700',
-                                backgroundColor: '#FCFBF8',
-                                borderRadius: '8px',
-                                padding: '0px 12px'
-                            }}
-                        >
-                            Edit
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
-                                disabled={true}
-                            >
-                                <Edit />
-                            </IconButton>
-                        </Box>
-                    )}
+                    <Button
+                        sx={{
+                            fontSize: '14px',
+                            color: '#05668D',
+                            width: 'auto',
+                            fontWeight: '700',
+                            backgroundColor: '#F2F2F2',
+                            textDecoration: 'none',
+                            borderRadius: '8px',
+                            padding: '8px 12px'
+                        }}
+                        endIcon={<Edit />}
+                    >
+                        Edit
+                    </Button>
                 </Box>
                 <Box sx={{ width: '100%', marginTop: '12px' }}>
                     <Box
@@ -285,7 +235,7 @@ const ApplyJob = ({
                                     color: '#23282B'
                                 }}
                             >
-                                {'Yoour Profile'}
+                                {'Your Profile'}
                             </p>
                             <p
                                 style={{
@@ -322,19 +272,18 @@ const ApplyJob = ({
                             >
                                 {'Phone'}
                             </p>
-                            <p
-                                style={{
+                            <Typography
+                                variant='titleSmallRegular'
+                                sx={{
                                     margin: '0px',
-                                    fontSize: '14px',
-                                    fontWeight: '400',
                                     color: '#23282B'
                                 }}
                             >
                                 {'+234704 5550114'}{' '}
                                 <span style={{ color: '#808080' }}>
-                                    {'(office)'}
+                                    {'(Office)'}
                                 </span>
-                            </p>
+                            </Typography>
                         </Box>
                     </Box>
                     <Box
@@ -367,9 +316,7 @@ const ApplyJob = ({
                                     color: '#055C7F'
                                 }}
                             >
-                                {
-                                    '3891 Ranchview Dr. Richardson, California 62639'
-                                }
+                                {user?.professionalProfile?.address}
                             </p>
                         </Box>
                     </Box>
@@ -403,7 +350,7 @@ const ApplyJob = ({
                                     color: '#055C7F'
                                 }}
                             >
-                                {'Ronaldrichie@outlook.com'}
+                                {user?.professionalProfile?.emailAddress}
                             </p>
                         </Box>
                     </Box>
@@ -442,19 +389,6 @@ const ApplyJob = ({
                         </Box>
                     </Box>
                 </Box>
-                {!showall ? (
-                    <Box sx={{ width: '100%', marginTop: '30px' }}>
-                        <Button
-                            variant="contained"
-                            sx={{ py: 1 }}
-                            onClick={() => {
-                                setProgress(progress + 25);
-                            }}
-                        >
-                            Next
-                        </Button>
-                    </Box>
-                ) : null}
             </>
         );
     };
@@ -474,260 +408,203 @@ const ApplyJob = ({
                         {'Education'}
                     </p>
                 </Box>
-                <Box
-                    sx={{
-                        marginTop: '24px',
-                        display: 'flex',
-                        width: '100%',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}
-                >
-                    <Box>
-                        <p
-                            style={{
-                                margin: '0px',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                color: '#494949'
-                            }}
-                        >
-                            {'1 of 2'}
-                        </p>
-                    </Box>
-                    <Box sx={{ gap: '10px', display: 'flex' }}>
-                        {!showall ? (
-                            <Box
-                                sx={{
-                                    alignItems: 'center',
-                                    display: 'flex',
-                                    gap: '12px',
-                                    fontSize: '14px',
-                                    color: '#05668D',
-                                    fontWeight: '700',
-                                    backgroundColor: '#FCFBF8',
-                                    borderRadius: '8px',
-                                    padding: '0px 12px'
-                                }}
-                            >
-                                Remove
-                                <IconButton
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="photo"
-                                    disabled={true}
-                                >
-                                    <Delete />
-                                </IconButton>
-                            </Box>
-                        ) : null}
-                        <Box
-                            sx={{
-                                alignItems: 'center',
-                                display: 'flex',
-                                gap: '12px',
-                                fontSize: '14px',
-                                color: '#05668D',
-                                fontWeight: '700',
-                                backgroundColor: '#FCFBF8',
-                                borderRadius: '8px',
-                                padding: '0px 12px'
-                            }}
-                        >
-                            Edit
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
-                                disabled={true}
-                            >
-                                <Edit />
-                            </IconButton>
-                        </Box>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        marginTop: '15px',
-                        padding: '15px',
-                        backgroundColor: '#FFFAF1',
-                        borderRadius: '5px'
-                    }}
-                >
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Degree:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            Bachelor of Engineering - BENG
-                        </Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            School:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            University of Nigeria Nsukka
-                        </Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Major / Field of study :
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            Electrical Engineering
-                        </Typography>
-                    </Box>
-                    <Box sx={{ width: '100%', display: 'flex' }}>
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Dates of employment:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            May 2017 - September 2022
-                        </Typography>
-                    </Box>
-                </Box>
-                {!showall ? (
+                {user?.professionalProfile?.qualifications?.map((qualification, i) => (
                     <>
                         <Box
                             sx={{
+                                marginTop: '24px',
                                 display: 'flex',
-                                justifyContent: 'flex-end',
-                                marginTop: '15px',
-                                marginBottom: '80px'
+                                width: '100%',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
                             }}
                         >
-                            <Box
-                                sx={{
-                                    alignItems: 'center',
-                                    display: 'flex',
-                                    gap: '3px',
-                                    fontSize: '14px',
-                                    color: '#05668D',
-                                    fontWeight: '700',
-                                    backgroundColor: '#FCFBF8',
-                                    borderRadius: '8px',
-                                    padding: '0px 12px'
-                                }}
-                            >
-                                <IconButton
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="photo"
-                                    disabled={true}
+                            <Box>
+                                <p
+                                    style={{
+                                        margin: '0px',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        color: '#494949'
+                                    }}
                                 >
-                                    <AddIcon style={{ color: '#05668D' }} />
-                                </IconButton>
-                                Add more
+                                    {i + 1} of {user?.professionalProfile?.qualifications?.length}
+                                </p>
+                            </Box>
+                            <Box sx={{ gap: '10px', display: 'flex' }}>
+                                {progress < 100 ? (
+                                    <Button
+                                        sx={{
+                                            fontSize: '14px',
+                                            color: '#05668D',
+                                            fontWeight: '700',
+                                            backgroundColor: '#F2F2F2',
+                                            width: 'auto',
+                                            borderRadius: '8px',
+                                            padding: '12px',
+                                            textDecoration: 'none'
+                                        }}
+                                        endIcon={<Delete />}
+                                    >
+                                        Remove
+                                    </Button>
+                                ) : null}
+
+                                <Button
+                                    sx={{
+                                        fontSize: '14px',
+                                        color: '#05668D',
+                                        fontWeight: '700',
+                                        backgroundColor: '#F2F2F2',
+                                        width: 'auto',
+                                        borderRadius: '8px',
+                                        padding: '12px',
+                                        textDecoration: 'none'
+                                    }}
+                                    endIcon={<Edit />}
+                                >
+                                    Edit
+                                </Button>
                             </Box>
                         </Box>
                         <Box
                             sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between'
+                                marginTop: '15px',
+                                padding: '15px',
+                                backgroundColor: '#FFFAF1',
+                                borderRadius: '5px'
                             }}
                         >
-                            <Box sx={{ width: '35%' }}>
-                                <Button
-                                    style={{
-                                        backgroundColor: '#fff',
-                                        color: '#05668D',
-                                        borderWidth: 1,
-                                        borderColor: '#05668D',
-                                        borderStyle: 'solid'
-                                    }}
-                                    variant="contained"
-                                    sx={{ py: 1 }}
-                                    onClick={() => {
-                                        setProgress(progress - 25);
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
                                     }}
                                 >
-                                    Back
-                                </Button>
+                                    Degree:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {qualification.degree}
+                                </Typography>
                             </Box>
-                            <Box sx={{ width: '64%' }}>
-                                <Button
-                                    variant="contained"
-                                    sx={{ py: 1, display: 'flex', gap: '10px' }}
-                                    onClick={() => {
-                                        setProgress(progress + 25);
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
                                     }}
                                 >
-                                    Next <EastIcon />
-                                </Button>
+                                    School:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {qualification.school}
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
+                                    }}
+                                >
+                                    Major / Field of study :
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {qualification.fieldOfStudy}
+                                </Typography>
+                            </Box>
+                            <Box sx={{ width: '100%', display: 'flex' }}>
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
+                                    }}
+                                >
+                                    Dates of employment:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {qualification.startYear} - {qualification.endYear}
+                                </Typography>
                             </Box>
                         </Box>
                     </>
+                ))}
+                {progress < 100 ? (
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'end'
+                        }}
+                    >
+                        <Button
+                            sx={{
+                                fontSize: '14px',
+                                color: '#05668D',
+                                fontWeight: '700',
+                                backgroundColor: '#F2F2F2',
+                                width: 'auto',
+                                borderRadius: '8px',
+                                padding: '12px',
+                                mt: '16px',
+                                textDecoration: 'none'
+                            }}
+                            startIcon={<AddIcon style={{ color: '#05668D' }} />}
+                        >
+                            Add more
+                        </Button>
+                    </Box>
                 ) : null}
             </>
         );
@@ -748,258 +625,471 @@ const ApplyJob = ({
                         {'Work Experience'}
                     </p>
                 </Box>
-                <Box
-                    sx={{
-                        marginTop: '24px',
-                        display: 'flex',
-                        width: '100%',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}
-                >
-                    <Box>
-                        <p
-                            style={{
-                                margin: '0px',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                color: '#494949'
-                            }}
-                        >
-                            {'2 of 2'}
-                        </p>
-                    </Box>
-                    <Box sx={{ gap: '10px', display: 'flex' }}>
-                        {!showall ? (
-                            <Box
-                                sx={{
-                                    alignItems: 'center',
-                                    display: 'flex',
-                                    gap: '12px',
-                                    fontSize: '14px',
-                                    color: '#05668D',
-                                    fontWeight: '700',
-                                    backgroundColor: '#FCFBF8',
-                                    borderRadius: '8px',
-                                    padding: '0px 12px'
-                                }}
-                            >
-                                Remove
-                                <IconButton
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="photo"
-                                    disabled={true}
-                                >
-                                    <Delete />
-                                </IconButton>
-                            </Box>
-                        ) : null}
-                        <Box
-                            sx={{
-                                alignItems: 'center',
-                                display: 'flex',
-                                gap: '12px',
-                                fontSize: '14px',
-                                color: '#05668D',
-                                fontWeight: '700',
-                                backgroundColor: '#FCFBF8',
-                                borderRadius: '8px',
-                                padding: '0px 12px'
-                            }}
-                        >
-                            Edit
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="photo"
-                                disabled={true}
-                            >
-                                <Edit />
-                            </IconButton>
-                        </Box>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        marginTop: '15px',
-                        padding: '15px',
-                        backgroundColor: '#FFFAF1',
-                        borderRadius: '5px'
-                    }}
-                >
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Your title:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            Product designer
-                        </Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Company:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            Xtera Solutions
-                        </Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Dates of employment:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            May 2017 - September 2022
-                        </Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Industry:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            Fintech
-                        </Typography>
-                    </Box>
-                    <Box sx={{ width: '100%', display: 'flex' }}>
-                        <Typography
-                            sx={{
-                                color: '#808080',
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                paddingRight: '15px'
-                            }}
-                        >
-                            Description:
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: '#23282B',
-                                fontSize: '14px',
-                                fontWeight: '400'
-                            }}
-                        >
-                            Mi orci hendrerit eget nunc adipiscing elit augue.
-                            Leo tristique auctor commodo id nullam nam. Sed quam
-                            quis odio volutpat lobortis urna ac gravida.
-                        </Typography>
-                    </Box>
-                </Box>
-                {!showall ? (
+                {user?.professionalProfile?.employemnts?.map((employment, i) => (
                     <>
                         <Box
                             sx={{
+                                marginTop: '24px',
                                 display: 'flex',
-                                justifyContent: 'flex-end',
-                                marginTop: '15px',
-                                marginBottom: '80px'
+                                width: '100%',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
                             }}
                         >
-                            <Box
-                                sx={{
-                                    alignItems: 'center',
-                                    display: 'flex',
-                                    gap: '3px',
-                                    fontSize: '14px',
-                                    color: '#05668D',
-                                    fontWeight: '700',
-                                    backgroundColor: '#FCFBF8',
-                                    borderRadius: '8px',
-                                    padding: '0px 12px'
-                                }}
-                            >
-                                <IconButton
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="photo"
-                                    disabled={true}
+                            <Box>
+                                <p
+                                    style={{
+                                        margin: '0px',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        color: '#494949'
+                                    }}
                                 >
-                                    <AddIcon style={{ color: '#05668D' }} />
-                                </IconButton>
-                                Add more
+                                    {i + 1} of {user?.professionalProfile?.employemnts?.length}
+                                </p>
+                            </Box>
+                            <Box sx={{ gap: '10px', display: 'flex' }}>
+                                {progress < 100 ? (
+                                    <Button
+                                        sx={{
+                                            fontSize: '14px',
+                                            color: '#05668D',
+                                            fontWeight: '700',
+                                            backgroundColor: '#F2F2F2',
+                                            width: 'auto',
+                                            borderRadius: '8px',
+                                            padding: '12px',
+                                            textDecoration: 'none'
+                                        }}
+                                        endIcon={<Delete />}
+                                    >
+                                        Remove
+                                    </Button>
+                                ) : null}
+                                <Button
+                                    sx={{
+                                        fontSize: '14px',
+                                        color: '#05668D',
+                                        fontWeight: '700',
+                                        backgroundColor: '#F2F2F2',
+                                        width: 'auto',
+                                        borderRadius: '8px',
+                                        padding: '12px',
+                                        textDecoration: 'none'
+                                    }}
+                                    endIcon={<Edit />}
+                                >
+                                    Edit
+                                </Button>
                             </Box>
                         </Box>
                         <Box
                             sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between'
+                                marginTop: '15px',
+                                padding: '15px',
+                                backgroundColor: '#FFFAF1',
+                                borderRadius: '5px'
                             }}
                         >
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
+                                    }}
+                                >
+                                    Your title:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {employment.jobTitle}
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
+                                    }}
+                                >
+                                    Company:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {employment.companyName}
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
+                                    }}
+                                >
+                                    Dates of employment:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {employment.startYear} - {employment.isCurrentPosition ? 'Present' : employment.endYear}
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
+                                    }}
+                                >
+                                    Industry:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    Fintech
+                                </Typography>
+                            </Box>
+                            <Box sx={{ width: '100%', display: 'flex' }}>
+                                <Typography
+                                    sx={{
+                                        color: '#808080',
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        paddingRight: '15px'
+                                    }}
+                                >
+                                    Description:
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: '#23282B',
+                                        fontSize: '14px',
+                                        fontWeight: '400'
+                                    }}
+                                >
+                                    {employment.jobDescription}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </>
+                ))}
+                {progress < 100 ? (
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'end'
+                        }}
+                    >
+                        <Button
+                            sx={{
+                                fontSize: '14px',
+                                color: '#05668D',
+                                fontWeight: '700',
+                                backgroundColor: '#F2F2F2',
+                                width: 'auto',
+                                borderRadius: '8px',
+                                padding: '12px',
+                                mt: '16px',
+                                textDecoration: 'none'
+                            }}
+                            startIcon={<AddIcon style={{ color: '#05668D' }} />}
+                        >
+                            Add more
+                        </Button>
+                    </Box>
+                ) : null}
+            </>
+        );
+    };
+
+    // const CoverLetter = () => {
+    //     return (
+    //         <>
+    //             <Box sx={{ marginTop: '20px' }}>
+    //                 <p
+    //                     style={{
+    //                         margin: '0px',
+    //                         fontSize: '16px',
+    //                         fontWeight: '600',
+    //                         color: '#23282B'
+    //                     }}
+    //                 >
+    //                     {'Cover Letter'}
+    //                 </p>
+    //             </Box>
+    //             <Box
+    //                 sx={{
+    //                     marginTop: '15px',
+    //                     padding: '15px',
+    //                     backgroundColor: '#FFFAF1',
+    //                     borderRadius: '5px'
+    //                 }}
+    //             >
+    //                 <Box
+    //                     sx={{
+    //                         width: '100%',
+    //                         display: 'flex',
+    //                         marginBottom: '10px',
+    //                         alignItems: 'center'
+    //                     }}
+    //                 >
+    //                     <Box>
+    //                         <MailOutlineIcon
+    //                             style={{
+    //                                 fontSize: '18px',
+    //                                 color: '#808080',
+    //                                 fontWeight: '400'
+    //                             }}
+    //                         />
+    //                     </Box>
+    //                     <Typography
+    //                         sx={{
+    //                             marginBottom: '5px',
+    //                             padding: '0px 12px',
+    //                             color: '#808080'
+    //                         }}
+    //                     >
+    //                         |
+    //                     </Typography>
+    //                     <Typography
+    //                         sx={{
+    //                             fontSize: '14px',
+    //                             fontWeight: '400',
+    //                             color: '#808080'
+    //                         }}
+    //                     >
+    //                         Cover letter
+    //                     </Typography>
+    //                 </Box>
+    //                 <Box sx={{ width: '100%' }}>
+    //                     <InputBase
+    //                         rows={!showall ? 10 : 0}
+    //                         placeholder="Write something"
+    //                         defaultValue={
+    //                             'Lorem ipsum dolor sit amet consectetur. Nec natoque ornare eleifend nascetur. Cras a lectus pretium gravida porttitor amet nisl volutpat turpis. Semper auctor quam scelerisque eget nulla rhoncus lorem purus eu. Vel sit cursus vehicula accumsan commodo odio urna.'
+    //                         }
+    //                         sx={{
+    //                             backgroundColor: '#FCFBF8',
+    //                             width: '100%',
+    //                             overflowY: 'auto',
+    //                             padding: 0,
+    //                             paddingTop: '10px',
+    //                             fontFamily: 'open sans',
+    //                             color: '#23282B'
+    //                         }}
+    //                         multiline
+    //                     />
+    //                 </Box>
+    //             </Box>
+    //             {!showall ? (
+    //                 <Box
+    //                     sx={{
+    //                         display: 'flex',
+    //                         justifyContent: 'space-between',
+    //                         marginTop: '30px'
+    //                     }}
+    //                 >
+    //                     <Box sx={{ width: '35%' }}>
+    //                         <Button
+    //                             style={{
+    //                                 backgroundColor: '#fff',
+    //                                 color: '#05668D',
+    //                                 borderWidth: 1,
+    //                                 borderColor: '#05668D',
+    //                                 borderStyle: 'solid'
+    //                             }}
+    //                             variant="contained"
+    //                             sx={{ py: 1 }}
+    //                             onClick={() => {
+    //                                 setProgress(progress - 25);
+    //                             }}
+    //                         >
+    //                             Back
+    //                         </Button>
+    //                     </Box>
+    //                     <Box sx={{ width: '64%' }}>
+    //                         <Button
+    //                             variant="contained"
+    //                             sx={{ py: 1, display: 'flex', gap: '10px' }}
+    //                             onClick={() => {
+    //                                 setShowAll(true);
+    //                             }}
+    //                         >
+    //                             Next <EastIcon />
+    //                         </Button>
+    //                     </Box>
+    //                 </Box>
+    //             ) : (
+    //                 <Box
+    //                     sx={{
+    //                         display: 'flex',
+    //                         justifyContent: 'space-between',
+    //                         width: '100%',
+    //                         marginTop: '40px'
+    //                     }}
+    //                 >
+    //                     <Box sx={{ width: '35%' }}>
+    //                         <Button
+    //                             style={{
+    //                                 backgroundColor: '#fff',
+    //                                 color: '#05668D',
+    //                                 borderWidth: 1,
+    //                                 borderColor: '#05668D',
+    //                                 borderStyle: 'solid'
+    //                             }}
+    //                             variant="contained"
+    //                             sx={{ py: 1 }}
+    //                             onClick={() => {
+    //                                 setShowAll(false);
+    //                             }}
+    //                         >
+    //                             Back
+    //                         </Button>
+    //                     </Box>
+    //                     <Box sx={{ width: '64%', textAlign: 'center' }}>
+    //                         {loading ? (
+    //                             <CircularProgress sx={{ color: '#05668D' }} />
+    //                         ) : (
+    //                             <Button
+    //                                 variant="contained"
+    //                                 sx={{ py: 1, display: 'flex', gap: '10px' }}
+    //                                 onClick={handleApplyNow}
+    //                             >
+    //                                 Submit
+    //                             </Button>
+    //                         )}
+    //                     </Box>
+    //                 </Box>
+    //             )}
+    //         </>
+    //     );
+    // };
+
+    return (
+        <>
+            <Modal
+                open={showModal}
+                onClose={hideModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={modalstyle}>
+                    <Box sx={{ p: 4 }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                border: 0,
+                                borderBottomWidth: 1,
+                                borderBottomColor: '#CCC',
+                                borderStyle: 'solid',
+                                marginBottom: '15px',
+                                paddingBottom: 1
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'flex-start',
+                                    gap: '15px'
+                                }}
+                            >
+                                {progress > 25 && (
+                                    <Box
+                                        sx={{ cursor: 'pointer' }}
+                                        onClick={() => setProgress((prev) => prev - 25)}
+                                    >
+                                        <KeyboardBackspaceIcon
+                                            style={{
+                                                color: '#808080',
+                                                fontWeight: '400'
+                                            }}
+                                        />
+                                    </Box>
+                                )}
+                                <Box>
+                                    <h4 style={{ marginTop: 0, marginBottom: 0 }}>
+                                        Apply to {companyName}
+                                    </h4>
+                                </Box>
+                            </Box>
+                            <Box>
+                                <div
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => {
+                                        hideModal();
+                                    }}
+                                >
+                                    <Cancel />
+                                </div>
+                            </Box>
+                        </Box>
+                        <ProgressBar />
+                        {(progress === 25 || progress === 100) ? <ContactInfo /> : null}
+                        {(progress === 50 || progress === 100) ? <EducationInfo /> : null}
+                        {(progress === 75 || progress === 100) ? <WorkExperience /> : null}
+                    </Box>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            backgroundColor: '#FFFAF1',
+                            p: '20px 32px'
+                        }}
+                    >
+                        {progress > 25 ?
                             <Box sx={{ width: '35%' }}>
                                 <Button
                                     style={{
@@ -1011,262 +1101,30 @@ const ApplyJob = ({
                                     }}
                                     variant="contained"
                                     sx={{ py: 1 }}
-                                    onClick={() => {
-                                        setProgress(progress - 25);
-                                    }}
+                                    onClick={() => setProgress((prev) => prev - 25)}
                                 >
                                     Back
                                 </Button>
                             </Box>
-                            <Box sx={{ width: '64%' }}>
-                                <Button
-                                    variant="contained"
-                                    sx={{ py: 1, display: 'flex', gap: '10px' }}
-                                    onClick={() => {
-                                        setProgress(progress + 25);
-                                    }}
-                                >
-                                    Next <EastIcon />
-                                </Button>
-                            </Box>
-                        </Box>
-                    </>
-                ) : null}
-            </>
-        );
-    };
-
-    const CoverLetter = () => {
-        return (
-            <>
-                <Box sx={{ marginTop: '20px' }}>
-                    <p
-                        style={{
-                            margin: '0px',
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            color: '#23282B'
-                        }}
-                    >
-                        {'Cover Letter'}
-                    </p>
-                </Box>
-                <Box
-                    sx={{
-                        marginTop: '15px',
-                        padding: '15px',
-                        backgroundColor: '#FFFAF1',
-                        borderRadius: '5px'
-                    }}
-                >
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            marginBottom: '10px',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Box>
-                            <MailOutlineIcon
-                                style={{
-                                    fontSize: '18px',
-                                    color: '#808080',
-                                    fontWeight: '400'
-                                }}
-                            />
-                        </Box>
-                        <Typography
-                            sx={{
-                                marginBottom: '5px',
-                                padding: '0px 12px',
-                                color: '#808080'
-                            }}
-                        >
-                            |
-                        </Typography>
-                        <Typography
-                            sx={{
-                                fontSize: '14px',
-                                fontWeight: '400',
-                                color: '#808080'
-                            }}
-                        >
-                            Cover letter
-                        </Typography>
-                    </Box>
-                    <Box sx={{ width: '100%' }}>
-                        <InputBase
-                            rows={!showall ? 10 : 0}
-                            placeholder="Write something"
-                            defaultValue={
-                                'Lorem ipsum dolor sit amet consectetur. Nec natoque ornare eleifend nascetur. Cras a lectus pretium gravida porttitor amet nisl volutpat turpis. Semper auctor quam scelerisque eget nulla rhoncus lorem purus eu. Vel sit cursus vehicula accumsan commodo odio urna.'
-                            }
-                            sx={{
-                                backgroundColor: '#FCFBF8',
-                                width: '100%',
-                                overflowY: 'auto',
-                                padding: 0,
-                                paddingTop: '10px',
-                                fontFamily: 'open sans',
-                                color: '#23282B'
-                            }}
-                            multiline
-                        />
-                    </Box>
-                </Box>
-                {!showall ? (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            marginTop: '30px'
-                        }}
-                    >
-                        <Box sx={{ width: '35%' }}>
-                            <Button
-                                style={{
-                                    backgroundColor: '#fff',
-                                    color: '#05668D',
-                                    borderWidth: 1,
-                                    borderColor: '#05668D',
-                                    borderStyle: 'solid'
-                                }}
-                                variant="contained"
-                                sx={{ py: 1 }}
-                                onClick={() => {
-                                    setProgress(progress - 25);
-                                }}
-                            >
-                                Back
-                            </Button>
-                        </Box>
-                        <Box sx={{ width: '64%' }}>
-                            <Button
-                                variant="contained"
-                                sx={{ py: 1, display: 'flex', gap: '10px' }}
-                                onClick={() => {
-                                    setShowAll(true);
-                                }}
-                            >
-                                Next <EastIcon />
-                            </Button>
-                        </Box>
-                    </Box>
-                ) : (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            width: '100%',
-                            marginTop: '40px'
-                        }}
-                    >
-                        <Box sx={{ width: '35%' }}>
-                            <Button
-                                style={{
-                                    backgroundColor: '#fff',
-                                    color: '#05668D',
-                                    borderWidth: 1,
-                                    borderColor: '#05668D',
-                                    borderStyle: 'solid'
-                                }}
-                                variant="contained"
-                                sx={{ py: 1 }}
-                                onClick={() => {
-                                    setShowAll(false);
-                                }}
-                            >
-                                Back
-                            </Button>
-                        </Box>
-                        <Box sx={{ width: '64%', textAlign: 'center' }}>
+                            : null
+                        }
+                        <Box sx={{ width: progress > 25 ? '64%' : '100%', textAlign: 'center' }}>
                             {loading ? (
                                 <CircularProgress sx={{ color: '#05668D' }} />
                             ) : (
                                 <Button
                                     variant="contained"
                                     sx={{ py: 1, display: 'flex', gap: '10px' }}
-                                    onClick={handleApplyNow}
+                                    onClick={() => progress === 100 ? handleApplyNow() : setProgress((prev) => prev + 25)}
                                 >
-                                    Submit
+                                    {progress === 100 ? 'Submit' : 'Next'} {progress < 100 ? <EastIcon /> : null}
                                 </Button>
                             )}
                         </Box>
                     </Box>
-                )}
-            </>
-        );
-    };
 
-    return (
-        <>
-            <Modal
-                open={showModal}
-                onClose={hideModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={modalstyle}>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            border: 0,
-                            borderBottomWidth: 1,
-                            borderBottomColor: '#CCC',
-                            borderStyle: 'solid',
-                            marginBottom: '15px',
-                            paddingBottom: 1
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '15px'
-                            }}
-                        >
-                            {progress > 25 && (
-                                <Box
-                                    sx={{ cursor: 'pointer' }}
-                                    onClick={() => {
-                                        handleShow();
-                                    }}
-                                >
-                                    <KeyboardBackspaceIcon
-                                        style={{
-                                            color: '#808080',
-                                            fontWeight: '400'
-                                        }}
-                                    />
-                                </Box>
-                            )}
-                            <Box>
-                                <h4 style={{ marginTop: 0, marginBottom: 0 }}>
-                                    Apply to {companyName}
-                                </h4>
-                            </Box>
-                        </Box>
-                        <Box>
-                            <div
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => {
-                                    hideModal();
-                                }}
-                            >
-                                <Cancel />
-                            </div>
-                        </Box>
-                    </Box>
-                    <ProgressBar />
-                    {(progress === 25 || showall) && <ContactInfo />}
-                    {(progress === 50 || showall) && <EducationInfo />}
-                    {(progress === 75 || showall) && <WorkExperience />}
-                    {(progress === 100 || showall) && <CoverLetter />}
                 </Box>
-            </Modal>
+            </Modal >
             <SnackAlert
                 open={show}
                 type={type}

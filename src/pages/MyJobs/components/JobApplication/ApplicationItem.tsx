@@ -10,11 +10,12 @@ import { useSaveApplicant } from '../../../../utils/hooks/api/saved-applicants/u
 import { useAuth } from '../../../../utils/context/AuthContext';
 import SnackAlert from '../../../../components/Snackbar';
 import { useDeleteSavedApplicant } from '../../../../utils/hooks/api/saved-applicants/useDeleteSavedApplicant';
+import ExperienceChip from '../ExperienceChip';
 
 const keywords = [
-    { name: 'Beginner', type: 'B', showbackground: false },
-    { name: 'Mobile Int', type: 'E', showbackground: false },
-    { name: 'Customer Experience Design', type: 'A', showbackground: false }
+    { name: 'Beginner', competencyLevel: 1 },
+    { name: 'Mobile Int', competencyLevel: 2 },
+    { name: 'Customer Experience Design', competencyLevel: 3 }
 ];
 const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem, updateData?: (applicantId: string) => void }) => {
     const { user } = useAuth();
@@ -94,7 +95,9 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem, updateData?
                     gap: '10px',
                     justifyContent: 'space-between',
                     borderBottom: '1px solid #CCC',
-                    paddingBottom: '20px'
+                    paddingBottom: '20px',
+                    pl:'40px',
+                    pr:'40px'
                 }}
             >
                 <Box
@@ -107,7 +110,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem, updateData?
                 >
                     <Avatar sx={{ width: 70, height: 70 }} src={ApplicantInfo?.professionalProfile?.photoUrl} />
                 </Box>
-                <Box sx={{ width: '66%' }}>
+                <Box sx={{ width: '50%' }}>
                     <Typography
                         sx={{
                             fontSize: '16px',
@@ -185,39 +188,49 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem, updateData?
                         </Typography>
                     </Box>
                     <Box
-                        sx={{ marginTop: '5px', display: 'flex', gap: '15px' }}
+                        sx={{
+                            marginTop: '5px',
+                            display: 'flex',
+                            gap: '15px',
+                            alignItems: 'center'
+                        }}
                     >
-                        <ChipList chipsData={keywords} displayAll={true} />
-                        <Typography
+                        <Box
                             sx={{
-                                fontSize: '30px',
-                                color: '##494949',
-                                fontWeight: '700',
-                                lineHeight: '30px'
+                                mt:'10px',
+                                gap: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
                             }}
                         >
-                            {'.'}
-                        </Typography>
-                        <Typography
-                            sx={{
-                                fontSize: '30px',
-                                color: '##494949',
-                                fontWeight: '700',
-                                lineHeight: '30px'
-                            }}
-                        >
-                            {'.'}
-                        </Typography>
+                            {keywords.map(item => <ExperienceChip item={item} />)}
+                            <Box
+                                sx={{
+                                    width: '6px',
+                                    height: '6px',
+                                    backgroundColor: '#494949',
+                                    borderRadius: '100px'
+                                }}
+                            />
+                            <Box
+                                sx={{
+                                    width: '6px',
+                                    height: '6px',
+                                    backgroundColor: '#494949',
+                                    borderRadius: '100px'
+                                }}
+                            />
+                        </Box>
                     </Box>
                 </Box>
                 <Box
                     sx={{
-                        width: 400,
+                        width: '50%',
                         display: 'flex',
                         gap: '15px',
                         alignItems: 'center',
                         marginTop: '20px',
-                        justifyContent: 'space-between'
+                        justifyContent: 'end'
                     }}
                 >
                     <Typography
@@ -227,7 +240,7 @@ const ApplicationItem = (props: { ApplicantInfo: JobApplicationItem, updateData?
                             fontWeight: '600'
                         }}
                     >
-                        {moment(ApplicantInfo?.appliedAt).format('MM/DD/YYYY')}
+                        {moment(ApplicantInfo?.appliedAt).fromNow()}
                     </Typography>
                     <Typography
                         sx={{

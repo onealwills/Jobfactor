@@ -3,6 +3,7 @@ import { Box, Grid } from '@mui/material';
 import JobMetrics from '../JobsList/JobMetrics';
 import { JobApplicationItem } from '../../types/JobApplicationItem';
 import ApplicationItem from './ApplicationItem';
+import Pagination from '../../../../components/Pagination';
 
 const ApplicationList = (props: {
     data: JobApplicationItem[];
@@ -10,11 +11,19 @@ const ApplicationList = (props: {
     updateData?: (applicantId: string) => void;
 }) => {
     const { data, showMetrics, updateData = () => { } } = props;
+    const [page, setPage] = React.useState(0);
+    const rowsPerPage = 8;
+
+    const handleChangePage = (page: number) => {
+        setPage(page - 1);
+    };
 
     return (
         <Box sx={{ backgroundColor: '#FFFFFF', mt: '28px' }}>
-            <Box sx={{ mx: 4 }}>
-                {showMetrics ? <JobMetrics /> : null}
+            <Box>
+                <Box sx={{ mx: '40px' }}>
+                    {showMetrics ? <JobMetrics /> : null}
+                </Box>
                 <Grid
                     container
                     sx={{
@@ -24,7 +33,10 @@ const ApplicationList = (props: {
                         justifyContent: 'center'
                     }}
                 >
-                    {data?.map((item) => (
+                    {data?.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                    )?.map((item) => (
                         <Grid
                             item
                             xs={12}
@@ -38,6 +50,14 @@ const ApplicationList = (props: {
                             <ApplicationItem ApplicantInfo={item} updateData={updateData} />
                         </Grid>
                     ))}
+                    {data?.length > rowsPerPage ?
+                        <Pagination
+                            count={Math.ceil(data.length / rowsPerPage)}
+                            handleChangePage={handleChangePage}
+                        />
+                        :
+                        null
+                    }
                 </Grid>
             </Box>
         </Box>

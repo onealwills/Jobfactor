@@ -36,7 +36,7 @@ function MyJobsPage() {
                 <>
                     <JobsList
                         title={'Recommended for you'}
-                        description={'Based on your profile'}
+                        description={'Based on your profile and search history '}
                         data={filteredJobs}
                         showMetrics={true}
                         showheader={true}

@@ -21,6 +21,7 @@ import '../style.css';
 import { IJobItem } from '../types/IJobItem';
 import { getJobType, getWorkPlace, jobTypes, workPlaces } from '../../../utils/Helper/helper';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const JobsHeader = (props: { title: string; setJobs?: Dispatch<SetStateAction<IJobItem[]>>; jobs?: IJobItem[] }) => {
     const { title, jobs = [], setJobs = () => { } } = props;
@@ -30,6 +31,7 @@ const JobsHeader = (props: { title: string; setJobs?: Dispatch<SetStateAction<IJ
     const [jobType, setJobType] = useState<Array<string>>([]);
     const [datePosted, setDatePosted] = useState<string>('');
     const [showMenu, setShowMenu] = useState<null | HTMLElement>(null);
+    const navigate = useNavigate();
 
     const radioItems = [
         {
@@ -137,10 +139,11 @@ const JobsHeader = (props: { title: string; setJobs?: Dispatch<SetStateAction<IJ
         <Box
             sx={{
                 backgroundColor: '#FFFFFF',
-                padding: '20px',
+                padding: '24px 40px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
+                borderBottom: '1px solid #D9D9D9'
             }}
         >
             <Box
@@ -150,7 +153,15 @@ const JobsHeader = (props: { title: string; setJobs?: Dispatch<SetStateAction<IJ
                     gap: 4
                 }}
             >
-                <ArrowLeftIcon />
+                <IconButton
+                    onClick={() => navigate(-1)}
+                    sx={{
+                        p: 0,
+                        m: 0
+                    }}
+                >
+                    <ArrowLeftIcon />
+                </IconButton>
                 <Typography variant="headlineMediumSemiBold" color="#23282B">
                     {title}
                 </Typography>

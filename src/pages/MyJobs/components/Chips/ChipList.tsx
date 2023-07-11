@@ -1,5 +1,4 @@
-import { Box, Chip } from '@mui/material';
-import React from 'react';
+import { Box, SxProps, Theme, Typography } from '@mui/material';
 
 const chipColorsMapping: Record<string, string> = {
     A: '#49B6FF',
@@ -27,15 +26,21 @@ const ChipInfo = (props: { type: string; showbackgrond?: boolean }) => {
                 backgroundColor: showbackgrond
                     ? 'rgba(5, 5, 5, 0.4)'
                     : chipInfoColorsMapping[type],
-                height: 18,
-                width: 18,
+                height: '16px',
+                width: '17px',
+                p: '0px 2px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: '4px'
             }}
         >
-            {type}
+            <Typography
+                variant='labelLargeBold'
+                color={'#FFF'}
+            >
+                {type}
+            </Typography>
         </Box>
     );
 };
@@ -46,40 +51,41 @@ const ChipItem = (props: {
 }) => {
     const { label, type, showbackgrond } = props;
     return (
-        <Chip
-            onDelete={() => {}}
-            deleteIcon={<ChipInfo type={type} showbackgrond={showbackgrond} />}
+        <Box
             sx={{
-                backgroundColor: showbackgrond
-                    ? chipColorsMapping[type]
-                    : '#808080',
-                m: 1,
-                color: 'white',
-                fontWeight: 600,
-                fontFamily: 'Open Sans',
-                borderRadius: '8px',
-                minHeight: '24px',
+                height: '100%',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
-                pr: 0.75
+                gap: '8px',
+                backgroundColor: showbackgrond ? chipColorsMapping[type] : '#808080',
+                borderRadius: '4px',
+                p: '4px 8px',
             }}
-            label={label}
-        ></Chip>
+        >
+            <Typography
+                variant='labelMediumSemiBold'
+                color={'#FFF'}
+                whiteSpace={'nowrap'}
+            >
+                {label}
+            </Typography>
+            <ChipInfo type={type} showbackgrond={showbackgrond} />
+        </Box >
     );
 };
-const ChipList = (props: IChipProps) => {
-    const { chipsData, displayAll } = props;
+const ChipList = ({ chipsData, displayAll, containerStyle }: IChipProps) => {
     return (
         <Box
             sx={{
-                mx: !displayAll ? '15px' : '-6px',
+                mt: '12px',
                 display: 'flex',
                 justifyContent: !displayAll ? 'center' : 'start',
-                alignItems: 'center'
+                alignItems: 'center',
+                gap: '8px',
+                ...containerStyle
             }}
         >
-            {!displayAll &&
+            {!displayAll ?
                 chipsData
                     .slice(0, 3)
                     .map((item) => (
@@ -88,19 +94,22 @@ const ChipList = (props: IChipProps) => {
                             type={item.type}
                             showbackgrond={item?.showbackground}
                         />
-                    ))}
+                    ))
+                : null
+            }
 
-            {displayAll &&
+            {displayAll ?
                 chipsData.map((item) => (
                     <ChipItem
                         label={item.name}
                         type={item.type}
                         showbackgrond={item?.showbackground}
                     />
-                ))}
-
+                ))
+                : null
+            }
             {!displayAll && chipsData.length > 3 ? (
-                <Box sx={{ pr: 0.5 }}> {`+${chipsData.length - 3}`} </Box>
+                <Typography sx={{ pr: 0.5 }} color={'#23282B'} variant='labelLargeRegular'> {`+${chipsData.length - 3}`} </Typography>
             ) : null}
         </Box>
     );
@@ -109,6 +118,7 @@ const ChipList = (props: IChipProps) => {
 interface IChipProps {
     chipsData: { name: string; type: string; showbackground?: boolean }[];
     displayAll?: boolean;
+    containerStyle?: SxProps<Theme>
 }
 
 export default ChipList;

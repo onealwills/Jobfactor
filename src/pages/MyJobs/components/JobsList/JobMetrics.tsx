@@ -41,13 +41,17 @@ function MetricLabel(props: { label: string }) {
         <Box
             sx={{
                 borderRadius: '0px 100px 100px 0px',
-                backgroundColor: '#FFFAF1',
-                px: 1.5,
-                py: 1,
-                color: '#23282B'
+                backgroundColor: '#F2F2F2',
+                p: '2px 12px',
+
             }}
         >
-            {label}
+            <Typography
+                variant='titleSmallSemiBold'
+                color={'#23282B'}
+            >
+                {label}
+            </Typography>
         </Box>
     );
 }
@@ -119,7 +123,7 @@ const BestFit = () => {
 };
 const JobMetrics = () => {
     return (
-        <Box sx={{ backgroundColor: '#FFFFFF', mt: 1, pt: 1 }}>
+        <Box sx={{ backgroundColor: '#FFFFFF', mt: 1, padding: '10px 10px 10px 40px' }}>
             <Typography
                 variant={'titleSmallSemiBold'}
                 sx={{ textTransform: 'uppercase', color: '#23282B' }}

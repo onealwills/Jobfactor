@@ -45,6 +45,7 @@ function SavedJobs() {
                         description={'Based on your profile'}
                         data={filteredJobs}
                         showMetrics={true}
+                        showheader={true}
                         updateData={updateData}
                     />
                     {/* <AspiringJobs />

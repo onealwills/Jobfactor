@@ -69,7 +69,7 @@ export const getSalaryRange = (salaryCurrency?: string, salaryRangeFrom?: number
     if (salaryCurrency === null || salaryRangeFrom === null || salaryRangeTo === null) {
         return 'N/A'
     }
-    return `${salaryCurrency} ${salaryRangeFrom} - ${salaryRangeFrom}`;
+    return `${salaryCurrency} ${salaryRangeFrom} - ${salaryRangeFrom} / month`;
 };
 
 export const getWorkPlace = (value: string) => {
@@ -106,11 +106,11 @@ export const convertMilliToDateString = (dateNumber: number) => {
     });
 }
 
-export const BEGINNER = { name: 'Beginner', level: 1 };
-export const EXPERIENCED = { name: 'Experienced', level: 2 };
-export const ADVANCE = { name: 'Advance', level: 3 };
-export const EXPERT = { name: 'Expert', level: 4 };
-export const THOUGHT_LEADER = { name: 'Thought Leader', level: 5 };
+export const BEGINNER = { name: 'Beginner', level: 1, shortForm: 'B' };
+export const EXPERIENCED = { name: 'Experienced', level: 2, shortForm: 'E' };
+export const ADVANCE = { name: 'Advance', level: 3, shortForm: 'A' };
+export const EXPERT = { name: 'Expert', level: 4, shortForm: 'X' };
+export const THOUGHT_LEADER = { name: 'Thought Leader', level: 5, shortForm: 'L' };
 
 export const skillLevel = [BEGINNER, EXPERIENCED, ADVANCE, EXPERT, THOUGHT_LEADER];
 export const workPlaces = ['ONSITE', 'HYBRID', 'REMOTE'];

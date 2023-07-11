@@ -1,3 +1,5 @@
+import { SkillType } from "./ISkillType";
+
 export interface IJobItem {
     location?: string;
     title?: string;
@@ -24,7 +26,10 @@ export interface IJobItem {
     salaryRangeFrom?: number;
     salaryRangeTo?: number;
     score?: number
-
+    additionalNote?: string;
+    skills?: SkillType[];
+    responsibilities?: string;
+    
     requirements?: {
         minJobFactorScore: number;
         keywords: { name: string; type: string; showbackground?: boolean }[];

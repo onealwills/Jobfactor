@@ -7,7 +7,10 @@ import {
     Select,
     MenuItem,
     Paper,
-    CircularProgress
+    CircularProgress,
+    InputLabel,
+    Chip,
+    InputAdornment
 } from '@mui/material';
 import { ArrowLeftIcon } from '../../../assets/icons/ArrowLeftIcon';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -19,33 +22,35 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import EditIcon from '@mui/icons-material/Edit';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DialogBox from '../components/DialogBox';
-import { convertDateStringToMilli, convertMilliToDateString, getCompetencyColor, skillLevel } from '../../../utils/Helper/helper';
+import { ADVANCE, BEGINNER, EXPERIENCED, EXPERT, THOUGHT_LEADER, convertDateStringToMilli, convertMilliToDateString, getJobType, getWorkPlace, jobTypes, workPlaces } from '../../../utils/Helper/helper';
 import { useCreateJobPost } from '../../../utils/hooks/api/jobs/useCreateJob';
 import { useAuth } from '../../../utils/context/AuthContext';
 import { useQueryClient } from 'react-query';
 import SnackAlert from '../../../components/Snackbar';
 import { useUpdateJobPost } from '../../../utils/hooks/api/jobs/useUpdateJob';
 import { useGetJobById } from '../../../utils/hooks/api/jobs/useGetJobById';
+import Dropdown from '../../../assets/icons/Dropdown';
+import EditBtn from '../../../assets/icons/EditBtn';
+import SearchIcon from '../../../assets/icons/SearchIcon';
+import { QueryKeys } from '../../../utils/hooks/api/QueryKey';
+import moment from 'moment';
+import { SkillType } from '../types/ISkillType';
 
 const NewJobPost = () => {
     const navigate = useNavigate();
     const [show, setShow] = useState<boolean>(false);
-    const [selectedSkills, setSelectedSkills] = useState<
-        { name: string; id: number; competencyLevel?: number }[]
-    >([]);
+    const [selectedSkills, setSelectedSkills] = useState<SkillType[]>([]);
     const [overview, setOverview] = useState<string>('');
     const [qualifications, setQualifications] = useState<string>('');
     const [responsibilities, setResponsibilities] = useState<string>('');
     const [deadLine, setDeadLine] = useState<string>('');
     const [additional1, setAdditional1] = useState<string>('');
-    const [additional2, setAdditional2] = useState<string>('');
     const [jobTitle, setJobTitle] = useState<string>('');
-    const [workPlaceType, setWorkPlaceType] = useState<string>('ONSITE');
+    const [workPlaceType, setWorkPlaceType] = useState<string>('');
     const [currency, setCurrency] = useState<string>('NGN');
-    const [jobType, setJobType] = useState<string>('FULL_TIME');
+    const [jobType, setJobType] = useState<string>('');
     const [location, setLocation] = useState<string>('');
     const [yearsOfExp, setYearsOfExp] = useState<string>('');
     const [minimumScore, setMinimumScore] = useState<string>('');
@@ -79,7 +84,7 @@ const NewJobPost = () => {
                 yearsOfExperience: yearsOfExp,
                 minimumScore: minimumScore,
                 salaryRangeFrom: Number(minSalary),
-                additionalNote: `${additional1} ${additional2}`,
+                additionalNote: additional1,
                 salaryRangeTo: Number(maxSalary),
                 salaryCurrency: currency,
                 overview: overview,
@@ -91,7 +96,7 @@ const NewJobPost = () => {
                 companyId: user?.primaryCompanyProfile?.companyId,
             };
 
-            if (state.id) {
+            if (state?.id) {
                 let data = {
                     ...temp,
                     createdAt: job?.createdAt,
@@ -102,7 +107,7 @@ const NewJobPost = () => {
                     onSuccess: (res) => {
                         console.log('updateJobPost', res);
                         queryClient.invalidateQueries({
-                            queryKey: ['retrieve-jobs']
+                            queryKey: [QueryKeys.RetrieveJobs]
                         });
                         setShowPopup(true);
                         setLoading(false);
@@ -121,7 +126,7 @@ const NewJobPost = () => {
                     onSuccess: (res) => {
                         console.log('createJobPost', res);
                         queryClient.invalidateQueries({
-                            queryKey: ['retrieve-jobs']
+                            queryKey: [QueryKeys.RetrieveJobs]
                         });
                         setShowPopup(true);
                         setLoading(false);
@@ -139,17 +144,22 @@ const NewJobPost = () => {
         event: React.ChangeEvent<HTMLInputElement>,
         id: number
     ) => {
-        selectedSkills?.forEach((item) => {
-            if (item?.id === id) {
-                item['competencyLevel'] = Number((event.target as HTMLInputElement).value);
-            }
-        });
+        if (step !== 3) {
+            let temp = JSON.parse(JSON.stringify(selectedSkills))
+            temp?.filter((item: SkillType) => {
+                if (item?.id === id) {
+                    item['competencyLevel'] = Number((event.target as HTMLInputElement).value);
+                }
+                return null;
+            });
+            setSelectedSkills(temp);
+        }
     };
 
     const onChangeDeadLine = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDeadLine(e.target.value);
     };
-
+    
     useEffect(() => {
         if (state?.id && job) {
             setJobTitle(job?.title)
@@ -164,23 +174,31 @@ const NewJobPost = () => {
             setOverview(job?.overview);
             setQualifications(job?.qualifications);
             setResponsibilities(job?.responsibilities);
-            setDeadLine(convertMilliToDateString(job?.expiredAt)); //todo: convert date number to string
+            setDeadLine(moment(job?.expiredAt).format('YYYY-MM-DD')); //todo: convert date number to string
             setAdditional1(job?.additionalNote ? job?.additionalNote?.split('\n')[0] : '');
-            setAdditional2(job?.additionalNote ? job?.additionalNote?.split('\n')[1] : '');
             setSelectedSkills(job?.skills ?? []);
         }
     }, [job, state])
 
     const Header = () => {
         return (
-            <Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '15px',
+                    alignItems: 'center',
+                    backgroundColor: '#fff',
+                    borderBottom: '1px solid #D9D9D9',
+                    padding: '20px'
+
+                }}
+            >
                 <Box
                     sx={{
                         width: '100%',
                         display: 'flex',
                         gap: '15px',
-                        backgroundColor: '#fff',
-                        padding: '20px'
+
                     }}
                 >
                     <Box
@@ -201,358 +219,365 @@ const NewJobPost = () => {
                         </Typography>
                     </Box>
                 </Box>
+                {edit ? (
+                    <Button
+                        sx={{
+                            color: '#05668D',
+                            borderRadius: '8px',
+                            background: '#fcfbf8',
+                            padding: '12px 16px',
+                            fontSize: '14px',
+                            border: '1px solid #05668D',
+                            fontFamily: 'Open Sans',
+                            gap: '10px',
+                            width: 'auto',
+                            height: '44px',
+                            fontWeight: '600',
+                            textDecoration: 'none',
+                            textTransform: 'capitalize'
+                        }}
+                        onClick={() => {
+                            setEdit(false);
+                            setStep(1);
+                        }}
+                        endIcon={<EditBtn />}
+                    >
+                        Edit
+                    </Button>
+                ) : null}
             </Box >
         );
     };
-
     const RequiredSkills = (
-        <Box sx={{ marginTop: '30px' }}>
+        <Box sx={{ marginTop: step === 3 ? '30px' : 0 }}>
             <Typography
-                fontSize={'16px'}
+                variant={'titleLargeSemiBold'}
                 color={'#494949'}
-                marginBottom={'10px'}
             >
                 Required skills
             </Typography>
-            {step === 2 ? (
-                <>
-                    <Stack spacing={3} sx={{ width: '100%' }}>
-                        <Autocomplete
-                            multiple
-                            id="tags-outlined"
-                            options={SkillsData}
-                            getOptionLabel={(option) => option?.name}
-                            filterSelectedOptions
-                            isOptionEqualToValue={(option, value) =>
-                                option.name === value.name
-                            }
-                            value={selectedSkills}
-                            onChange={(event, value) =>
-                                setSelectedSkills(value)
-                            }
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Required skills"
-                                    placeholder="Add Skills"
-                                    name="skills"
-                                />
-                            )}
+            <Stack spacing={3} sx={{ width: '100%', mt: '20px' }}>
+                <Autocomplete
+                    disabled={step === 3}
+                    multiple
+                    options={SkillsData.map((option) => option.name)}
+                    freeSolo
+                    defaultValue={selectedSkills.map(x => x.name)}
+                    renderTags={(value: readonly string[], getTagProps) => selectedSkills.map((option: SkillType, index: number) => <Chip variant="outlined" label={option.name} {...getTagProps({ index })} />)}
+                    onChange={(event, values) => {
+                        let data: SkillType[] = selectedSkills.length > 0 ? selectedSkills?.filter(x => values.includes(x.name)) : [];
+                        if (values.length > selectedSkills.length) {
+                            data.push({
+                                id: selectedSkills.length > 0 ? selectedSkills[selectedSkills.length - 1]?.id + 1 : 1,
+                                name: values[values.length - 1],
+                                competencyLevel: 1
+                            })
+                        }
+                        values = data?.map(x => x.name)
+                        setSelectedSkills(data);
+                    }}
+                    sx={{
+                        backgroundColor: '#FCFBF8',
+                        '& .MuiOutlinedInput-root': {
+                            borderRadius: '8px',
+                            pt: '6px',
+                            pb: '6px'
+                        }
+                    }}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            variant="outlined"
+                            InputProps={{
+                                ...params.InputProps,
+                                startAdornment: (
+                                    <>
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                        {params.InputProps.startAdornment}
+                                    </>
+                                )
+                            }}
+                            placeholder="Search skills"
                         />
-                    </Stack>
-                    <Box>
-                        {selectedSkills?.length > 0 ? (
-                            <Box sx={{ marginTop: '30px' }}>
-                                <Typography
-                                    fontSize={'16px'}
-                                    color={'#494949'}
-                                    marginBottom={'10px'}
+                    )}
+
+                />
+            </Stack>
+            <Box>
+                {selectedSkills?.length > 0 ? (
+                    <Box sx={{ marginTop: '24px' }}>
+                        <Typography
+                            variant={'titleMediumSemiBold'}
+                            color={'#494949'}
+                            marginBottom={'10px'}
+                            component={'div'}
+                        >
+                            {step === 3 ? 'Selected skills and competency levels expected from applicants  ' : 'Select the competency level for skills expected from the applicants'}
+                        </Typography>
+                        <Box
+                            component={'div'}
+                            sx={{
+                                mt: '12px',
+                                mb: '12px',
+                                gap: '12px',
+                                display: 'flex',
+                                alignITems: 'center'
+                            }}
+                        >
+                            {selectedSkills?.map((item, index) => (
+                                <Chip
+                                    label={item?.name}
+                                    sx={{
+                                        border: '1px solid #AAA',
+                                        background: '#FFF9ED',
+                                        fontWeight: 600,
+                                        fontSize: '16px',
+                                    }}
+                                />
+                            ))}
+                        </Box>
+                        {selectedSkills?.map((item, index) => {
+                            return (
+                                <Box
+                                    key={index + 2}
+                                    sx={{
+                                        borderBottom: '1px solid #D9D9D9',
+                                        backgroundColor: '#FCFBF8',
+                                        padding: '20px 15px',
+                                        borderRadius: '5px',
+                                        marginTop: '15px'
+                                    }}
                                 >
-                                    Select the competency level for skills
-                                    expected from the applicants
-                                </Typography>
-                                {selectedSkills?.map((item, index) => {
-                                    return (
-                                        <Box
-                                            key={index + 2}
+                                    <FormControl
+                                        sx={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            gap: '20px',
+                                            width: '100%'
+                                        }}
+                                    >
+                                        <FormLabel
+                                            id="demo-controlled-radio-buttons-group"
+                                            sx={{ minWidth: '50px', color: '#23282B' }}
+                                        >
+                                            {item?.name}
+                                        </FormLabel>
+                                        <RadioGroup
+                                            aria-labelledby="demo-controlled-radio-buttons-group"
+                                            name="controlled-radio-buttons-group"
+                                            value={item?.competencyLevel}
+                                            onChange={(e) => {
+                                                handleSkillsChange(
+                                                    e,
+                                                    item?.id
+                                                );
+                                            }}
                                             sx={{
-                                                border: '1px solid #CCC',
-                                                padding: '8px 15px',
-                                                backgroundColor: '#fff',
-                                                borderRadius: '5px',
-                                                marginTop: '15px'
+                                                flexDirection: 'row'
                                             }}
                                         >
-                                            <FormControl
+                                            <FormControlLabel
                                                 sx={{
-                                                    flexDirection: 'row',
-                                                    alignItems: 'center',
-                                                    gap: '20px'
+                                                    color: '#F55536'
                                                 }}
-                                            >
-                                                <FormLabel
-                                                    id="demo-controlled-radio-buttons-group"
-                                                    sx={{ minWidth: '50px' }}
-                                                >
-                                                    {item?.name}
-                                                </FormLabel>
-                                                <RadioGroup
-                                                    aria-labelledby="demo-controlled-radio-buttons-group"
-                                                    name="controlled-radio-buttons-group"
-                                                    value={item?.competencyLevel}
-                                                    onChange={(e) => {
-                                                        handleSkillsChange(
-                                                            e,
-                                                            item?.id
-                                                        );
-                                                    }}
-                                                    sx={{
-                                                        flexDirection: 'row'
-                                                    }}
-                                                >
-                                                    <FormControlLabel
+                                                value={BEGINNER.level}
+                                                control={
+                                                    <Radio
                                                         sx={{
-                                                            color: '#F55536'
+                                                            color: '#808080'
                                                         }}
-                                                        value="1"
-                                                        control={
-                                                            <Radio
-                                                                sx={{
-                                                                    color: '#808080'
-                                                                }}
-                                                            />
-                                                        }
-                                                        label="Beginner"
                                                     />
-                                                    <FormControlLabel
+                                                }
+                                                label={BEGINNER.name}
+                                            />
+                                            <FormControlLabel
+                                                sx={{
+                                                    color: '#49B6FF'
+                                                }}
+                                                value={EXPERIENCED.level}
+                                                control={
+                                                    <Radio
                                                         sx={{
-                                                            color: '#49B6FF'
+                                                            color: '#808080'
                                                         }}
-                                                        value="2"
-                                                        control={
-                                                            <Radio
-                                                                sx={{
-                                                                    color: '#808080'
-                                                                }}
-                                                            />
-                                                        }
-                                                        label="Experience"
                                                     />
-                                                    <FormControlLabel
+                                                }
+                                                label={EXPERIENCED.name}
+                                            />
+                                            <FormControlLabel
+                                                sx={{
+                                                    color: '#0D00A4'
+                                                }}
+                                                value={ADVANCE.level}
+                                                control={
+                                                    <Radio
                                                         sx={{
-                                                            color: '#0D00A4'
+                                                            color: '#808080'
                                                         }}
-                                                        value="3"
-                                                        control={
-                                                            <Radio
-                                                                sx={{
-                                                                    color: '#808080'
-                                                                }}
-                                                            />
-                                                        }
-                                                        label="Advanced"
                                                     />
-                                                    <FormControlLabel
+                                                }
+                                                label={ADVANCE.name}
+                                            />
+                                            <FormControlLabel
+                                                sx={{
+                                                    color: '#00BD9D'
+                                                }}
+                                                value={EXPERT.level}
+                                                control={
+                                                    <Radio
                                                         sx={{
-                                                            color: '#00BD9D'
+                                                            color: '#808080'
                                                         }}
-                                                        value="4"
-                                                        control={
-                                                            <Radio
-                                                                sx={{
-                                                                    color: '#808080'
-                                                                }}
-                                                            />
-                                                        }
-                                                        label="Expert"
                                                     />
-                                                    <FormControlLabel
+                                                }
+                                                label={EXPERT.name}
+                                            />
+                                            <FormControlLabel
+                                                sx={{
+                                                    color: '#15796E'
+                                                }}
+                                                value={THOUGHT_LEADER.level}
+                                                control={
+                                                    <Radio
                                                         sx={{
-                                                            color: '#15796E'
+                                                            color: '#808080'
                                                         }}
-                                                        value="5"
-                                                        control={
-                                                            <Radio
-                                                                sx={{
-                                                                    color: '#808080'
-                                                                }}
-                                                            />
-                                                        }
-                                                        label="Thought Leader"
                                                     />
-                                                </RadioGroup>
-                                            </FormControl>
-                                        </Box>
-                                    );
-                                })}
-                            </Box>
-                        ) : null}
+                                                }
+                                                label={THOUGHT_LEADER.name}
+                                            />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </Box>
+                            );
+                        })}
                     </Box>
-                </>
-            ) : (
-                <Box>
-                    <Box sx={{ border: '1px solid #CCC' }}>
-                        <ul style={{ color: '#808080', fontSize: '16px' }}>
-                            {selectedSkills?.map((item) => {
-                                return (
-                                    <li>
-                                        {item?.name} {' - '}{' '}
-                                        <span
-                                            style={{
-                                                color: getCompetencyColor(
-                                                    item?.competencyLevel ?? 0
-                                                )
-                                            }}
-                                        >
-                                            {skillLevel.filter(x => x.level === item?.competencyLevel)[0].name}
-                                        </span>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </Box>
-                </Box>
-            )}
+                ) : null}
+            </Box>
         </Box>
     );
 
     const AboutRole = (
-        <Box sx={{ marginTop: '30px' }}>
-            <Typography fontSize={'16px'} color="#494949">
+        <Box sx={{ marginTop: '56px' }}>
+            <Typography variant='titleMediumSemiBold' color="#494949">
                 Overview
             </Typography>
             <Box sx={{ marginTop: '10px' }}>
-                {step === 2 ? (
-                    <InputBase
-                        rows={5}
-                        placeholder="Overview"
-                        value={overview}
-                        sx={{
-                            backgroundColor: '#fff',
-                            width: '100%',
-                            overflowY: 'auto',
-                            borderRadius: '5px',
-                            padding: 0,
-                            paddingTop: '15px',
-                            paddingLeft: '15px',
-                            fontFamily: 'open sans',
-                            color: '#23282B',
-                            border: '1px solid #CCC'
-                        }}
-                        onChange={(e) => {
-                            setOverview(e.target.value);
-                        }}
-                        multiline
-                    />
-                ) : (
-                    <Box
-                        sx={{
-                            padding: '20px',
-                            border: '1px solid #CCC',
-                            color: '#808080'
-                        }}
-                    >
-                        {overview}
-                    </Box>
-                )}
+                <InputBase
+                    rows={5}
+                    placeholder="Summary of the role "
+                    value={overview}
+                    disabled={step === 3}
+                    sx={{
+                        borderBottom: '1px solid #D9D9D9',
+                        backgroundColor: '#FAFAFA',
+                        width: '100%',
+                        overflowY: 'auto',
+                        borderRadius: '5px',
+                        padding: 0,
+                        paddingTop: '15px',
+                        paddingLeft: '15px',
+                        fontFamily: 'open sans',
+                        color: '#23282B',
+                    }}
+                    onChange={(e) => setOverview(e.target.value)}
+                    multiline
+                />
             </Box>
         </Box>
     );
 
     const Qualifications = (
         <Box sx={{ marginTop: '30px' }}>
-            <Typography fontSize={'16px'} color="#494949">
+            <Typography variant='titleMediumSemiBold' color="#494949">
                 Qualifications
             </Typography>
             <Box sx={{ marginTop: '10px' }}>
-                {step === 2 ? (
-                    <InputBase
-                        value={qualifications}
-                        rows={5}
-                        placeholder="Qualifications"
-                        sx={{
-                            backgroundColor: '#fff',
-                            width: '100%',
-                            overflowY: 'auto',
-                            borderRadius: '5px',
-                            padding: 0,
-                            paddingTop: '15px',
-                            paddingLeft: '15px',
-                            fontFamily: 'open sans',
-                            color: '#23282B',
-                            border: '1px solid #CCC'
-                        }}
-                        onChange={(e) => {
-                            setQualifications(e.target.value);
-                        }}
-                        multiline
-                    />
-                ) : (
-                    <Box
-                        sx={{
-                            padding: '20px',
-                            border: '1px solid #CCC',
-                            color: '#808080'
-                        }}
-                    >
-                        {qualifications?.split('\n')?.map((item) => {
-                            if (item !== '') {
-                                return <li key={`item_${item}`}>{item}</li>;
-                            }
-                            return null;
-                        })}
-                    </Box>
-                )}
+                <InputBase
+                    value={qualifications}
+                    disabled={step === 3}
+                    rows={5}
+                    placeholder="Applicants qualifications"
+                    sx={{
+                        borderBottom: '1px solid #D9D9D9',
+                        backgroundColor: '#FAFAFA',
+                        width: '100%',
+                        overflowY: 'auto',
+                        borderRadius: '5px',
+                        padding: 0,
+                        paddingTop: '15px',
+                        paddingLeft: '15px',
+                        fontFamily: 'open sans',
+                        color: '#23282B',
+                    }}
+                    onChange={(e) => setQualifications(e.target.value)}
+                    multiline
+                />
             </Box>
         </Box>
     );
 
     const Responsibilities = (
         <Box sx={{ marginTop: '30px' }}>
-            <Typography fontSize={'16px'} color="#494949">
+            <Typography variant='titleMediumSemiBold' color="#494949">
                 Responsibilities
             </Typography>
             <Box sx={{ marginTop: '10px' }}>
-                {step === 2 ? (
-                    <InputBase
-                        rows={5}
-                        value={responsibilities}
-                        placeholder="Applicants responsibilities...."
-                        sx={{
-                            backgroundColor: '#fff',
-                            width: '100%',
-                            overflowY: 'auto',
-                            borderRadius: '5px',
-                            padding: 0,
-                            paddingTop: '15px',
-                            paddingLeft: '15px',
-                            fontFamily: 'open sans',
-                            color: '#23282B',
-                            border: '1px solid #CCC'
-                        }}
-                        onChange={(e) => {
-                            setResponsibilities(e.target.value);
-                        }}
-                        multiline
-                    />
-                ) : (
-                    <Box
-                        sx={{
-                            padding: '20px',
-                            border: '1px solid #CCC',
-                            color: '#808080'
-                        }}
-                    >
-                        {responsibilities?.split('\n')?.map((item) => {
-                            if (item !== '') {
-                                return <li key={`items_${item}`}>{item}</li>;
-                            }
-                            return null;
-                        })}
-                    </Box>
-                )}
+                <InputBase
+                    rows={5}
+                    disabled={step === 3}
+                    value={responsibilities}
+                    placeholder="Applicants responsibilities...."
+                    sx={{
+                        borderBottom: '1px solid #D9D9D9',
+                        backgroundColor: '#FAFAFA',
+                        width: '100%',
+                        overflowY: 'auto',
+                        borderRadius: '5px',
+                        padding: 0,
+                        paddingTop: '15px',
+                        paddingLeft: '15px',
+                        fontFamily: 'open sans',
+                        color: '#23282B',
+                    }}
+                    onChange={(e) => {
+                        setResponsibilities(e.target.value);
+                    }}
+                    multiline
+                />
             </Box>
         </Box>
     );
 
     const DeadLine = (
-        <Box sx={{ marginTop: '30px' }}>
-            <Typography fontSize={'16px'} color="#494949">
+        <Box
+            sx={{
+                marginTop: '30px',
+                '& input[type="date"]': {
+                    borderBottom: '1px solid #D9D9D9',
+                }
+            }}
+        >
+            <Typography component={'p'} variant='titleMediumSemiBold' color="#494949">
                 Application Deadline
             </Typography>
             <input
                 type="date"
                 readOnly={edit}
+                disabled={step === 3}
                 value={deadLine}
-                onChange={(e) => {
-                    onChangeDeadLine(e);
-                }}
+                onChange={(e) => onChangeDeadLine(e)}
                 style={{
-                    width: '80%',
                     height: '50px',
+                    width: '100%',
                     padding: '15px',
-                    border: '1px solid #CCC',
-                    borderRadius: '5px',
+                    borderTop: 0,
+                    borderRight: 0,
+                    borderLeft: 0,
+                    backgroundColor: '#FAFAFA',
                     color: '#808080',
                     fontSize: '16px',
                     marginTop: '10px'
@@ -563,98 +588,36 @@ const NewJobPost = () => {
 
     const Additional1 = (
         <Box sx={{ marginTop: '30px' }}>
-            <Typography fontSize={'16px'} color="#494949">
-                Anything else you would like to add 1
+            <Typography variant='titleMediumSemiBold' color="#494949">
+                More info about the job
             </Typography>
             <Box sx={{ marginTop: '10px' }}>
-                {step === 2 ? (
-                    <InputBase
-                        value={additional1}
-                        rows={5}
-                        placeholder="Anything else...."
-                        sx={{
-                            backgroundColor: '#fff',
-                            width: '100%',
-                            overflowY: 'auto',
-                            borderRadius: '5px',
-                            padding: 0,
-                            paddingTop: '15px',
-                            paddingLeft: '15px',
-                            fontFamily: 'open sans',
-                            color: '#23282B',
-                            border: '1px solid #CCC'
-                        }}
-                        onChange={(e) => {
-                            setAdditional1(e.target.value);
-                        }}
-                        multiline
-                    />
-                ) : (
-                    <Box
-                        sx={{
-                            padding: '20px',
-                            border: '1px solid #CCC',
-                            color: '#808080'
-                        }}
-                    >
-                        {additional1.split('\n').map((item) => {
-                            if (item !== '') {
-                                return <li key={`items_${item}`}>{item}</li>;
-                            }
-                            return null;
-                        })}
-                    </Box>
-                )}
+                <InputBase
+                    value={additional1}
+                    disabled={step === 3}
+                    rows={5}
+                    placeholder="Feel free to add more information about this job"
+                    sx={{
+                        backgroundColor: '#FAFAFA',
+                        borderBottom: '1px solid #D9D9D9',
+                        width: '100%',
+                        overflowY: 'auto',
+                        borderRadius: '5px',
+                        padding: 0,
+                        paddingTop: '15px',
+                        paddingLeft: '15px',
+                        fontFamily: 'open sans',
+                        color: '#23282B',
+                    }}
+                    onChange={(e) => {
+                        setAdditional1(e.target.value);
+                    }}
+                    multiline
+                />
             </Box>
         </Box>
     );
-    const Additional2 = (
-        <Box sx={{ marginTop: '30px' }}>
-            <Typography fontSize={'16px'} color="#494949">
-                Anything else you would like to add 2
-            </Typography>
-            <Box sx={{ marginTop: '10px' }}>
-                {step === 2 ? (
-                    <InputBase
-                        value={additional2}
-                        rows={5}
-                        placeholder="Anything else...."
-                        sx={{
-                            backgroundColor: '#fff',
-                            width: '100%',
-                            overflowY: 'auto',
-                            borderRadius: '5px',
-                            padding: 0,
-                            paddingTop: '15px',
-                            paddingLeft: '15px',
-                            fontFamily: 'open sans',
-                            color: '#23282B',
-                            border: '1px solid #CCC'
-                        }}
-                        onChange={(e) => {
-                            setAdditional2(e.target.value);
-                        }}
-                        multiline
-                    />
-                ) : (
-                    <Box
-                        sx={{
-                            padding: '20px',
-                            border: '1px solid #CCC',
-                            color: '#808080'
-                        }}
-                    >
-                        {additional2?.split('\n').map((item) => {
-                            if (item !== '') {
-                                return <li key={`items_${item}`}>{item}</li>;
-                            }
-                            return null;
-                        })}
-                    </Box>
-                )}
-            </Box>
-        </Box>
-    );
+
     return (
         <>
             <Box
@@ -668,170 +631,151 @@ const NewJobPost = () => {
                     sx={{
                         backgroundColor: '#fff',
                         padding: '30px',
-                        marginTop: '20px'
                     }}
                 >
-                    <Box
-                        sx={{
-                            borderBottom: '1px solid #CCC',
-                            paddingBottom: '10px',
-                            display: 'flex',
-                            justifyContent: 'space-between'
-                        }}
-                    >
-                        <Typography
-                            fontSize={'24px'}
-                            variant="headlineMediumSemiBold"
-                            color="#494949"
-                            sx={{ width: '90%' }}
-                        >
-                            You are one step closer to finding Top Talent
-                        </Typography>
-                        {edit ? (
-                            <Button
-                                sx={{
-                                    color: '#808080',
-                                    borderRadius: '4px',
-                                    background: '#fcfbf8',
-                                    padding: '12px 16px',
-                                    fontSize: '16px',
-                                    border: '1px solid #494949',
-                                    fontFamily: 'Open Sans',
-                                    gap: '10px',
-                                    width: '10%',
-                                    fontWeight: '700',
-                                    textTransform: 'capitalize'
-                                }}
-                                onClick={() => {
-                                    setEdit(false);
-                                    setStep(1);
-                                }}
-                                startIcon={<EditIcon />}
-                            >
-                                Edit
-                            </Button>
-                        ) : null}
-                    </Box>
-                    <Typography
-                        sx={{
-                            letterSpacing: '0.005em',
-                            color: '#494949',
-                            marginTop: '16px'
-                        }}
-                    >
-                        * Indicates required
-                    </Typography>
-                    {step === 1 ? (
+                    {(step === 1 || step === 3) ? (
                         <>
-                            <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    Job Title *
-                                </Typography>
+                            <Box>
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={jobTitle}
-                                        onChange={(e) =>
-                                            setJobTitle(e.target.value)
-                                        }
+                                        onChange={(e) => setJobTitle(e.target.value)}
                                         placeholder="Ex: Product Designer"
                                         fullWidth
+                                        disabled={step === 3}
+                                        label='Job Title'
+                                        required
+                                        variant='filled'
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B'
+                                            color: '#23282B',
+                                            '& .MuiInputBase-root,.Mui-disabled': {
+                                                backgroundColor: "#FCFBF8"
+                                            },
                                         }}
                                     />
                                 </Box>
                             </Box>
                             <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    Workplace type
-                                </Typography>
-                                <Box sx={{ marginTop: '8px' }}>
-                                    <Select
-                                        fullWidth
-                                        value={workPlaceType}
-                                        onChange={(e) =>
-                                            setWorkPlaceType(e.target.value)
+                                <FormControl
+                                    sx={{
+                                        marginTop: '8px',
+                                        '& .MuiInputLabel-shrink': {
+                                            top: '16px',
+                                            left: '-2px'
+                                        },
+                                        '& .MuiSelect-icon': {
+                                            top: 'calc(50% - 1em)'
+                                        },
+                                        '& .Mui-disabled': {
+                                            backgroundColor: "#FCFBF8"
                                         }
-                                        sx={{
-                                            fontFamily: 'Open Sans',
-                                            color: '#23282B'
-                                        }}
-                                    >
-                                        <MenuItem value={'ONSITE'}> On-site </MenuItem>
-                                        <MenuItem value={'HYBRID'}>Hybrid</MenuItem>
-                                        <MenuItem value={'REMOTE'}>Remote</MenuItem>
-                                    </Select>
-                                </Box>
-                            </Box>
-                            <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    Job Type
-                                </Typography>
-                                <Box sx={{ marginTop: '8px' }}>
+                                    }}
+                                    fullWidth
+                                >
+                                    <InputLabel required>
+                                        Job Type
+                                    </InputLabel>
                                     <Select
                                         fullWidth
+                                        disabled={step === 3}
                                         value={jobType}
-                                        onChange={(e) =>
-                                            setJobType(e.target.value)
-                                        }
+                                        onChange={(e) => setJobType(e.target.value)}
+                                        label='Job Type'
+                                        required
+                                        variant='filled'
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B'
+                                            backgroundColor: "#FCFBF8",
+                                            color: '#23282B',
                                         }}
+                                        IconComponent={(props) => <Dropdown {...props} />}
                                     >
-                                        <MenuItem value={'FULL_TIME'}> Full time </MenuItem>
-                                        <MenuItem value={'PART_TIME'}> Part time </MenuItem>
-                                        <MenuItem value={'CONTRACT'}> Contract </MenuItem>
-                                        <MenuItem value={'TEMPORARY'}> Temporary </MenuItem>
-                                        <MenuItem value={'PERMANENT'}> Contract </MenuItem>
-                                        <MenuItem value={'NEW_GRAD'}> New grad </MenuItem>
-                                        <MenuItem value={'INTERNSHIP'}> Internship </MenuItem>
+                                        {jobTypes.map(x => <MenuItem key={x} value={x}>{getJobType(x)}</MenuItem>)}
                                     </Select>
-                                </Box>
+                                </FormControl>
                             </Box>
                             <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    Location
-                                </Typography>
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={location}
-                                        onChange={(e) =>
-                                            setLocation(e.target.value)
-                                        }
+                                        onChange={(e) => setLocation(e.target.value)}
                                         placeholder="Ex: Lagos, Nigeria"
+                                        disabled={step === 3}
                                         fullWidth
+                                        label='Job Location'
+                                        required
+                                        variant='filled'
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B'
+                                            color: '#23282B',
+                                            '& .MuiInputBase-root,.Mui-disabled': {
+                                                backgroundColor: "#FCFBF8"
+                                            }
                                         }}
                                     />
                                 </Box>
                             </Box>
                             <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    Years of Experience
-                                </Typography>
+                                <FormControl
+                                    sx={{
+                                        marginTop: '8px',
+                                        '& .MuiInputLabel-shrink': {
+                                            top: '16px',
+                                            left: '-2px'
+                                        },
+                                        '& .MuiSelect-icon': {
+                                            top: 'calc(50% - 1em)'
+                                        },
+                                        '& .Mui-disabled': {
+                                            backgroundColor: "#FCFBF8"
+                                        }
+                                    }}
+                                    fullWidth
+                                >
+                                    <InputLabel required>
+                                        Workplace type
+                                    </InputLabel>
+                                    <Select
+                                        disabled={step === 3}
+                                        value={workPlaceType}
+                                        onChange={(e) => setWorkPlaceType(e.target.value)}
+                                        label='Job Title'
+                                        required
+                                        variant='filled'
+                                        sx={{
+                                            fontFamily: 'Open Sans',
+                                            backgroundColor: "#FCFBF8",
+                                            color: '#23282B',
+                                        }}
+                                        IconComponent={(props) => <Dropdown {...props} />}
+                                    >
+                                        {workPlaces.map(x => <MenuItem key={x} value={x}>{getWorkPlace(x)}</MenuItem>)}
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            <Box sx={{ marginTop: '30px' }}>
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={yearsOfExp}
-                                        onChange={(e) =>
-                                            setYearsOfExp(e.target.value)
-                                        }
+                                        onChange={(e) => setYearsOfExp(e.target.value)}
                                         placeholder="Ex: 2 years"
+                                        disabled={step === 3}
                                         fullWidth
+                                        label='Years of Experience'
+                                        required
+                                        variant='filled'
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B'
+                                            color: '#23282B',
+                                            '& .MuiInputBase-root,.Mui-disabled': {
+                                                backgroundColor: "#FCFBF8"
+                                            }
                                         }}
                                     />
                                 </Box>
                             </Box>
                             <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    Minimum Jobfactor score
-                                </Typography>
                                 <Box sx={{ marginTop: '8px' }}>
                                     <TextField
                                         value={minimumScore}
@@ -840,9 +784,16 @@ const NewJobPost = () => {
                                         }
                                         placeholder="Ex: 650"
                                         fullWidth
+                                        label='Minimum Jobfactor score'
+                                        disabled={step === 3}
+                                        required
+                                        variant='filled'
                                         sx={{
                                             fontFamily: 'Open Sans',
-                                            color: '#23282B'
+                                            color: '#23282B',
+                                            '& .MuiInputBase-root,.Mui-disabled': {
+                                                backgroundColor: "#FCFBF8"
+                                            }
                                         }}
                                     />
                                 </Box>
@@ -854,19 +805,19 @@ const NewJobPost = () => {
                                 <Box
                                     sx={{
                                         marginTop: '8px',
-                                        border: '1px solid #ccc',
                                         padding: '20px 12px',
+                                        borderBottom: '1px solid #D9D9D9',
+                                        backgroundColor: '#FCFBF8',
                                         borderRadius: '5px',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '16px'
+                                        gap: '16px',
                                     }}
                                 >
                                     <Select
                                         value={currency}
-                                        onChange={(e) =>
-                                            setCurrency(e.target.value)
-                                        }
+                                        disabled={step === 3}
+                                        onChange={(e) => setCurrency(e.target.value)}
                                         sx={{
                                             fontFamily: 'Open Sans',
                                             color: '#23282B',
@@ -913,6 +864,7 @@ const NewJobPost = () => {
                                         <InputBase
                                             sx={{ ml: 1, flex: 1 }}
                                             value={minSalary}
+                                            disabled={step === 3}
                                             onChange={(e) =>
                                                 setMinSalary(e.target.value)
                                             }
@@ -952,16 +904,17 @@ const NewJobPost = () => {
                                         </Typography>
                                         <InputBase
                                             sx={{ ml: 1, flex: 1 }}
+                                            disabled={step === 3}
                                             value={maxSalary}
-                                            onChange={(e) =>
-                                                setMaxSalary(e.target.value)
-                                            }
+                                            onChange={(e) => setMaxSalary(e.target.value)}
                                         />
                                     </Paper>
                                 </Box>
                             </Box>
                         </>
-                    ) : step === 2 ? (
+                    ) : null
+                    }
+                    {(step === 2 || step === 3) ?
                         <>
                             {RequiredSkills}
                             {AboutRole}
@@ -969,86 +922,9 @@ const NewJobPost = () => {
                             {Responsibilities}
                             {DeadLine}
                             {Additional1}
-                            {Additional2}
                         </>
-                    ) : (
-                        <>
-                            <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    About the role
-                                </Typography>
-                                <Box sx={{ marginTop: '10px' }}>
-                                    <Box
-                                        sx={{
-                                            padding: '20px',
-                                            border: '1px solid #CCC',
-                                            color: '#808080'
-                                        }}
-                                    >
-                                        {overview}
-                                    </Box>
-                                </Box>
-                            </Box>
-                            {location ? (
-                                <Box sx={{ marginTop: '30px' }}>
-                                    <Typography
-                                        fontSize={'16px'}
-                                        color="#494949"
-                                    >
-                                        Location
-                                    </Typography>
-                                    <Box sx={{ marginTop: '10px' }}>
-                                        <Box
-                                            sx={{
-                                                padding: '20px',
-                                                border: '1px solid #CCC',
-                                                color: '#808080'
-                                            }}
-                                        >
-                                            {location}
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            ) : null}
-                            <Box sx={{ marginTop: '30px' }}>
-                                <Typography fontSize={'16px'} color="#494949">
-                                    Qualifications of the role
-                                </Typography>
-                                <Box sx={{ marginTop: '10px' }}>
-                                    <Box
-                                        sx={{
-                                            padding: '20px',
-                                            border: '1px solid #CCC',
-                                            color: '#808080'
-                                        }}
-                                    >
-                                        {yearsOfExp ? (
-                                            <li>{yearsOfExp}</li>
-                                        ) : null}
-                                        {qualifications
-                                            .split('\n')
-                                            .map((item) => {
-                                                if (item !== '') {
-                                                    return (
-                                                        <li
-                                                            key={`item_${item}`}
-                                                        >
-                                                            {item}
-                                                        </li>
-                                                    );
-                                                }
-                                                return null;
-                                            })}
-                                    </Box>
-                                </Box>
-                            </Box>
-                            {Responsibilities}
-                            {DeadLine}
-                            {RequiredSkills}
-                            {step === 3 && additional1 ? Additional1 : null}
-                            {step === 3 && additional2 ? Additional2 : null}
-                        </>
-                    )}
+                        : null
+                    }
 
                     <Box sx={{ textAlign: 'center', marginTop: '30px' }}>
                         {loading ? (
@@ -1088,7 +964,7 @@ const NewJobPost = () => {
                                 }}
                             >
                                 {step === 3
-                                    ? 'Post Job Opening'
+                                    ? (state?.id ? 'Update Job' : 'Post Job')
                                     : 'Save and Continue'}
                             </Button>
                         )}

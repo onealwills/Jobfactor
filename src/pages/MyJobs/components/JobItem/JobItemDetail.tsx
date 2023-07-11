@@ -13,10 +13,11 @@ import ApplyJob from './ApplyJob';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useGetJobById } from '../../../../utils/hooks/api/jobs/useGetJobById';
 import { useAuth } from '../../../../utils/context/AuthContext';
-import { getJobType, getWorkPlace } from '../../../../utils/Helper/helper';
+import { getJobType, getSalaryRange, getWorkPlace } from '../../../../utils/Helper/helper';
 import { useSaveJob } from '../../../../utils/hooks/api/saved-jobs/useSaveJob';
 import { useDeleteSavedJob } from '../../../../utils/hooks/api/saved-jobs/useDeleteSavedJob';
 import SnackAlert from '../../../../components/Snackbar';
+import ExperienceChip from '../ExperienceChip';
 
 interface IApplicantType {
     professionalProfile: {
@@ -96,7 +97,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
     useEffect(() => {
         setIsSaved(job?.isSaved);
     }, [job?.isSaved])
-    
+
     const jobItem: IJobItemDetail = {
         companyDescription:
             'Carry1st is the leading publisher of social games and interactive content in Africa. We work with studios across the globe – from Addis Ababa to Sofia to New York City – to level up their games and scale in dynamic, frontier markets. In addition to our full-stack publishing service, we’ve built a proprietary payments and ecommerce experience which allows customers to pay for digital content, even when they don’t have a credit card.',
@@ -197,7 +198,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
             <>
                 <Box
                     sx={{
-                        p: 4,
+                        p: '24px 40px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between'
@@ -269,21 +270,36 @@ const JobItemDetail = (props: { jobId?: string }) => {
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        p: 4,
-                        pt: 0
+                        alignItems: 'center',
+                        p: '12px 40px',
+                        backgroundColor: '#F2F2F2'
                     }}
                 >
-                    <Box sx={{ display: 'flex', gap: 1.5 }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '20px'
+                        }}
+                    >
                         <Box>
                             <img
                                 height={80}
                                 width={80}
+                                style={{ borderRadius: '100px' }}
                                 src={job?.company?.logo}
                                 alt={'company logo'}
                             />
                         </Box>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Box
+                            sx={{
+                                gap: '8px',
+                                display: 'flex',
+                                alignSelf: 'start',
+                                flexDirection: 'column'
+                            }}
+                        >
                             <Box
                                 sx={{
                                     display: 'flex',
@@ -300,8 +316,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 <Box
                                     sx={{
                                         backgroundColor: '#49B6FF',
-                                        px: 1.5,
-                                        py: 0.125,
+                                        p: '0 12px',
                                         borderRadius: '6px',
                                         mt: 0.25
                                     }}
@@ -310,15 +325,21 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                         variant="titleLargeSemiBold"
                                         color="white"
                                     >
-                                        {job.minimumScore}
+                                        {550}
                                     </Typography>
                                 </Box>
                             </Box>
                             <Typography
-                                variant="bodyLargeRegular"
+                                variant="labelLargeRegular"
                                 color="#808080"
                             >
-                                {job.company.location}
+                                Job ID: {job.id}
+                            </Typography>
+                            <Typography
+                                variant="labelLargeRegular"
+                                color="#808080"
+                            >
+                                {job?.company?.yearFounded}
                             </Typography>
                         </Box>
                     </Box>
@@ -329,6 +350,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                     <Box
                                         sx={{
                                             display: 'flex',
+                                            alignItems: 'center',
                                             flexDirection: 'column'
                                         }}
                                         onClick={item.onClick}
@@ -352,127 +374,105 @@ const JobItemDetail = (props: { jobId?: string }) => {
 
     const JobDescription = () => {
         return (
-            <Box sx={{ p: 4 }}>
+            <Box sx={{ p: '40px', pt: '20px' }}>
                 <Box
-                    sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}
+                    sx={{ mb: '16px' }}
                 >
-                    <Typography variant="titleLargeBold" color="#23282B">
-                        Job Description
+                    <Typography variant="titleLargeSemiBold" color="#23282B" component={'div'}>
+                        Job overview
                     </Typography>
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        {job?.description}
+                    <Typography variant="bodyLargeRegular" color="#808080" mt={3} component={'div'}>
+                        {job?.overview}
                     </Typography>
                 </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
-                    }}
-                >
-                    <Typography variant="bodyLargeSemiBold" color="#808080">
-                        We are Recruiting to Fill The Position Below
+                <Typography variant="bodyLargeSemiBold" color="#23282B" component={'div'}>
+                    Job Title: &nbsp;
+                    <Typography color="#808080" component={'span'}>
+                        {job?.title}
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Job Title:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {job?.title}
-                        </Typography>
-                    </Box>
-                </Box>
+                </Typography>
+                <Typography variant="bodyLargeSemiBold" mt={'20px'} color="#23282B" component={'div'}>
+                    Workplace type: &nbsp;
+                    <Typography color="#808080" component={'span'}>
+                        {getWorkPlace(job?.workplaceType)}
+                    </Typography>
+                </Typography>
+                <Typography variant="bodyLargeSemiBold" mt={'20px'} color="#23282B" component={'div'}>
+                    Job location: &nbsp;
+                    <Typography color="#808080" component={'span'}>
+                        {job?.location}
+                    </Typography>
+                </Typography>
+                <Typography variant="bodyLargeSemiBold" mt={'20px'} color="#23282B" component={'div'}>
+                    Years of experience: &nbsp;
+                    <Typography color="#808080" component={'span'}>
+                        {job?.yearsOfExperience} {(job?.yearsOfExperience && Number(job?.yearsOfExperience) > 1) ? 'years' : 'year'}
+                    </Typography>
+                </Typography>
+                <Typography variant="bodyLargeSemiBold" mt={'20px'} color="#23282B" component={'div'}>
+                    Salary range: &nbsp;
+                    <Typography color="#808080" component={'span'}>
+                        {job?.salaryCurrency} {job?.salaryRangeFrom} - {job?.salaryCurrency} {job?.salaryRangeTo} per month
+                    </Typography>
+                </Typography>
                 <Box
                     sx={{
                         display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
+                        alignItems: 'center',
+                        gap: '8px',
+                        mt: '20px'
                     }}
                 >
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Location:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {job.location}
-                        </Typography>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
-                    }}
-                >
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Employment Type:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {getJobType(job?.jobType ?? '')}
-                        </Typography>
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        mt: 3.5,
-                        flexDirection: 'column',
-                        gap: 3.5
-                    }}
-                >
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography variant="bodyLargeSemiBold" color="#808080">
-                            Department:
-                        </Typography>
-                        <Typography variant="bodyLargeRegular" color="#808080">
-                            {getWorkPlace(job.workplaceType ?? '')}
+                    <Typography variant="bodyLargeSemiBold" color="#23282B" component={'div'}>
+                        Minimum jobfactor score:
+                    </Typography>
+                    <Box
+                        sx={{
+                            backgroundColor: '#49B6FF',
+                            p: '0px 12px',
+                            borderRadius: '6px',
+                        }}
+                    >
+                        <Typography
+                            variant="titleLargeSemiBold"
+                            color="white"
+                        >
+                            {job.minimumScore}
                         </Typography>
                     </Box>
                 </Box>
                 <JobDescriptionSection
-                    title="Job Description"
-                    bulletPoints={job.description}
+                    title="Responsibilities"
+                    bulletPoints={job.responsibilities?.split('\n')}
                 />
                 <JobDescriptionSection
-                    title="You will..."
-                    bulletPoints={job.responsibilities}
+                    title="Qualifications"
+                    bulletPoints={job.qualifications?.split('\n')}
                 />
                 <JobDescriptionSection
-                    title="What makes you a great candidate"
-                    bulletPoints={job.candidatureQualities}
+                    title={`More `}
+                    bulletPoints={job.additionalNote?.split('\n')}
                 />
-                <JobDescriptionSection
-                    title={`What will it be like to work at ${job?.aboutCompany?.name} ?`}
-                    bulletPoints={job.workingAt}
-                />
-                <JobDescriptionSection
-                    title="Some additional perks..."
-                    bulletPoints={job.additionalPerks}
-                />
-                <Box
-                    sx={{
-                        mt: 1,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 3
-                    }}
-                >
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        Application Closing Date:{' '}
+
+                <Box sx={{ marginTop: '28px' }}>
+                    <Typography
+                        variant='titleLargeSemiBold'
+                    >
+                        Required skills and competency levels
                     </Typography>
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        {job.expiredAt}
-                    </Typography>
-                    <Typography variant="bodyLargeRegular" color="#808080">
-                        Don't Keep! Kindly Share.
-                    </Typography>
+                    <Box
+                        sx={{
+                            mt: '24px',
+                            gap: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
+
+                        {job?.skills?.map((item: any) => <ExperienceChip item={item} coloredBg={false} />)}
+                    </Box>
                 </Box>
-            </Box>
+            </Box >
         );
     };
 
@@ -480,60 +480,25 @@ const JobItemDetail = (props: { jobId?: string }) => {
         title: string;
         bulletPoints: string[];
     }) => {
-        const { title, bulletPoints } = props;
+        const { title, bulletPoints = [] } = props;
         return (
             <Box
                 sx={{
                     display: 'flex',
-                    mt: 3.5,
+                    mt: '30px',
                     flexDirection: 'column',
                     gap: 0.75
                 }}
             >
                 <Typography
-                    variant="bodyLargeSemiBold"
-                    color="black"
-                    sx={{ textDecoration: 'underline' }}
+                    variant="titleLargeSemiBold"
+                    color="#23282B"
                 >
                     {title}
                 </Typography>
-                <Box>
-                    {/* {bulletPoints ? 
-                    bulletPoints?.map((bulletPoint: string) => (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                gap: 1,
-                                alignItems: 'center'
-                            }}
-                        >
-                            <Box sx={{ mt: 0.25, ml: 0.5 }}>
-                                <svg
-                                    width="8"
-                                    height="8"
-                                    viewBox="0 0 8 8"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <circle
-                                        cx="4"
-                                        cy="4"
-                                        r="3.5"
-                                        fill="#808080"
-                                    />
-                                </svg>
-                            </Box>
-                            <Typography
-                                sx={{ mt: 0.5 }}
-                                variant="bodyLargeRegular"
-                                color="#808080"
-                            >
-                                {bulletPoint}
-                            </Typography>
-                        </Box>
-                        
-                    )): null} */}
-                </Box>
+                <ul style={{ color: '#808080', fontSize: '16px', marginTop: '32px' }}>
+                    {bulletPoints?.map((item: string) => item ? <li key={`item_${item}`} >{item}</li> : null)}
+                </ul>
             </Box>
         );
     };
@@ -541,80 +506,80 @@ const JobItemDetail = (props: { jobId?: string }) => {
     const JobItemAboutCompany = (props: { jobItem: IJobItemDetail }) => {
         const { jobItem } = props;
         return (
-            <Box sx={{ p: 4 }}>
-                <Typography variant="titleLargeBold" color="#23282B">
+            <Box sx={{ p: '16px 40px 32px' }}>
+                <Typography variant="titleLargeSemiBold" color="#23282B">
                     About the Company
                 </Typography>
-                <Box sx={{ mt: 2 }} />
-                <JobItemSectionHR height={'2px'} />
                 <Box sx={{ mt: 3 }}>
                     <Box
                         sx={{
                             display: 'flex',
-                            justifyContent: 'space-between'
+                            alignItems: 'center',
+                            gap: '20px'
                         }}
                     >
-                        <Box sx={{ display: 'flex', gap: 1.5 }}>
-                            <Box>
-                                <img
-                                    height={80}
-                                    width={80}
-                                    src={job?.company?.logo}
-                                    alt={'company logo'}
-                                />
-                            </Box>
+                        <Box>
+                            <img
+                                height={80}
+                                width={80}
+                                style={{ borderRadius: '100px' }}
+                                src={job?.company?.logo}
+                                alt={'company logo'}
+                            />
+                        </Box>
+
+                        <Box
+                            sx={{
+                                gap: '8px',
+                                display: 'flex',
+                                alignSelf: 'start',
+                                flexDirection: 'column'
+                            }}
+                        >
                             <Box
                                 sx={{
                                     display: 'flex',
-                                    flexDirection: 'column'
+                                    alignItems: 'center',
+                                    gap: 1
                                 }}
                             >
+                                <Typography
+                                    variant="titleLargeSemiBold"
+                                    color="#23282B"
+                                >
+                                    {job?.company?.name}
+                                </Typography>
                                 <Box
                                     sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 1
+                                        backgroundColor: '#49B6FF',
+                                        p: '0 12px',
+                                        borderRadius: '6px',
+                                        mt: 0.25
                                     }}
                                 >
                                     <Typography
                                         variant="titleLargeSemiBold"
-                                        color="#23282B"
+                                        color="white"
                                     >
-                                        {job?.company?.name}
+                                        {550}
                                     </Typography>
                                 </Box>
-                                <Typography
-                                    variant="bodyLargeRegular"
-                                    color="#808080"
-                                >
-                                    {jobItem.aboutCompany.address}
-                                </Typography>
                             </Box>
-                        </Box>
-                        <Box>
-                            <Button variant="outlined" sx={{ px: 5, py: 1 }}>
-                                Follow <Box sx={{ mr: 1 }} />
-                                <svg
-                                    width="25"
-                                    height="24"
-                                    viewBox="0 0 25 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M18.5 12.75H6.5C6.09 12.75 5.75 12.41 5.75 12C5.75 11.59 6.09 11.25 6.5 11.25H18.5C18.91 11.25 19.25 11.59 19.25 12C19.25 12.41 18.91 12.75 18.5 12.75Z"
-                                        fill="#05668D"
-                                    />
-                                    <path
-                                        d="M12.5 18.75C12.09 18.75 11.75 18.41 11.75 18V6C11.75 5.59 12.09 5.25 12.5 5.25C12.91 5.25 13.25 5.59 13.25 6V18C13.25 18.41 12.91 18.75 12.5 18.75Z"
-                                        fill="#05668D"
-                                    />
-                                </svg>
-                            </Button>
+                            <Typography
+                                variant="labelLargeRegular"
+                                color="#808080"
+                            >
+                                Job ID: {job.id}
+                            </Typography>
+                            <Typography
+                                variant="labelLargeRegular"
+                                color="#808080"
+                            >
+                                {job?.company?.yearFounded}
+                            </Typography>
                         </Box>
                     </Box>
-
-                    <Box sx={{ display: 'flex', gap: 1.5 }}>
+                    {/* <Box sx={{ display: 'flex', gap: 1.5 }}>
                         <Typography variant="titleLargeSemiBold">
                             {jobItem.aboutCompany.industry}
                         </Typography>
@@ -663,22 +628,67 @@ const JobItemDetail = (props: { jobId?: string }) => {
                                 JobFactor
                             </Typography>
                         </Box>
-                    </Box>
-                    <Box>
-                        <ChipList
-                            chipsData={jobItem.aboutCompany.keywords}
-                            displayAll={true}
+                    </Box> */}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '20px',
+                            mt: '26px'
+                        }}
+                    >
+                        <Typography
+                            variant='titleMediumSemiBold'
+                            color={'#808080'}
+                        >
+                            Entertainment
+                        </Typography>
+                        <Box
+                            sx={{
+                                width: '6px',
+                                height: '6px',
+                                borderRadius: '100px',
+                                backgroundColor: '#494949',
+                            }}
                         />
-                    </Box>
-                    <Box sx={{ mt: 2 }}>
-                        <Typography variant="bodyLargeRegular" color="#494949">
-                            {jobItem.aboutCompany.descriptions.map(
-                                (description: string) => (
-                                    <Box sx={{ mb: 2 }}> {description}</Box>
-                                )
-                            )}
+                        <Typography
+                            variant='titleMediumSemiBold'
+                            color={'#808080'}
+                        >
+                            {job?.company?.companySize ?? 0} employees
+                        </Typography>
+                        <Box
+                            sx={{
+                                width: '6px',
+                                height: '6px',
+                                borderRadius: '100px',
+                                backgroundColor: '#494949',
+                            }}
+                        />
+                        <Typography
+                            variant='titleMediumSemiBold'
+                            color={'#808080'}
+                        >
+                            12 on Jobfactor
                         </Typography>
                     </Box>
+                    <Box
+                        sx={{
+                            mt: '16px',
+                            mb: '16px',
+                            gap: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
+                        {benefits.map(item => <ExperienceChip item={item} />)}
+                    </Box>
+                    <Typography
+                        color={'#808080'}
+                        variant='titleMediumRegular'
+                    >
+                        {job?.company?.bio}
+                    </Typography>
                 </Box>
             </Box>
         );
@@ -702,9 +712,8 @@ const JobItemDetail = (props: { jobId?: string }) => {
             ) : (
                 <>
                     <JobDetailHeader jobItem={jobItem} />
-                    <JobItemSectionHR height={'1px'} />
                     <JobDescription />
-                    <JobItemSectionHR height={'1px'} />
+                    <JobItemSectionHR height={'20px'} />
                     <JobItemAboutCompany jobItem={jobItem} />
                     <ApplyJob
                         jobId={id ?? ''}
@@ -726,5 +735,24 @@ const JobItemDetail = (props: { jobId?: string }) => {
         </Box>
     );
 };
+
+const benefits = [
+    {
+        name: 'Salary and benefits',
+        competencyLevel: 1
+    },
+    {
+        name: 'Work schedule',
+        competencyLevel: 2
+    },
+    {
+        name: 'Office environment',
+        competencyLevel: 3
+    },
+    {
+        name: 'Job security',
+        competencyLevel: 4
+    }
+]
 
 export default JobItemDetail;

@@ -13,16 +13,17 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
             sx={{
                 width: '100%',
                 backgroundColor: '#fff',
-                mb: 4
+                p: '24px 40px',
+                mb: '4px'
             }}
         >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <LightBriefcase />
                 <Typography
+                    variant='titleLargeBold'
                     sx={{
-                        fontSize: '20px',
-                        fontWeight: '700',
-                        color: '#23282B'
+                        color: '#23282B',
+                        textTransform: 'capitalize'
                     }}
                 >
                     {jobInfo.title}
@@ -36,7 +37,7 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
             <Typography
                 sx={{ color: '#808080', fontSize: '14px', marginTop: '8px', textTransform: 'capitalize' }}
             >
-                {moment(jobInfo?.createdAt).format('MMM DD,YYYY')}
+                {moment(jobInfo?.createdAt).format('MMM DD, YYYY')}
             </Typography>
             <Box sx={{ marginTop: '20px' }}>
                 <Typography
@@ -46,7 +47,7 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                         fontWeight: '600'
                     }}
                 >
-                    About the role
+                    Job overview
                 </Typography>
                 <Typography
                     sx={{
@@ -66,10 +67,10 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                         fontWeight: '600'
                     }}
                 >
-                    Summary of the role
+                    Qualification
                 </Typography>
                 <ul style={{ color: '#808080', fontSize: '16px' }}>
-                    {jobInfo?.qualifications}
+                    {jobInfo?.qualifications?.split('\n')?.map((item) => item ? <li key={`item_${item}`} >{item}</li> : null)}
                 </ul>
             </Box>
             <Box
@@ -81,6 +82,17 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                 }}
             >
                 <Button
+                    variant="outlined"
+                    sx={{
+                        padding: '15px 20px',
+                        width: 'fit-content',
+                        minWidth: '240px'
+                    }}
+                    onClick={() => navigate(`/job-postdetail/${jobInfo?.id}/applicants`)}
+                >
+                    View applicants
+                </Button>
+                <Button
                     variant="contained"
                     sx={{
                         width: 'fit-content',
@@ -90,17 +102,6 @@ const JobPostItem = (props: { jobInfo: PostJobItem }) => {
                     onClick={() => navigate(`/job-postdetail/${jobInfo?.id}`)}
                 >
                     View Job Posting
-                </Button>
-                <Button
-                    variant="outlined"
-                    sx={{
-                        padding: '15px 20px',
-                        width: 'fit-content',
-                        minWidth: '240px'
-                    }}
-                    onClick={() => navigate(`/job-postdetail/${jobInfo?.id}/applicants`)}
-                >
-                    Check Applications
                 </Button>
             </Box>
         </Box>

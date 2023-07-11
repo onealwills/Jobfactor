@@ -34,7 +34,7 @@ const Header = ({ title = 'All Applicants' }) => {
                 <IconButton onClick={() => navigate(-1)}>
                     <ArrowLeftIcon />
                 </IconButton>
-                <Typography variant="headlineMediumSemiBold" color="#23282B">
+                <Typography variant="headlineMediumSemiBold" color="#23282B" textTransform={'capitalize'}>
                     {title}
                 </Typography>
             </Box>
@@ -55,6 +55,19 @@ const Header = ({ title = 'All Applicants' }) => {
                             id="demo-simple-select-filled"
                             value={sort}
                             onChange={handleChange}
+                            sx={{
+                                backgroundColor: '#FCFBF8',
+                                width: '100%',
+                                height: '50px',
+                                padding: '0px 16px',
+                                color: '#23282B',
+                                '& 	.MuiInputBase-input': {
+                                    backgroundColor: 'transparent !important',
+                                },
+                                '& 	.MuiInputBase-input:focus': {
+                                    backgroundColor: 'transparent'
+                                }
+                            }}
                         >
                             <MenuItem value="">
                                 <em>None</em>
@@ -64,7 +77,7 @@ const Header = ({ title = 'All Applicants' }) => {
                         </Select>
                     </FormControl>
                 </Box>
-                <Button
+                {/* <Button
                     variant="contained"
                     onClick={() => navigate('/new-jobpost')}
                     sx={{
@@ -73,8 +86,8 @@ const Header = ({ title = 'All Applicants' }) => {
                         minWidth: '240px'
                     }}
                 >
-                    Post job opening
-                </Button>
+                    Post job opssening
+                </Button> */}
             </Box>
         </Box>
     );
