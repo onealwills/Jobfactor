@@ -1,13 +1,16 @@
-import { Box, Button, IconButton, InputBase } from '@mui/material';
+import { Avatar, Box, Button, IconButton, InputBase } from '@mui/material';
 import { ArticleIcon } from '../../../assets/icons/ArticleIcon';
 import { PhotoIcon } from '../../../assets/icons/PhotoIcon';
 import { VideoIcon } from '../../../assets/icons/VideoIcon';
 import SideNavProfile from '../../../assets/images/profile-sq.png';
 import { useState } from 'react';
 import PostCards from './PostCards';
+import { PrimaryProfileType } from '../../../utils/hooks/api/account/types';
+import { useAuth } from '../../../utils/context/AuthContext';
 
 function CreateFeedCard() {
     const [showmodal, setShowModal] = useState<boolean>(false);
+    const { user } = useAuth();
     let data = {
         userimage: SideNavProfile,
         username: 'Jacob Jones'
@@ -26,12 +29,13 @@ function CreateFeedCard() {
                 }}
             >
                 <Box sx={{ display: 'flex', gap: '16px' }}>
-                    <img
-                        height={72}
-                        width={72}
-                        src={SideNavProfile}
-                        alt="icon"
-                        style={{ borderRadius: 100 }}
+                    <Avatar
+                        sx={{
+                            height: 72,
+                            width: 72
+                        }}
+                        src={user?.primaryProfile === PrimaryProfileType.Professional ? user?.professionalProfile?.photoUrl : user?.primaryCompanyProfile?.photoUrl}
+                        alt="profile"
                     />
                     <InputBase
                         rows={4}

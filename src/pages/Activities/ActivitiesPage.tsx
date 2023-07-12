@@ -40,62 +40,66 @@ import profImg3 from '../../assets/images/SideNavProfile.png';
 import ProfileList from './components/ProfileList';
 import { useNavigate } from 'react-router-dom';
 import { FeedItem } from '../Home/components/FeedItem';
+import { useAuth } from '../../utils/context/AuthContext';
 
 const images = [image1, image2, image3, image4, image5, image6];
 
-const data = [
-    {
-        profileImage: profile,
-        fullName: 'Ronald Richard',
-        jobTitle: 'Product Designer',
-        description:
-            'Hello everyone,If you wan to get started in brand design you can send me a private message so I can put you through all you will need to get started. #startyourtechjourneynow',
-        views: 2456,
-        likes: 500,
-        comments: 156,
-        shares: 75,
-        images: [feedImg],
-        isAccountVerified: true
-    },
-    {
-        profileImage: profile,
-        fullName: 'Ronald Richard',
-        jobTitle: 'Product Designer',
-        description: 'test',
-        views: 2456,
-        likes: 500,
-        comments: 156,
-        shares: 75,
-        images: [],
-        isAccountVerified: true
-    }
-];
-const professionals = [
-    {
-        profileImage: profImg1,
-        fullName: 'Jane Cooper',
-        jobTitle: 'Product Designer',
-        score: 550
-    },
-    {
-        profileImage: profImg2,
-        fullName: 'Esther Howard',
-        jobTitle: 'Accounting leader',
-        score: 450
-    },
-    {
-        profileImage: profImg3,
-        fullName: 'Kathryn Murphy',
-        jobTitle: 'Human Resource',
-        score: 750
-    }
-];
+
 
 function Activities() {
     const [openContactInfoModal, setOpenContactInfoModal] = useState(false);
     const [openAboutMeModal, setOpenAboutMeModal] = useState(false);
     const [openProfileInfoModal, setOpenProfileInfoModal] = useState(false);
     const navigate = useNavigate();
+    const { user } = useAuth();
+
+    const data = [
+        {
+            profileImage: user?.professionalProfile?.photoUrl ?? '',
+            fullName: `${user?.professionalProfile?.firstName} ${user?.professionalProfile?.lastName}`,
+            jobTitle: user?.professionalProfile?.currentEmployment?.jobTitle ?? '',
+            description:
+                'Hello everyone,If you wan to get started in brand design you can send me a private message so I can put you through all you will need to get started. #startyourtechjourneynow',
+            views: 2456,
+            likes: 500,
+            comments: 156,
+            shares: 75,
+            images: [feedImg],
+            isAccountVerified: true
+        },
+        {
+            profileImage: user?.professionalProfile?.photoUrl ?? '',
+            fullName: `${user?.professionalProfile?.firstName} ${user?.professionalProfile?.lastName}`,
+            jobTitle: user?.professionalProfile?.currentEmployment?.jobTitle ?? '',
+            description: 'test',
+            views: 2456,
+            likes: 500,
+            comments: 156,
+            shares: 75,
+            images: [],
+            isAccountVerified: true
+        }
+    ];
+    const professionals = [
+        {
+            profileImage: profImg1,
+            fullName: 'Jane Cooper',
+            jobTitle: 'Product Designer',
+            score: 550
+        },
+        {
+            profileImage: profImg2,
+            fullName: 'Esther Howard',
+            jobTitle: 'Accounting leader',
+            score: 450
+        },
+        {
+            profileImage: profImg3,
+            fullName: 'Kathryn Murphy',
+            jobTitle: 'Human Resource',
+            score: 750
+        }
+    ];
 
     const handleOnEditContactInfo = () => {
         setOpenContactInfoModal(true);
@@ -169,7 +173,7 @@ function Activities() {
                                                 lineHeight: '32px'
                                             }}
                                         >
-                                            Ronald Richard
+                                            {user?.professionalProfile?.firstName} {user?.professionalProfile?.lastName}
                                         </Typography>
                                     </Box>
                                     <Box
@@ -203,7 +207,7 @@ function Activities() {
                                     position="relative"
                                 >
                                     <Image
-                                        src={profile}
+                                        src={user?.professionalProfile?.photoUrl ?? ''}
                                         sx={{
                                             width: '200px',
                                             height: '200px',
@@ -277,7 +281,7 @@ function Activities() {
                                                     fontSize={28}
                                                     fontWeight={600}
                                                 >
-                                                    Ronald Richard
+                                                    {user?.professionalProfile?.firstName} {user?.professionalProfile?.lastName}
                                                 </Typography>
                                             </Grid>
 
@@ -300,7 +304,7 @@ function Activities() {
                                                         fontSize={16}
                                                         fontWeight={400}
                                                     >
-                                                        Product Designer
+                                                        {user?.professionalProfile?.currentEmployment?.jobTitle}
                                                     </Typography>
                                                     <CheckCircleIcon
                                                         htmlColor="#49B6FF"
@@ -342,8 +346,7 @@ function Activities() {
                                             fontSize={16}
                                             fontWeight={400}
                                         >
-                                            Web3 Product Designer | I want to
-                                            design extraordinary things
+                                            {user?.professionalProfile?.tagline}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -375,7 +378,7 @@ function Activities() {
                                             <Grid item>
                                                 <InfoChip
                                                     type="email"
-                                                    label="Ronaldrichie@hotmail.com"
+                                                    label={user?.professionalProfile?.emailAddress ?? ""}
                                                 />
                                             </Grid>
                                             <Grid item ml={2}>

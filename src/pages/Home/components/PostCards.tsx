@@ -11,7 +11,7 @@ import {
     Typography,
     Radio,
     FormControlLabel,
-    Chip
+    Avatar
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import UploadImage from '../../../assets/icons/UploadImage';
@@ -27,6 +27,8 @@ import HatIcon from '../../../assets/icons/HatIcon';
 import Camera from '../../../assets/icons/CameraIconMui';
 import AchievementMedal from '../../../assets/icons/AchievementMedal';
 import AchievementSkillsPopup from '../../../components/AchievementSkillsPopup/AchievementSkillsPopup';
+import { PrimaryProfileType } from '../../../utils/hooks/api/account/types';
+import { useAuth } from '../../../utils/context/AuthContext';
 
 const modalstyle = {
     position: 'absolute' as 'absolute',
@@ -81,7 +83,7 @@ const PostCards = ({
         'Figma',
         'HTML'
     ]);
-
+    const { user } = useAuth();
     const TypeData = [{ name: 'Connections' }, { name: 'Anyone on Jobfactor' }];
 
     const reset = () => {
@@ -386,15 +388,13 @@ const PostCards = ({
                                         alignItems: 'center'
                                     }}
                                 >
-                                    <img
-                                        height={65}
-                                        width={65}
-                                        src={
-                                            data?.userimage ??
-                                            data?.profileImage
-                                        }
-                                        alt="icon"
-                                        style={{ borderRadius: 100 }}
+                                    <Avatar
+                                        sx={{
+                                            height: 65,
+                                            width: 65
+                                        }}
+                                        src={user?.primaryProfile === PrimaryProfileType.Professional ? user?.professionalProfile?.photoUrl : user?.primaryCompanyProfile?.photoUrl}
+                                        alt="profile"
                                     />
                                     <Box
                                         sx={{ cursor: 'pointer' }}
@@ -403,7 +403,7 @@ const PostCards = ({
                                         }}
                                     >
                                         <h4 style={{ margin: 0 }}>
-                                            {data?.username ?? data?.fullName}
+                                            {user?.primaryProfile === PrimaryProfileType.Professional ? `${user?.professionalProfile?.firstName} ${user?.professionalProfile?.lastName}` : user?.primaryCompanyProfile?.companyName}
                                         </h4>
                                         <Box
                                             sx={{

@@ -1,5 +1,5 @@
 import './style.css';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
@@ -38,6 +38,10 @@ import { useNavigate } from 'react-router-dom';
 import SearchIcon from '../../../assets/icons/SearchIcon';
 import { Dayjs } from 'dayjs';
 import TableWrapper from '../components/TableWrapper';
+import { useDropzone } from 'react-dropzone';
+import { useUploadProfessionalProfilePhoto } from '../../../utils/hooks/api/users/useUploadProfessionalProfilePhoto';
+import { useAuth } from '../../../utils/context/AuthContext';
+import SnackAlert from '../../../components/Snackbar';
 
 interface User {
     points: number;
@@ -51,6 +55,9 @@ function ProfileWizard() {
     const videoRef = useRef<HTMLInputElement>(null);
     const imageRef = useRef<HTMLInputElement>(null);
     const [step, setStep] = useState(1);
+    const [message, setMessage] = useState('');
+    const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>('info');
+    const [showAlert, setShowAlert] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [gender, setGender] = useState('Male');
@@ -77,14 +84,42 @@ function ProfileWizard() {
     const [endDate, setEndDate] = useState<Dayjs | null>(null);
     const [page, setPage] = useState(0);
     const rowsPerPage = 10;
+    const uploadImage = useUploadProfessionalProfilePhoto();
+    const { user, setUser } = useAuth();
+
+    const onDrop = useCallback(<T extends File>(acceptedFiles: T[]) => {
+        let data = {
+            profileId: user?.professionalProfile?.id ?? '',
+            file: acceptedFiles[0]
+        }
+        uploadImage.mutate(data, {
+            onSuccess: (res) => {
+                setImage(String(res));
+                let tempData = {
+                    ...user,
+                    professionalProfile: {
+                        ...user?.professionalProfile,
+                        photoUrl: res
+                    }
+                }
+                setUser(tempData);
+                setMessage("Profile Image Updated Successfully.");
+                setType('success');
+                setShowAlert(true);
+            },
+            onError: (res) => {
+                setMessage("Error occured please try again!");
+                setType('error');
+                setShowAlert(true);
+            }
+        })
+    }, [])
+    const { getRootProps, getInputProps, open } = useDropzone({ onDrop, noClick: true })
 
     const handleChange = (value: string) => {
         let temp = JSON.parse(JSON.stringify(data));
         if (value) {
-            temp = temp.filter(
-                (x: any) =>
-                    x.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
-            );
+            temp = temp.filter((x: any) => x.name.toLowerCase().indexOf(value.toLowerCase()) !== -1);
             setUsers(temp);
         } else {
             setUsers([]);
@@ -92,10 +127,10 @@ function ProfileWizard() {
     };
 
     const handleChangeFile = (
-        e: any,
+        files: any,
         setState: React.Dispatch<React.SetStateAction<string>>
     ) => {
-        const file = e.target.files[0];
+        const file = files[0];
         const url = URL.createObjectURL(file);
         setState(url);
     };
@@ -103,6 +138,12 @@ function ProfileWizard() {
     const handleChangePage = (page: number) => {
         setPage(page - 1);
     };
+
+    useEffect(() => {
+        if (user?.professionalProfile?.photoUrl) {
+            setImage(user?.professionalProfile?.photoUrl);
+        }
+    }, [user?.professionalProfile?.photoUrl])
 
     return (
         <Container
@@ -137,7 +178,7 @@ function ProfileWizard() {
                     ]}
                 />
 
-                <Grid container>
+                <Grid container alignItems={'center'}>
                     <Grid item flexGrow={1}>
                         <Typography
                             component="h1"
@@ -232,7 +273,7 @@ function ProfileWizard() {
                         <Divider sx={{ borderColor: '#EDEDED' }} />
                         <Box px={5} py={2.5}>
                             <Grid container gap={'57px'}>
-                                <Grid item xs={2}>
+                                <Grid item xs={2} {...getRootProps()}>
                                     <Avatar
                                         src={image}
                                         sx={{
@@ -244,18 +285,14 @@ function ProfileWizard() {
                                             cursor: 'pointer',
                                             mb: 2.5
                                         }}
-                                        onClick={() =>
-                                            imageRef?.current?.click()
-                                        }
+                                        onClick={open}
                                     />
                                     <Typography component="p">
                                         <Typography
                                             component="span"
                                             variant="titleMediumSemiBold"
                                             sx={{ cursor: 'pointer' }}
-                                            onClick={() =>
-                                                imageRef?.current?.click()
-                                            }
+                                            onClick={open}
                                         >
                                             Click to upload
                                         </Typography>
@@ -264,10 +301,8 @@ function ProfileWizard() {
                                             ref={imageRef}
                                             accept="image/png, image/gif, image/jpeg"
                                             name="image"
-                                            onChange={(e) =>
-                                                handleChangeFile(e, setImage)
-                                            }
                                             style={{ display: 'none' }}
+                                            {...getInputProps()}
                                         />
                                         &nbsp;
                                         <Typography
@@ -328,7 +363,7 @@ function ProfileWizard() {
                                                         name="video"
                                                         onChange={(e) =>
                                                             handleChangeFile(
-                                                                e,
+                                                                e.target.files,
                                                                 setVideoSrc
                                                             )
                                                         }
@@ -1317,6 +1352,12 @@ function ProfileWizard() {
                     </Paper>
                 </>
             ) : null}
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={type}
+            />
         </Container>
     );
 }

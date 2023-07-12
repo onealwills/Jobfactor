@@ -60,6 +60,7 @@ interface CurrentEmployment {
     currentEmployment?: CurrentEmployment;
     employemnts: Employment[];
     qualifications: Qualification[];
+    tagline: string;
   }
   
   interface User {
@@ -79,6 +80,7 @@ interface CurrentEmployment {
     emailAddress: string;
     companyName: string;
     companyId: string;
+    photoUrl: string;
   }
   
 interface Account {

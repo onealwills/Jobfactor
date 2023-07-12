@@ -6,7 +6,6 @@ import InputBase from '@mui/material/InputBase';
 import JobFactorIcon from '../assets/icons/JobFactorIcon';
 import ArrowDown from '../assets/icons/ArrowDown';
 import BellIcon from '../assets/icons/BellIcon';
-import profile from '../assets/images/profile.png';
 import InputAdornment from '@mui/material/InputAdornment';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,6 +15,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { useAuth } from '../utils/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { PrimaryProfileType } from '../utils/hooks/api/account/types';
 
 const data = [
     {
@@ -60,7 +60,7 @@ interface PropTypes {
 function JobfactorAppBar({ handleChange, value }: PropTypes) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const navigate = useNavigate();
-    const { signOut } = useAuth();
+    const { signOut, user } = useAuth();
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -152,11 +152,13 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                         </IconButton>
 
                         <IconButton color="inherit" aria-label="profile">
-                            <img
-                                height={48}
-                                src={profile}
-                                alt={'profile'}
-                                loading="lazy"
+                            <Avatar
+                                sx={{
+                                    height: 48,
+                                    width: 48
+                                }}
+                                src={user?.primaryProfile === PrimaryProfileType.Professional ? user?.professionalProfile?.photoUrl : user?.primaryCompanyProfile?.photoUrl}
+                                alt="profile"
                             />
                         </IconButton>
 
@@ -196,9 +198,12 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                         }}
                     >
                         <Avatar
-                            sx={{ width: '24px', height: '24px' }}
-                            alt="Remy Sharp"
-                            src={profile}
+                            sx={{
+                                height: 24,
+                                width: 24
+                            }}
+                            src={user?.primaryProfile === PrimaryProfileType.Professional ? user?.professionalProfile?.photoUrl : user?.primaryCompanyProfile?.photoUrl}
+                            alt="profile"
                         />
                         <Box
                             sx={{
@@ -215,7 +220,7 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                                     color: '#23282B'
                                 }}
                             >
-                                Ronald Richie
+                                {user?.primaryProfile === PrimaryProfileType.Professional ? `${user?.professionalProfile?.firstName} ${user?.professionalProfile?.lastName}` : user?.primaryCompanyProfile?.companyName}
                             </Typography>
                             <Typography
                                 sx={{
@@ -226,7 +231,7 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                                     color: '#808080'
                                 }}
                             >
-                                ronaldrichie@otlook.com
+                                {user?.primaryProfile === PrimaryProfileType.Professional ? user?.professionalProfile?.emailAddress : user?.primaryCompanyProfile?.emailAddress}
                             </Typography>
                         </Box>
                     </MenuItem>

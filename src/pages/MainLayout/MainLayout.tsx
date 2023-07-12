@@ -3,14 +3,13 @@ import {
     Drawer,
     Box,
     Typography,
-    CircularProgress
+    CircularProgress,
+    Avatar
 } from '@mui/material';
 import SideNav from '../../components/Navigation/SideNav';
 import JobfactorAppBar from '../../components/JobfactorAppBar';
-import SideNavProfile from '../../assets/images/SideNavProfile.png';
 import { styled } from '@mui/material/styles';
 import { useAuth } from '../../utils/context/AuthContext';
-import { useEffect, useState } from 'react';
 import { PrimaryProfileType } from '../../utils/hooks/api/account/types';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -43,7 +42,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const drawerWidth = 240;
 
 function MainLayout(props: { children: React.ReactNode }) {
-    const { account } = useAuth();
+    const { account, user } = useAuth();
 
     const { children } = props;
 
@@ -83,10 +82,12 @@ function MainLayout(props: { children: React.ReactNode }) {
                     {account?.sub ? (
                         <>
                             <Box sx={{ mt: '10px' }}>
-                                <img
-                                    height={64}
-                                    width={64}
-                                    src={SideNavProfile}
+                                <Avatar
+                                    sx={{
+                                        height: 64,
+                                        width: 64
+                                    }}
+                                    src={account?.primaryProfile === PrimaryProfileType.Professional ? user?.professionalProfile?.photoUrl : user?.primaryCompanyProfile?.photoUrl}
                                     alt="profile"
                                 />
                             </Box>
@@ -99,7 +100,7 @@ function MainLayout(props: { children: React.ReactNode }) {
                                 fontWeight={700}
                             >
                                 {account?.primaryProfile ===
-                                PrimaryProfileType.Professional
+                                    PrimaryProfileType.Professional
                                     ? `${account?.professionalProfile?.fullName}`
                                     : `${account?.companyProfile?.companyName}`}
                             </Typography>
@@ -111,7 +112,7 @@ function MainLayout(props: { children: React.ReactNode }) {
                                 fontWeight={400}
                             >
                                 {account?.primaryProfile ===
-                                PrimaryProfileType.Company
+                                    PrimaryProfileType.Company
                                     ? 'Company account'
                                     : 'Personal account'}
                             </Typography>
