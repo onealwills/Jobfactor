@@ -2,7 +2,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
 import JobFactorIcon from '../assets/icons/JobFactorIcon';
 import ArrowDown from '../assets/icons/ArrowDown';
 import BellIcon from '../assets/icons/BellIcon';
@@ -10,12 +9,35 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '../assets/icons/SearchIcon';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { useAuth } from '../utils/context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Autocomplete, Button, TextField } from '@mui/material';
+import { useGetSearchTerm } from '../utils/hooks/api/search/useSearchTerm';
+import { styled, lighten, darken } from '@mui/system';
+import { ISkillsType } from '../pages/Reviews/types';
+import ExperienceLevel from '../pages/Connections/components/ExperienceLevel';
 import { PrimaryProfileType } from '../utils/hooks/api/account/types';
+
+const GroupHeader = styled('div')(({ theme }) => ({
+    position: 'sticky',
+    top: '-8px',
+    padding: '4px 10px',
+    color: '#23282B',
+    fontSize: 14,
+    fontWeight: 700,
+    zIndex:1,
+    backgroundColor:
+        theme.palette.mode === 'light'
+            ? lighten(theme.palette.primary.light, 0.85)
+            : darken(theme.palette.primary.main, 0.8),
+}));
+
+const GroupItems = styled('ul')({
+    padding: 0,
+});
 
 const data = [
     {
@@ -57,19 +79,61 @@ interface PropTypes {
     handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value?: string;
 }
+interface IOptionType {
+    id: string;
+    term: string;
+    entityType: string;
+}
 function JobfactorAppBar({ handleChange, value }: PropTypes) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [showGrouping, setShowGrouping] = useState(true);
+    const [options, setOptions] = useState([]);
+    const [search, setSearch] = useState('');
+    const pathname = useLocation()?.pathname;
     const navigate = useNavigate();
     const { signOut, user } = useAuth();
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const { data: searchedData, refetch } = useGetSearchTerm(search);
+
+    const handleData = () => {
+        setOptions([]);
+        if (search.length > 1 && searchedData) {
+            if (pathname.includes('job')) return setOptions(searchedData?.filter((x: IOptionType) => x.entityType === "JOBPOST"));
+            if (pathname.includes('connections')) return setOptions(searchedData?.filter((x: IOptionType) => x.entityType === "PROFESSIONAL"));
+            return setOptions(JSON.parse(JSON.stringify(searchedData?.sort((a: IOptionType, b: IOptionType) => -b.entityType.localeCompare(a.entityType)))));
+        }
+    }
+
+    const handleNavigate = (option: IOptionType) => {
+        if (option.entityType === 'JOBPOST') return navigate(user?.primaryProfile === PrimaryProfileType.Professional ? `/my-jobs/${option.id}` : `/job-postdetail/${option.id}`);
+        if (option.entityType === 'PROFESSIONAL') return navigate(user?.primaryProfile === PrimaryProfileType.Professional ? `/professional-profile/${option.id}` : `/job-postdetail/${option.id}`);
+        return navigate(`/company-profile/${option.id}`);
+    }
+
+    useEffect(() => {
+        if (search.length > 1) {
+            refetch();
+        }
+        handleData();
+    }, [search])
+
+    useEffect(() => {
+        handleData();
+        if (pathname.includes('job') || pathname.includes('connections') || pathname.includes('reviews')) {
+            setShowGrouping(false);
+        } else {
+            setShowGrouping(true);
+        }
+    }, [searchedData, pathname])
+
     return (
         <>
             <AppBar
                 position="fixed"
                 sx={{
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                    zIndex: 1201,
                     backgroundColor: 'white',
                     pb: 1.5,
                     pt: 0.5
@@ -88,58 +152,82 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                         <JobFactorIcon />
                     </IconButton>
                     <Box sx={{ flex: 1, marginLeft: 2, marginRight: 2 }}>
-                        <Box
+                        <Autocomplete
+                            freeSolo
+                            disableClearable
+                            filterSelectedOptions
+                            blurOnSelect={true}
+                            options={options ?? []}
+                            getOptionLabel={(option: any) => option?.term}
+                            groupBy={showGrouping ? (option) => option.entityType : undefined}
+                            onChange={(e, val) => handleNavigate(val)}
                             sx={{
-                                position: 'relative',
-                                borderRadius: 2,
-                                bgcolor: 'background.paper',
-                                '&:hover': { bgcolor: 'background.paper' }
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    padding: 1,
-                                    height: '100%',
-                                    position: 'absolute',
-                                    pointerEvents: 'none',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <SearchIcon />
-                            </Box>
-                            <InputBase
-                                onChange={handleChange}
-                                value={value}
-                                startAdornment={
-                                    <InputAdornment
-                                        position="start"
-                                        sx={{ ml: '20px' }}
-                                    >
-                                        <SearchIcon />
-                                    </InputAdornment>
-                                }
-                                placeholder="Search by title, skill or company"
-                                inputProps={{ 'aria-label': 'search' }}
-                                sx={{
-                                    fontFamily: 'open sans',
-                                    color: '#808080',
-                                    px: 1,
-                                    py: 1,
-                                    width: '90%',
-                                    backgroundColor: '#FFFAF1',
+                                backgroundColor: "#FCFBF8",
+                                maxWidth: { md: '90%', xs: '100%' },
+                                '& .MuiOutlinedInput-root': {
                                     borderRadius: '8px',
-                                    '& .MuiInputBase-input': {
-                                        pl: '5px',
-                                        '&::placeholder': {
-                                            color: 'text.secondary',
-                                            opacity: 1
-                                        }
+                                    padding: '16px 40px'
+                                },
+                                '& .MuiOutlinedInput-input': {
+                                    padding: '0 !important',
+                                    color: '#23282B'
+                                },
+                                '& fieldset,.Mui-focused fieldset': {
+                                    border: '0 !important'
+                                }
+                            }}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    placeholder='Search by title, skill or company'
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        startAdornment: (
+                                            <>
+                                                <InputAdornment position="start">
+                                                    <SearchIcon />
+                                                </InputAdornment>
+                                                {params.InputProps.startAdornment}
+                                            </>
+                                        ),
+                                        type: 'search',
+                                    }}
+                                />
+                            )}
+                            renderGroup={(params) => (
+                                <li key={params.key}>
+                                    <GroupHeader>{params.group}</GroupHeader>
+                                    <GroupItems>{params.children}</GroupItems>
+                                </li>
+                            )}
+                            renderOption={(props, option) => (
+                                <Box
+                                    component="li"
+                                    sx={{
+                                        borderBottom: "1px solid #D8D8D8",
+                                        padding: '12px 48px !important',
+                                        color: '#808080'
+                                    }}
+                                    key={option.id}
+                                    {...props}
+                                >
+                                    {
+                                        (pathname.includes('connections') || pathname.includes('reviews')) ?
+                                            <ConnectionOptions option={option} /> :
+                                            option.entityType === 'JOBPOST' ?
+                                                `${option.term} (${option.companyName})` :
+                                                <>
+                                                    <Avatar
+                                                        src={option.imageUrl}
+                                                    />&nbsp;
+                                                    {option.term}
+                                                </>
                                     }
-                                }}
-                            />
-                        </Box>
+
+                                </Box>
+                            )}
+                        />
                     </Box>
                     <Box
                         sx={{
@@ -282,3 +370,219 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
 }
 
 export default JobfactorAppBar;
+interface IConnectionType {
+    option: {
+        term: string;
+        imageUrl: string;
+        currentEmployment: {
+            employmentLevel: string;
+            companyName: string;
+        }
+    }
+}
+const ConnectionOptions = ({ option }: IConnectionType) => {
+    const pathname = useLocation()?.pathname;
+    return (
+        <Box
+            sx={{
+                width: '100%'
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'inset',
+                    gap: '20px',
+                }}
+            >
+                <Avatar
+                    alt=""
+                    src={option?.imageUrl}
+                    sx={{ width: 56, height: 56 }}
+                />
+                <Box sx={{ width: '100%' }}>
+                    <Typography
+                        component={'h1'}
+                        sx={{
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            fontFamily: 'Open Sans',
+                            color: '#494949',
+                        }}
+                    >
+                        {option?.term}
+                    </Typography>
+                    {option?.currentEmployment ?
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '20px',
+                                mt: '4px'
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontSize: '14px',
+                                    fontFamily: 'Open Sans',
+                                    color: '#808080',
+                                    letterSpacing: '0.0015em',
+                                    textTransform: 'capitalize'
+                                }}
+                            >
+                                {option?.currentEmployment?.employmentLevel}
+                            </Typography>
+                            <Typography
+                                component={'div'}
+                                sx={{
+                                    width: '7px',
+                                    height: '7px',
+                                    borderRadius: '100px',
+                                    background: '#494949',
+                                    border: '2px solid #494949'
+                                }}
+                            />
+                            <Typography
+                                sx={{
+                                    fontSize: '14px',
+                                    fontFamily: 'Open Sans',
+                                    color: '#808080'
+                                }}
+                            >
+                                {option?.currentEmployment?.companyName}
+                            </Typography>
+                            <Typography
+                                component={'div'}
+                                sx={{
+                                    width: '7px',
+                                    height: '7px',
+                                    borderRadius: '100px',
+                                    background: '#494949',
+                                    border: '2px solid #494949'
+                                }}
+                            />
+                            <Typography
+                                sx={{
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    fontFamily: 'Open Sans',
+                                    color: '#FFFFFF',
+                                    background: '#49B6FF',
+                                    borderRadius: '6px',
+                                    padding: '0px 12px'
+                                }}
+                            >
+                                890
+                            </Typography>
+                        </Box>
+                        : null
+                    }
+                </Box>
+                {pathname.includes('reviews') ?
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            gap: '20px',
+                            width: '100%',
+                            justifyContent: 'flex-end'
+                        }}
+                    >
+                        <Button
+                            sx={{
+                                borderRadius: '8px',
+                                padding: '12px 16px',
+                                border: '1px solid #05668D',
+                                background: '#05668D',
+                                fontSize: '14px',
+                                fontWeight: '600',
+                                textTransform: 'capitalize',
+                                boxShadow: 'none',
+                                width: 'auto',
+                                whiteSpace: 'nowrap',
+                                color: '#FFFFFF',
+                                textDecoration: 'none',
+                                ':hover': {
+                                    color: '#FFFFFF',
+                                    textDecoration:
+                                        'none',
+                                    background:
+                                        '#05668D'
+                                }
+                            }}
+                            onClick={() => {
+                                // handleOnAddClick(user);
+                                // handleClose();
+                                // setSearch('');
+                                // filterData('');
+                            }}
+                        >
+                            Add
+                        </Button>
+                    </Box>
+                    : null
+                }
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    ml: '77px',
+                    mt: '5px'
+                }}
+            >
+                {experienceLevels?.map(
+                    (
+                        item: ISkillsType,
+                        index: number
+                    ) => (
+                        <ExperienceLevel
+                            background={
+                                item.background
+                            }
+                            shortForm={
+                                item.shortForm
+                            }
+                            title={item.title}
+                            key={`skill_${index}`}
+                        />
+                    )
+                )}
+                <Typography
+                    component={'div'}
+                    sx={{
+                        ml: '4px',
+                        width: '7px',
+                        height: '7px',
+                        borderRadius: '100px',
+                        background: '#494949',
+                        border: '2px solid #494949'
+                    }}
+                />{' '}
+                <Typography
+                    component={'div'}
+                    sx={{
+                        ml: '4px',
+                        width: '7px',
+                        height: '7px',
+                        borderRadius: '100px',
+                        background: '#494949',
+                        border: '2px solid #494949'
+                    }}
+                />
+            </Box>
+        </Box>
+    )
+}
+
+const experienceLevels = [
+    { background: '#E75541', title: 'Begineer', shortForm: 'B' },
+    { background: '#F6C70E', title: 'Mobile Int', shortForm: 'E' },
+    {
+        background: '#49B6FF',
+        title: 'Customer Experience Design',
+        shortForm: 'A'
+    },
+    { background: '#95C97A', title: 'Expert', shortForm: 'X' }
+];

@@ -29,6 +29,8 @@ import CompanyActivities from '../pages/CompanyActivities/CompanyActivities';
 import JobApplicants from '../pages/MyJobs/JobApplicants';
 import CompanyDetails from '../pages/AboutCompany';
 import ApplicantDetails from '../pages/MyJobs/ApplicantDetails';
+import ProfessionalProfile from '../pages/ProfessionalProfile';
+import CompanyProfile from '../pages/CompanyProfile/CompanyProfile';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
     const { isAuthenticated } = useAuth();
@@ -84,6 +86,22 @@ const PrivateRoutes = () => {
                     element={
                         <RequireAuth>
                             <MainLayout children={<Activities />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="professional-profile/:id"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<ProfessionalProfile />} />
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="company-profile/:id"
+                    element={
+                        <RequireAuth>
+                            <MainLayout children={<CompanyProfile />} />
                         </RequireAuth>
                     }
                 />

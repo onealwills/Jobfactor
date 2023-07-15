@@ -14,6 +14,9 @@ export const QueryKeys = {
     RetrieveApplicantById: 'retrieve-applicant',
     RetrieveUserInfo: 'retrieve-user-account',
     RetrieveAppliedJobs: 'retrieve-applied-jobs',
-    RetrieveSavedJobsByProfessionalId:'retrieve-saved-jobs-by-id',
-    RetrieveSavedApplicantByCompanyId:'retrieve-saved-applicants-by-id'
+    RetrieveSavedJobsByProfessionalId: 'retrieve-saved-jobs-by-id',
+    RetrieveSavedApplicantByCompanyId: 'retrieve-saved-applicants-by-id',
+    RetrieveSearchTerm: 'retrieve-search',
+    RetrieveProfessionalProfileById: 'retrieve-professional-profile',
+    RetrieveCompanyProfileById: 'retrieve-company-profile',
 };

@@ -5,11 +5,16 @@ import { getJobType, getWorkPlace } from '../../../../utils/Helper/helper';
 import { ArrowLeftIcon } from '../../../../assets/icons/ArrowLeftIcon';
 import moment from 'moment';
 import ExperienceChip from '../ExperienceChip';
+import { useEffect } from 'react';
 
 const JobPostDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: jobDetails, isFetching } = useGetJobById(id ?? '', '');
+    const { data: jobDetails, isFetching, refetch } = useGetJobById(id ?? '', '');
+
+    useEffect(() => {
+        refetch();
+    }, [id])
 
     return (
         <>
