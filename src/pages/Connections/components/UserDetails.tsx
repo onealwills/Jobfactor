@@ -5,7 +5,7 @@ const UserDetails = (props: PropTypes) => {
         <>
             <Avatar
                 alt="Remy Sharp"
-                src={user?.image}
+                src={user?.photoUrl}
                 sx={{ width: 56, height: 56 }}
             />
             <Box sx={{ width: '100%' }}>
@@ -18,7 +18,7 @@ const UserDetails = (props: PropTypes) => {
                         color: '#494949'
                     }}
                 >
-                    {user.name}
+                    {user.firstName} {user.lastName}
                 </Typography>
                 <Box
                     sx={{
@@ -27,28 +27,29 @@ const UserDetails = (props: PropTypes) => {
                         gap: '20px'
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: '16px',
-                            fontFamily: 'Open Sans',
-                            color: '#808080',
-                            letterSpacing: '0.0015em'
-                        }}
-                    >
-                        {user.designation ?? 'COMPANY'}
-                    </Typography>
-                    <Typography
-                        component={'div'}
-                        sx={{
-                            width: '7px',
-                            height: '7px',
-                            borderRadius: '100px',
-                            background: '#494949',
-                            border: '2px solid #494949'
-                        }}
-                    />
-                    {user.designation ? (
+                    {user?.currentEmployment?.employmentLevel ? (
                         <>
+                            <Typography
+                                sx={{
+                                    fontSize: '16px',
+                                    fontFamily: 'Open Sans',
+                                    color: '#808080',
+                                    letterSpacing: '0.0015em'
+                                }}
+                            >
+                                {user?.currentEmployment?.employmentLevel}
+                            </Typography>
+                            <Typography
+                                component={'div'}
+                                sx={{
+                                    width: '7px',
+                                    height: '7px',
+                                    borderRadius: '100px',
+                                    background: '#494949',
+                                    border: '2px solid #494949'
+                                }}
+                            />
+
                             <Typography
                                 sx={{
                                     fontSize: '16px',
@@ -56,7 +57,7 @@ const UserDetails = (props: PropTypes) => {
                                     color: '#808080'
                                 }}
                             >
-                                {user.organization}
+                                {user?.currentEmployment?.companyName}
                             </Typography>
                             <Typography
                                 component={'div'}
@@ -93,9 +94,12 @@ interface PropTypes {
 }
 type User = {
     points: number;
-    name: string;
-    organization: string;
-    designation: string;
-    image: string;
+    firstName: string;
+    lastName?: string;
+    currentEmployment: {
+        companyName: string;
+        employmentLevel: string;
+    }
+    photoUrl: string;
 };
 export default UserDetails;

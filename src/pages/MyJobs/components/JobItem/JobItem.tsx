@@ -10,9 +10,9 @@ import VerifiedIcon from '../../../../assets/icons/VerifiedIcon';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import ApplyJob from './ApplyJob';
 import moment from 'moment';
+import { useAuth } from '../../../../utils/context/AuthContext';
 import { getJobType, getSalaryRange } from '../../../../utils/Helper/helper';
 import { useSaveJob } from '../../../../utils/hooks/api/saved-jobs/useSaveJob';
-import { useAuth } from '../../../../utils/context/AuthContext';
 import SnackAlert from '../../../../components/Snackbar';
 import { useDeleteSavedJob } from '../../../../utils/hooks/api/saved-jobs/useDeleteSavedJob';
 import ExperienceChip from '../ExperienceChip';
@@ -24,14 +24,7 @@ const keywords = [
     { name: 'Job Security', type: 'E', showbackground: true },
     { name: 'Job Security', type: 'E', showbackground: true }
 ];
-const requirements = {
-    minJobFactorScore: 550,
-    keywords: [
-        { name: 'Visual Design', type: 'B', showbackground: false },
-        { name: 'Motion Design', type: 'A', showbackground: false },
-        { name: 'Prototyping', type: 'X', showbackground: false }
-    ]
-};
+
 const JobItem = (props: { jobInfo: IJobItem, updateData?: (jobId: string) => void }) => {
     const { jobInfo, updateData = () => { } } = props;
     const { user } = useAuth();

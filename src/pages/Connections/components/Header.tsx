@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
 const Header = (props: PropTypes) => {
+    const { data = [], setUsers = () => { } } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const navigate = useNavigate();
     const open = Boolean(anchorEl);
@@ -18,18 +19,18 @@ const Header = (props: PropTypes) => {
     };
 
     const sortData = (type: string) => {
-        let sortedData: Array<Object> = [];
+        let sortedData: Array<data> = [];
         if (type === 'A-Z') {
-            sortedData = [...props.data].sort((a, b) =>
+            sortedData = [...data].sort((a, b) =>
                 a.name > b.name ? 1 : -1
             );
         }
         if (type === 'Z-A') {
-            sortedData = [...props.data].sort((a, b) =>
+            sortedData = [...data].sort((a, b) =>
                 a.name > b.name ? -1 : 1
             );
         }
-        props?.setUsers(sortedData);
+        setUsers(sortedData);
         setAnchorEl(null);
     };
 
@@ -114,8 +115,8 @@ const Header = (props: PropTypes) => {
 };
 
 interface PropTypes {
-    data: data[];
-    setUsers: (data: Object[]) => void;
+    data?: data[];
+    setUsers?: (data: data[]) => void;
     title: string;
 }
 type data = {

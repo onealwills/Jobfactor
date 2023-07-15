@@ -1,8 +1,31 @@
 import { Box, Button, Typography } from '@mui/material';
-
+import moment from 'moment';
+import { useQueryClient } from 'react-query';
+import { useRespondConnectionRequest } from '../../../utils/hooks/api/connections/useRespondConnectionRequest';
+import { QueryKeys } from '../../../utils/hooks/api/QueryKey';
 const UserActions = (props: PropTypes) => {
     const { user, tab, title } = props;
+    const queryClient = useQueryClient();
+    const respondRequest = useRespondConnectionRequest();
 
+    const handleResponse = (respondStatus: string) => {
+        const data = {
+            sourceUserId: user?.receiver?.userId ? user?.receiver?.userId : user?.sender?.userId ? user?.sender?.userId : user?.sourceUser?.userId,
+            destinationUserId: user?.userId ?? user?.destinationUser?.userId,
+            connectionLinkId: user.connectionLinkId,
+            respondStatus
+        }
+        respondRequest.mutate(data, {
+            onSuccess: (res) => {
+                queryClient.invalidateQueries(QueryKeys.RetrieveConnectionRequestSent);
+                queryClient.invalidateQueries(QueryKeys.RetrieveConnectionRequestReceived);
+                console.log('onSuccess', res);
+            },
+            onError: (err) => {
+                console.log('onError', err);
+            }
+        })
+    }
     return (
         <Box
             sx={{
@@ -22,7 +45,7 @@ const UserActions = (props: PropTypes) => {
                     mb: '10px'
                 }}
             >
-                {user.days} days
+                {moment(user.createdAt).fromNow()}
             </Typography>
             <Button
                 variant="outlined"
@@ -37,12 +60,13 @@ const UserActions = (props: PropTypes) => {
                     width: '120px',
                     minWidth: '120px'
                 }}
+                onClick={() => handleResponse('REJECTED')}
             >
                 {title === 'ConnectionPage'
                     ? 'Withdraw'
                     : tab === 'sent'
-                    ? 'Withdraw'
-                    : 'Ignore'}
+                        ? 'Withdraw'
+                        : 'Ignore'}
             </Button>
             {title === 'PendingConnectionPage' ? (
                 <>
@@ -60,10 +84,9 @@ const UserActions = (props: PropTypes) => {
                                 width: '120px',
                                 minWidth: '120px',
                                 boxShadow: 'none',
-                                ':hover': {
-                                    background: '#05668D'
-                                }
+                                textDecoration: 'none'
                             }}
+                            onClick={() => handleResponse('ACCEPTED')}
                         >
                             Add
                         </Button>
@@ -82,10 +105,7 @@ const UserActions = (props: PropTypes) => {
                         boxShadow: 'none',
                         width: '120px',
                         minWidth: '120px',
-                        color: '#FFFFFF',
-                        ':hover': {
-                            background: '#05668D'
-                        }
+                        color: '#FFFFFF'
                     }}
                 >
                     Message
@@ -100,6 +120,20 @@ interface PropTypes {
     title: string;
 }
 type User = {
-    days: number;
+    createdAt: number;
+    receiver: {
+        userId: string
+    }
+    sender: {
+        userId: string
+    }
+    destinationUser: {
+        userId: string
+    }
+    sourceUser: {
+        userId: string
+    }    
+    connectionLinkId: string;
+    userId: string;
 };
 export default UserActions;

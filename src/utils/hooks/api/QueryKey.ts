@@ -1,6 +1,11 @@
 export const QueryKeys = {
     RetrievePosts: 'retrieve-posts',
     RetrieveAccount: 'retrieve-account',
+    RetrieveConnections: 'retrieve-connections',
+    RetrieveConnectionRequestById: 'retrieve-connection-request',
+    RetrieveConnectionRequests: 'retrieve-connection-requests',
+    RetrieveConnectionRequestSent: 'retrieve-connection-requests-sent',
+    RetrieveConnectionRequestReceived: 'retrieve-connection-requests-received',
     RetrieveJobs: 'retrieve-jobs',
     RetrieveJobById: 'retrieve-job',
     RetrieveJobsByCompanyId: 'retrieve-jobs-by-companyid',

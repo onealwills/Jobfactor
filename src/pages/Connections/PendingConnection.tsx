@@ -3,324 +3,36 @@ import Tabs from './components/Tabs';
 import Header from '../Connections/components/Header';
 import { Box, Grid } from '@mui/material';
 import TabPanel from './components/TabPanel';
-import image from '../../assets/images/feed2.png';
-import company from '../../assets/images/company.png';
-
-const data = [
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Aevon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Devon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    },
-    {
-        image,
-        name: 'Zevon Lane',
-        designation: 'Sales Manager',
-        organization: 'Xtera Solutions',
-        points: '550',
-        days: '3'
-    }
-];
-const companies = [
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    },
-    {
-        image: company,
-        name: 'Exoticca',
-        points: '550',
-        days: '3'
-    }
-];
+import { useGetConnectionRequestSent } from '../../utils/hooks/api/connections/useGetConnectionRequestSent';
+import { useGetConnectionRequestReceived } from '../../utils/hooks/api/connections/useGetConnectionRequestReceived';
+import { useAuth } from '../../utils/context/AuthContext';
 
 function PendingConnection() {
+    const { user } = useAuth();
     const [tab, setTab] = React.useState<string>('sent');
-    const [users, setUsers] = React.useState<Array<Object>>([]);
+    const { data: sentRequests, isFetching } = useGetConnectionRequestSent(user?.id ?? '');
+    const { data: receivedRequests } = useGetConnectionRequestReceived(user?.id ?? '');
 
     const changeTab = (type: string) => {
         setTab(type);
     };
 
-    React.useEffect(() => {
-        setUsers(data);
-    }, []);
-
     return (
         <>
             <Box sx={{ ml: '35px' }}>
                 <Header
-                    setUsers={setUsers}
-                    data={data}
                     title={'PendingConnections'}
                 />
                 <Grid container mt={'20px'}>
-                    <Tabs changeTab={changeTab} tab={tab} />
-                    <TabPanel activeTab={tab} tab={'sent'} data={companies} />
-                    <TabPanel activeTab={tab} tab={'received'} data={data} />
+                    {isFetching ?
+                        null
+                        :
+                        <>
+                            <Tabs changeTab={changeTab} tab={tab} />
+                            <TabPanel activeTab={tab} tab={'sent'} data={sentRequests} />
+                            <TabPanel activeTab={tab} tab={'received'} data={receivedRequests} />
+                        </>
+                    }
                 </Grid>
             </Box>
         </>

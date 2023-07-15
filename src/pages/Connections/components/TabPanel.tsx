@@ -32,8 +32,8 @@ const TabPanel = (props: TabProps) => {
             rowsPerPage={rowsPerPage}
         >
             {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((user: any, index: number) => (
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.map((user: any, index: number) => (
                     <TableRow key={`user_${index}`}>
                         <TableCell
                             sx={{
@@ -48,7 +48,7 @@ const TabPanel = (props: TabProps) => {
                                     gap: '20px'
                                 }}
                             >
-                                <UserDetails user={user} />
+                                <UserDetails user={user?.receiver ?? user?.sender} />
                                 <UserActions
                                     user={user}
                                     tab={tab}
@@ -64,8 +64,9 @@ const TabPanel = (props: TabProps) => {
                                     mt: '12px'
                                 }}
                             >
-                                {experienceLevels.map((item) => (
+                                {experienceLevels.map((item, i) => (
                                     <ExperienceLevel
+                                        key={`level_${i}`}
                                         background={item.background}
                                         shortForm={item.shortForm}
                                         title={item.title}

@@ -92,9 +92,15 @@ interface Account {
     };
     professionalProfile: {
         fullName: string;
+        userId: string;
     };
 }
-
+interface User {
+    emailAddress: string;
+    firstName: string;
+    id: string;
+    lastName: string;
+}
 interface AuthContextType {
     accessToken: string;
     refreshToken: string;
@@ -223,7 +229,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         const decodedToken: Account = jwt_decode<Account>(
                             data.accessToken?.replace(/"/g, '')
                         );
-
+                        console.log("HHH: decodedToken", decodedToken);
                         const account: Account = {
                             sub: decodedToken.sub,
                             primaryProfile: decodedToken.primaryProfile,
@@ -234,7 +240,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             },
                             professionalProfile: {
                                 fullName:
-                                    decodedToken.professionalProfile?.fullName
+                                    decodedToken.professionalProfile?.fullName,
+                                userId: decodedToken.professionalProfile?.userId,
                             }
                         };
                         setAccount(account);
