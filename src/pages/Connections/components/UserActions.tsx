@@ -3,20 +3,24 @@ import moment from 'moment';
 import { useQueryClient } from 'react-query';
 import { useRespondConnectionRequest } from '../../../utils/hooks/api/connections/useRespondConnectionRequest';
 import { QueryKeys } from '../../../utils/hooks/api/QueryKey';
+import { useAuth } from '../../../utils/context/AuthContext';
 const UserActions = (props: PropTypes) => {
     const { user, tab, title } = props;
+    const { user: loggedInUser } = useAuth();
     const queryClient = useQueryClient();
     const respondRequest = useRespondConnectionRequest();
 
     const handleResponse = (respondStatus: string) => {
         const data = {
-            sourceUserId: user?.receiver?.userId ? user?.receiver?.userId : user?.sender?.userId ? user?.sender?.userId : user?.sourceUser?.userId,
+            sourceUserId: user?.destinationUser?.userId ? user?.destinationUser?.userId : user?.sourceUser?.userId ? user?.sourceUser?.userId : (loggedInUser?.professionalProfile?.id ?? ''),
             destinationUserId: user?.userId ?? user?.destinationUser?.userId,
             connectionLinkId: user.connectionLinkId,
+            connectionRequestId: user.connectionRequestId ?? user?.id,
             respondStatus
         }
         respondRequest.mutate(data, {
             onSuccess: (res) => {
+                queryClient.invalidateQueries(QueryKeys.RetrieveConnections);
                 queryClient.invalidateQueries(QueryKeys.RetrieveConnectionRequestSent);
                 queryClient.invalidateQueries(QueryKeys.RetrieveConnectionRequestReceived);
                 console.log('onSuccess', res);
@@ -132,8 +136,10 @@ type User = {
     }
     sourceUser: {
         userId: string
-    }    
+    }
     connectionLinkId: string;
+    connectionRequestId: string;
     userId: string;
+    id: string;
 };
 export default UserActions;

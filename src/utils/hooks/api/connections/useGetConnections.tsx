@@ -4,7 +4,7 @@ import axiosInstance from '../axiosConfig';
 
 export function useGetConnections(userId: string) {
     const getConnections = async (userId: string) => {
-        const response = await axiosInstance.get(`/api/user-connections/users/${userId}`);
+        const response = await axiosInstance.get(`/api/connection-requests/users/${userId}`);
         const data = await response.data;
         return data;
     };

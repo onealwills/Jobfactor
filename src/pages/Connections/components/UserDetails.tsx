@@ -82,7 +82,7 @@ const UserDetails = (props: PropTypes) => {
                             padding: '0px 12px'
                         }}
                     >
-                        {user.points}
+                        {user.score}
                     </Typography>
                 </Box>
             </Box>
@@ -93,7 +93,7 @@ interface PropTypes {
     user: User;
 }
 type User = {
-    points: number;
+    score: number;
     firstName: string;
     lastName?: string;
     currentEmployment: {

@@ -7,9 +7,7 @@ import ExperienceLevel from './components/ExperienceLevel';
 import { Box, Grid, TableCell, TableRow, Typography } from '@mui/material';
 import { useGetConnections } from '../../utils/hooks/api/connections/useGetConnections';
 import { useAuth } from '../../utils/context/AuthContext';
-interface IConnectionType {
-    connectionRequests: IConnectionRequestType[]
-}
+
 interface IConnectionRequestType {
     name: string
 }
@@ -38,14 +36,12 @@ function ConnectionsPage() {
     };
 
     React.useEffect(() => {
-        let temp: IConnectionRequestType[] = [];
-        connections?.filter((x: IConnectionType) => temp.push(...x.connectionRequests))
-        setUsers(temp);
+        setUsers(connections);
     }, [connections]);
     
     return (
         <Box sx={{ ml: '35px' }}>
-            <Header setUsers={setUsers} data={users} title={'ConnectionPage'} />
+            <Header setUsers={setUsers} data={connections} title={'ConnectionPage'} />
             <Grid container mt={'20px'}>
                 {isFetching ?
                     null

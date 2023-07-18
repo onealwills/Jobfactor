@@ -48,7 +48,7 @@ const TabPanel = (props: TabProps) => {
                                     gap: '20px'
                                 }}
                             >
-                                <UserDetails user={user?.receiver ?? user?.sender} />
+                                <UserDetails user={user?.destinationUser ?? user?.sourceUser} />
                                 <UserActions
                                     user={user}
                                     tab={tab}
