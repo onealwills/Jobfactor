@@ -1,6 +1,7 @@
 import { useMutation, UseMutationResult } from "react-query";
 import axiosInstance from "../axiosConfig";
 import { IConnectionResponse, ISendConnectionRequest } from "./types";
+import { AxiosError } from "axios";
 
 
 
@@ -17,7 +18,7 @@ async function createSendRequest(
 
 export function useSendConnectionRequest(): UseMutationResult<
     IConnectionResponse,
-    unknown,
+    AxiosError,
     ISendConnectionRequest
 > {
     return useMutation(createSendRequest);

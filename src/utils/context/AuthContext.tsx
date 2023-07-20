@@ -52,6 +52,7 @@ interface CurrentEmployment {
   
   interface ProfessionalProfile {
     id: string;
+    userId: string;
     emailAddress: string;
     address: string;
     firstName: string;
@@ -95,12 +96,7 @@ interface Account {
         userId: string;
     };
 }
-interface User {
-    emailAddress: string;
-    firstName: string;
-    id: string;
-    lastName: string;
-}
+
 interface AuthContextType {
     accessToken: string;
     refreshToken: string;

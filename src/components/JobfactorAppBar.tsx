@@ -13,13 +13,18 @@ import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { useAuth } from '../utils/context/AuthContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { useGetSearchTerm } from '../utils/hooks/api/search/useSearchTerm';
 import { styled, lighten, darken } from '@mui/system';
 import { ISkillsType } from '../pages/Reviews/types';
 import ExperienceLevel from '../pages/Connections/components/ExperienceLevel';
 import { PrimaryProfileType } from '../utils/hooks/api/account/types';
+import { useSendConnectionRequest } from '../utils/hooks/api/connections/useSendConnectionRequest';
+import { QueryKeys } from '../utils/hooks/api/QueryKey';
+import { useQueryClient } from 'react-query';
+import SnackAlert from './Snackbar';
+import axios, { AxiosError } from 'axios';
 
 const GroupHeader = styled('div')(({ theme }) => ({
     position: 'sticky',
@@ -28,7 +33,7 @@ const GroupHeader = styled('div')(({ theme }) => ({
     color: '#23282B',
     fontSize: 14,
     fontWeight: 700,
-    zIndex:1,
+    zIndex: 1,
     backgroundColor:
         theme.palette.mode === 'light'
             ? lighten(theme.palette.primary.light, 0.85)
@@ -85,8 +90,11 @@ interface IOptionType {
     entityType: string;
 }
 function JobfactorAppBar({ handleChange, value }: PropTypes) {
+    const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>('info');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [showGrouping, setShowGrouping] = useState(true);
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
     const [options, setOptions] = useState([]);
     const [search, setSearch] = useState('');
     const pathname = useLocation()?.pathname;
@@ -108,8 +116,8 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
 
     const handleNavigate = (option: IOptionType) => {
         if (option.entityType === 'JOBPOST') return navigate(user?.primaryProfile === PrimaryProfileType.Professional ? `/my-jobs/${option.id}` : `/job-postdetail/${option.id}`);
-        if (option.entityType === 'PROFESSIONAL') return navigate(user?.primaryProfile === PrimaryProfileType.Professional ? `/professional-profile/${option.id}` : `/job-postdetail/${option.id}`);
-        return navigate(`/company-profile/${option.id}`);
+        if (option.entityType === 'PROFESSIONAL' && !pathname.includes('connections')) return navigate(user?.primaryProfile === PrimaryProfileType.Professional ? `/professional-profile/${option.id}` : `/job-postdetail/${option.id}`);
+        if (option.entityType === 'COMPANY') return navigate(`/company-profile/${option.id}`);
     }
 
     useEffect(() => {
@@ -155,8 +163,8 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                         <Autocomplete
                             freeSolo
                             disableClearable
-                            filterSelectedOptions
-                            blurOnSelect={true}
+                            filterSelectedOptions={!pathname.includes('connections')}
+                            disableCloseOnSelect={pathname.includes('connections')}
                             options={options ?? []}
                             getOptionLabel={(option: any) => option?.term}
                             groupBy={showGrouping ? (option) => option.entityType : undefined}
@@ -214,7 +222,15 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                                 >
                                     {
                                         (pathname.includes('connections') || pathname.includes('reviews')) ?
-                                            <ConnectionOptions option={option} /> :
+                                            <ConnectionOptions
+                                                setShowAlert={setShowAlert}
+                                                setMessage={setMessage}
+                                                navigate={navigate}
+                                                setType={setType}
+                                                option={option}
+                                                user={user}
+                                            />
+                                            :
                                             option.entityType === 'JOBPOST' ?
                                                 `${option.term} (${option.companyName})` :
                                                 <>
@@ -365,14 +381,28 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
                     Sign out
                 </MenuItem>
             </Menu>
+            <SnackAlert
+                open={showAlert}
+                handleClose={() => setShowAlert(false)}
+                message={message}
+                type={type}
+            />
         </>
     );
 }
 
 export default JobfactorAppBar;
 interface IConnectionType {
+    navigate: NavigateFunction,
+    setType: React.Dispatch<React.SetStateAction<'success' | 'info' | 'warning' | 'error'>>,
+    setMessage: React.Dispatch<React.SetStateAction<string>>,
+    setShowAlert: React.Dispatch<React.SetStateAction<boolean>>,
+    user: any,
     option: {
+        id: string;
         term: string;
+        userId: string;
+        isAdded: boolean;
         imageUrl: string;
         currentEmployment: {
             employmentLevel: string;
@@ -380,8 +410,37 @@ interface IConnectionType {
         }
     }
 }
-const ConnectionOptions = ({ option }: IConnectionType) => {
-    const pathname = useLocation()?.pathname;
+const ConnectionOptions = ({ option, user, navigate, setType, setMessage, setShowAlert }: IConnectionType) => {
+    const sendConnectRequest = useSendConnectionRequest();
+    const [isAdded, setIsAdded] = useState(option.isAdded ?? false);
+    const queryClient = useQueryClient();
+
+    const handleClick = () => navigate(user?.primaryProfile === PrimaryProfileType.Professional ? `/professional-profile/${option.id}` : `/job-postdetail/${option.id}`)
+
+    const sendConnectionRequest = () => {
+        const data = {
+            sourceUserId: user?.professionalProfile?.userId ?? '',
+            destinationUserId: option.userId
+        }
+        sendConnectRequest.mutate(data, {
+            onSuccess: (res) => {
+                setIsAdded(true);
+                queryClient.invalidateQueries(QueryKeys.RetrieveConnections);
+                queryClient.invalidateQueries(QueryKeys.RetrieveConnectionRequestSent);
+                queryClient.invalidateQueries(QueryKeys.RetrieveConnectionRequestReceived);
+                setType('success');
+                setMessage('Request sent successfully.');
+                setShowAlert(true);
+            },
+            onError: (err: AxiosError) => {
+                if (axios.isAxiosError(err)) {
+                    setType('error');
+                    setMessage(err.response?.data?.message ?? 'Error occured please try again!');
+                    setShowAlert(true);
+                }
+            }
+        })
+    }
     return (
         <Box
             sx={{
@@ -399,6 +458,7 @@ const ConnectionOptions = ({ option }: IConnectionType) => {
                     alt=""
                     src={option?.imageUrl}
                     sx={{ width: 56, height: 56 }}
+                    onClick={handleClick}
                 />
                 <Box sx={{ width: '100%' }}>
                     <Typography
@@ -408,7 +468,11 @@ const ConnectionOptions = ({ option }: IConnectionType) => {
                             fontWeight: '600',
                             fontFamily: 'Open Sans',
                             color: '#494949',
+                            '&:hover': {
+                                textDecoration: 'underline'
+                            }
                         }}
+                        onClick={handleClick}
                     >
                         {option?.term}
                     </Typography>
@@ -478,50 +542,46 @@ const ConnectionOptions = ({ option }: IConnectionType) => {
                         : null
                     }
                 </Box>
-                {pathname.includes('reviews') ?
-                    <Box
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        gap: '20px',
+                        width: '100%',
+                        justifyContent: 'flex-end'
+                    }}
+                >
+                    <Button
                         sx={{
-                            display: 'flex',
-                            alignItems: 'flex-end',
-                            gap: '20px',
-                            width: '100%',
-                            justifyContent: 'flex-end'
-                        }}
-                    >
-                        <Button
-                            sx={{
-                                borderRadius: '8px',
-                                padding: '12px 16px',
-                                border: '1px solid #05668D',
-                                background: '#05668D',
-                                fontSize: '14px',
-                                fontWeight: '600',
-                                textTransform: 'capitalize',
-                                boxShadow: 'none',
-                                width: 'auto',
-                                whiteSpace: 'nowrap',
+                            borderRadius: '8px',
+                            padding: '12px 16px',
+                            border: '1px solid #05668D',
+                            background: '#05668D',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            textTransform: 'capitalize',
+                            boxShadow: 'none',
+                            width: 'auto',
+                            whiteSpace: 'nowrap',
+                            color: '#FFFFFF',
+                            textDecoration: 'none',
+                            ':hover': {
                                 color: '#FFFFFF',
                                 textDecoration: 'none',
-                                ':hover': {
-                                    color: '#FFFFFF',
-                                    textDecoration:
-                                        'none',
-                                    background:
-                                        '#05668D'
-                                }
-                            }}
-                            onClick={() => {
-                                // handleOnAddClick(user);
-                                // handleClose();
-                                // setSearch('');
-                                // filterData('');
-                            }}
-                        >
-                            Add
-                        </Button>
-                    </Box>
-                    : null
-                }
+                                background: '#05668D'
+                            },
+                            ':disabled': {
+                                color: 'grey',
+                                borderColor: '#ccc',
+                                background: '#ccc'
+                            }
+                        }}
+                        onClick={sendConnectionRequest}
+                        disabled={isAdded}
+                    >
+                        {isAdded ? 'Added' : 'Add'}
+                    </Button>
+                </Box>
             </Box>
             <Box
                 sx={{
