@@ -1,4 +1,4 @@
-import { SkillType } from "./ISkillType";
+import { ISelectedSkillType } from "./ISkillType";
 
 export interface IJobItem {
     location?: string;
@@ -27,7 +27,7 @@ export interface IJobItem {
     salaryRangeTo?: number;
     score?: number
     additionalNote?: string;
-    skills?: SkillType[];
+    skills?: ISelectedSkillType[];
     responsibilities?: string;
     
     requirements?: {

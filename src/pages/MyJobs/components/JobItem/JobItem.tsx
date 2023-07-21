@@ -16,7 +16,7 @@ import { useSaveJob } from '../../../../utils/hooks/api/saved-jobs/useSaveJob';
 import SnackAlert from '../../../../components/Snackbar';
 import { useDeleteSavedJob } from '../../../../utils/hooks/api/saved-jobs/useDeleteSavedJob';
 import ExperienceChip from '../ExperienceChip';
-import { SkillType } from '../../types/ISkillType';
+import { ISelectedSkillType } from '../../types/ISkillType';
 
 const keywords = [
     { name: 'Office Environment', type: 'L', showbackground: true },
@@ -294,7 +294,7 @@ const JobItem = (props: { jobInfo: IJobItem, updateData?: (jobId: string) => voi
                             alignItems: 'center',
                         }}
                     >
-                        {jobInfo?.skills?.slice(0, 3)?.map((item: SkillType) => <ExperienceChip
+                        {jobInfo?.skills?.slice(0, 3)?.map((item: ISelectedSkillType) => <ExperienceChip
                             item={item}
                             coloredBg={false}
                             titleStyle={{ fontSize: '12px' }}

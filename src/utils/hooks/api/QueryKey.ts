@@ -19,4 +19,5 @@ export const QueryKeys = {
     RetrieveSearchTerm: 'retrieve-search',
     RetrieveProfessionalProfileById: 'retrieve-professional-profile',
     RetrieveCompanyProfileById: 'retrieve-company-profile',
+    RetrieveSkills: 'retrieve-skills',
 };
