@@ -293,6 +293,10 @@ const professionalRoutes: Menu[] = [
             {
                 label: 'Received request',
                 route: '/reviews/received-requests'
+            },
+             {
+                label: 'Company rating',
+                route: '/reviews/company-ratings'
             }
         ]
     },

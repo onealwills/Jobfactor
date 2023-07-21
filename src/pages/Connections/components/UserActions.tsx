@@ -7,7 +7,9 @@ const UserActions = (props: PropTypes) => {
         <Box
             sx={{
                 display: 'flex',
-                alignItems: 'flex-end',
+                // alignItems: 'flex-end',
+                WebkitJustifyContent: "center",
+                alignItems: "center",
                 gap: '20px',
                 width: '100%',
                 justifyContent: 'flex-end'

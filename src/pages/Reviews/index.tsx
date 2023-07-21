@@ -10,6 +10,7 @@ import { ReviewsSlug } from './types/ReviewsSlug';
 const ReviewsView = () => {
     const { slug } = useParams();
 
+
     const getSelectedReviewsPage = () => {
         switch (slug) {
             case ReviewsSlug.SentRequests:

@@ -16,6 +16,12 @@ export interface ISkillsType {
     title: string;
     shortForm: string;
 }
+
+export interface IRoleType{
+    background: string;
+    title: string;
+    shortForm: string;
+}
 export interface IEvidenceType {
     title: string;
     evidence: string;
@@ -26,4 +32,14 @@ export interface IExperienceLevelTypes {
     title: string;
     shortForm: string;
     color?: string;
+}
+
+
+export interface ICompanyType{
+    id?:number;
+    image: string;
+    title: string;
+    type: string;
+    point: string;
+    role: any[];
 }
