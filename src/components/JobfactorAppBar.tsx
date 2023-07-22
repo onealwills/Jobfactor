@@ -103,7 +103,7 @@ function JobfactorAppBar({ handleChange, value }: PropTypes) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const { data: searchedData, refetch } = useGetSearchTerm(search);
+    const { data: searchedData, refetch } = useGetSearchTerm(search, user?.professionalProfile?.userId ?? '');
 
     const handleData = () => {
         setOptions([]);
