@@ -11,7 +11,7 @@ import {
     Typography,
     Radio,
     FormControlLabel,
-    Chip
+    Avatar
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import UploadImage from '../../../assets/icons/UploadImage';
@@ -27,6 +27,8 @@ import HatIcon from '../../../assets/icons/HatIcon';
 import Camera from '../../../assets/icons/CameraIconMui';
 import AchievementMedal from '../../../assets/icons/AchievementMedal';
 import AchievementSkillsPopup from '../../../components/AchievementSkillsPopup/AchievementSkillsPopup';
+import { PrimaryProfileType } from '../../../utils/hooks/api/account/types';
+import { useAuth } from '../../../utils/context/AuthContext';
 
 const modalstyle = {
     position: 'absolute' as 'absolute',
@@ -77,16 +79,16 @@ const PostCards = ({
     const [type, setType] = useState<string>('Connections');
     const [disable, setDisable] = useState<boolean>(false);
     const [btnTitle, setBtnTitle] = useState<string>('Post');
-    const [selectedSkills, setSelectedSkills] = useState<Array<string>>([
-        'Figma',
-        'HTML'
-    ]);
-
+    const [selectedSkills, setSelectedSkills] = useState<Array<string>>([]);
+    const { user } = useAuth();
     const TypeData = [{ name: 'Connections' }, { name: 'Anyone on Jobfactor' }];
 
     const reset = () => {
         setEditorText('');
         setAssetArea([]);
+        setStep(1);
+        setActivity('');
+
     };
 
     const inputref = React.useRef<HTMLInputElement>(null);
@@ -386,15 +388,13 @@ const PostCards = ({
                                         alignItems: 'center'
                                     }}
                                 >
-                                    <img
-                                        height={65}
-                                        width={65}
-                                        src={
-                                            data?.userimage ??
-                                            data?.profileImage
-                                        }
-                                        alt="icon"
-                                        style={{ borderRadius: 100 }}
+                                    <Avatar
+                                        sx={{
+                                            height: 65,
+                                            width: 65
+                                        }}
+                                        src={user?.primaryProfile === PrimaryProfileType.Professional ? user?.professionalProfile?.photoUrl : user?.primaryCompanyProfile?.photoUrl}
+                                        alt="profile"
                                     />
                                     <Box
                                         sx={{ cursor: 'pointer' }}
@@ -403,7 +403,7 @@ const PostCards = ({
                                         }}
                                     >
                                         <h4 style={{ margin: 0 }}>
-                                            {data?.username ?? data?.fullName}
+                                            {user?.primaryProfile === PrimaryProfileType.Professional ? `${user?.professionalProfile?.firstName} ${user?.professionalProfile?.lastName}` : user?.primaryCompanyProfile?.companyName}
                                         </h4>
                                         <Box
                                             sx={{
@@ -494,21 +494,21 @@ const PostCards = ({
                                         <FormControlLabel
                                             sx={{
                                                 '& .MuiFormControlLabel-label':
-                                                    {
-                                                        fontFamily: 'Open Sans',
-                                                        fontWeight:
-                                                            activity ===
+                                                {
+                                                    fontFamily: 'Open Sans',
+                                                    fontWeight:
+                                                        activity ===
                                                             'Completed a course'
-                                                                ? 600
-                                                                : 400,
-                                                        letterSpacing:
-                                                            '0.005em',
-                                                        color:
-                                                            activity ===
+                                                            ? 600
+                                                            : 400,
+                                                    letterSpacing:
+                                                        '0.005em',
+                                                    color:
+                                                        activity ===
                                                             'Completed a course'
-                                                                ? '#23282B'
-                                                                : '#808080'
-                                                    }
+                                                            ? '#23282B'
+                                                            : '#808080'
+                                                }
                                             }}
                                             value={activity}
                                             control={
@@ -516,13 +516,13 @@ const PostCards = ({
                                                     sx={{
                                                         color:
                                                             activity ===
-                                                            'Completed a course'
+                                                                'Completed a course'
                                                                 ? '#05668D !important'
                                                                 : '#AAAAAA !important'
                                                     }}
                                                     checked={
                                                         activity ===
-                                                        'Completed a course'
+                                                            'Completed a course'
                                                             ? true
                                                             : false
                                                     }
@@ -543,35 +543,34 @@ const PostCards = ({
                                             p: '6px 16px',
                                             background:
                                                 activity ===
-                                                'Learnt a new skill'
+                                                    'Learnt a new skill'
                                                     ? '#EDEDED'
                                                     : '#FAFAFA',
-                                            borderBottom: `1px solid ${
-                                                activity ===
-                                                'Learnt a new skill'
+                                            borderBottom: `1px solid ${activity ===
+                                                    'Learnt a new skill'
                                                     ? '#EDEDED'
                                                     : '#D8D8D8'
-                                            }`
+                                                }`
                                         }}
                                     >
                                         <FormControlLabel
                                             sx={{
                                                 '& .MuiFormControlLabel-label':
-                                                    {
-                                                        fontFamily: 'Open Sans',
-                                                        fontWeight:
-                                                            activity ===
+                                                {
+                                                    fontFamily: 'Open Sans',
+                                                    fontWeight:
+                                                        activity ===
                                                             'Learnt a new skill'
-                                                                ? 600
-                                                                : 400,
-                                                        letterSpacing:
-                                                            '0.005em',
-                                                        color:
-                                                            activity ===
+                                                            ? 600
+                                                            : 400,
+                                                    letterSpacing:
+                                                        '0.005em',
+                                                    color:
+                                                        activity ===
                                                             'Learnt a new skill'
-                                                                ? '#23282B'
-                                                                : '#808080'
-                                                    }
+                                                            ? '#23282B'
+                                                            : '#808080'
+                                                }
                                             }}
                                             value={activity}
                                             control={
@@ -579,13 +578,13 @@ const PostCards = ({
                                                     sx={{
                                                         color:
                                                             activity ===
-                                                            'Learnt a new skill'
+                                                                'Learnt a new skill'
                                                                 ? '#05668D !important'
                                                                 : '#AAAAAA !important'
                                                     }}
                                                     checked={
                                                         activity ===
-                                                        'Learnt a new skill'
+                                                            'Learnt a new skill'
                                                             ? true
                                                             : false
                                                     }
@@ -606,35 +605,34 @@ const PostCards = ({
                                             p: '6px 16px',
                                             background:
                                                 activity ===
-                                                'Worked on a new project'
+                                                    'Worked on a new project'
                                                     ? '#EDEDED'
                                                     : '#FAFAFA',
-                                            borderBottom: `1px solid ${
-                                                activity ===
-                                                'Worked on a new project'
+                                            borderBottom: `1px solid ${activity ===
+                                                    'Worked on a new project'
                                                     ? '#EDEDED'
                                                     : '#D8D8D8'
-                                            }`
+                                                }`
                                         }}
                                     >
                                         <FormControlLabel
                                             sx={{
                                                 '& .MuiFormControlLabel-label':
-                                                    {
-                                                        fontFamily: 'Open Sans',
-                                                        fontWeight:
-                                                            activity ===
+                                                {
+                                                    fontFamily: 'Open Sans',
+                                                    fontWeight:
+                                                        activity ===
                                                             'Worked on a new project'
-                                                                ? 600
-                                                                : 400,
-                                                        letterSpacing:
-                                                            '0.005em',
-                                                        color:
-                                                            activity ===
+                                                            ? 600
+                                                            : 400,
+                                                    letterSpacing:
+                                                        '0.005em',
+                                                    color:
+                                                        activity ===
                                                             'Worked on a new project'
-                                                                ? '#23282B'
-                                                                : '#808080'
-                                                    }
+                                                            ? '#23282B'
+                                                            : '#808080'
+                                                }
                                             }}
                                             value={activity}
                                             control={
@@ -642,13 +640,13 @@ const PostCards = ({
                                                     sx={{
                                                         color:
                                                             activity ===
-                                                            'Worked on a new project'
+                                                                'Worked on a new project'
                                                                 ? '#05668D !important'
                                                                 : '#AAAAAA !important'
                                                     }}
                                                     checked={
                                                         activity ===
-                                                        'Worked on a new project'
+                                                            'Worked on a new project'
                                                             ? true
                                                             : false
                                                     }
@@ -671,31 +669,30 @@ const PostCards = ({
                                                 activity === 'Received an award'
                                                     ? '#EDEDED'
                                                     : '#FAFAFA',
-                                            borderBottom: `1px solid ${
-                                                activity === 'Received an award'
+                                            borderBottom: `1px solid ${activity === 'Received an award'
                                                     ? '#EDEDED'
                                                     : '#D8D8D8'
-                                            }`
+                                                }`
                                         }}
                                     >
                                         <FormControlLabel
                                             sx={{
                                                 '& .MuiFormControlLabel-label':
-                                                    {
-                                                        fontFamily: 'Open Sans',
-                                                        fontWeight:
-                                                            activity ===
+                                                {
+                                                    fontFamily: 'Open Sans',
+                                                    fontWeight:
+                                                        activity ===
                                                             'Received an award'
-                                                                ? 600
-                                                                : 400,
-                                                        letterSpacing:
-                                                            '0.005em',
-                                                        color:
-                                                            activity ===
+                                                            ? 600
+                                                            : 400,
+                                                    letterSpacing:
+                                                        '0.005em',
+                                                    color:
+                                                        activity ===
                                                             'Received an award'
-                                                                ? '#23282B'
-                                                                : '#808080'
-                                                    }
+                                                            ? '#23282B'
+                                                            : '#808080'
+                                                }
                                             }}
                                             value={activity}
                                             control={
@@ -703,13 +700,13 @@ const PostCards = ({
                                                     sx={{
                                                         color:
                                                             activity ===
-                                                            'Received an award'
+                                                                'Received an award'
                                                                 ? '#05668D !important'
                                                                 : '#AAAAAA !important'
                                                     }}
                                                     checked={
                                                         activity ===
-                                                        'Received an award'
+                                                            'Received an award'
                                                             ? true
                                                             : false
                                                     }

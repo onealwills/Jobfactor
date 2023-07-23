@@ -9,23 +9,18 @@ import {
     Container,
     Button,
     ImageList,
-    ImageListItem
+    ImageListItem,
+    Avatar
 } from '@mui/material';
 import cover from '../../assets/images/cover.jpg';
-import profile from '../../assets/images/profile-sq.png';
 import InfoChip from '../Users/components/InfoChip';
 import Section from './components/Section';
 import SectionHeading from '../Users/components/SectionHeading';
-import Image from '../../components/Image';
 import AnalyticsProfile from '../../assets/icons/AnalyticsProfile';
 import AnalyticsSearch from '../../assets/icons/AnalyticsSearch';
 import AnalyticsGraph from '../../assets/icons/AnalyticsGraph';
-import EditContactInfoDialog from '../Users/components/Modals/EditContactInfoDialog';
 import ScoreCard from '../../components/ScoreCard.tsx';
-import { useState } from 'react';
-import EditProfileAboutMeDialog from '../Users/components/Modals/EditProfileAboutMeDialog';
-import EditIcon from '../../assets/icons/EditIcon';
-import EditProfileInfoDialog from '../Users/components/Modals/EditProfileInfoDialog';
+import { useEffect } from 'react';
 import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon';
 import image1 from '../../assets/images/galleryImage1.png';
 import image2 from '../../assets/images/galleryImage2.png';
@@ -38,26 +33,24 @@ import profImg1 from '../../assets/images/profileReview.png';
 import profImg2 from '../../assets/images/feed2.png';
 import profImg3 from '../../assets/images/SideNavProfile.png';
 import ProfileList from './components/ProfileList';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FeedItem } from '../Home/components/FeedItem';
-import { useAuth } from '../../utils/context/AuthContext';
+import { useGetProfessionalProfileById } from '../../utils/hooks/api/professional-profile/useGetProfessionalProfile';
 
 const images = [image1, image2, image3, image4, image5, image6];
 
 
 
-function Activities() {
-    const [openContactInfoModal, setOpenContactInfoModal] = useState(false);
-    const [openAboutMeModal, setOpenAboutMeModal] = useState(false);
-    const [openProfileInfoModal, setOpenProfileInfoModal] = useState(false);
+function ProfessionalProfile() {
+    const { id } = useParams();
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { data: user, refetch } = useGetProfessionalProfileById(id ?? '');
 
     const data = [
         {
-            profileImage: user?.professionalProfile?.photoUrl ?? '',
-            fullName: `${user?.professionalProfile?.firstName} ${user?.professionalProfile?.lastName}`,
-            jobTitle: user?.professionalProfile?.currentEmployment?.jobTitle ?? '',
+            profileImage: user?.photoUrl ?? '',
+            fullName: `${user?.firstName} ${user?.lastName}`,
+            jobTitle: user?.currentEmployment?.jobTitle ?? '',
             description:
                 'Hello everyone,If you wan to get started in brand design you can send me a private message so I can put you through all you will need to get started. #startyourtechjourneynow',
             views: 2456,
@@ -68,9 +61,9 @@ function Activities() {
             isAccountVerified: true
         },
         {
-            profileImage: user?.professionalProfile?.photoUrl ?? '',
-            fullName: `${user?.professionalProfile?.firstName} ${user?.professionalProfile?.lastName}`,
-            jobTitle: user?.professionalProfile?.currentEmployment?.jobTitle ?? '',
+            profileImage: user?.photoUrl ?? '',
+            fullName: `${user?.firstName} ${user?.lastName}`,
+            jobTitle: user?.currentEmployment?.jobTitle ?? '',
             description: 'test',
             views: 2456,
             likes: 500,
@@ -101,13 +94,10 @@ function Activities() {
         }
     ];
 
-    const handleOnEditContactInfo = () => {
-        setOpenContactInfoModal(true);
-    };
 
-    const handleOnEditProfileInfo = () => {
-        setOpenProfileInfoModal(true);
-    };
+    useEffect(() => {
+        refetch();
+    }, [id])
 
     return (
         <Container
@@ -173,7 +163,7 @@ function Activities() {
                                                 lineHeight: '32px'
                                             }}
                                         >
-                                            {user?.professionalProfile?.firstName} {user?.professionalProfile?.lastName}
+                                            {user?.firstName} {user?.lastName}
                                         </Typography>
                                     </Box>
                                     <Box
@@ -206,17 +196,15 @@ function Activities() {
                                     boxShadow="-8px 4px 20px rgba(0, 0, 0, 0.07), 8px 8px 20px rgba(0, 0, 0, 0.07)"
                                     position="relative"
                                 >
-                                    <Image
-                                        src={user?.professionalProfile?.photoUrl ?? ''}
+                                    <Avatar
+                                        src={user?.photoUrl ?? ''}
                                         sx={{
                                             width: '200px',
                                             height: '200px',
-                                            objectFit: 'cover'
+                                            objectFit: 'cover',
+                                            border: "3px #fff solid",
                                         }}
                                         alt="Ronald Richard"
-                                        border="3px #fff solid"
-                                        borderRadius="50%"
-                                        display="block"
                                     />
                                 </Box>
                                 <Grid
@@ -281,7 +269,7 @@ function Activities() {
                                                     fontSize={28}
                                                     fontWeight={600}
                                                 >
-                                                    {user?.professionalProfile?.firstName} {user?.professionalProfile?.lastName}
+                                                    {user?.firstName} {user?.lastName}
                                                 </Typography>
                                             </Grid>
 
@@ -304,7 +292,7 @@ function Activities() {
                                                         fontSize={16}
                                                         fontWeight={400}
                                                     >
-                                                        {user?.professionalProfile?.currentEmployment?.jobTitle}
+                                                        {user?.currentEmployment?.jobTitle}
                                                     </Typography>
                                                     <CheckCircleIcon
                                                         htmlColor="#49B6FF"
@@ -312,28 +300,6 @@ function Activities() {
                                                             marginLeft: '-8px'
                                                         }}
                                                     />
-                                                    <Grid item ml={1}>
-                                                        <Button
-                                                            variant="contained"
-                                                            style={{
-                                                                width: 'auto',
-                                                                minWidth:
-                                                                    'auto',
-                                                                color: '#808080',
-                                                                backgroundColor:
-                                                                    '#F2F2F2'
-                                                            }}
-                                                            sx={{
-                                                                px: 1,
-                                                                py: 1.25
-                                                            }}
-                                                            onClick={
-                                                                handleOnEditProfileInfo
-                                                            }
-                                                        >
-                                                            <EditIcon fontSize="small" />
-                                                        </Button>
-                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -346,7 +312,7 @@ function Activities() {
                                             fontSize={16}
                                             fontWeight={400}
                                         >
-                                            {user?.professionalProfile?.tagline}
+                                            {user?.tagline}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -378,29 +344,8 @@ function Activities() {
                                             <Grid item>
                                                 <InfoChip
                                                     type="email"
-                                                    label={user?.professionalProfile?.emailAddress ?? ""}
+                                                    label={user?.emailAddress ?? ""}
                                                 />
-                                            </Grid>
-                                            <Grid item ml={2}>
-                                                <Button
-                                                    variant="contained"
-                                                    style={{
-                                                        width: 'auto',
-                                                        minWidth: 'auto',
-                                                        color: '#808080',
-                                                        backgroundColor:
-                                                            '#F2F2F2'
-                                                    }}
-                                                    sx={{
-                                                        px: 1,
-                                                        py: 1.25
-                                                    }}
-                                                    onClick={
-                                                        handleOnEditContactInfo
-                                                    }
-                                                >
-                                                    <EditIcon fontSize="small" />
-                                                </Button>
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -428,7 +373,7 @@ function Activities() {
                                         Gallery
                                     </SectionHeading>
                                 }
-                                onClick={() => {}}
+                                onClick={() => { }}
                                 px={2}
                                 py={0}
                             >
@@ -458,7 +403,7 @@ function Activities() {
                                         Top Professionals in your industry
                                     </SectionHeading>
                                 }
-                                onClick={() => {}}
+                                onClick={() => { }}
                                 px={'12px'}
                                 py={'16px'}
                             >
@@ -473,7 +418,7 @@ function Activities() {
                                         Analytics
                                     </SectionHeading>
                                 }
-                                onClick={() => {}}
+                                onClick={() => { }}
                                 px={2}
                                 py={0}
                                 mb={2.5}
@@ -595,21 +540,9 @@ function Activities() {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <EditContactInfoDialog
-                open={openContactInfoModal}
-                setOpen={setOpenContactInfoModal}
-            />
-            <EditProfileAboutMeDialog
-                open={openAboutMeModal}
-                setOpen={setOpenAboutMeModal}
-            />
-            <EditProfileInfoDialog
-                open={openProfileInfoModal}
-                setOpen={setOpenProfileInfoModal}
-            />
+            </Grid>           
         </Container>
     );
 }
 
-export default Activities;
+export default ProfessionalProfile;

@@ -19,12 +19,13 @@ import { useEffect } from 'react';
 
 function HomePage() {
     const { account, setUser } = useAuth();
-    const { data, isFetched } = useGetUserInfo(account ? account.sub : '');
+    const { data, isFetching } = useGetUserInfo(account ? account.sub : '');
     useEffect(() => {
-        if (data?.id) {
+        if (data?.id && !isFetching) {
             setUser(data);
         }
-    }, [isFetched]);
+    }, [isFetching]);
+
     return (
         <>
             <Box sx={{ mt: -9, ml: 2 }}>

@@ -35,7 +35,7 @@ const JobItemDetail = (props: { jobId?: string }) => {
     const [applyjob, setApplyjob] = useState<boolean>(false);
     const [type, setType] = useState<'success' | 'info' | 'warning' | 'error'>('info');
 
-    const { data: job, isFetching } = useGetJobById(id ? id : '', user?.professionalProfile?.id ?? "", true);
+    const { data: job, isFetching, refetch } = useGetJobById(id ? id : '', user?.professionalProfile?.id ?? "", true);
 
     const onHideJob = (e: any) => {
         setApplyjob(false);
@@ -97,6 +97,9 @@ const JobItemDetail = (props: { jobId?: string }) => {
     useEffect(() => {
         setIsSaved(job?.isSaved);
     }, [job?.isSaved])
+    useEffect(() => {
+        refetch();
+    }, [id])
 
     const jobItem: IJobItemDetail = {
         companyDescription:

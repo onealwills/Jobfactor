@@ -1,6 +1,11 @@
 export const QueryKeys = {
     RetrievePosts: 'retrieve-posts',
     RetrieveAccount: 'retrieve-account',
+    RetrieveConnections: 'retrieve-connections',
+    RetrieveConnectionRequestById: 'retrieve-connection-request',
+    RetrieveConnectionRequests: 'retrieve-connection-requests',
+    RetrieveConnectionRequestSent: 'retrieve-connection-requests-sent',
+    RetrieveConnectionRequestReceived: 'retrieve-connection-requests-received',
     RetrieveJobs: 'retrieve-jobs',
     RetrieveJobById: 'retrieve-job',
     RetrieveJobsByCompanyId: 'retrieve-jobs-by-companyid',
@@ -9,6 +14,10 @@ export const QueryKeys = {
     RetrieveApplicantById: 'retrieve-applicant',
     RetrieveUserInfo: 'retrieve-user-account',
     RetrieveAppliedJobs: 'retrieve-applied-jobs',
-    RetrieveSavedJobsByProfessionalId:'retrieve-saved-jobs-by-id',
-    RetrieveSavedApplicantByCompanyId:'retrieve-saved-applicants-by-id'
+    RetrieveSavedJobsByProfessionalId: 'retrieve-saved-jobs-by-id',
+    RetrieveSavedApplicantByCompanyId: 'retrieve-saved-applicants-by-id',
+    RetrieveSearchTerm: 'retrieve-search',
+    RetrieveProfessionalProfileById: 'retrieve-professional-profile',
+    RetrieveCompanyProfileById: 'retrieve-company-profile',
+    RetrieveSkills: 'retrieve-skills',
 };

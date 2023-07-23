@@ -52,6 +52,7 @@ interface CurrentEmployment {
   
   interface ProfessionalProfile {
     id: string;
+    userId: string;
     emailAddress: string;
     address: string;
     firstName: string;
@@ -60,6 +61,7 @@ interface CurrentEmployment {
     currentEmployment?: CurrentEmployment;
     employemnts: Employment[];
     qualifications: Qualification[];
+    tagline: string;
   }
   
   interface User {
@@ -79,6 +81,7 @@ interface CurrentEmployment {
     emailAddress: string;
     companyName: string;
     companyId: string;
+    photoUrl: string;
   }
   
 interface Account {
@@ -90,6 +93,7 @@ interface Account {
     };
     professionalProfile: {
         fullName: string;
+        userId: string;
     };
 }
 
@@ -221,7 +225,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         const decodedToken: Account = jwt_decode<Account>(
                             data.accessToken?.replace(/"/g, '')
                         );
-
+                        console.log("HHH: decodedToken", decodedToken);
                         const account: Account = {
                             sub: decodedToken.sub,
                             primaryProfile: decodedToken.primaryProfile,
@@ -232,7 +236,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             },
                             professionalProfile: {
                                 fullName:
-                                    decodedToken.professionalProfile?.fullName
+                                    decodedToken.professionalProfile?.fullName,
+                                userId: decodedToken.professionalProfile?.userId,
                             }
                         };
                         setAccount(account);

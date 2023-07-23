@@ -43,11 +43,7 @@ const SearchBox = ({ open, handleClose, handleOnAddClick }: IPropTypes) => {
     }, []);
 
     return (
-        <Backdrop
-            open={open}
-            // onClick={handleClose}
-            sx={{ zIndex: '9999' }}
-        >
+        <>
             <JobfactorAppBar
                 handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     filterData(e.target.value);
@@ -55,8 +51,10 @@ const SearchBox = ({ open, handleClose, handleOnAddClick }: IPropTypes) => {
                 }}
                 value={search}
             />
+
             <Paper
                 sx={{
+                    zIndex: 1201,
                     position: 'absolute',
                     top: '82px',
                     width: '75%',
@@ -172,7 +170,13 @@ const SearchBox = ({ open, handleClose, handleOnAddClick }: IPropTypes) => {
                     </Grid>
                 </Box>
             </Paper>
-        </Backdrop>
+            <Backdrop
+                open={open}
+                onClick={handleClose}
+                sx={{ zIndex: 1200 }}
+            >
+            </Backdrop>
+        </>
     );
 };
 

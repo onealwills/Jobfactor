@@ -24,7 +24,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DialogBox from '../components/DialogBox';
-import { ADVANCE, BEGINNER, EXPERIENCED, EXPERT, THOUGHT_LEADER, convertDateStringToMilli, convertMilliToDateString, getJobType, getWorkPlace, jobTypes, workPlaces } from '../../../utils/Helper/helper';
+import { ADVANCE, BEGINNER, EXPERIENCED, EXPERT, THOUGHT_LEADER, convertDateStringToMilli, getJobType, getWorkPlace, jobTypes, workPlaces } from '../../../utils/Helper/helper';
 import { useCreateJobPost } from '../../../utils/hooks/api/jobs/useCreateJob';
 import { useAuth } from '../../../utils/context/AuthContext';
 import { useQueryClient } from 'react-query';
@@ -36,12 +36,13 @@ import EditBtn from '../../../assets/icons/EditBtn';
 import SearchIcon from '../../../assets/icons/SearchIcon';
 import { QueryKeys } from '../../../utils/hooks/api/QueryKey';
 import moment from 'moment';
-import { SkillType } from '../types/ISkillType';
+import { ISelectedSkillType, ISkillType } from '../types/ISkillType';
+import { useGetSkills } from '../../../utils/hooks/api/skills/useGetSkills';
 
 const NewJobPost = () => {
     const navigate = useNavigate();
     const [show, setShow] = useState<boolean>(false);
-    const [selectedSkills, setSelectedSkills] = useState<SkillType[]>([]);
+    const [selectedSkills, setSelectedSkills] = useState<ISelectedSkillType[]>([]);
     const [overview, setOverview] = useState<string>('');
     const [qualifications, setQualifications] = useState<string>('');
     const [responsibilities, setResponsibilities] = useState<string>('');
@@ -62,16 +63,13 @@ const NewJobPost = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const { user } = useAuth();
     const queryClient = useQueryClient();
-    const SkillsData = [
-        { name: 'HTML', id: 1 },
-        { name: 'CSS', id: 2 },
-        { name: 'Figma', id: 3 }
-    ];
     const createJobPost = useCreateJobPost();
     const updateJobPost = useUpdateJobPost();
     const state = useLocation()?.state;
     const jobId = state ? state?.id : '';
     const { data: job } = useGetJobById(jobId, '');
+    const [search, setSearch] = useState('');
+    const { data: skills = [], refetch } = useGetSkills(search, 20);
 
     const handleSubmit = () => {
         if (user?.id && user?.primaryCompanyProfile?.companyId) {
@@ -146,7 +144,7 @@ const NewJobPost = () => {
     ) => {
         if (step !== 3) {
             let temp = JSON.parse(JSON.stringify(selectedSkills))
-            temp?.filter((item: SkillType) => {
+            temp?.filter((item: ISelectedSkillType) => {
                 if (item?.id === id) {
                     item['competencyLevel'] = Number((event.target as HTMLInputElement).value);
                 }
@@ -159,7 +157,7 @@ const NewJobPost = () => {
     const onChangeDeadLine = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDeadLine(e.target.value);
     };
-    
+
     useEffect(() => {
         if (state?.id && job) {
             setJobTitle(job?.title)
@@ -179,6 +177,12 @@ const NewJobPost = () => {
             setSelectedSkills(job?.skills ?? []);
         }
     }, [job, state])
+
+    useEffect(() => {
+        if (search.length > 2) {
+            refetch();
+        }
+    }, [search])
 
     const Header = () => {
         return (
@@ -260,12 +264,13 @@ const NewJobPost = () => {
                 <Autocomplete
                     disabled={step === 3}
                     multiple
-                    options={SkillsData.map((option) => option.name)}
+                    options={skills.map((option: ISkillType) => option.name)}
                     freeSolo
+                    filterSelectedOptions
                     defaultValue={selectedSkills.map(x => x.name)}
-                    renderTags={(value: readonly string[], getTagProps) => selectedSkills.map((option: SkillType, index: number) => <Chip variant="outlined" label={option.name} {...getTagProps({ index })} />)}
+                    renderTags={(value: readonly string[], getTagProps) => selectedSkills.map((option: ISelectedSkillType, index: number) => <Chip variant="outlined" label={option.name} {...getTagProps({ index })} />)}
                     onChange={(event, values) => {
-                        let data: SkillType[] = selectedSkills.length > 0 ? selectedSkills?.filter(x => values.includes(x.name)) : [];
+                        let data: ISelectedSkillType[] = selectedSkills.length > 0 ? selectedSkills?.filter(x => values.includes(x.name)) : [];
                         if (values.length > selectedSkills.length) {
                             data.push({
                                 id: selectedSkills.length > 0 ? selectedSkills[selectedSkills.length - 1]?.id + 1 : 1,
@@ -288,6 +293,7 @@ const NewJobPost = () => {
                         <TextField
                             {...params}
                             variant="outlined"
+                            onChange={(e) => setSearch(e.target.value)}
                             InputProps={{
                                 ...params.InputProps,
                                 startAdornment: (
@@ -323,7 +329,8 @@ const NewJobPost = () => {
                                 mb: '12px',
                                 gap: '12px',
                                 display: 'flex',
-                                alignITems: 'center'
+                                flexWrap: 'wrap',
+                                alignItems: 'center'
                             }}
                         >
                             {selectedSkills?.map((item, index) => (

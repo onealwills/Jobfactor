@@ -6,43 +6,57 @@ import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '../../assets/icons/SearchIcon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
+import { useGetSkills } from '../../utils/hooks/api/skills/useGetSkills';
 
 interface IProptypes {
     selectedSkills: string[];
     handleClose: () => void;
     setSelectedSkills: (skill: string[]) => void;
 }
+interface ISkillType {
+    id: string,
+    name: string,
+    type: {
+        id: string,
+        name: string
+    }
+}
 
 const AchievementSkillsPopup = ({
-    setSelectedSkills = () => {},
-    handleClose = () => {},
+    setSelectedSkills = () => { },
+    handleClose = () => { },
     selectedSkills = []
 }: IProptypes) => {
-    const [skills, setSkills] = useState<string[]>([]);
     const [search, setSearch] = useState<string>('');
-
-    const handleSearch = (val: string) => {
-        let temp = JSON.parse(JSON.stringify(skillsList));
-        if (val) {
-            temp = temp.filter(
-                (x: string) =>
-                    x.toLowerCase().indexOf(val.toLowerCase()) !== -1 &&
-                    !selectedSkills.includes(x)
-            );
-            setSkills(temp);
-        } else {
-            setSkills([]);
-        }
-    };
+    const [suggestedSkills, setSuggestedSkills] = useState<ISkillType[]>([]);
+    const { data: skills = [], refetch } = useGetSkills(search, 10);
 
     const addSkill = (skill: string) => {
-        if (!selectedSkills.includes(skill)) {
+        if (!selectedSkills.includes(skill) && selectedSkills.length < 10) {
             setSelectedSkills([...selectedSkills, skill]);
         }
     };
+
+    const closeModal = () => {
+        setSearch('');
+        setSelectedSkills([]);
+        handleClose();
+    }
+    useEffect(() => {
+        if (suggestedSkills.length === 0) {
+            setSuggestedSkills(skills)
+        }
+    }, [skills])
+
+    useEffect(() => {
+        if (search.length > 2) {
+            refetch();
+        }
+    }, [search])
+
     return (
         <>
             <Box
@@ -72,7 +86,7 @@ const AchievementSkillsPopup = ({
                     <Typography variant="titleLargeSemiBold">
                         Relevant skills acquired from this achievement
                     </Typography>
-                    <IconButton onClick={handleClose}>
+                    <IconButton onClick={closeModal}>
                         <ModalClose />
                     </IconButton>
                 </Box>
@@ -102,12 +116,9 @@ const AchievementSkillsPopup = ({
                         className="search-field"
                         placeholder="Search skills"
                         InputProps={{ startAdornment: <SearchIcon /> }}
-                        onChange={(e) => {
-                            handleSearch(e.target.value);
-                            setSearch(e.target.value);
-                        }}
+                        onChange={(e) => setSearch(e.target.value)}
                     />
-                    {skills.length > 0 ? (
+                    {(skills.length > 0 && search.length > 2) ? (
                         <Paper
                             sx={{
                                 maxHeight: '200px',
@@ -118,7 +129,7 @@ const AchievementSkillsPopup = ({
                                 zIndex: 999
                             }}
                         >
-                            {skills.map((skill) => (
+                            {skills.map((skill: ISkillType) => (
                                 <Box
                                     sx={{
                                         pl: '10px',
@@ -137,17 +148,11 @@ const AchievementSkillsPopup = ({
                                             p: '5px'
                                         }}
                                         onClick={() => {
-                                            addSkill(skill);
-                                            setSkills(
-                                                skills.filter(
-                                                    (x) => x !== skill
-                                                )
-                                            );
+                                            addSkill(skill.name);
                                             setSearch('');
-                                            setSkills([]);
                                         }}
                                     >
-                                        {skill}
+                                        {skill.name}
                                     </Typography>
                                 </Box>
                             ))}
@@ -176,9 +181,9 @@ const AchievementSkillsPopup = ({
                             flexWrap: 'wrap'
                         }}
                     >
-                        {suggestedSkills.map((item) => (
+                        {suggestedSkills.map((item: ISkillType) => (
                             <Chip
-                                label={item}
+                                label={item.name}
                                 variant="outlined"
                                 sx={{
                                     fontWeight: 600,
@@ -186,7 +191,7 @@ const AchievementSkillsPopup = ({
                                     color: '#808080',
                                     cursor: 'pointer'
                                 }}
-                                onClick={() => addSkill(item)}
+                                onClick={() => addSkill(item.name)}
                             />
                         ))}
                     </Box>
@@ -263,7 +268,7 @@ const AchievementSkillsPopup = ({
                             fontSize: '12px',
                             color: '#05668D'
                         }}
-                        onClick={handleClose}
+                        onClick={closeModal}
                     >
                         Skip for now
                     </Button>
@@ -283,100 +288,3 @@ const AchievementSkillsPopup = ({
 };
 
 export default AchievementSkillsPopup;
-
-const suggestedSkills = [
-    'Software  Development',
-    'Mobile Applications',
-    'Information Technology',
-    'HTML',
-    'Software Design',
-    'Research Skills',
-    'CSS',
-    'React',
-    'Javascript'
-];
-
-export const skillsList = [
-    'Algorithms',
-    'Analytical Skills',
-    'Big Data',
-    'Calculating',
-    'Compiling Statistics',
-    'Data Analytics',
-    'Data Mining',
-    'Database Design',
-    'Database Management',
-    'Documentation',
-    'Modeling',
-    'Modification',
-    'Needs Analysis',
-    'Quantitative Research',
-    'Quantitative Reports',
-    'Statistical Analysis',
-    'Applications',
-    'Certifications',
-    'Coding',
-    'Computing',
-    'Configuration',
-    'Customer Support',
-    'Debugging',
-    'Design',
-    'Development',
-    'Hardware',
-    'Implementation',
-    'Information Technology',
-    'Infrastructure',
-    'Languages',
-    'Maintenance',
-    'Network Architecture',
-    'Network Security',
-    'Networking',
-    'New Technologies',
-    'Operating Systems',
-    'Programming',
-    'Restoration',
-    'Security',
-    'Servers',
-    'Software',
-    'Solution Delivery',
-    'Storage',
-    'Structures',
-    'Systems Analysis',
-    'Technical Support',
-    'Technology',
-    'Testing',
-    'Tools',
-    'Training',
-    'Troubleshooting',
-    'Usability',
-    'Benchmarking',
-    'Budget Planning',
-    'Engineering',
-    'Fabrication',
-    'Following Specifications',
-    'Operations',
-    'Performance Review',
-    'Project Planning',
-    'Quality Assurance',
-    'Quality Control',
-    'Scheduling',
-    'Task Delegation',
-    'Task Management',
-    'Blogging',
-    'Digital Photography',
-    'Digital Media',
-    'Facebook',
-    'Instagram',
-    'Networking',
-    'Pinterest',
-    'SEO',
-    'Social Media Platforms',
-    'Twitter',
-    'Web Analytics',
-    'Client Relations',
-    'Email',
-    'Requirements Gathering',
-    'Research',
-    'Subject Matter Experts (SMEs)',
-    'Technical Documentation'
-];
