@@ -12,8 +12,12 @@ const ExperienceLevel = (props: IExperienceLevelTypes) => {
                     borderRadius: '6px',
                     padding: '6px 16px',
                     display: 'flex',
-                    gap: '8px',
-                    alignItems: 'center'
+                    gap: '2px',
+                    maxHeight: "2rem",
+                    minWidth: "5rem",
+                    alignItems: 'center',
+                    fontSize:"10px"
+
                 }}
             >
                 {props.title}

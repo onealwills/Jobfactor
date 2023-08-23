@@ -22,6 +22,7 @@ import { data, myConnections } from '../constants';
 const SuggestedReviews = () => {
     const [replaceAll, setReplaceAll] = React.useState<boolean>(false);
     const [users, setUsers] = React.useState<Array<Object>>([]);
+    
     const [selectedConnections, setSelectedConnections] = React.useState<
         Array<Object>
     >([]);
@@ -124,6 +125,7 @@ const SuggestedReviews = () => {
                                                             gap: '20px'
                                                         }}
                                                     >
+                                                        
                                                         <UserDetails
                                                             user={user}
                                                         />

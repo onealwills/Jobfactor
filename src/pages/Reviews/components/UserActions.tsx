@@ -6,10 +6,11 @@ const UserActions = (props: IPropTypes) => {
         <Box
             sx={{
                 display: 'flex',
-                alignItems: 'flex-end',
+                alignItems: 'center',
                 gap: '20px',
-                width: '100%',
-                justifyContent: 'flex-end'
+                width: '216px',
+                justifyContent: 'flex-end',
+                // border:"3px solid yellow"
             }}
         >
             {children}

@@ -1,4 +1,4 @@
-import { IEvidenceType, IUserType } from './types';
+import { ICompanyType, IEvidenceType, IUserType } from './types';
 import image from '../../assets/images/feed2.png';
 
 export enum expertLevel {
@@ -102,6 +102,38 @@ export const data: IUserType[] = [
         ]
     }
 ];
+
+
+export const myCompany: ICompanyType[] =[
+    {
+        id: 1,
+        image,
+        title: "Google",
+        type: "Tech Company",
+        point:"700",
+        role: [
+            {background: '#E75541', title: "Office Management", shortForm: "O" },
+            {background: '#F6C70E', title: "Mobile Int", shortForm: "M" },
+            {background: '#49B6FF', title: "Customer Experience Design", shortForm: "C" },
+            {background: '#95C97A', title: "Expert", shortForm: "E" },
+
+        ]
+    },
+    {
+        id: 2,
+        image,
+        title: "Google",
+        type: "Tech Company",
+        point:"700",
+        role: [
+            {background: '#E75541', title: "Office Management", shortForm: "O" },
+            {background: '#F6C70E', title: "Mobile Int", shortForm: "M" },
+            {background: '#49B6FF', title: "Customer Experience Design", shortForm: "C" },
+            {background: '#95C97A', title: "Expert", shortForm: "E" },
+
+        ]
+    }
+]
 
 export const myConnections: IUserType[] = [
     {
